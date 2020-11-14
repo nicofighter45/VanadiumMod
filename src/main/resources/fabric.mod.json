@@ -1,29 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "fvm",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Fabric Vana Mod",
+  "description": "Mod for minecraft vanadium server !",
   "authors": [
-    "Me!"
+    "nicofighter45"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
+    "homepage": "https://github.com/nicofighter45/FabricVanaMod",
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/fvm/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "fr.nicofighter45.fvm.FVM"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "fvm.mixins.json"
   ],
 
   "depends": {

@@ -1,4 +1,4 @@
-package fr.nicofighter45.fvm.items.armor.emerald;
+package fr.nicofighter45.fvm.items.armor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public enum EmeraldArmorMaterials implements ArmorMaterial {
 
-    EMERALD("emerald", 20, new int[] {3, 8, 6, 3}, 10,
+    EMERALD("emerald", 20, new int[] {3, 6, 8, 3}, 10,
             SoundEvents.ENTITY_VILLAGER_TRADE, 2.0F, 1.0F, () -> {
         return Ingredient.ofItems(Items.EMERALD);
     });

@@ -1,0 +1,12 @@
+{
+  "block.fvm.vanadium_ore": "Vanadium Ore",
+  "item.fvm.vanadium_ore": "Vanadium Ore",
+  "item.fvm.vanadium_nugget": "Vanadium Nugget",
+  "item.fvm.vanadium_ingot": "Vanadium Ingot",
+  "item.fvm.vanadium_stick": "Vanadium Stick",
+  "item.fvm.emerald_heart": "Emerald Heart",
+  "item.fvm.emerald_helmet": "Emerald Helmet",
+  "item.fvm.emerald_chestplate": "Emerald Chestplate",
+  "item.fvm.emerald_leggings": "Emerald Leggings",
+  "item.fvm.emerald_boots": "Emerald Boots"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "B B",
+    "   "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:emerald_block"
+    }
+  },
+  "result": {
+    "item": "fvm:emerald_boots",
+    "count": 1
+  }
+}

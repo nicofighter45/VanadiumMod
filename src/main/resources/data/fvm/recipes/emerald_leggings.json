@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BHB",
+    "B B",
+    "B B"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:emerald_block"
+    },
+    "H": {
+      "item": "fvm:emerald_heart"
+    }
+  },
+  "result": {
+    "item": "fvm:emerald_leggings",
+    "count": 1
+  }
+}

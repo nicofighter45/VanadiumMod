@@ -3,10 +3,24 @@
   "item.fvm.vanadium_ore": "Vanadium Ore",
   "item.fvm.vanadium_nugget": "Vanadium Nugget",
   "item.fvm.vanadium_ingot": "Vanadium Ingot",
+
   "item.fvm.vanadium_stick": "Vanadium Stick",
+  "item.fvm.vanadium_heart": "Vanadium Heart",
   "item.fvm.emerald_heart": "Emerald Heart",
+
+  "item.fvm.vanadium_helmet": "Vanadium Helmet",
+  "item.fvm.vanadium_chestplate": "Vanadium Chestplate",
+  "item.fvm.vanadium_leggings": "Vanadium Leggings",
+  "item.fvm.vanadium_boots": "Vanadium Boots",
+
   "item.fvm.emerald_helmet": "Emerald Helmet",
   "item.fvm.emerald_chestplate": "Emerald Chestplate",
   "item.fvm.emerald_leggings": "Emerald Leggings",
-  "item.fvm.emerald_boots": "Emerald Boots"
+  "item.fvm.emerald_boots": "Emerald Boots",
+
+  "enchantment.fvm.faster": "Faster",
+  "enchantment.fvm.jumper": "Jumper",
+  "enchantment.fvm.haster": "Haster",
+  "enchantment.fvm.strenghter": "Strenghter",
+  "enchantment.fvm.resistancer": "Resistancer"
 }

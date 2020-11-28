@@ -2,19 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "BBB",
-    "BAB",
+    "BDB",
     "BBB"
   ],
   "key": {
-    "B": {
-      "item": "minecraft:emerald_block"
+    "D": {
+      "item": "minecraft:diamond_block"
     },
-    "A": {
-      "item": "minecraft:golden_apple"
+    "B": {
+      "item": "fvm:vanadium_nugget"
     }
   },
   "result": {
-    "item": "fvm:emerald_heart",
+    "item": "fvm:vanadium_ingot",
     "count": 1
   }
 }

@@ -7,14 +7,14 @@
   ],
   "key": {
     "B": {
-      "item": "minecraft:emerald_block"
+      "item": "fvm:vanadium_ingot"
     },
     "A": {
       "item": "minecraft:golden_apple"
     }
   },
   "result": {
-    "item": "fvm:emerald_heart",
+    "item": "fvm:vanadium_heart",
     "count": 1
   }
 }

@@ -4,9 +4,9 @@
   "package": "fr.nicofighter45.fvm.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "PlayerEntityMixin"
   ],
   "client": [
+    "PlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

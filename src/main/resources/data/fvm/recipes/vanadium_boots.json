@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "B B",
+    "   "
+  ],
+  "key": {
+    "B": {
+      "item": "fvm:vanadium_ingot"
+    }
+  },
+  "result": {
+    "item": "fvm:vanadium_boots",
+    "count": 1
+  }
+}

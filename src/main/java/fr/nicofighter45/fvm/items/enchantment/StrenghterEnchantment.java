@@ -5,6 +5,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 public class StrenghterEnchantment extends Enchantment {
 
@@ -14,17 +15,17 @@ public class StrenghterEnchantment extends Enchantment {
 
     @Override
     public int getMinPower(int level) {
-        return 30;
+        return 10;
     }
 
     @Override
     public int getMaxLevel() {
-        return 3;
+        return 2;
     }
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem().equals(ModItems.VANADIUM_HELMET);
+        return stack.getItem().equals(ModItems.VANADIUM_HELMET) || stack.getItem() == Items.BOOK;
     }
 
     @Override

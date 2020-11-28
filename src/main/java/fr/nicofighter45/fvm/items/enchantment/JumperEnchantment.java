@@ -9,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 public class JumperEnchantment extends Enchantment {
 
@@ -18,7 +19,7 @@ public class JumperEnchantment extends Enchantment {
 
     @Override
     public int getMinPower(int level) {
-        return 30;
+        return 10;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class JumperEnchantment extends Enchantment {
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() == ModItems.VANADIUM_BOOTS;
+        return stack.getItem() == ModItems.VANADIUM_BOOTS || stack.getItem() == Items.BOOK;
     }
 
     @Override

@@ -5,6 +5,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 public class HasterEnchantment extends Enchantment {
 
@@ -14,7 +15,7 @@ public class HasterEnchantment extends Enchantment {
 
     @Override
     public int getMinPower(int level) {
-        return 30;
+        return 10;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class HasterEnchantment extends Enchantment {
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() == ModItems.VANADIUM_HELMET;
+        return stack.getItem() == ModItems.VANADIUM_HELMET || stack.getItem() == Items.BOOK;
     }
 
     @Override

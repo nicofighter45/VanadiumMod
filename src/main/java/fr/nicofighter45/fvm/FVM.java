@@ -10,6 +10,8 @@ public class FVM implements ModInitializer {
     public void onInitialize() {
 
         ModItems.registerAll();
+        ModEnchants.registerAll();
+        ModBlocks.registerAll();
 
     }
 }

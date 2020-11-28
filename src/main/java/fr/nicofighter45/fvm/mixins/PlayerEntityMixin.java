@@ -1,5 +1,6 @@
 package fr.nicofighter45.fvm.mixins;
 
+import fr.nicofighter45.fvm.ModEnchants;
 import fr.nicofighter45.fvm.ModItems;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -62,20 +63,20 @@ public class PlayerEntityMixin {
         Map<Enchantment, Integer> enchantLeggings = EnchantmentHelper.get(leggings);
         Map<Enchantment, Integer> enchantBoots = EnchantmentHelper.get(boots);
 
-        if(enchantHelmet.containsKey(ModItems.HASTER)){
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 60, enchantHelmet.get(ModItems.HASTER) - 1, false, false, true));
+        if(enchantHelmet.containsKey(ModEnchants.HASTER)){
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 60, enchantHelmet.get(ModEnchants.HASTER) - 1, false, false, true));
         }
-        if(enchantHelmet.containsKey(ModItems.STRENGHTER)){
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 60, enchantHelmet.get(ModItems.STRENGHTER) - 1, false, false, true));
+        if(enchantHelmet.containsKey(ModEnchants.STRENGHTER)){
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 60, enchantHelmet.get(ModEnchants.STRENGHTER) - 1, false, false, true));
         }
-        if(enchantLeggings.containsKey(ModItems.FASTER)){
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 60, enchantLeggings.get(ModItems.FASTER) - 1, false, false, true));
+        if(enchantLeggings.containsKey(ModEnchants.FASTER)){
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 60, enchantLeggings.get(ModEnchants.FASTER) - 1, false, false, true));
         }
-        if(enchantLeggings.containsKey(ModItems.RESISTANCER)){
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, enchantLeggings.get(ModItems.RESISTANCER) - 1, false, false, true));
+        if(enchantLeggings.containsKey(ModEnchants.RESISTANCER)){
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, enchantLeggings.get(ModEnchants.RESISTANCER) - 1, false, false, true));
         }
-        if(enchantBoots.containsKey(ModItems.JUMPER)){
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 60, enchantBoots.get(ModItems.JUMPER) - 1, false, false, true));
+        if(enchantBoots.containsKey(ModEnchants.JUMPER)){
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 60, enchantBoots.get(ModEnchants.JUMPER) - 1, false, false, true));
         }
     }
 }

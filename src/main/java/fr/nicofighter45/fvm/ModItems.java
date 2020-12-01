@@ -1,31 +1,12 @@
 package fr.nicofighter45.fvm;
 
-import fr.nicofighter45.fvm.block.VanadiumOre;
+import fr.nicofighter45.fvm.items.VanadiumToolMaterial;
 import fr.nicofighter45.fvm.items.armor.EmeraldArmorMaterials;
 import fr.nicofighter45.fvm.items.armor.VanadiumArmorMaterials;
-import fr.nicofighter45.fvm.items.enchantment.*;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.structure.rule.BlockMatchRuleTest;
+import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
 
 public class ModItems {
 
@@ -50,6 +31,9 @@ public class ModItems {
     public static final Item EMERALD_LEGGINGS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.LEGS, new Item.Settings().group(ItemGroup.TOOLS));
     public static final Item EMERALD_BOOTS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.FEET, new Item.Settings().group(ItemGroup.TOOLS));
 
+    //outils en vanadium
+    public static ToolItem VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -1.0F, new Item.Settings().group(ItemGroup.COMBAT));
+
 
     public static void registerAll(){
 
@@ -69,6 +53,8 @@ public class ModItems {
         Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "emerald_chestplate"), EMERALD_CHESTPLATE);
         Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "emerald_leggings"), EMERALD_LEGGINGS);
         Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "emerald_boots"), EMERALD_BOOTS);
+
+        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_sword"), VANADIUM_SWORD);
 
     }
 

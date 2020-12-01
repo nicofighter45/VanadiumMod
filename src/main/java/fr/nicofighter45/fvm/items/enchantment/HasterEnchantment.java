@@ -15,7 +15,7 @@ public class HasterEnchantment extends Enchantment {
 
     @Override
     public int getMinPower(int level) {
-        return 10;
+        return 30;
     }
 
     @Override

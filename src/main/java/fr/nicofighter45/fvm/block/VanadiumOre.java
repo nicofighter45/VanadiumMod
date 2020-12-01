@@ -9,6 +9,7 @@ import net.minecraft.sound.BlockSoundGroup;
 public class VanadiumOre extends Block {
     public VanadiumOre() {
         super(FabricBlockSettings.of(Material.METAL).breakByHand(false).sounds(BlockSoundGroup.METAL)
-                .breakByTool(FabricToolTags.PICKAXES).strength(20, 0.7f));
+                .strength(50, 0.7f).breakByTool(FabricToolTags.PICKAXES, 4).requiresTool());
     }
+
 }

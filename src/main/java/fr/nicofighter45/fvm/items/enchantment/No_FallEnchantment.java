@@ -7,9 +7,9 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
-public class ResistancerEnchantment extends Enchantment {
+public class No_FallEnchantment extends Enchantment {
 
-    public ResistancerEnchantment(Rarity weight, EnchantmentTarget target, EquipmentSlot[] equipementSlot) {
+    public No_FallEnchantment(Rarity weight, EnchantmentTarget target, EquipmentSlot[] equipementSlot) {
         super(weight, target, equipementSlot);
     }
 
@@ -20,12 +20,12 @@ public class ResistancerEnchantment extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 2;
+        return 1;
     }
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() == ModItems.VANADIUM_LEGGINGS || stack.getItem() == Items.BOOK;
+        return stack.getItem() == ModItems.VANADIUM_BOOTS || stack.getItem() == Items.BOOK;
     }
 
     @Override

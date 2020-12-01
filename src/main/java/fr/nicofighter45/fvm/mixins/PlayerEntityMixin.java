@@ -4,13 +4,15 @@ import fr.nicofighter45.fvm.ModEnchants;
 import fr.nicofighter45.fvm.ModItems;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,19 +23,30 @@ import java.util.Map;
 import java.util.Random;
 
 @Mixin(PlayerEntity.class)
-public class PlayerEntityMixin {
+abstract class PlayerEntityMixin extends LivingEntity {
 
-    @Shadow
-    @Final
-    private PlayerInventory inventory;
+    private final PlayerEntity player = (PlayerEntity) (Object) this;
+
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
+    public ItemStack getEquippedStack(EquipmentSlot slot) {
+        if (slot == EquipmentSlot.MAINHAND) {
+            return player.inventory.getMainHandStack();
+        } else if (slot == EquipmentSlot.OFFHAND) {
+            return (ItemStack)player.inventory.offHand.get(0);
+        } else {
+            return slot.getType() == EquipmentSlot.Type.ARMOR ? (ItemStack)player.inventory.armor.get(slot.getEntitySlotId()) : ItemStack.EMPTY;
+        }
+    }
 
     @Inject(at = @At("HEAD"), method = "tick")              //inject lign 1 of tick method of PlayerEntity class
     private void tick(CallbackInfo info) {
-        PlayerEntity player = (PlayerEntity) (Object) this;
-        ItemStack helmet = inventory.getArmorStack(3);
-        ItemStack chestplate = inventory.getArmorStack(2);
-        ItemStack leggings = inventory.getArmorStack(1);
-        ItemStack boots = inventory.getArmorStack(0);
+        ItemStack helmet = getEquippedStack(EquipmentSlot.HEAD);
+        ItemStack chestplate = getEquippedStack(EquipmentSlot.CHEST);
+        ItemStack leggings = getEquippedStack(EquipmentSlot.LEGS);
+        ItemStack boots = getEquippedStack(EquipmentSlot.FEET);
 
         //check emerald
         if (helmet.getItem() == ModItems.EMERALD_HELMET) {
@@ -52,10 +65,7 @@ public class PlayerEntityMixin {
         //check vanadium
         if (helmet.getItem() == ModItems.VANADIUM_HELMET && leggings.getItem() == ModItems.VANADIUM_LEGGINGS &&
                 boots.getItem() == ModItems.VANADIUM_BOOTS) {
-            int r = new Random().nextInt(20);
-            if (r == 1) {
-                player.setHealth(player.getHealth() + 1);
-            }
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 0, false, false, true));
         }
 
         //check enchant

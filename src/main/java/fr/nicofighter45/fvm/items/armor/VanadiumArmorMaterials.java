@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public enum VanadiumArmorMaterials implements ArmorMaterial {
 
-    VANADIUM("vanadium", 50, new int[] {4, 10, 20, 6}, 13,
+    VANADIUM("vanadium", 50, new int[] {4, 10, 20, 6}, 22,
             SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 3.0F, 2.0F, () -> {
         return Ingredient.ofItems(ModItems.VANADIUM_INGOT);
     });

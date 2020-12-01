@@ -45,6 +45,13 @@ public class ModEnchants {
                     EquipmentSlot.LEGS
             }
     );
+    public static Enchantment NO_FALL = new No_FallEnchantment(
+            Enchantment.Rarity.VERY_RARE,
+            EnchantmentTarget.ARMOR,
+            new EquipmentSlot[]{
+                    EquipmentSlot.FEET
+            }
+    );
 
     public static void registerAll(){
         Registry.register(Registry.ENCHANTMENT, new Identifier(FVM.MODID, "faster"), FASTER);
@@ -52,6 +59,7 @@ public class ModEnchants {
         Registry.register(Registry.ENCHANTMENT, new Identifier(FVM.MODID, "haster"), HASTER);
         Registry.register(Registry.ENCHANTMENT, new Identifier(FVM.MODID, "strenghter"), STRENGHTER);
         Registry.register(Registry.ENCHANTMENT, new Identifier(FVM.MODID, "resistancer"), RESISTANCER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(FVM.MODID, "no_fall"), NO_FALL);
     }
 
 }

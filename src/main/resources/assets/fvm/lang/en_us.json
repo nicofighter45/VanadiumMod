@@ -22,5 +22,8 @@
   "enchantment.fvm.jumper": "Jumper",
   "enchantment.fvm.haster": "Haster",
   "enchantment.fvm.strenghter": "Strenghter",
-  "enchantment.fvm.resistancer": "Resistancer"
+  "enchantment.fvm.resistancer": "Resistancer",
+  "enchantment.fvm.no_fall": "No Fall",
+
+  "item.fvm.vanadium_sword": "Vanadium Sword"
 }

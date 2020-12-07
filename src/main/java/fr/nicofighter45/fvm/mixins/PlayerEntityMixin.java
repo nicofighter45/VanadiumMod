@@ -10,17 +10,14 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
-import java.util.Random;
 
 @Mixin(PlayerEntity.class)
 abstract class PlayerEntityMixin extends LivingEntity {
@@ -50,7 +47,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
 
         //check emerald
         if (helmet.getItem() == ModItems.EMERALD_HELMET) {
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 60, 0, false, false, true));
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 60, 1, false, false, true));
         }
         if (chestplate.getItem() == ModItems.EMERALD_CHESTPLATE) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 60, 0, false, false, true));
@@ -59,7 +56,12 @@ abstract class PlayerEntityMixin extends LivingEntity {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 60, 0, false, false, true));
         }
         if (boots.getItem() == ModItems.EMERALD_BOOTS) {
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 60, 0, false, false, true));
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 60, 1, false, false, true));
+        }
+
+        //check tungsten
+        if (chestplate.getItem() == ModItems.TUNGSTEN_CHESTPLATE) {
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 60, 0, false, false, true));
         }
 
         //check vanadium

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "fvm:block/tungsten_ore" }
+  }
+}

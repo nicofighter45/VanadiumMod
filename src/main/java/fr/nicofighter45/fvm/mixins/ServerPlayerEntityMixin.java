@@ -25,10 +25,6 @@ abstract class ServerPlayerEntityMixin extends PlayerEntity implements ScreenHan
         super(world, pos, yaw, profile);
     }
 
-//    @Inject(at = @At("HEAD"), method = "tick")
-//    private void tick(CallbackInfo info) {
-//    }
-
     public ItemStack getEquippedStack(EquipmentSlot slot) {
         if (slot == EquipmentSlot.MAINHAND) {
             return player.inventory.getMainHandStack();

@@ -1,0 +1,37 @@
+{
+  "block.fvm.vanadium_ore": "Minerai de Vanadium",
+  "item.fvm.vanadium_ore": "Minerai de Vanadium",
+  "item.fvm.vanadium_nugget": "Pépite de Vanadium",
+  "item.fvm.vanadium_ingot": "Lingot de Vanadium",
+
+  "item.fvm.vanadium_stick": "Bâton en Vanadium",
+  "item.fvm.vanadium_heart": "Coeur en Vanadium",
+  "item.fvm.emerald_heart": "Coeur en Emeraude",
+
+  "item.fvm.vanadium_helmet": "Casque de Vanadium",
+  "item.fvm.vanadium_chestplate": "Plastron de Vanadium",
+  "item.fvm.vanadium_leggings": "Jambières de Vanadium",
+  "item.fvm.vanadium_boots": "Bottes de Vanadium",
+
+  "item.fvm.emerald_helmet": "Casque de Emeraude",
+  "item.fvm.emerald_chestplate": "Plastron de Emeraude",
+  "item.fvm.emerald_leggings": "Jambières de  Emeraude",
+  "item.fvm.emerald_boots": "Bottes de  Emeraude",
+
+  "enchantment.fvm.faster": "Vitesse",
+  "enchantment.fvm.jumper": "Saut",
+  "enchantment.fvm.haster": "Minage",
+  "enchantment.fvm.strenghter": "Force",
+  "enchantment.fvm.resistancer": "Résistance",
+  "enchantment.fvm.no_fall": "Pas de dégât de Chute",
+
+  "block.fvm.tungsten_ore": "Minearai de Tungstene",
+  "item.fvm.tungsten_ore": "Minearai de Tungstene",
+  "item.fvm.tungsten_ingot": "Lingot de Tungstene",
+  "item.fvm.tungsten_chestplate": "Plastron en Tungstene",
+
+  "block.fvm.silver_ore": "Minerai d'Argent",
+  "item.fvm.silver_ore": "Minerai d'Argent",
+
+  "item.fvm.vanadium_sword": "épée en Vanadium"
+}

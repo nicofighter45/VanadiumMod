@@ -12,6 +12,7 @@ public class FVM implements ModInitializer {
         ModItems.registerAll();
         ModEnchants.registerAll();
         ModBlocks.registerAll();
+        Listeners.blockBreakEventRegister();
 
     }
 }

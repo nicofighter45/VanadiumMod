@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CIC",
+    "ITI",
+    "CIC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:coal_block"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "T": {
+      "item": "fvm:tungsten_ore"
+    }
+  },
+  "result": {
+    "item": "fvm:tungsten_ingot",
+    "count": 1
+  }
+}

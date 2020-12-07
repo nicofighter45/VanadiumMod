@@ -25,5 +25,13 @@
   "enchantment.fvm.resistancer": "Resistancer",
   "enchantment.fvm.no_fall": "No Fall",
 
+  "block.fvm.tungsten_ore": "Tungsten Ore",
+  "item.fvm.tungsten_ore": "Tungsten Ore",
+  "item.fvm.tungsten_ingot": "Tungsten Ingot",
+  "item.fvm.tungsten_chestplate": "Tungsten Chestplate",
+
+  "block.fvm.silver_ore": "Silver Ore",
+  "item.fvm.silver_ore": "Silver Ore",
+
   "item.fvm.vanadium_sword": "Vanadium Sword"
 }

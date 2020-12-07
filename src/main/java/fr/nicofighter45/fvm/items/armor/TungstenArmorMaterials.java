@@ -13,11 +13,11 @@ import net.minecraft.util.Lazy;
 
 import java.util.function.Supplier;
 
-public enum VanadiumArmorMaterials implements ArmorMaterial {
+public enum TungstenArmorMaterials implements ArmorMaterial {
 
-    VANADIUM("vanadium", 200, new int[] {4, 10, 20, 6}, 22,
-            SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 3.0F, 2.0F, () -> {
-        return Ingredient.ofItems(ModItems.VANADIUM_INGOT);
+    TUNGSTEN("tungsten", 20, new int[] {0, 0, 8, 0}, 15,
+            SoundEvents.ENTITY_WITHER_DEATH, 1.0F, 5.0F, () -> {
+        return Ingredient.ofItems(ModItems.TUNGSTEN_INGOT);
     });
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
@@ -30,7 +30,7 @@ public enum VanadiumArmorMaterials implements ArmorMaterial {
     private final float knockbackResistance;
     private final Lazy<Ingredient> repairIngredientSupplier;
 
-    VanadiumArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability,
+    TungstenArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability,
                            SoundEvent equipSound, float toughness, float knockbackResistance,
                            Supplier<Ingredient> repairIngredientSupplier) {
         this.name = name;

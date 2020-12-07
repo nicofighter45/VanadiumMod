@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T T",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "item": "fvm:tungsten_ingot"
+    }
+  },
+  "result": {
+    "item": "fvm:tungsten_chestplate",
+    "count": 1
+  }
+}

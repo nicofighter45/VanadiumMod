@@ -1,8 +1,9 @@
-# Fabric Example Mod
+# Fabric Vanadium Mod
 
 ## Setup
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+Download fabric, add Fabric API and the last version of this mod.
+Connect to vanadium server using the given ip
 
 ## License
 

@@ -1,7 +1,7 @@
 package fr.nicofighter45.fvm.mixins;
 
-import fr.nicofighter45.fvm.ModEnchants;
-import fr.nicofighter45.fvm.ModItems;
+import fr.nicofighter45.fvm.items.enchantment.ModEnchants;
+import fr.nicofighter45.fvm.items.ModItems;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;

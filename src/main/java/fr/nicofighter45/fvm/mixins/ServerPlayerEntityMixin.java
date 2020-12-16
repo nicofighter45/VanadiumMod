@@ -1,7 +1,7 @@
 package fr.nicofighter45.fvm.mixins;
 
 import com.mojang.authlib.GameProfile;
-import fr.nicofighter45.fvm.ModEnchants;
+import fr.nicofighter45.fvm.items.enchantment.ModEnchants;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;

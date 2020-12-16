@@ -1,6 +1,5 @@
 package fr.nicofighter45.fvm.items;
 
-import fr.nicofighter45.fvm.ModItems;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 

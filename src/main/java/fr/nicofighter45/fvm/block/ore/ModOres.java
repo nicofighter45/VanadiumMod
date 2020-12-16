@@ -1,8 +1,6 @@
-package fr.nicofighter45.fvm;
+package fr.nicofighter45.fvm.block.ore;
 
-import fr.nicofighter45.fvm.block.SilverOre;
-import fr.nicofighter45.fvm.block.TungstenOre;
-import fr.nicofighter45.fvm.block.VanadiumOre;
+import fr.nicofighter45.fvm.FVM;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.Block;
@@ -22,7 +20,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 
-public class ModBlocks {
+public class ModOres {
 
     public static final Block VANADIUM_ORE = new VanadiumOre();
     public static final Block TUNGSTEN_ORE = new TungstenOre();

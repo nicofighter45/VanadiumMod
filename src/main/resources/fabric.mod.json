@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "fr.nicofighter45.fvm.FVM"
+    ],
+    "client": [
+      "fr.nicofighter45.fvm.FVMClient"
     ]
   },
   "mixins": [

@@ -1,5 +1,6 @@
-package fr.nicofighter45.fvm;
+package fr.nicofighter45.fvm.items.enchantment;
 
+import fr.nicofighter45.fvm.FVM;
 import fr.nicofighter45.fvm.items.enchantment.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;

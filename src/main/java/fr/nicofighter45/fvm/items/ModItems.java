@@ -1,9 +1,11 @@
-package fr.nicofighter45.fvm;
+package fr.nicofighter45.fvm.items;
 
-import fr.nicofighter45.fvm.items.VanadiumToolMaterial;
+import fr.nicofighter45.fvm.FVM;
+import fr.nicofighter45.fvm.block.modifiertable.ModifiersTableBlock;
 import fr.nicofighter45.fvm.items.armor.EmeraldArmorMaterials;
 import fr.nicofighter45.fvm.items.armor.TungstenArmorMaterials;
-import fr.nicofighter45.fvm.items.armor.VanadiumArmorMaterials;
+import fr.nicofighter45.fvm.items.armor.vanadium.VanadiumArmorMaterials;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
@@ -38,7 +40,6 @@ public class ModItems {
 
     //outils en vanadium
     public static ToolItem VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -1.0F, new Item.Settings().group(ItemGroup.COMBAT));
-
 
     public static void registerAll(){
 

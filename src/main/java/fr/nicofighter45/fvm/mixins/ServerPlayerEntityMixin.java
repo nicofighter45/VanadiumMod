@@ -1,6 +1,7 @@
 package fr.nicofighter45.fvm.mixins;
 
 import com.mojang.authlib.GameProfile;
+import fr.nicofighter45.fvm.FVM;
 import fr.nicofighter45.fvm.items.enchantment.ModEnchants;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -39,6 +40,11 @@ abstract class ServerPlayerEntityMixin extends PlayerEntity implements ScreenHan
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if(source == DamageSource.FALL && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)){
             cir.setReturnValue(false);
+        }
+        if(amount > 0){
+            if(!FVM.TickNumberForHeal.containsKey(player)){
+                FVM.TickNumberForHeal.put(player, 60);
+            }
         }
     }
 

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "fvm:block/copper_ore" }
+  }
+}

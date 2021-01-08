@@ -7,6 +7,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -17,7 +18,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ModifiersTableBlock extends Block implements BlockEntityProvider {
+public class ModifiersTableBlock extends BlockWithEntity implements BlockEntityProvider{
     public static final Identifier ID = new Identifier(FVM.MODID, "modifierstable");
 
     public ModifiersTableBlock(){
@@ -37,5 +38,4 @@ public class ModifiersTableBlock extends Block implements BlockEntityProvider {
         player.openHandledScreen(blockState.createScreenHandlerFactory(world, blockPos));
         return ActionResult.SUCCESS;
     }
-
 }

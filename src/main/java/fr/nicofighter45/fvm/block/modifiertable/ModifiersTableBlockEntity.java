@@ -1,5 +1,6 @@
 package fr.nicofighter45.fvm.block.modifiertable;
 
+import fr.nicofighter45.fvm.items.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,11 +20,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModifiersTableBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory, NamedScreenHandlerFactory {
 
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(256, ItemStack.EMPTY);
 
     public ModifiersTableBlockEntity() {
         super(ModifierTableRegister.MODIFIERS_TABLE_BLOCK_ENTITY);
     }
+    
 
     @Override
     public DefaultedList<ItemStack> getItems() {
@@ -71,7 +73,7 @@ public class ModifiersTableBlockEntity extends BlockEntity implements Implemente
 
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inventory, PlayerEntity player) {
-        return new ModifiersTableGuiDesciption(syncId, inventory, ScreenHandlerContext.create(world, pos));
+        return new ModifiersTableGuiDescription(syncId, inventory, ScreenHandlerContext.create(world, pos));
     }
 
 }

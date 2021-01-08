@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ServerPlayerEntityMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "WorldMixin",
+    "ServerWorldMixin"
   ],
   "client": [
   ],

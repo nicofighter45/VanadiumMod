@@ -18,7 +18,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ModifiersTableBlock extends BlockWithEntity implements BlockEntityProvider{
+public class ModifiersTableBlock extends Block implements BlockEntityProvider{
     public static final Identifier ID = new Identifier(FVM.MODID, "modifierstable");
 
     public ModifiersTableBlock(){
@@ -35,7 +35,13 @@ public class ModifiersTableBlock extends BlockWithEntity implements BlockEntityP
     public ActionResult onUse(BlockState blockState, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockHitResult blockHitResult) {
         // You need a Block.createScreenHandlerFactory implementation that delegates to the block entity,
         // such as the one from BlockWithEntity
-        player.openHandledScreen(blockState.createScreenHandlerFactory(world, blockPos));
+        player.openHandledScreen(createScreenHandlerFactory(blockState, world, blockPos));
         return ActionResult.SUCCESS;
+    }
+
+    @Nullable
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
     }
 }

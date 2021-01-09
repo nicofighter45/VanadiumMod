@@ -6,12 +6,14 @@
 
   "item.fvm.vanadium_stick": "Vanadium Stick",
   "item.fvm.vanadium_heart": "Vanadium Heart",
-  "item.fvm.emerald_heart": "Emerald Heart",
+  "item.fvm.vanadium_sword": "Vanadium Sword",
 
   "item.fvm.vanadium_helmet": "Vanadium Helmet",
   "item.fvm.vanadium_chestplate": "Vanadium Chestplate",
   "item.fvm.vanadium_leggings": "Vanadium Leggings",
   "item.fvm.vanadium_boots": "Vanadium Boots",
+
+  "item.fvm.emerald_heart": "Emerald Heart",
 
   "item.fvm.emerald_helmet": "Emerald Helmet",
   "item.fvm.emerald_chestplate": "Emerald Chestplate",
@@ -32,6 +34,20 @@
 
   "block.fvm.silver_ore": "Silver Ore",
   "item.fvm.silver_ore": "Silver Ore",
+  "item.fvm.silver_ingot": "Silver Ingot",
 
-  "item.fvm.vanadium_sword": "Vanadium Sword"
+  "block.fvm.tin_ore": "Tin Ore",
+  "item.fvm.tin_ore": "Tin Ore",
+  "item.fvm.tin_ingot": "Tin Ingot",
+
+  "block.fvm.copper_ore": "Copper Ore",
+  "item.fvm.copper_ore": "Copper Ore",
+  "item.fvm.copper_ingot": "Copper Ingot",
+
+  "item.fvm.transistor": "Transistor",
+  "item.fvm.processor": "Processor",
+  "block.fvm.modifiers_table": "Modifiers Table",
+  "item.fvm.modifiers_table": "Modifiers Table",
+
+  "itemGroup.fvm.vanadium": "VanaMod"
 }

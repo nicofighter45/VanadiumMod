@@ -1,5 +1,6 @@
 package fr.nicofighter45.fvm.items;
 
+import com.google.gson.JsonObject;
 import fr.nicofighter45.fvm.FVM;
 import fr.nicofighter45.fvm.items.armor.EmeraldArmorMaterials;
 import fr.nicofighter45.fvm.items.armor.TungstenArmorMaterials;
@@ -7,6 +8,10 @@ import fr.nicofighter45.fvm.items.armor.vanadium.ModifiableItem;
 import fr.nicofighter45.fvm.items.armor.vanadium.VanadiumArmorMaterials;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.stat.StatType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -49,35 +54,56 @@ public class ModItems {
 
     public static void registerAll() {
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_nugget"), VANADIUM_NUGGET);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_ingot"), VANADIUM_INGOT);
+        registerNewItem("vanadium_nugget", VANADIUM_NUGGET);
+        registerNewItem("vanadium_ingot", VANADIUM_INGOT);
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_stick"), VANADIUM_STICK);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_heart"), VANADIUM_HEART);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "emerald_heart"), EMERALD_HEART);
+        registerNewItem("vanadium_stick", VANADIUM_STICK);
+        registerNewItem("vanadium_heart", VANADIUM_HEART);
+        registerNewItem("emerald_heart", EMERALD_HEART);
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_helmet"), VANADIUM_HELMET);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_chestplate"), VANADIUM_CHESTPLATE);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_leggings"), VANADIUM_LEGGINGS);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_boots"), VANADIUM_BOOTS);
+        registerNewItem("vanadium_helmet", VANADIUM_HELMET);
+        registerNewItem("vanadium_chestplate", VANADIUM_CHESTPLATE);
+        registerNewItem("vanadium_leggings", VANADIUM_LEGGINGS);
+        registerNewItem("vanadium_boots", VANADIUM_BOOTS);
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "emerald_helmet"), EMERALD_HELMET);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "emerald_chestplate"), EMERALD_CHESTPLATE);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "emerald_leggings"), EMERALD_LEGGINGS);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "emerald_boots"), EMERALD_BOOTS);
+        registerNewItem("emerald_helmet", EMERALD_HELMET);
+        registerNewItem("emerald_chestplate", EMERALD_CHESTPLATE);
+        registerNewItem("emerald_leggings", EMERALD_LEGGINGS);
+        registerNewItem("emerald_boots", EMERALD_BOOTS);
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "tungsten_ingot"), TUNGSTEN_INGOT);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "tungsten_chestplate"), TUNGSTEN_CHESTPLATE);
+        registerNewItem("tungsten_ingot", TUNGSTEN_INGOT);
+        registerNewItem("tungsten_chestplate", TUNGSTEN_CHESTPLATE);
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "vanadium_sword"), VANADIUM_SWORD);
+        registerNewItem("vanadium_sword", VANADIUM_SWORD);
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "silver_ingot"), SILVER_INGOT);
+        registerNewItem("silver_ingot", SILVER_INGOT);
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "copper_ingot"), COPPER_INGOT);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "tin_ingot"), TIN_INGOT);
+        registerNewItem("copper_ingot", COPPER_INGOT);
 
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "transistor"), TRANSISTOR);
-        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "processor"), PROCESSOR);
+        registerNewItem("tin_ingot", TIN_INGOT);
 
+        registerNewItem("transistor", TRANSISTOR);
+        registerNewItem("processor", PROCESSOR);
+
+        Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(FVM.MODID), new RecipeSerializer<Recipe>() {
+            @Override
+            public Recipe read(Identifier id, JsonObject json) {
+                return null;
+            }
+
+            @Override
+            public Recipe read(Identifier id, PacketByteBuf buf) {
+                return null;
+            }
+
+            @Override
+            public void write(PacketByteBuf buf, Recipe recipe) {
+
+            }
+        });
+    }
+
+    private static void registerNewItem(String name, Item item){
+        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, name), item);
     }
 }

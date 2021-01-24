@@ -55,8 +55,8 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
         //receiver give item
         ScreenNetworking.of(this, NetworkSide.SERVER).receive(MESSAGE_ITEM, buf -> {
             this.playerInventory.insertStack(buf.readItemStack());
-            slots.clear();
-            close(player);
+            this.slots.clear();
+            this.close(player);
         });
     }
 

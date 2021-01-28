@@ -14,16 +14,22 @@ public class ModifiableItem extends ArmorItem {
 
     public ModifiableItem(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings) {
         super(material, slot, settings);
+        upgradesList.put(Upgrades.HAST, 0);
+        upgradesList.put(Upgrades.STRENGTH, 0);
+        upgradesList.put(Upgrades.RESISTANCE, 0);
+        upgradesList.put(Upgrades.SPEED, 0);
+        upgradesList.put(Upgrades.JUMP, 0);
+        upgradesList.put(Upgrades.NO_FALL, 0);
     }
 
-    public void addUpgrade(Upgrades upgrade, int value){
-        if(upgrade.getMaxValue() <= value){
-            upgradesList.put(upgrade, value);
+    public boolean addUpgrade(Upgrades upgrade){
+        int value = getUpgradeValue(upgrade);
+        if(upgrade.getMaxValue() < value){
+            upgradesList.remove(upgrade);
+            upgradesList.put(upgrade, value + 1);
+            return true;
         }
-    }
-
-    public void removeUpgrade(Upgrades upgrade){
-        upgradesList.remove(upgrade);
+        return false;
     }
 
     public int getUpgradeValue(Upgrades upgrade){

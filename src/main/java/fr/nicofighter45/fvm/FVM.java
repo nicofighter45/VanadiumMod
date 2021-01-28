@@ -101,6 +101,13 @@ public class FVM implements ModInitializer {
                 stacks.add(new ItemStack(ModItems.VANADIUM_CHESTPLATE));
                 stacks.add(new ItemStack(ModItems.VANADIUM_LEGGINGS));
                 stacks.add(new ItemStack(ModItems.VANADIUM_BOOTS));
+
+                stacks.add(new ItemStack(ModItems.HAST_STONE));
+                stacks.add(new ItemStack(ModItems.STRENGTH_STONE));
+                stacks.add(new ItemStack(ModItems.RESISTANCE_STONE));
+                stacks.add(new ItemStack(ModItems.SPEED_STONE));
+                stacks.add(new ItemStack(ModItems.JUMP_STONE));
+                stacks.add(new ItemStack(ModItems.NO_FALL_STONE));
             })
             .build();
 

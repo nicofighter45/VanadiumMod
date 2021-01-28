@@ -2,6 +2,8 @@ package fr.nicofighter45.fvm.block.modifiertable;
 
 import fr.nicofighter45.fvm.FVM;
 import fr.nicofighter45.fvm.items.ModItems;
+import fr.nicofighter45.fvm.items.armor.vanadium.ModifiableItem;
+import fr.nicofighter45.fvm.items.armor.vanadium.UpgradeItem;
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.networking.NetworkSide;
 import io.github.cottonmc.cotton.gui.networking.ScreenNetworking;
@@ -33,18 +35,24 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
 
         //items slots
         WItemSlot itemSlot1 = WItemSlot.of(blockInventory, 1);
-        root.add(itemSlot1, 3, 3);
+        root.add(itemSlot1, 4, 3);
         WItemSlot itemSlot2 = WItemSlot.of(blockInventory, 2);
-        root.add(itemSlot2, 4, 3);
-        WItemSlot itemSlot3 = WItemSlot.of(blockInventory, 3);
-        root.add(itemSlot3, 5, 3);
-        WItemSlot itemSlot4 = WItemSlot.of(blockInventory, 4);
-        root.add(itemSlot4, 4, 1);
+        root.add(itemSlot2, 4, 1);
 
         //button
         WButton button = new WButton(new LiteralText("Modify"));
         button.setOnClick(() -> {
-            ScreenNetworking.of(this, NetworkSide.CLIENT).send(MESSAGE_ITEM, buf -> buf.writeItemStack(new ItemStack(ModItems.VANADIUM_CHESTPLATE)));
+            ItemStack main_item = this.getSlot(2).getStack();
+            ItemStack second_item = this.getSlot(1).getStack();
+            if(main_item.getItem() instanceof ModifiableItem){
+                System.out.println("Détection item en vanadium");
+                if(second_item.getItem() instanceof UpgradeItem){
+                    if(((ModifiableItem) main_item.getItem()).addUpgrade(((UpgradeItem) second_item.getItem()).getUpgrade_type())){
+                        main_item.getOrCreateSubTag("display").putString("Test", "Test");
+                        ScreenNetworking.of(this, NetworkSide.CLIENT).send(MESSAGE_ITEM, buf -> buf.writeItemStack(main_item));
+                    }
+                }
+            }
         });
         root.add(button, 3, 4, 3, 1);
 
@@ -54,9 +62,9 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
 
         //receiver give item
         ScreenNetworking.of(this, NetworkSide.SERVER).receive(MESSAGE_ITEM, buf -> {
-            this.playerInventory.insertStack(buf.readItemStack());
-            this.slots.clear();
-            this.close(player);
+            playerInventory.insertStack(buf.readItemStack());
+            updateSlotStacks(null);
+            close(playerInventory.player);
         });
     }
 

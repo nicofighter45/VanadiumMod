@@ -1,4 +1,4 @@
-package fr.nicofighter45.fvm.items.armor.vanadium;
+package fr.nicofighter45.fvm.items.armor;
 
 import fr.nicofighter45.fvm.items.ModItems;
 import net.fabricmc.api.EnvType;

@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModifiersTableBlockEntity extends BlockEntity implements ImplementedInventory, SidedInventory, NamedScreenHandlerFactory {
 
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(256, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
     public ModifiersTableBlockEntity() {
         super(ModifierTableRegister.MODIFIERS_TABLE_BLOCK_ENTITY);

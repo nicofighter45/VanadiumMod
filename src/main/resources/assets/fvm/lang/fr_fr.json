@@ -3,6 +3,8 @@
   "item.fvm.vanadium_ore": "Minerai de Vanadium",
   "item.fvm.vanadium_nugget": "Pépite de Vanadium",
   "item.fvm.vanadium_ingot": "Lingot de Vanadium",
+  "block.fvm.vanadium_block": "Vanadium Block",
+  "item.fvm.vanadium_block_item": "Vanadium Block",
 
   "item.fvm.vanadium_stick": "Bâton en Vanadium",
   "item.fvm.vanadium_heart": "Coeur en Vanadium",
@@ -33,5 +35,25 @@
   "block.fvm.silver_ore": "Minerai d'Argent",
   "item.fvm.silver_ore": "Minerai d'Argent",
 
-  "item.fvm.vanadium_sword": "épée en Vanadium"
+  "item.fvm.vanadium_sword": "épée en Vanadium",
+
+
+
+  "item.fvm.silver_ingot": "Lingot d'argent",
+
+  "block.fvm.tin_ore": "Minerai d'étain",
+  "item.fvm.tin_ore": "Minerai d'étain",
+  "item.fvm.tin_ingot": "Lingot d'étain",
+
+  "block.fvm.copper_ore": "Minerai de cuivre",
+  "item.fvm.copper_ore": "Minerai de cuivre",
+  "item.fvm.copper_ingot": "Lingot de cuivre",
+
+  "item.fvm.transistor": "Transistor",
+  "item.fvm.processor": "Processeur",
+  "block.fvm.modifiers_table": "Table de modificaiton",
+  "item.fvm.modifiers_table": "Table de modificaiton",
+
+
+  "itemGroup.fvm.vanadium": "VanaMode"
 }

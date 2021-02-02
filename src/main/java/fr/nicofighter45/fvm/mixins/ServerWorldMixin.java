@@ -1,6 +1,7 @@
 package fr.nicofighter45.fvm.mixins;
 
 import fr.nicofighter45.fvm.FVM;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,6 +25,11 @@ public class ServerWorldMixin {
             FVM.minecraftServer = serverworld.getServer();
             System.out.println("Printed : " + serverworld.getServer().getName());
         }
+    }
+
+    @Inject(at = @At("HEAD"), method = "onPlayerConnected")
+    public void onPlayerConnected(ServerPlayerEntity player, CallbackInfo info) {
+        FVM.dataBaseManager.addPlayer(player);
     }
 
 }

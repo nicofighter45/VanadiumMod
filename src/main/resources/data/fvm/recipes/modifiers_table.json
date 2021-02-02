@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "STS",
+    "TNT",
+    "STS"
+  ],
+  "key": {
+    "N": {
+      "item": "fvm:vanadium_nugget"
+    },
+    "T": {
+      "item": "fvm:transistor"
+    },
+    "S": {
+      "item": "fvm:silver_ingot"
+    }
+  },
+  "result": {
+    "item": "fvm:modifiers_table",
+    "count": 1
+  }
+}

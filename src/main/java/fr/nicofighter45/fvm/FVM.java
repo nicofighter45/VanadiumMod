@@ -4,6 +4,7 @@ import fr.nicofighter45.fvm.block.modifiertable.ModifierTableRegister;
 import fr.nicofighter45.fvm.block.modifiertable.ModifiersTableGuiDescription;
 import fr.nicofighter45.fvm.block.modifiertable.ModifiersTableBlock;
 import fr.nicofighter45.fvm.block.ore.ModOres;
+import fr.nicofighter45.fvm.database.DataBaseManager;
 import fr.nicofighter45.fvm.items.ModItems;
 import fr.nicofighter45.fvm.items.enchantment.ModEnchants;
 import net.fabricmc.api.ModInitializer;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 public class FVM implements ModInitializer {
 
+
     //the mod id used to create new blocks and items
     public static final String MODID = "fvm";
 
@@ -44,8 +46,14 @@ public class FVM implements ModInitializer {
     //minecraftServer
     public static MinecraftServer minecraftServer;
 
+    //database mysql
+    public static DataBaseManager dataBaseManager;
+
     @Override
     public void onInitialize() {
+
+        //connect to data base
+        dataBaseManager = new DataBaseManager();
 
         //register screen for modifiers table
         SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(ModifiersTableBlock.ID, (syncId, inventory) ->

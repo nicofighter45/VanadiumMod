@@ -54,6 +54,12 @@
   "block.fvm.modifiers_table": "Table de modificaiton",
   "item.fvm.modifiers_table": "Table de modificaiton",
 
+  "item.fvm.haste_stone": "Pierre de Minage",
+  "item.fvm.strength_stone": "Pierre de Force",
+  "item.fvm.resistance_stone": "Pierre de Résistance",
+  "item.fvm.speed_stone": "Pierre de Vitesse",
+  "item.fvm.jump_stone": "Pierre de Saut",
+  "item.fvm.no_fall_stone": "Pierre de Dêgat de Chute",
 
   "itemGroup.fvm.vanadium": "VanaMode"
 }

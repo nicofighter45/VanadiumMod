@@ -2,14 +2,20 @@ package fr.nicofighter45.fvm.block.modifiertable;
 
 import fr.nicofighter45.fvm.FVM;
 import fr.nicofighter45.fvm.items.ModItems;
+import fr.nicofighter45.fvm.items.VanadiumToolMaterial;
+import fr.nicofighter45.fvm.items.armor.VanadiumArmorMaterials;
+import fr.nicofighter45.fvm.items.enchantment.ModEnchants;
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.networking.NetworkSide;
 import io.github.cottonmc.cotton.gui.networking.ScreenNetworking;
 import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -17,6 +23,8 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
+
+import java.util.Map;
 
 public class ModifiersTableGuiDescription extends SyncedGuiDescription {
 
@@ -52,6 +60,7 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
             ItemStack item2 = this.getSlot(2).getStack();
             ItemStack item3 = this.getSlot(3).getStack();
             Item item = null;
+            ItemStack item_stack = null;
             if (item0.getItem() == ModItems.VANADIUM_STICK && item1.getItem() == ModItems.VANADIUM_INGOT
                     && item2.getItem() == ModItems.VANADIUM_HEART && item3.getItem() == ModItems.VANADIUM_BLOCK_ITEM) {
                 item = ModItems.VANADIUM_SWORD;
@@ -70,13 +79,46 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
             }else if(item0.getItem() == ModItems.VANADIUM_INGOT || item1.getItem() == ModItems.VANADIUM_INGOT
                     || item2.getItem() == ModItems.VANADIUM_INGOT || item3.getItem() == ModItems.VANADIUM_INGOT){
                 item = ModItems.VANADIUM_STICK;
+            }else if(item0.getItem() instanceof ArmorItem && item1.getItem() != Items.AIR){
+                ArmorItem armor = (ArmorItem) item0.getItem();
+                if(armor.getMaterial() instanceof VanadiumArmorMaterials){
+                    Map<Enchantment, Integer> enchant_item = EnchantmentHelper.get(item0);
+                    if(armor == ModItems.VANADIUM_HELMET){
+                        if(item1.getItem() == ModItems.HASTE_STONE && enchant_item.get(ModEnchants.HASTER) < 5){
+                            item_stack = item0;
+                            EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.HASTER, item_stack), item_stack);
+                        }else if(item1.getItem() == ModItems.STRENGTH_STONE && enchant_item.get(ModEnchants.HASTER) < 2){
+                            item_stack = item0;
+                            EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.STRENGHTER, item_stack), item_stack);
+                        }
+                    }else if(armor == ModItems.VANADIUM_LEGGINGS){
+                        if(item1.getItem() == ModItems.RESISTANCE_STONE && enchant_item.get(ModEnchants.HASTER) < 2){
+                            item_stack = item0;
+                            EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.RESISTANCER, item_stack), item_stack);
+                        }else if(item1.getItem() == ModItems.SPEED_STONE && enchant_item.get(ModEnchants.HASTER) < 5){
+                            item_stack = item0;
+                            EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.FASTER, item_stack), item_stack);
+                        }
+                    }else if(armor == ModItems.VANADIUM_BOOTS){
+                        if(item1.getItem() == ModItems.JUMP_STONE && enchant_item.get(ModEnchants.HASTER) < 5){
+                            item_stack = item0;
+                            EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.JUMPER, item_stack), item_stack);
+                        }else if(item1.getItem() == ModItems.NO_FALL_STONE && enchant_item.get(ModEnchants.HASTER) == 0){
+                            item_stack = item0;
+                            EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.NO_FALL, item_stack), item_stack);
+                        }
+                    }
+                }
             }
-            if(item == null){
+            if(item == null && item_stack == null){
                 return;
             }
-            ItemStack item_stack = new ItemStack(item);
+            if(item != null){
+                item_stack = new ItemStack(item);
+            }
+            ItemStack finalItem_stack = item_stack;
             ScreenNetworking.of(this, NetworkSide.CLIENT).send(MESSAGE_ITEM, buf ->
-                    buf.writeItemStack(item_stack)
+                    buf.writeItemStack(finalItem_stack)
             );
         });
         root.add(button, 3, 3, 3, 1);
@@ -92,6 +134,17 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
             server_player.closeHandledScreen();
             server_player.inventory.insertStack(buf.readItemStack());
         });
+    }
+
+    private Map<Enchantment, Integer> setActualEnchants(Map<Enchantment, Integer> enchant_item, Enchantment enchantment, ItemStack item) {
+        if(!enchant_item.containsKey(enchantment)){
+            enchant_item.put(enchantment, 1);
+        }else{
+            int value = enchant_item.get(enchantment);
+            enchant_item.remove(enchantment);
+            enchant_item.put(enchantment, value+1);
+        }
+        return enchant_item;
     }
 
 }

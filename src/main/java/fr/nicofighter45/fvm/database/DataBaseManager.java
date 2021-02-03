@@ -13,7 +13,7 @@ public class DataBaseManager {
     private Connection connection;
     private Statement statement;
     private DatabaseMetaData metadata;
-    public Map<Integer, DataBasePlayer> dataBasePlayers = new HashMap<>();
+    public Map<Integer, String> dataBasePlayers = new HashMap<>();
     public ResultSet resultSet;
 
     public DataBaseManager(){
@@ -38,7 +38,7 @@ public class DataBaseManager {
             resultSet = metadata.getTables(null, null, "players", null);
             if(!resultSet.next()) {
                 //if not create it
-                statement.execute("create table players(id int auto_increment primary key not null,name char(16) not null,heart int default 5 not null,regen int default 5 not null,money int default 0 not null);");
+                statement.execute("create table players(id int auto_increment primary key not null,name char(16) not null,heart int default 10 not null,regen int default 0 not null,money int default 0 not null);");
                 //add player me
                 addNewPlayer("nicofighter45");
             }
@@ -54,34 +54,48 @@ public class DataBaseManager {
     }
 
     public void SaveData(){
-
     }
 
-    public void addPlayer(ServerPlayerEntity player){
-
-        String name = player.getName().toString();
-        int id = getIdFromName(name);
-        DataBasePlayer dataBasePlayer;
-        if(id == 0){
-            dataBasePlayer = addNewPlayer(name);
-        }else{
-            dataBasePlayer = dataBasePlayers.get(id);
-        }
-        assert dataBasePlayer != null;
-        Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(dataBasePlayer.getHearts());
-    }
-
-    private DataBasePlayer addNewPlayer(String name){
+    public int getMoney(String name){
         try {
-            statement.execute("insert into players(name) value(\"" + name + "\");");
-            int id = getIdFromName("name");
-            DataBasePlayer player = new DataBasePlayer(id, name);
-            dataBasePlayers.put(id, player);
-            return player;
+            resultSet = statement.executeQuery("select * from players");
+            while (resultSet.next()){
+                if(resultSet.getString("name").equals(name)){
+                    return resultSet.getInt("money");
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return -1;
+    }
+
+    public int getRegen(String name){
+        try {
+            resultSet = statement.executeQuery("select * from players");
+            while (resultSet.next()){
+                if(resultSet.getString("name").equals(name)){
+                    return resultSet.getInt("regen");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public int getHeart(String name){
+        try {
+            resultSet = statement.executeQuery("select * from players");
+            while (resultSet.next()){
+                if(resultSet.getString("name").equals(name)){
+                    return resultSet.getInt("heart");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     private int getIdFromName(String name) {
@@ -96,6 +110,29 @@ public class DataBaseManager {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public void addPlayer(ServerPlayerEntity player){
+
+        String name = player.getEntityName();
+        System.out.println(name);
+        int id = getIdFromName(name);
+        if(id == 0){
+            addNewPlayer(name);
+        }
+        player.getAttributeInstance
+                (EntityAttributes.GENERIC_MAX_HEALTH)
+                .setBaseValue
+                        (getHeart(name));
+    }
+
+    private void addNewPlayer(String name){
+        try {
+            statement.execute("insert into players(name) value(\"" + name + "\");");
+            dataBasePlayers.put(getIdFromName(name), name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

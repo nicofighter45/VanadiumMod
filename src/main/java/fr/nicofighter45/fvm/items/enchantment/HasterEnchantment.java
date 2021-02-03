@@ -14,18 +14,18 @@ public class HasterEnchantment extends Enchantment {
     }
 
     @Override
-    public int getMinPower(int level) {
-        return 30;
-    }
-
-    @Override
     public int getMaxLevel() {
-        return 3;
+        return 5;
     }
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() == ModItems.VANADIUM_HELMET || stack.getItem() == Items.BOOK;
+        return false;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return false;
     }
 
     @Override

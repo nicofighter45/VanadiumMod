@@ -54,6 +54,14 @@ public class ModItems {
     public static final Item TRANSISTOR = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(16));
     public static final Item PROCESSOR = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(16));
 
+    //enchant stone
+    public static final Item HASTE_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item STRENGTH_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item RESISTANCE_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item SPEED_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item JUMP_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item NO_FALL_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+
     public static void registerAll() {
 
         registerNewItem("vanadium_nugget", VANADIUM_NUGGET);
@@ -89,6 +97,13 @@ public class ModItems {
 
         registerNewItem("transistor", TRANSISTOR);
         registerNewItem("processor", PROCESSOR);
+
+        registerNewItem("haste_stone", HASTE_STONE);
+        registerNewItem("strength_stone", STRENGTH_STONE);
+        registerNewItem("resistance_stone", RESISTANCE_STONE);
+        registerNewItem("speed_stone", SPEED_STONE);
+        registerNewItem("jump_stone", JUMP_STONE);
+        registerNewItem("no_fall_stone", NO_FALL_STONE);
     }
 
     private static void registerNewItem(String name, Item item){

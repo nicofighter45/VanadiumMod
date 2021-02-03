@@ -14,18 +14,18 @@ public class No_FallEnchantment extends Enchantment {
     }
 
     @Override
-    public int getMinPower(int level) {
-        return 30;
-    }
-
-    @Override
     public int getMaxLevel() {
         return 1;
     }
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() == ModItems.VANADIUM_BOOTS || stack.getItem() == Items.BOOK;
+        return false;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return false;
     }
 
     @Override

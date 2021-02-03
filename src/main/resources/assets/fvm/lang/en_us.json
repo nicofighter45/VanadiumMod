@@ -51,6 +51,12 @@
   "block.fvm.modifiers_table": "Modifiers Table",
   "item.fvm.modifiers_table": "Modifiers Table",
 
+  "item.fvm.haste_stone": "Haste Stone",
+  "item.fvm.strength_stone": "Strength Stone",
+  "item.fvm.resistance_stone": "Resistance Stone",
+  "item.fvm.speed_stone": "Speed Stone",
+  "item.fvm.jump_stone": "Jump Stone",
+  "item.fvm.no_fall_stone": "No Fall Stone",
 
   "itemGroup.fvm.vanadium": "VanaMod"
 }

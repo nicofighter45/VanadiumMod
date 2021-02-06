@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "fr.nicofighter45.fvm.mixins",
+  "package": "fvm.nicofighter45.fr.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ServerPlayerEntityMixin",

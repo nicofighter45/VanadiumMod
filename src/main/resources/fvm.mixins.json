@@ -4,10 +4,12 @@
   "package": "fvm.nicofighter45.fr.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "ServerPlayerEntityMixin",
+    "ItemMixin",
+    "MinecraftServerMixin",
     "PlayerEntityMixin",
-    "WorldMixin",
-    "ServerWorldMixin"
+    "ServerPlayerEntityMixin",
+    "ServerWorldMixin",
+    "WorldMixin"
   ],
   "client": [
   ],

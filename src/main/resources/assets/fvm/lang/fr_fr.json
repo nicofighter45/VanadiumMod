@@ -45,10 +45,6 @@
   "item.fvm.tin_ore": "Minerai d'étain",
   "item.fvm.tin_ingot": "Lingot d'étain",
 
-  "block.fvm.copper_ore": "Minerai de cuivre",
-  "item.fvm.copper_ore": "Minerai de cuivre",
-  "item.fvm.copper_ingot": "Lingot de cuivre",
-
   "item.fvm.transistor": "Transistor",
   "item.fvm.processor": "Processeur",
   "block.fvm.modifiers_table": "Table de modificaiton",
@@ -61,5 +57,7 @@
   "item.fvm.jump_stone": "Pierre de Saut",
   "item.fvm.no_fall_stone": "Pierre de Dêgat de Chute",
 
-  "itemGroup.fvm.vanadium": "VanaMode"
+  "itemGroup.fvm.vanadium": "VanaMode",
+  "item.fvm.burger": "Burger",
+  "item.fvm.simple_health_booster": ""
 }

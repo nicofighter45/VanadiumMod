@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "STS",
-    "TNT",
+    "TVT",
     "STS"
   ],
   "key": {
-    "N": {
+    "V": {
       "item": "fvm:vanadium_nugget"
     },
     "T": {

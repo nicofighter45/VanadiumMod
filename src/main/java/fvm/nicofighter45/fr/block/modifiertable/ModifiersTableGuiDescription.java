@@ -130,8 +130,7 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
         ScreenNetworking.of(this, NetworkSide.SERVER).receive(MESSAGE_ITEM, buf -> {
             ServerPlayerEntity server_player = (ServerPlayerEntity) player;
             getBlockInventory(context).clear();
-            server_player.closeHandledScreen();
-            server_player.getInventory().insertStack(buf.readItemStack());
+            server_player.inventory.insertStack(buf.readItemStack());
         });
     }
 

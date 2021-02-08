@@ -28,11 +28,11 @@ abstract class ServerPlayerEntityMixin extends PlayerEntity implements ScreenHan
 
     public ItemStack getEquippedStack(EquipmentSlot slot) {
         if (slot == EquipmentSlot.MAINHAND) {
-            return player.getInventory().getMainHandStack();
+            return player.inventory.getMainHandStack();
         } else if (slot == EquipmentSlot.OFFHAND) {
-            return (ItemStack)player.getInventory().offHand.get(0);
+            return (ItemStack)player.inventory.offHand.get(0);
         } else {
-            return slot.getType() == EquipmentSlot.Type.ARMOR ? (ItemStack)player.getInventory().armor.get(slot.getEntitySlotId()) : ItemStack.EMPTY;
+            return slot.getType() == EquipmentSlot.Type.ARMOR ? (ItemStack)player.inventory.armor.get(slot.getEntitySlotId()) : ItemStack.EMPTY;
         }
     }
 

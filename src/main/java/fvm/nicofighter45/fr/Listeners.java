@@ -27,7 +27,7 @@ public class Listeners {
 
     public static void onItemRightClickRegister(){
         UseItemCallback.EVENT.register((player, world, hand) -> {
-            ItemStack itemStack = player.getInventory().getMainHandStack();
+            ItemStack itemStack = player.inventory.getMainHandStack();
             Item item = itemStack.getItem();
             String name = player.getEntityName();
             DataBasePlayer data_player = FVM.dataBaseManager.dataBasePlayers.get(name);
@@ -47,17 +47,14 @@ public class Listeners {
                     data_player.setHeart(heart + 2);
                     Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
                     return TypedActionResult.consume(itemStack);
-                }else if(item == ModItems.SIMPLE_REGEN_BOOSTER && regen < 20){
+                }else if(item == ModItems.SIMPLE_REGEN_BOOSTER && regen < 8){
                     data_player.setRegen(regen + 2);
-                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
                     return TypedActionResult.consume(itemStack);
-                }else if(item == ModItems.BASE_REGEN_BOOSTER && regen >= 20 && regen < 30){
+                }else if(item == ModItems.BASE_REGEN_BOOSTER && regen >= 8 && regen < 16){
                     data_player.setRegen(regen + 2);
-                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
                     return TypedActionResult.consume(itemStack);
-                }else if(item == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 30 && regen < 40){
+                }else if(item == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 16 && regen < 24){
                     data_player.setRegen(regen + 2);
-                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
                     return TypedActionResult.consume(itemStack);
                 }
             }

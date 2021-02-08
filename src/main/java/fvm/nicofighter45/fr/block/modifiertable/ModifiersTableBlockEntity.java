@@ -23,12 +23,11 @@ public class ModifiersTableBlockEntity extends BlockEntity implements Implemente
 
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
-    public ModifiersTableBlockEntity(BlockPos pos, BlockState state) {
+    public ModifiersTableBlockEntity() {
 
-        super(ModifierTableRegister.MODIFIERS_TABLE_BLOCK_ENTITY, pos, state);
+        super(ModifierTableRegister.MODIFIERS_TABLE_BLOCK_ENTITY);
 
     }
-    
 
     @Override
     public DefaultedList<ItemStack> getItems() {
@@ -36,9 +35,9 @@ public class ModifiersTableBlockEntity extends BlockEntity implements Implemente
     }
 
     @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
+    public void fromTag(BlockState state, CompoundTag tag) {
         Inventories.fromTag(tag,items);
+        super.fromTag(state, tag);
     }
 
     @Override

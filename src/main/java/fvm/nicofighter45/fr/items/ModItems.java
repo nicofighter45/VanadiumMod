@@ -67,7 +67,7 @@ public class ModItems {
     //healing item
     public static final Item BURGER = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(10).hunger(6).statusEffect(
-                    new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, true, true, true), 100).build()));
+                    new StatusEffectInstance(StatusEffects.REGENERATION, 40, 0, true, true, true), 100).build()));
 
     //health boost
     public static final Item SIMPLE_HEALTH_BOOSTER = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(8));

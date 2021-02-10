@@ -23,9 +23,6 @@ public class ServerWorldMixin {
     public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo info) {
         if(start != 0){
             start = 0;
-            FVM.serverworld.add(serverworld);
-            FVM.minecraftServer = serverworld.getServer();
-            System.out.println("Printed : " + serverworld.getServer().getName());
         }
     }
 

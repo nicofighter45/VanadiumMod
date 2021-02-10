@@ -25,6 +25,12 @@ public class ModifiersTableBlock extends Block implements BlockEntityProvider{
                 .strength(5, 0.5f).breakByTool(FabricToolTags.PICKAXES, 3).requiresTool());
     }
 
+    @Nullable
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
+    }
+
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockView world) {
         return new ModifiersTableBlockEntity();

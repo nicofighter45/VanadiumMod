@@ -4,7 +4,7 @@ import fvm.nicofighter45.fr.FVM;
 import fvm.nicofighter45.fr.items.armor.EmeraldArmorMaterials;
 import fvm.nicofighter45.fr.items.armor.TungstenArmorMaterials;
 import fvm.nicofighter45.fr.items.armor.VanadiumArmorMaterials;
-import fvm.nicofighter45.fr.items.enchantment.ModEnchants;
+import fvm.nicofighter45.fr.items.enchantment.UpgradeItem;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -49,6 +49,9 @@ public class ModItems {
     //argent
     public static final Item SILVER_INGOT = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP));
 
+    //copper
+    public static final Item COPPER_INGOT = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP));
+
     //étain
     public static final Item TIN_INGOT = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP));
 
@@ -57,17 +60,17 @@ public class ModItems {
     public static final Item PROCESSOR = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(16));
 
     //enchant stone
-    public static final Item HASTE_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
-    public static final Item STRENGTH_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
-    public static final Item RESISTANCE_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
-    public static final Item SPEED_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
-    public static final Item JUMP_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
-    public static final Item NO_FALL_STONE = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item HASTE_STONE = new UpgradeItem(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item STRENGTH_STONE = new UpgradeItem(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item RESISTANCE_STONE = new UpgradeItem(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item SPEED_STONE = new UpgradeItem(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item JUMP_STONE = new UpgradeItem(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
+    public static final Item NO_FALL_STONE = new UpgradeItem(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
 
     //healing item
     public static final Item BURGER = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(10).hunger(6).statusEffect(
-                    new StatusEffectInstance(StatusEffects.REGENERATION, 40, 0, true, true, true), 100).build()));
+                    new StatusEffectInstance(StatusEffects.REGENERATION, 20, 1, true, true, true), 100).build()));
 
     //health boost
     public static final Item SIMPLE_HEALTH_BOOSTER = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(8));
@@ -108,6 +111,8 @@ public class ModItems {
         registerNewItem("vanadium_sword", VANADIUM_SWORD);
 
         registerNewItem("silver_ingot", SILVER_INGOT);
+
+        registerNewItem("copper_ingot", COPPER_INGOT);
 
         registerNewItem("tin_ingot", TIN_INGOT);
 

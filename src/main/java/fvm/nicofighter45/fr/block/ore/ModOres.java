@@ -30,6 +30,9 @@ public class ModOres {
     public static final Block SILVER_ORE = new SilverOre();
     public static final BlockItem SILVER_ORE_ITEM = new BlockItem(SILVER_ORE, new Item.Settings().group(FVM.VANADIUM_GROUP));
 
+    public static final Block COPPER_ORE = new CopperOre();
+    public static final BlockItem COPPER_ORE_ITEM = new BlockItem(COPPER_ORE, new Item.Settings().group(FVM.VANADIUM_GROUP));
+
     public static final Block TIN_ORE = new TinOre();
     public static final BlockItem TIN_ORE_ITEM = new BlockItem(TIN_ORE, new Item.Settings().group(FVM.VANADIUM_GROUP));
 
@@ -110,6 +113,29 @@ public class ModOres {
                 new Identifier(FVM.MODID, "silver_ore"));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, silver_ore.getValue(), SILVER_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Feature.UNDERGROUND_ORES, silver_ore);
+
+        //création minerai de cuivre
+        Registry.register(Registry.BLOCK, new Identifier(FVM.MODID, "copper_ore"), COPPER_ORE);
+        Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "copper_ore"), COPPER_ORE_ITEM);
+
+        //génération du minearais de cuivre
+        ConfiguredFeature<?, ?> COPPER_ORE_GENERATION = Feature.ORE
+                .configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.STONE),
+                        COPPER_ORE.getDefaultState(),
+
+                        8))
+                .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
+                        40,
+                        50,
+                        70)))
+                .spreadHorizontally()
+                .repeat(5);
+
+
+        RegistryKey<ConfiguredFeature<?, ?>> copper_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
+                new Identifier(FVM.MODID, "copper_ore"));
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, copper_ore.getValue(), COPPER_ORE_GENERATION);
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, copper_ore);
 
         //création minerai d'étain
         Registry.register(Registry.BLOCK, new Identifier(FVM.MODID, "tin_ore"), TIN_ORE);

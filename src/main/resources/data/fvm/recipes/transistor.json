@@ -16,7 +16,7 @@
       "item": "fvm:tin_ingot"
     },
     "C": {
-      "item": "minecraft:copper_ingot"
+      "item": "fvm:copper_ingot"
     }
   },
   "result": {

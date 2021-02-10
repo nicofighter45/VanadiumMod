@@ -38,6 +38,10 @@
   "item.fvm.silver_ore": "Silver Ore",
   "item.fvm.silver_ingot": "Silver Ingot",
 
+  "block.fvm.copper_ore": "Copper Ore",
+  "item.fvm.copper_ore": "Copper Ore",
+  "item.fvm.copper_ingot": "Copper Ingot",
+
   "block.fvm.tin_ore": "Tin Ore",
   "item.fvm.tin_ore": "Tin Ore",
   "item.fvm.tin_ingot": "Tin Ingot",

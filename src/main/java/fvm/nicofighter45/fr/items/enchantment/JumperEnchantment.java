@@ -1,6 +1,5 @@
 package fvm.nicofighter45.fr.items.enchantment;
 
-import fvm.nicofighter45.fr.items.ModItems;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;

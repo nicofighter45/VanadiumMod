@@ -137,28 +137,39 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                 }
             }
             if(vana){
+                boolean doCancell = false;
                 Map<Enchantment, Integer> enchant_item = EnchantmentHelper.get(vanaItem);
                 if(vanaItem.getItem() == ModItems.VANADIUM_HELMET){
                     if(upgrade.getItem() == ModItems.HASTE_STONE && (enchant_item.get(ModEnchants.HASTER) == null || enchant_item.get(ModEnchants.HASTER) < 5)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.HASTER, vanaItem), vanaItem);
                     }else if(upgrade.getItem() == ModItems.STRENGTH_STONE && (enchant_item.get(ModEnchants.STRENGHTER) == null || enchant_item.get(ModEnchants.HASTER) < 2)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.STRENGHTER, vanaItem), vanaItem);
+                    }else{
+                        doCancell = true;
                     }
                 }else if(vanaItem.getItem() == ModItems.VANADIUM_LEGGINGS){
                     if(upgrade.getItem() == ModItems.RESISTANCE_STONE && (enchant_item.get(ModEnchants.RESISTANCER) == null || enchant_item.get(ModEnchants.HASTER) < 2)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.RESISTANCER, vanaItem), vanaItem);
                     }else if(upgrade.getItem() == ModItems.SPEED_STONE && (enchant_item.get(ModEnchants.FASTER) == null || enchant_item.get(ModEnchants.HASTER) < 5)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.FASTER, vanaItem), vanaItem);
+                    }else{
+                        doCancell = true;
                     }
                 }else if(vanaItem.getItem() == ModItems.VANADIUM_BOOTS){
                     if(upgrade.getItem() == ModItems.JUMP_STONE && (enchant_item.get(ModEnchants.JUMPER) == null || enchant_item.get(ModEnchants.HASTER) < 5)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.JUMPER, vanaItem), vanaItem);
                     }else if(upgrade.getItem() == ModItems.NO_FALL_STONE && (enchant_item.get(ModEnchants.NO_FALL) == null || enchant_item.get(ModEnchants.HASTER) == 0)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.NO_FALL, vanaItem), vanaItem);
+                    }else{
+                        doCancell = true;
                     }
+                }else{
+                    doCancell = true;
                 }
-                getBlockInventory(context).clear();
-                server_player.inventory.insertStack(vanaItem);
+                if(!doCancell){
+                    getBlockInventory(context).clear();
+                    server_player.inventory.insertStack(vanaItem);
+                }
             }
         });
     }

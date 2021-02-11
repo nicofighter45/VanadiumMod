@@ -5,7 +5,9 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ActionResult;
@@ -25,15 +27,15 @@ public class ModifiersTableBlock extends Block implements BlockEntityProvider{
                 .strength(5, 0.5f).breakByTool(FabricToolTags.PICKAXES, 3).requiresTool());
     }
 
+    @Override
+    public @Nullable BlockEntity createBlockEntity(BlockView world) {
+        return new ModifiersTableBlockEntity();
+    }
+
     @Nullable
     public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
-    }
-
-    @Override
-    public @Nullable BlockEntity createBlockEntity(BlockView world) {
-        return new ModifiersTableBlockEntity();
     }
 
     @Override

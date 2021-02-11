@@ -1,5 +1,6 @@
 package fvm.nicofighter45.fr.database;
 
+import fvm.nicofighter45.fr.FVM;
 import net.minecraft.item.Item;
 
 public class DataBaseItem {
@@ -42,5 +43,9 @@ public class DataBaseItem {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public float getInstantValue(){
+        return (1 - (stock/ FVM.maxStockForItem)) * buyValue;
     }
 }

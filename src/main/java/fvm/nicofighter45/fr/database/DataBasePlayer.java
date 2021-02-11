@@ -38,7 +38,7 @@ public class DataBasePlayer {
         return money;
     }
 
-    public void setMoney(float money) {
-        this.money = money;
+    public void addMoney(float money) {
+        this.money += money;
     }
 }

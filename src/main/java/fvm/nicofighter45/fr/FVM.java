@@ -1,9 +1,5 @@
 package fvm.nicofighter45.fr;
 
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.arguments.FloatArgumentType;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import fvm.nicofighter45.fr.block.modifiertable.*;
 import fvm.nicofighter45.fr.block.ore.ModOres;
 import fvm.nicofighter45.fr.database.DataBaseManager;
@@ -11,10 +7,7 @@ import fvm.nicofighter45.fr.items.ModItems;
 import fvm.nicofighter45.fr.items.enchantment.ModEnchants;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -22,26 +15,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.util.*;
-
-import static com.mojang.brigadier.arguments.StringArgumentType.getString;
-import static com.mojang.brigadier.arguments.StringArgumentType.string;
-import static net.minecraft.command.argument.EntityArgumentType.getPlayer;
-import static net.minecraft.command.argument.EntityArgumentType.player;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
 
 public class FVM implements ModInitializer {
 
@@ -60,6 +36,9 @@ public class FVM implements ModInitializer {
 
     //new crafts
     public static Map<ModifierCraft, Item> crafts = new HashMap<>();
+
+    //max stock value
+    public static final int maxStockForItem = 1000;
 
     @Override
     public void onInitialize() {
@@ -88,39 +67,7 @@ public class FVM implements ModInitializer {
         );
 
         //register command
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-
-            dispatcher.register(literal("pay")
-                    .then(argument("item", string()))
-                    .executes(context -> {
-                        System.out.println(getString(context, "item"));
-                        return 1;
-                    })
-            ).createBuilder();
-
-        });
-//        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-//            dispatcher.register(
-//                    literal("setshop")
-//                    .then(CommandManager.argument("item", StringArgumentType.string()))
-//                    .executes(context -> {
-//                        ServerPlayerEntity player = context.getSource().getPlayer();
-//                        player.sendMessage(new TranslatableText("working"), false);
-//                return 1;
-//            }));
-//        });
-//
-//        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-//            dispatcher.register(literal("health_scale")
-//                    .then(CommandManager.argument("value", IntegerArgumentType.integer(0, 40)))
-//                    .executes(context -> {
-//                        int value = IntegerArgumentType.getInteger(context,"value");
-//                        ServerPlayerEntity player = context.getSource().getPlayer();
-//                        Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(value);
-//                        return 0;
-//                    })
-//            );
-//        });
+        Command.registerAllCommands();
     }
 
     private static void newCraft(Item item0, Item item1, Item item2, Item item3, Item result){
@@ -187,9 +134,8 @@ public class FVM implements ModInitializer {
             })
             .build();
 
-    //play sound method
+}
+//play sound method
 //    public static void playSound(World world, PlayerEntity player, BlockPos pos, SoundEvent event, SoundCategory category){
 //        world.playSound(player, pos, event, category, 1, 1);
 //    }
-
-}

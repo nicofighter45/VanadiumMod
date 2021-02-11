@@ -2,7 +2,6 @@ package fvm.nicofighter45.fr.items;
 
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
-import fvm.nicofighter45.fr.items.ModItems;
 
 public class VanadiumToolMaterial implements ToolMaterial {
 

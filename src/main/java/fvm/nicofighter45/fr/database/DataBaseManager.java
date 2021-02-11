@@ -88,7 +88,7 @@ public class DataBaseManager {
 
     public void addNewPlayer(String name){
         if(!dataBasePlayers.containsKey(name)){
-            dataBasePlayers.put(name, new DataBasePlayer(name, 10, 0, 0));
+            dataBasePlayers.put(name, new DataBasePlayer(name, 10, 0, 100));
         }
     }
 

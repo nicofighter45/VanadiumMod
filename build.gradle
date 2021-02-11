@@ -31,8 +31,6 @@ dependencies {
 
 	modImplementation include("io.github.cottonmc:LibGui:3.3.3+1.16.5")
 
-	compile fileTree(include: ['*.jar'], dir: 'libs')
-
 	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
 }

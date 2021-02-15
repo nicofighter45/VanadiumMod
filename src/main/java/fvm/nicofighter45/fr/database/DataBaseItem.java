@@ -41,11 +41,13 @@ public class DataBaseItem {
         return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void addStock(int stock) {
+        this.stock += stock;
     }
 
-    public float getInstantValue(){
-        return (1 - (stock/ FVM.maxStockForItem)) * buyValue;
+    public float getComplexValue(){
+        float ret = stock;
+        ret /= FVM.maxStockForItem;
+        return  (1 - ret) * buyValue;
     }
 }

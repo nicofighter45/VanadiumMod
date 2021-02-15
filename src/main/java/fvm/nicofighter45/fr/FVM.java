@@ -39,6 +39,7 @@ public class FVM implements ModInitializer {
 
     //max stock value
     public static final int maxStockForItem = 1000;
+    public static final float commissionValue = 0.02f;
 
     @Override
     public void onInitialize() {
@@ -135,7 +136,3 @@ public class FVM implements ModInitializer {
             .build();
 
 }
-//play sound method
-//    public static void playSound(World world, PlayerEntity player, BlockPos pos, SoundEvent event, SoundCategory category){
-//        world.playSound(player, pos, event, category, 1, 1);
-//    }

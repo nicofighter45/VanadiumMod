@@ -2,6 +2,7 @@ package fvm.nicofighter45.fr.database;
 
 import net.minecraft.item.Item;
 
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,11 +11,20 @@ public class DataBaseManager {
 
     public Map<String, DataBasePlayer> dataBasePlayers = new HashMap<>();
     public Map<Item, DataBaseItem> dataBaseItems = new HashMap<>();
+    private final String url = "jdbc:mysql://localhost:3306/vanadium";
+    private final String userName = "root";
+    private final String password = "uiadf!895-sqd";
 
     public DataBaseManager(){
         try {
+
             //connect to database
-            Connection connection = connect();
+            Connection connection =
+                    DriverManager.
+                            getConnection(
+                                    url,
+                                    userName,
+                                    password);
             Statement statement = connection.createStatement();
             DatabaseMetaData metadata = connection.getMetaData();
 
@@ -25,7 +35,7 @@ public class DataBaseManager {
             ResultSet result = metadata.getTables(null, null, "players", null);
             if(!result.next()) {
                 //if not create it
-                statement.execute("create table players(id int auto_increment primary key not null,name char(16) not null,heart int default 10 not null,regen int default 0 not null,money int default 0 not null);");
+                statement.execute("create table players(name char(16) not null,heart int default 10 not null,regen int default 0 not null,money int default 0 not null);");
             }else{
                 result = statement.executeQuery("select * from players;");
                 while(result.next()){
@@ -38,7 +48,7 @@ public class DataBaseManager {
             result = metadata.getTables(null, null, "shop", null);
             if(!result.next()) {
                 //if not create it
-                statement.execute("create table shop(id int auto_increment primary key not null,itemid int not null,sell float not null,buy float not null,stock int);");
+                statement.execute("create table shop(itemid int not null,sell float not null,buy float not null,stock int);");
             }else{
                 result = statement.executeQuery("select * from shop;");
                 while(result.next()){
@@ -58,32 +68,24 @@ public class DataBaseManager {
 
     public void save() {
         try {
-            Connection connection = connect();
+            Connection connection = DriverManager.getConnection(url,userName,password);
             Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("select * from players;");
+            statement.executeQuery("select * from players;");
             for(String name : dataBasePlayers.keySet()){
                 DataBasePlayer player = dataBasePlayers.get(name);
                 statement.execute("insert into players(name,heart,regen,money) value(\"" + name + "\"," + player.getHeart() +
                         "," + player.getRegen() + "," + player.getMoney() + ");");
             }
-            result = statement.executeQuery("select * from shop;");
+            statement.executeQuery("select * from shop;");
             for(Item item : dataBaseItems.keySet()){
                 DataBaseItem data_item = dataBaseItems.get(item);
-                statement.execute("shop(itemid,sell,buy,stock) value(" + Item.getRawId(item) + "," + data_item.getSellValue() +
+                statement.execute("insert into shop(itemid,sell,buy,stock) value(" + Item.getRawId(item) + "," + data_item.getSellValue() +
                         "," + data_item.getBuyValue() + "," + data_item.getStock() + ");");
             }
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private Connection connect() throws SQLException {
-        //connexion information
-        final String url = "jdbc:mysql://localhost:3306/vanadium?serverTimeZone=UTC";
-        final String userName = "root";
-        final String password = "uiadf!895-sqd";
-        return DriverManager.getConnection(url,userName,password);
     }
 
     public void addNewPlayer(String name){
@@ -95,4 +97,5 @@ public class DataBaseManager {
     public DataBasePlayer getPlayer(String name){
         return dataBasePlayers.get(name);
     }
+
 }

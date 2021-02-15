@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.TranslatableText;
 
@@ -13,8 +14,7 @@ import static com.mojang.brigadier.arguments.FloatArgumentType.floatArg;
 import static com.mojang.brigadier.arguments.FloatArgumentType.getFloat;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static net.minecraft.command.argument.EntityArgumentType.getPlayer;
-import static net.minecraft.command.argument.EntityArgumentType.player;
+import static net.minecraft.command.argument.EntityArgumentType.*;
 import static net.minecraft.command.argument.ItemStackArgumentType.getItemStackArgument;
 import static net.minecraft.command.argument.ItemStackArgumentType.itemStack;
 import static net.minecraft.server.command.CommandManager.argument;
@@ -44,6 +44,21 @@ public class Command {
                     })
             );
 
+            dispatcher.register(literal("money")
+                    .then(argument("player", player())
+                            .executes(c -> {
+                                ServerPlayerEntity player = c.getSource().getPlayer();
+                                sendMsg(player, "He got " + FVM.dataBaseManager.getPlayer(getPlayer(c, "player").getEntityName()).getMoney());
+                                return 1;
+                            })
+                    )
+                    .executes(c -> {
+                        ServerPlayerEntity player = c.getSource().getPlayer();
+                        sendMsg(player, "You got " + FVM.dataBaseManager.getPlayer(player.getEntityName()).getMoney());
+                        return 1;
+                    })
+            );
+
             dispatcher.register(literal("shop")
                     .then(literal("info")
                             .executes(c -> {
@@ -57,11 +72,10 @@ public class Command {
                                         if(dbitem == null){
                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                         }else{
-                                            sendMsg(c.getSource().getPlayer(), "Item : " + item.getName());
                                             sendMsg(c.getSource().getPlayer(), "Stock : " + dbitem.getStock() + "/1000");
                                             sendMsg(c.getSource().getPlayer(), "BuyValue : " + dbitem.getBuyValue());
                                             sendMsg(c.getSource().getPlayer(), "SellValue : " + dbitem.getSellValue());
-                                            sendMsg(c.getSource().getPlayer(), "InstantValue : " + dbitem.getInstantValue());
+                                            sendMsg(c.getSource().getPlayer(), "InstantValue : " + dbitem.getComplexValue());
                                         }
                                         return 1;
                                     })
@@ -74,12 +88,20 @@ public class Command {
                             })
                             .then(argument("item", itemStack())
                                     .executes(c -> {
-                                        Economic.buy(getItemStackArgument(c, "item").getItem(), 1, getPlayer(c, "player"));
+                                        if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                            sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                        }else{
+                                            Economic.buy(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
+                                        }
                                         return 1;
                                     })
                                     .then(argument("amount", integer(1))
                                         .executes(c -> {
-                                            Economic.buy(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), getPlayer(c, "player"));
+                                            if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                            }else{
+                                                Economic.buy(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());
+                                            }
                                             return 1;
                                         })
                                     )
@@ -92,12 +114,20 @@ public class Command {
                             })
                             .then(argument("item", itemStack())
                                     .executes(c -> {
-                                        Economic.sell(getItemStackArgument(c, "item").getItem(), 1, getPlayer(c, "player"));
+                                        if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                            sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                        }else{
+                                            Economic.sell(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
+                                        }
                                         return 1;
                                     })
                                     .then(argument("amount", integer(1))
                                             .executes(c -> {
-                                                Economic.sell(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), getPlayer(c, "player"));
+                                                if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                    sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                                }else{
+                                                    Economic.sell(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());
+                                                }
                                                 return 1;
                                             })
                                     )
@@ -115,12 +145,20 @@ public class Command {
                                     })
                                     .then(argument("item", itemStack())
                                             .executes(c -> {
-                                                Economic.buyInstant(getItemStackArgument(c, "item").getItem(), 1, getPlayer(c, "player"));
+                                                if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                    sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                                }else{
+                                                    Economic.buyInstant(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
+                                                }
                                                 return 1;
                                             })
                                             .then(argument("amount", integer(1))
                                                     .executes(c -> {
-                                                        Economic.buyInstant(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), getPlayer(c, "player"));
+                                                        if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                            sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                                        }else{
+                                                            Economic.buyInstant(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());
+                                                        }
                                                         return 1;
                                                     })
                                             )
@@ -133,12 +171,20 @@ public class Command {
                                     })
                                     .then(argument("item", itemStack())
                                             .executes(c -> {
-                                                Economic.sellInstant(getItemStackArgument(c, "item").getItem(), 1, getPlayer(c, "player"));
+                                                if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                    sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                                }else{
+                                                    Economic.sellInstant(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
+                                                }
                                                 return 1;
                                             })
                                             .then(argument("amount", integer(1))
                                                     .executes(c -> {
-                                                        Economic.sellInstant(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), getPlayer(c, "player"));
+                                                        if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                            sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                                        }else{
+                                                            Economic.sellInstant(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());
+                                                        }
                                                         return 1;
                                                     })
                                             )

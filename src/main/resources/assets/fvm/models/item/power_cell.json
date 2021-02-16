@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "fvm:item/burger"
+    "layer0": "fvm:item/power_cell"
   }
 }

@@ -131,7 +131,7 @@ public class FVM implements ModInitializer {
                 stacks.add(new ItemStack(ModItems.JUMP_STONE));
                 stacks.add(new ItemStack(ModItems.NO_FALL_STONE));
 
-                stacks.add(new ItemStack(ModItems.BURGER));
+                stacks.add(new ItemStack(ModItems.POWER_CELL));
             })
             .build();
 

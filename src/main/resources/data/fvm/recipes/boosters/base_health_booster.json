@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    "STS",
+    "DSD"
+  ],
+  "key": {
+    "S": {
+      "item": "fvm:simple_health_booster"
+    },
+    "T": {
+      "item": "fvm:transistor"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "fvm:base_health_booster",
+    "count": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    "STS",
+    "DSD"
+  ],
+  "key": {
+    "B": {
+      "item": "fvm:base_health_booster"
+    },
+    "V": {
+      "item": "fvm:vanadium_ingot"
+    },
+    "P": {
+      "item": "fvm:processor"
+    }
+  },
+  "result": {
+    "item": "fvm:advance_health_booster",
+    "count": 1
+  }
+}

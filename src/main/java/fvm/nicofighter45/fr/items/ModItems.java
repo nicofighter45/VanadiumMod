@@ -68,7 +68,7 @@ public class ModItems {
     public static final Item NO_FALL_STONE = new UpgradeItem(new Item.Settings().group(FVM.VANADIUM_GROUP).maxCount(1));
 
     //healing item
-    public static final Item BURGER = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).food(new FoodComponent.Builder()
+    public static final Item POWER_CELL = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP).food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(10).hunger(6).statusEffect(
                     new StatusEffectInstance(StatusEffects.REGENERATION, 20, 1, true, true, true), 100).build()));
 
@@ -126,7 +126,7 @@ public class ModItems {
         registerNewItem("jump_stone", JUMP_STONE);
         registerNewItem("no_fall_stone", NO_FALL_STONE);
 
-        registerNewItem("burger", BURGER);
+        registerNewItem("power_cell", POWER_CELL);
 
         registerNewItem("simple_health_booster", SIMPLE_HEALTH_BOOSTER);
         registerNewItem("base_health_booster", BASE_HEALTH_BOOSTER);

@@ -19,12 +19,7 @@ public class DataBaseManager {
         try {
 
             //connect to database
-            Connection connection =
-                    DriverManager.
-                            getConnection(
-                                    url,
-                                    userName,
-                                    password);
+            Connection connection = DriverManager.getConnection(url, userName, password);
             Statement statement = connection.createStatement();
             DatabaseMetaData metadata = connection.getMetaData();
 

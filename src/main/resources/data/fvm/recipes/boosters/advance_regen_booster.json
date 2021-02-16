@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PBP",
+    "BVB",
+    "PBP"
+  ],
+  "key": {
+    "B": {
+      "item": "fvm:base_regen_booster"
+    },
+    "T": {
+      "item": "fvm:processor"
+    },
+    "V": {
+      "item": "fvm:vanadium_ingot"
+    }
+  },
+  "result": {
+    "item": "fvm:advance_regen_booster",
+    "count": 1
+  }
+}

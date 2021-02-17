@@ -87,51 +87,67 @@ public class FVM implements ModInitializer {
                 stacks.add(new ItemStack(ModOres.TIN_ORE_ITEM));
                 stacks.add(new ItemStack(ModItems.TIN_INGOT));
 
-                stacks.add(new ItemStack(ModOres.TUNGSTEN_ORE_ITEM));
+                stacks.add(new ItemStack(Items.AIR));
+
                 stacks.add(new ItemStack(ModItems.TUNGSTEN_INGOT));
-                stacks.add(new ItemStack(ModItems.TUNGSTEN_CHESTPLATE));
+                stacks.add(new ItemStack(ModOres.TUNGSTEN_ORE_ITEM));
 
-                stacks.add(new ItemStack(ModOres.SILVER_ORE_ITEM));
                 stacks.add(new ItemStack(ModItems.SILVER_INGOT));
+                stacks.add(new ItemStack(ModOres.SILVER_ORE_ITEM));
 
-                stacks.add(new ItemStack(ModItems.TRANSISTOR));
-                stacks.add(new ItemStack(ModItems.PROCESSOR));
-                stacks.add(new ItemStack(ModifierTableRegister.MODIFIERS_TABLE_ITEM));
-
-                stacks.add(new ItemStack(ModItems.SIMPLE_HEALTH_BOOSTER));
-                stacks.add(new ItemStack(ModItems.BASE_HEALTH_BOOSTER));
-                stacks.add(new ItemStack(ModItems.ADVANCE_HEALTH_BOOSTER));
-
-                stacks.add(new ItemStack(ModItems.SIMPLE_REGEN_BOOSTER));
-                stacks.add(new ItemStack(ModItems.BASE_REGEN_BOOSTER));
-                stacks.add(new ItemStack(ModItems.ADVANCE_REGEN_BOOSTER));
-
-                stacks.add(new ItemStack(ModItems.EMERALD_HEART));
-                stacks.add(new ItemStack(ModItems.EMERALD_HELMET));
-                stacks.add(new ItemStack(ModItems.EMERALD_CHESTPLATE));
-                stacks.add(new ItemStack(ModItems.EMERALD_LEGGINGS));
-                stacks.add(new ItemStack(ModItems.EMERALD_BOOTS));
 
                 stacks.add(new ItemStack(ModOres.VANADIUM_ORE_ITEM));
                 stacks.add(new ItemStack(ModItems.VANADIUM_NUGGET));
                 stacks.add(new ItemStack(ModItems.VANADIUM_INGOT));
                 stacks.add(new ItemStack(ModItems.VANADIUM_BLOCK_ITEM));
-                stacks.add(new ItemStack(ModItems.VANADIUM_HEART));
-                stacks.add(new ItemStack(ModItems.VANADIUM_STICK));
+
+                stacks.add(new ItemStack(Items.AIR));
+
                 stacks.add(new ItemStack(ModItems.VANADIUM_SWORD));
-                stacks.add(new ItemStack(ModItems.VANADIUM_HELMET));
-                stacks.add(new ItemStack(ModItems.VANADIUM_CHESTPLATE));
-                stacks.add(new ItemStack(ModItems.VANADIUM_LEGGINGS));
+                stacks.add(new ItemStack(ModItems.VANADIUM_STICK));
+                stacks.add(new ItemStack(ModItems.VANADIUM_HEART));
+                stacks.add(new ItemStack(ModItems.EMERALD_HEART));
+
+
+                stacks.add(new ItemStack(ModItems.EMERALD_HELMET));
+                stacks.add(new ItemStack(ModItems.EMERALD_CHESTPLATE));
+                stacks.add(new ItemStack(ModItems.EMERALD_LEGGINGS));
+                stacks.add(new ItemStack(ModItems.EMERALD_BOOTS));
+
+                stacks.add(new ItemStack(ModItems.TUNGSTEN_CHESTPLATE));
+
                 stacks.add(new ItemStack(ModItems.VANADIUM_BOOTS));
+                stacks.add(new ItemStack(ModItems.VANADIUM_LEGGINGS));
+                stacks.add(new ItemStack(ModItems.VANADIUM_CHESTPLATE));
+                stacks.add(new ItemStack(ModItems.VANADIUM_HELMET));
+
+
+                stacks.add(new ItemStack(ModItems.SIMPLE_HEALTH_BOOSTER));
+                stacks.add(new ItemStack(ModItems.BASE_HEALTH_BOOSTER));
+                stacks.add(new ItemStack(ModItems.ADVANCE_HEALTH_BOOSTER));
+
+                stacks.add(new ItemStack(ModItems.TRANSISTOR));
+                stacks.add(new ItemStack(ModifierTableRegister.MODIFIERS_TABLE_ITEM));
+                stacks.add(new ItemStack(ModItems.PROCESSOR));
+
+                stacks.add(new ItemStack(ModItems.ADVANCE_REGEN_BOOSTER));
+                stacks.add(new ItemStack(ModItems.BASE_REGEN_BOOSTER));
+                stacks.add(new ItemStack(ModItems.SIMPLE_REGEN_BOOSTER));
+
+
+                stacks.add(new ItemStack(Items.AIR));
 
                 stacks.add(new ItemStack(ModItems.HASTE_STONE));
-                stacks.add(new ItemStack(ModItems.STRENGTH_STONE));
                 stacks.add(new ItemStack(ModItems.RESISTANCE_STONE));
-                stacks.add(new ItemStack(ModItems.SPEED_STONE));
-                stacks.add(new ItemStack(ModItems.JUMP_STONE));
                 stacks.add(new ItemStack(ModItems.NO_FALL_STONE));
 
                 stacks.add(new ItemStack(ModItems.POWER_CELL));
+
+                stacks.add(new ItemStack(ModItems.JUMP_STONE));
+                stacks.add(new ItemStack(ModItems.SPEED_STONE));
+                stacks.add(new ItemStack(ModItems.STRENGTH_STONE));
+
+                stacks.add(new ItemStack(Items.AIR));
             })
             .build();
 

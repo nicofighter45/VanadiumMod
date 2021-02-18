@@ -1,20 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "BHB",
-    "B B",
+    "V V",
+    "V V",
     "   "
   ],
   "key": {
-    "B": {
+    "V": {
       "item": "fvm:vanadium_ingot"
-    },
-    "H": {
-      "item": "fvm:vanadium_heart"
     }
   },
   "result": {
-    "item": "fvm:vanadium_helmet",
+    "item": "fvm:vanadium_boots",
     "count": 1
   }
 }

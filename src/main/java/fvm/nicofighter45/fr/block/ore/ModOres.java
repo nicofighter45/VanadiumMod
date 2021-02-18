@@ -126,7 +126,7 @@ public class ModOres {
                         8))
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
                         40,
-                        50,
+                        40,
                         70)))
                 .spreadHorizontally()
                 .repeat(5);

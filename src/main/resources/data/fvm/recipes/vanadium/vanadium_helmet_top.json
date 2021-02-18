@@ -1,15 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " L ",
-    "HLH",
-    " S "
+    "VHV",
+    "V V",
+    "   "
   ],
   "key": {
-    "S": {
-      "item": "fvm:vanadium_stick"
-    },
-    "L": {
+    "V": {
       "item": "fvm:vanadium_ingot"
     },
     "H": {
@@ -17,7 +14,7 @@
     }
   },
   "result": {
-    "item": "fvm:vanadium_sword",
+    "item": "fvm:vanadium_helmet",
     "count": 1
   }
 }

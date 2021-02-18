@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "BBB",
-    "BGB",
-    "BBB"
+    "  ",
+    "BHB",
+    "B B"
   ],
   "key": {
     "B": {
       "item": "minecraft:emerald_block"
     },
-    "G": {
-      "item": "minecraft:golden_apple"
+    "H": {
+      "item": "fvm:emerald_heart"
     }
   },
   "result": {
-    "item": "fvm:emerald_heart",
+    "item": "fvm:emerald_helmet",
     "count": 1
   }
 }

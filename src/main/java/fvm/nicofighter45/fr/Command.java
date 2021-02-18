@@ -7,6 +7,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.TranslatableText;
 
@@ -24,6 +25,26 @@ public class Command {
 
     public static void registerAllCommands(){
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+
+            dispatcher.register(literal("hat")
+                    .executes(c -> {
+                        ServerPlayerEntity player = c.getSource().getPlayer();
+                        ItemStack hand = player.getMainHandStack();
+                        ItemStack helmet = player.inventory.armor.get(0);
+                        player.inventory.armor.set(0, hand);
+                        player.inventory.setStack(player.inventory.getSlotWithStack(hand), helmet);
+                        sendMsg(c.getSource().getPlayer(), "Your hand and your helmet have been exchange");
+                        return 1;
+                    })
+            );
+
+            dispatcher.register(literal("eco")
+                    .executes(c -> {
+                        ServerPlayerEntity player = c.getSource().getPlayer();
+                        sendMsg(c.getSource().getPlayer(), "Your hand and your helmet have been exchange");
+                        return 1;
+                    })
+            );
 
             dispatcher.register(literal("pay")
                     .then(argument("player", player())

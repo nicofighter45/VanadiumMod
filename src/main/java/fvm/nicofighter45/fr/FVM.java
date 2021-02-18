@@ -28,7 +28,7 @@ public class FVM implements ModInitializer {
     //screen handler for modifiers table
     public static ScreenHandlerType<ModifiersTableGuiDescription> SCREEN_HANDLER_TYPE;
 
-    //player who got less than 5 hearts
+    //player who got less than regen heart
     public static Map<PlayerEntity, Integer> TickNumberForHeal = new HashMap<>();
 
     //database mysql
@@ -38,29 +38,16 @@ public class FVM implements ModInitializer {
     public static Map<ModifierCraft, Item> crafts = new HashMap<>();
 
     //max stock value
-    public static final int maxStockForItem = 1000;
+    public static final int maxStockForItem = 10000;
     public static final float commissionValue = 0.02f;
 
     @Override
     public void onInitialize() {
         //register all items and blocks
-        ModItems.registerAll();
-        ModEnchants.registerAll();
-        ModOres.registerAll();
-        Listeners.blockBreakEventRegister();
-        Listeners.onItemRightClickRegister();
-        ModifierTableRegister.registerAll();
+        registers();
 
         //creating the new crafts
-        newCraft(ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_INGOT);
-        newCraft(ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_BLOCK_ITEM);
-        newCraft(ModItems.VANADIUM_BLOCK_ITEM, Items.DIAMOND, Items.DIAMOND, ModItems.VANADIUM_BLOCK_ITEM, ModItems.VANADIUM_HEART);
-        newCraft(ModItems.VANADIUM_STICK, ModItems.VANADIUM_HEART, ModItems.VANADIUM_BLOCK_ITEM, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_SWORD);
-        newCraft(ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.PROCESSOR);
-        newCraft(ModItems.VANADIUM_INGOT, Items.AIR, Items.AIR, Items.AIR, ModItems.VANADIUM_STICK);
-        newCraft(Items.AIR, ModItems.VANADIUM_INGOT, Items.AIR, Items.AIR, ModItems.VANADIUM_STICK);
-        newCraft(Items.AIR, Items.AIR, ModItems.VANADIUM_INGOT, Items.AIR, ModItems.VANADIUM_STICK);
-        newCraft(Items.AIR, Items.AIR, Items.AIR, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_STICK);
+        addCrafts();
 
         //register screen for modifiers table
         SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(ModifiersTableBlock.ID, (syncId, inventory) ->
@@ -69,6 +56,36 @@ public class FVM implements ModInitializer {
 
         //register command
         Command.registerAllCommands();
+    }
+
+    private void addCrafts() {
+        newCraft(ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_INGOT);
+        newCraft(ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_BLOCK_ITEM);
+        newCraft(ModItems.VANADIUM_BLOCK_ITEM, Items.DIAMOND, Items.DIAMOND, ModItems.VANADIUM_BLOCK_ITEM, ModItems.VANADIUM_HEART);
+        newCraft(ModItems.VANADIUM_STICK, ModItems.VANADIUM_HEART, ModItems.VANADIUM_BLOCK_ITEM, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_SWORD);
+
+        newCraft(ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.PROCESSOR);
+
+        newCraft(ModItems.VANADIUM_NUGGET, Items.COAL_BLOCK, Items.COAL_BLOCK, ModItems.VANADIUM_NUGGET, ModItems.HASTE_STONE);
+        newCraft(ModItems.VANADIUM_NUGGET, Items.SHULKER_SHELL, Items.SHULKER_SHELL, ModItems.VANADIUM_NUGGET, ModItems.STRENGTH_STONE);
+        newCraft(ModItems.VANADIUM_NUGGET, ModItems.TUNGSTEN_INGOT, ModItems.TUNGSTEN_INGOT, ModItems.VANADIUM_NUGGET, ModItems.RESISTANCE_STONE);
+        newCraft(ModItems.VANADIUM_NUGGET, Items.BROWN_MUSHROOM_BLOCK, Items.RED_MUSHROOM_BLOCK, ModItems.VANADIUM_NUGGET, ModItems.SPEED_STONE);
+        newCraft(ModItems.VANADIUM_NUGGET, Items.SLIME_BLOCK, Items.SLIME_BLOCK, ModItems.VANADIUM_NUGGET, ModItems.JUMP_STONE);
+        newCraft(ModItems.VANADIUM_NUGGET, Items.DRAGON_HEAD, Items.NETHER_STAR, ModItems.VANADIUM_NUGGET, ModItems.NO_FALL_STONE);
+
+        newCraft(ModItems.VANADIUM_INGOT, Items.AIR, Items.AIR, Items.AIR, ModItems.VANADIUM_STICK);
+        newCraft(Items.AIR, ModItems.VANADIUM_INGOT, Items.AIR, Items.AIR, ModItems.VANADIUM_STICK);
+        newCraft(Items.AIR, Items.AIR, ModItems.VANADIUM_INGOT, Items.AIR, ModItems.VANADIUM_STICK);
+        newCraft(Items.AIR, Items.AIR, Items.AIR, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_STICK);
+    }
+
+    private void registers() {
+        ModItems.registerAll();
+        ModEnchants.registerAll();
+        ModOres.registerAll();
+        Listeners.blockBreakEventRegister();
+        Listeners.onItemRightClickRegister();
+        ModifierTableRegister.registerAll();
     }
 
     private static void newCraft(Item item0, Item item1, Item item2, Item item3, Item result){

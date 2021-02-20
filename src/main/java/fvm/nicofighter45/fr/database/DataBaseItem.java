@@ -50,4 +50,6 @@ public class DataBaseItem {
         ret /= FVM.maxStockForItem;
         return  (1 - ret) * buyValue;
     }
+
+    public void setStock(int stock){ this.stock = stock;}
 }

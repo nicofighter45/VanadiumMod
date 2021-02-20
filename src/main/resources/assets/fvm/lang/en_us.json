@@ -65,8 +65,8 @@
   "item.fvm.advance_health_booster": "Advance Health Booster",
 
   "item.fvm.simple_regen_booster": "Simple Regen Booster",
-  "item.fvm.base_regen_booster": "Simple Regen Booster",
-  "item.fvm.advance_regen_booster": "Simple Regen Booster",
+  "item.fvm.base_regen_booster": "Base Regen Booster",
+  "item.fvm.advance_regen_booster": "Advance Regen Booster",
 
   "itemGroup.fvm.vanadium": "VanaMod"
 }

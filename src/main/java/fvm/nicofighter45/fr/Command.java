@@ -30,20 +30,174 @@ public class Command {
                     .executes(c -> {
                         ServerPlayerEntity player = c.getSource().getPlayer();
                         ItemStack hand = player.getMainHandStack();
-                        ItemStack helmet = player.inventory.armor.get(0);
-                        player.inventory.armor.set(0, hand);
+                        if(hand.getItem() == Items.AIR){
+                            sendMsg(player, "You have nothing in your hand");
+                            return 1;
+                        }
+                        if(hand.getCount() != 1){
+                            sendMsg(player, "You can't put many items in your head");
+                            return 1;
+                        }
+                        ItemStack helmet = player.inventory.armor.get(3);
+                        player.inventory.armor.set(3, hand);
                         player.inventory.setStack(player.inventory.getSlotWithStack(hand), helmet);
-                        sendMsg(c.getSource().getPlayer(), "Your hand and your helmet have been exchange");
+                        sendMsg(player, "Your hand and your helmet have been exchange");
                         return 1;
                     })
             );
 
             dispatcher.register(literal("eco")
+                    .requires(source -> source.hasPermissionLevel(2))
                     .executes(c -> {
-                        ServerPlayerEntity player = c.getSource().getPlayer();
-                        sendMsg(c.getSource().getPlayer(), "Your hand and your helmet have been exchange");
+                        sendMsg(c.getSource().getPlayer(), "Correct usage /eco <add|set|remove> <item>");
                         return 1;
                     })
+                    .then(literal("add")
+                            .executes(c -> {
+                                sendMsg(c.getSource().getPlayer(), "Correct usage /eco add <item> <buyvalue> <sellvalue> <stock>");
+                                return 1;
+                            })
+                            .then(argument("item", itemStack())
+                                    .executes(c -> {
+                                        sendMsg(c.getSource().getPlayer(), "Correct usage /eco add <item> <buyvalue> <sellvalue> <stock>");
+                                        return 1;
+                                    })
+                                    .then(argument("buyvalue", floatArg(0))
+                                            .executes(c -> {
+                                                sendMsg(c.getSource().getPlayer(), "Correct usage /eco add <item> <buyvalue> <sellvalue> <stock>");
+                                                return 1;
+                                            })
+                                            .then(argument("sellvalue", floatArg(0))
+                                                    .executes(c -> {
+                                                        sendMsg(c.getSource().getPlayer(), "Correct usage /eco add <item> <buyvalue> <sellvalue> <stock>");
+                                                        return 1;
+                                                    })
+                                                    .then(argument("stock", integer(0))
+                                                            .executes(c -> {
+                                                                ServerPlayerEntity player = c.getSource().getPlayer();
+                                                                Item item = getItemStackArgument(c, "item").getItem();
+                                                                float buyvalue = getFloat(c, "buyvalue");
+                                                                float sellvalue = getFloat(c, "sellvalue");
+                                                                int stock = getInteger(c, "stock");
+                                                                if(buyvalue <= sellvalue){
+                                                                    sendMsg(player, "The buyvalue is inferior to the sellvalue");
+                                                                    return 1;
+                                                                }
+                                                                if(stock > FVM.maxStockForItem){
+                                                                    sendMsg(player, "The stock is superior to the max stock");
+                                                                    return 1;
+                                                                }
+                                                                if (FVM.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                                    sendMsg(player, "This item is already register");
+                                                                    return 1;
+                                                                }
+                                                                FVM.dataBaseManager.dataBaseItems.put(item, new DataBaseItem(item, sellvalue, buyvalue, stock));
+                                                                sendMsg(player, "This item has been register");
+                                                                return 1;
+                                                            })
+                                                    )
+                                            )
+                                    )
+                            )
+                    )
+                    .then(literal("set")
+                            .executes(c -> {
+                                sendMsg(c.getSource().getPlayer(), "Correct usage /eco set <item> <buyvalue|sellvalue|stock> <value>");
+                                return 1;
+                            })
+                            .then(argument("item", itemStack())
+                                    .executes(c -> {
+                                        sendMsg(c.getSource().getPlayer(), "Correct usage /eco set <item> <buyvalue|sellvalue|stock> <value>");
+                                        return 1;
+                                    })
+                                    .then(literal("buyvalue")
+                                            .executes(c -> {
+                                                sendMsg(c.getSource().getPlayer(), "Correct usage /eco set <item> <buyvalue|sellvalue|stock> <value>");
+                                                return 1;
+                                            })
+                                            .then(argument("value", floatArg(0))
+                                                    .executes(c -> {
+                                                        ServerPlayerEntity player = c.getSource().getPlayer();
+                                                        Item item = getItemStackArgument(c, "item").getItem();
+                                                        float value = getFloat(c, "value");
+                                                        if (!FVM.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                            sendMsg(player, "Need a register item to change values");
+                                                            return 1;
+                                                        }
+                                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                                        dbitem.setBuyValue(value);
+                                                        sendMsg(player, "The buyvalue of the item have been change");
+                                                        return 1;
+                                                    })
+                                            )
+                                    )
+                                    .then(literal("sellvalue")
+                                            .executes(c -> {
+                                                sendMsg(c.getSource().getPlayer(), "Correct usage /eco set <item> <buyvalue|sellvalue|stock> <value>");
+                                                return 1;
+                                            })
+                                            .then(argument("value", floatArg(0))
+                                                    .executes(c -> {
+                                                        ServerPlayerEntity player = c.getSource().getPlayer();
+                                                        Item item = getItemStackArgument(c, "item").getItem();
+                                                        float value = getFloat(c, "value");
+                                                        if (!FVM.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                            sendMsg(player, "Need a register item to change values");
+                                                            return 1;
+                                                        }
+                                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                                        dbitem.setSellValue(value);
+                                                        sendMsg(player, "The sellvalue of the item have been change");
+                                                        return 1;
+                                                    })
+                                            )
+                                    )
+                                    .then(literal("stock")
+                                            .executes(c -> {
+                                                sendMsg(c.getSource().getPlayer(), "Correct usage /eco set <item> <buyvalue|sellvalue|stock> <value>");
+                                                return 1;
+                                            })
+                                            .then(argument("value", integer(0))
+                                                    .executes(c -> {
+                                                        ServerPlayerEntity player = c.getSource().getPlayer();
+                                                        Item item = getItemStackArgument(c, "item").getItem();
+                                                        int value = getInteger(c, "value");
+                                                        if(value > FVM.maxStockForItem){
+                                                            sendMsg(player, "The stock is superior to the max stock");
+                                                            return 1;
+                                                        }
+                                                        if (!FVM.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                            sendMsg(player, "Need a register item to change values");
+                                                            return 1;
+                                                        }
+                                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                                        dbitem.setStock(value);
+                                                        sendMsg(player, "The stock of the item have been change");
+                                                        return 1;
+                                                    })
+                                            )
+                                    )
+                            )
+                    )
+                    .then(literal("remove")
+                            .executes(c -> {
+                                sendMsg(c.getSource().getPlayer(), "Correct usage /eco remove <item>");
+                                return 1;
+                            })
+                            .then(argument("item", itemStack())
+                                    .executes(c -> {
+                                        Item item = getItemStackArgument(c, "item").getItem();
+                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                        if(dbitem == null){
+                                            sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                        }else{
+                                            FVM.dataBaseManager.dataBaseItems.remove(item);
+                                            sendMsg(c.getSource().getPlayer(), "This item has been delete");
+                                        }
+                                        return 1;
+                                    })
+                            )
+                    )
             );
 
             dispatcher.register(literal("pay")

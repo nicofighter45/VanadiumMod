@@ -32,7 +32,7 @@ public class Listeners {
             if(player instanceof ServerPlayerEntity){
                 ServerPlayerEntity server_player = (ServerPlayerEntity) player;
                 int heart = data_player.getHeart();
-                int regen = data_player.getHeart();
+                int regen = data_player.getRegen();
                 if(item == ModItems.SIMPLE_HEALTH_BOOSTER && heart < 20){
                     data_player.setHeart(heart + 2);
                     Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());

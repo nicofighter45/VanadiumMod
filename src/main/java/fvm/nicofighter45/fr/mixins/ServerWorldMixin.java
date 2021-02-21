@@ -27,7 +27,7 @@ public class ServerWorldMixin {
         player.sendMessage(new TranslatableText("/hat : put a item on your head"), false);
         player.sendMessage(new TranslatableText("/pay : pay someone"), false);
         player.sendMessage(new TranslatableText("/money : get your money"), false);
-        player.sendMessage(new TranslatableText("VanadiumInformation").setStyle(Style.EMPTY.withBold(true).withUnderline(true).withClickEvent(new ClickEvent(ClickEvent.
+        player.sendMessage(new TranslatableText("VanadiumInformation").setStyle(Style.EMPTY.withBold(true).withClickEvent(new ClickEvent(ClickEvent.
                 Action.OPEN_URL, "https://docs.google.com/spreadsheets/d/1vh1dLGMVESmx2GKTvGbl0EKRVkEmO_VJfQVVSrGwzA0/edit#gid=0"))), false);
         player.sendMessage(new TranslatableText("Have a nice day !"), false);
     }

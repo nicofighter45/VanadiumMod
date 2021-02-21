@@ -10,7 +10,7 @@
       "item": "fvm:tin_ingot"
     },
     "C" : {
-      "item" : "fvm.copper_ingot"
+      "item" : "fvm:copper_ingot"
     },
     "G" : {
       "item" : "minecraft:gold_ingot"

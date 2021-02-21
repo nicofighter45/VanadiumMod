@@ -67,7 +67,7 @@ abstract class PlayerEntityMixin extends LivingEntity {
         //check vanadium
         if (helmet.getItem() == ModItems.VANADIUM_HELMET && leggings.getItem() == ModItems.VANADIUM_LEGGINGS &&
                 boots.getItem() == ModItems.VANADIUM_BOOTS) {
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 0, false, false, true));
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 60, 1, false, false, true));
         }
 
         //check enchant

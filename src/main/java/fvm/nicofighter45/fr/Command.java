@@ -2,6 +2,8 @@ package fvm.nicofighter45.fr;
 
 import fvm.nicofighter45.fr.database.DataBaseItem;
 import fvm.nicofighter45.fr.database.Economic;
+import io.github.cottonmc.cotton.gui.networking.NetworkSide;
+import io.github.cottonmc.cotton.gui.networking.ScreenNetworking;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -39,8 +41,11 @@ public class Command {
                             return 1;
                         }
                         ItemStack helmet = player.inventory.armor.get(3);
-                        player.inventory.armor.set(3, hand);
-                        player.inventory.setStack(player.inventory.getSlotWithStack(hand), helmet);
+                        player.inventory.removeOne(hand);
+                        if(helmet.getItem() != Items.AIR){
+                            player.inventory.insertStack(helmet);
+                        }
+                        player.inventory.insertStack(39, hand);
                         sendMsg(player, "Your hand and your helmet have been exchange");
                         return 1;
                     })

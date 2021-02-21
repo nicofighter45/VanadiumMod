@@ -12,8 +12,8 @@ public class DataBaseManager {
     public Map<String, DataBasePlayer> dataBasePlayers = new HashMap<>();
     public Map<Item, DataBaseItem> dataBaseItems = new HashMap<>();
     private final String url = "jdbc:mysql://localhost:3306/vanadium";
-    private final String userName = "root";
-    private final String password = "uiadf!895-sqd";
+    private final String userName = "admin";
+    private final String password = "zLGnjmaxuGaM.k7vjgkC";
 
     public DataBaseManager(){
         try {

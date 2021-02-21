@@ -1,6 +1,7 @@
 package fvm.nicofighter45.fr.database;
 
 import fvm.nicofighter45.fr.FVM;
+import fvm.nicofighter45.fr.FVMServer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,9 +19,9 @@ public class Economic {
             sendMsg(giver_player, "You can't send money to yourself");
             //return;
         }
-        DataBasePlayer giver = FVM.dataBaseManager.getPlayer(giver_player.getEntityName());
+        DataBasePlayer giver = FVMServer.dataBaseManager.getPlayer(giver_player.getEntityName());
         if(giver.getMoney() >= value){
-            DataBasePlayer receiver = FVM.dataBaseManager.getPlayer(receiver_player.getEntityName());
+            DataBasePlayer receiver = FVMServer.dataBaseManager.getPlayer(receiver_player.getEntityName());
             receiver.addMoney(value);
             giver.addMoney(-value);
             sendMsg(giver_player, "You got " + giver.getMoney());
@@ -31,8 +32,8 @@ public class Economic {
     }
 
     public static void buyInstant(Item item, Integer amount, ServerPlayerEntity player){
-        DataBasePlayer dbplayer = FVM.dataBaseManager.getPlayer(player.getEntityName());
-        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+        DataBasePlayer dbplayer = FVMServer.dataBaseManager.getPlayer(player.getEntityName());
+        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
         float value = dbitem.getBuyValue() * amount;
         if(dbplayer.getMoney() >= value){
             if(player.inventory.insertStack(new ItemStack(item, amount))){
@@ -48,8 +49,8 @@ public class Economic {
     }
 
     public static void buy(Item item, Integer amount, ServerPlayerEntity player){
-        DataBasePlayer dbplayer = FVM.dataBaseManager.getPlayer(player.getEntityName());
-        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+        DataBasePlayer dbplayer = FVMServer.dataBaseManager.getPlayer(player.getEntityName());
+        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
         if(dbitem.getStock() - amount < 0){
             sendMsg(player, "There isn't enough stock : " + dbitem.getStock() + "/1000");
             return;
@@ -75,8 +76,8 @@ public class Economic {
     }
 
     public static void sell(Item item, Integer amount, ServerPlayerEntity player){
-        DataBasePlayer dbplayer = FVM.dataBaseManager.getPlayer(player.getEntityName());
-        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+        DataBasePlayer dbplayer = FVMServer.dataBaseManager.getPlayer(player.getEntityName());
+        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
         if(dbitem.getStock() + amount > FVM.maxStockForItem){
             sendMsg(player, "There is too many stock : " + dbitem.getStock() + "/1000");
             return;
@@ -87,8 +88,8 @@ public class Economic {
     }
 
     public static void sellInstant(Item item, Integer amount, ServerPlayerEntity player){
-        DataBasePlayer dbplayer = FVM.dataBaseManager.getPlayer(player.getEntityName());
-        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+        DataBasePlayer dbplayer = FVMServer.dataBaseManager.getPlayer(player.getEntityName());
+        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
         deleting(player, item, amount, dbplayer, true);
     }
 
@@ -105,7 +106,7 @@ public class Economic {
         if(number >= amount){
             int delete = 0;
             float money = 0;
-            DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+            DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
             for(Integer slot : slots.keySet()){
                 while(amount > delete){
                     player.inventory.removeStack(slot, 1);

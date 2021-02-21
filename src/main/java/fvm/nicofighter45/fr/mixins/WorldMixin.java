@@ -1,6 +1,7 @@
 package fvm.nicofighter45.fr.mixins;
 
 import fvm.nicofighter45.fr.FVM;
+import fvm.nicofighter45.fr.FVMServer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
@@ -18,17 +19,17 @@ public class WorldMixin {
     public void tickEntity(Consumer<Entity> tickConsumer, Entity entity, CallbackInfo info) {
         if(entity instanceof PlayerEntity){
             PlayerEntity player = (PlayerEntity) entity;
-            if(FVM.TickNumberForHeal.containsKey(player)){
-                if(FVM.TickNumberForHeal.get(player) == 0) {
-                    FVM.TickNumberForHeal.remove(player);
+            if(FVMServer.TickNumberForHeal.containsKey(player)){
+                if(FVMServer.TickNumberForHeal.get(player) == 0) {
+                    FVMServer.TickNumberForHeal.remove(player);
                     player.heal(0.5f);
-                    if (player.getHealth() <= FVM.dataBaseManager.getPlayer(player.getEntityName()).getRegen()) {
-                        FVM.TickNumberForHeal.put(player, 60);
+                    if (player.getHealth() < FVMServer.dataBaseManager.getPlayer(player.getEntityName()).getRegen()) {
+                        FVMServer.TickNumberForHeal.put(player, 60);
                     }
                 }else {
-                    int ticks = FVM.TickNumberForHeal.get(player);
-                    FVM.TickNumberForHeal.remove(player);
-                    FVM.TickNumberForHeal.put(player,  ticks - 1);
+                    int ticks = FVMServer.TickNumberForHeal.get(player);
+                    FVMServer.TickNumberForHeal.remove(player);
+                    FVMServer.TickNumberForHeal.put(player,  ticks - 1);
                 }
             }
         }

@@ -66,7 +66,6 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
         ScreenNetworking.of(this, NetworkSide.SERVER).receive(MESSAGE_ITEM, buf -> {
             ServerPlayerEntity server_player = (ServerPlayerEntity) player;
             boolean vana = false;
-            int vanaslot = 0;
             ItemStack vanaItem = null;
             ItemStack upgrade = null;
             for(int i = 64; i >= 0; i--){
@@ -88,7 +87,6 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                         upgrade = upgrades(item0, item2, item3);
                         if(upgrade != null){
                             vana = true;
-                            vanaslot = 1;
                             vanaItem = item1;
                         }
                         break;
@@ -98,7 +96,6 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                         upgrade = upgrades(item0, item1, item3);
                         if(upgrade != null){
                             vana = true;
-                            vanaslot = 2;
                             vanaItem = item2;
                         }
                         break;
@@ -108,7 +105,6 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                         upgrade = upgrades(item0, item1, item2);
                         if(upgrade != null){
                             vana = true;
-                            vanaslot = 3;
                             vanaItem = item3;
                         }
                         break;
@@ -126,14 +122,10 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                 if(item == null){
                     i = -1;
                 }else{
-//                    if(inventoryFull(server_player.inventory)){
-//                        break;
-//                    }
                     for(int slot : craft.getNeededItem()){
                         getBlockInventory(context).removeStack(slot, 1);
                     }
                     server_player.inventory.insertStack(new ItemStack(item));
-//                    server_player.inventory.updateItems();
                 }
             }
             if(vana){

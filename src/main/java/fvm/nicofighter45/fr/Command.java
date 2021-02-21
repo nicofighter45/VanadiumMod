@@ -2,8 +2,6 @@ package fvm.nicofighter45.fr;
 
 import fvm.nicofighter45.fr.database.DataBaseItem;
 import fvm.nicofighter45.fr.database.Economic;
-import io.github.cottonmc.cotton.gui.networking.NetworkSide;
-import io.github.cottonmc.cotton.gui.networking.ScreenNetworking;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -92,11 +90,11 @@ public class Command {
                                                                     sendMsg(player, "The stock is superior to the max stock");
                                                                     return 1;
                                                                 }
-                                                                if (FVM.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                                if (FVMServer.dataBaseManager.dataBaseItems.containsKey(item)){
                                                                     sendMsg(player, "This item is already register");
                                                                     return 1;
                                                                 }
-                                                                FVM.dataBaseManager.dataBaseItems.put(item, new DataBaseItem(item, sellvalue, buyvalue, stock));
+                                                                FVMServer.dataBaseManager.dataBaseItems.put(item, new DataBaseItem(item, sellvalue, buyvalue, stock));
                                                                 sendMsg(player, "This item has been register");
                                                                 return 1;
                                                             })
@@ -125,11 +123,11 @@ public class Command {
                                                         ServerPlayerEntity player = c.getSource().getPlayer();
                                                         Item item = getItemStackArgument(c, "item").getItem();
                                                         float value = getFloat(c, "value");
-                                                        if (!FVM.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                        if (!FVMServer.dataBaseManager.dataBaseItems.containsKey(item)){
                                                             sendMsg(player, "Need a register item to change values");
                                                             return 1;
                                                         }
-                                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                                        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
                                                         dbitem.setBuyValue(value);
                                                         sendMsg(player, "The buyvalue of the item have been change");
                                                         return 1;
@@ -146,11 +144,11 @@ public class Command {
                                                         ServerPlayerEntity player = c.getSource().getPlayer();
                                                         Item item = getItemStackArgument(c, "item").getItem();
                                                         float value = getFloat(c, "value");
-                                                        if (!FVM.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                        if (!FVMServer.dataBaseManager.dataBaseItems.containsKey(item)){
                                                             sendMsg(player, "Need a register item to change values");
                                                             return 1;
                                                         }
-                                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                                        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
                                                         dbitem.setSellValue(value);
                                                         sendMsg(player, "The sellvalue of the item have been change");
                                                         return 1;
@@ -171,11 +169,11 @@ public class Command {
                                                             sendMsg(player, "The stock is superior to the max stock");
                                                             return 1;
                                                         }
-                                                        if (!FVM.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                        if (!FVMServer.dataBaseManager.dataBaseItems.containsKey(item)){
                                                             sendMsg(player, "Need a register item to change values");
                                                             return 1;
                                                         }
-                                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                                        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
                                                         dbitem.setStock(value);
                                                         sendMsg(player, "The stock of the item have been change");
                                                         return 1;
@@ -192,11 +190,11 @@ public class Command {
                             .then(argument("item", itemStack())
                                     .executes(c -> {
                                         Item item = getItemStackArgument(c, "item").getItem();
-                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
                                         if(dbitem == null){
                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                         }else{
-                                            FVM.dataBaseManager.dataBaseItems.remove(item);
+                                            FVMServer.dataBaseManager.dataBaseItems.remove(item);
                                             sendMsg(c.getSource().getPlayer(), "This item has been delete");
                                         }
                                         return 1;
@@ -228,13 +226,13 @@ public class Command {
                     .then(argument("player", player())
                             .executes(c -> {
                                 ServerPlayerEntity player = c.getSource().getPlayer();
-                                sendMsg(player, "He got " + FVM.dataBaseManager.getPlayer(getPlayer(c, "player").getEntityName()).getMoney());
+                                sendMsg(player, "He got " + FVMServer.dataBaseManager.getPlayer(getPlayer(c, "player").getEntityName()).getMoney());
                                 return 1;
                             })
                     )
                     .executes(c -> {
                         ServerPlayerEntity player = c.getSource().getPlayer();
-                        sendMsg(player, "You got " + FVM.dataBaseManager.getPlayer(player.getEntityName()).getMoney());
+                        sendMsg(player, "You got " + FVMServer.dataBaseManager.getPlayer(player.getEntityName()).getMoney());
                         return 1;
                     })
             );
@@ -248,7 +246,7 @@ public class Command {
                             .then(argument("item", itemStack())
                                     .executes(c -> {
                                         Item item = getItemStackArgument(c, "item").getItem();
-                                        DataBaseItem dbitem = FVM.dataBaseManager.dataBaseItems.get(item);
+                                        DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
                                         if(dbitem == null){
                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                         }else{
@@ -268,7 +266,7 @@ public class Command {
                             })
                             .then(argument("item", itemStack())
                                     .executes(c -> {
-                                        if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                        if(FVMServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                         }else{
                                             Economic.buy(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
@@ -277,7 +275,7 @@ public class Command {
                                     })
                                     .then(argument("amount", integer(1))
                                         .executes(c -> {
-                                            if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                            if(FVMServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                                 sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                             }else{
                                                 Economic.buy(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());
@@ -294,7 +292,7 @@ public class Command {
                             })
                             .then(argument("item", itemStack())
                                     .executes(c -> {
-                                        if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                        if(FVMServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                         }else{
                                             Economic.sell(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
@@ -303,7 +301,7 @@ public class Command {
                                     })
                                     .then(argument("amount", integer(1))
                                             .executes(c -> {
-                                                if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                if(FVMServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                                     sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                                 }else{
                                                     Economic.sell(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());
@@ -325,7 +323,7 @@ public class Command {
                                     })
                                     .then(argument("item", itemStack())
                                             .executes(c -> {
-                                                if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                if(FVMServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                                     sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                                 }else{
                                                     Economic.buyInstant(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
@@ -334,7 +332,7 @@ public class Command {
                                             })
                                             .then(argument("amount", integer(1))
                                                     .executes(c -> {
-                                                        if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                        if(FVMServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                                         }else{
                                                             Economic.buyInstant(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());
@@ -351,7 +349,7 @@ public class Command {
                                     })
                                     .then(argument("item", itemStack())
                                             .executes(c -> {
-                                                if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                if(FVMServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                                     sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                                 }else{
                                                     Economic.sellInstant(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
@@ -360,7 +358,7 @@ public class Command {
                                             })
                                             .then(argument("amount", integer(1))
                                                     .executes(c -> {
-                                                        if(FVM.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                        if(FVMServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                                         }else{
                                                             Economic.sellInstant(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());

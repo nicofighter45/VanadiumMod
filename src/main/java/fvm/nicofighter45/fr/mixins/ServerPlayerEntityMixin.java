@@ -2,6 +2,7 @@ package fvm.nicofighter45.fr.mixins;
 
 import com.mojang.authlib.GameProfile;
 import fvm.nicofighter45.fr.FVM;
+import fvm.nicofighter45.fr.FVMServer;
 import fvm.nicofighter45.fr.items.enchantment.ModEnchants;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -42,8 +43,8 @@ abstract class ServerPlayerEntityMixin extends PlayerEntity implements ScreenHan
             cir.setReturnValue(false);
         }
         if(amount > 0){
-            if(!FVM.TickNumberForHeal.containsKey(player) && FVM.dataBaseManager.getPlayer(player.getEntityName()).getRegen() != 0){
-                FVM.TickNumberForHeal.put(player, 60);
+            if(!FVMServer.TickNumberForHeal.containsKey(player) && FVMServer.dataBaseManager.getPlayer(player.getEntityName()).getRegen() != 0){
+                FVMServer.TickNumberForHeal.put(player, 60);
             }
         }
     }

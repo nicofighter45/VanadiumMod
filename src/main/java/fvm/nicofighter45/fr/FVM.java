@@ -2,13 +2,11 @@ package fvm.nicofighter45.fr;
 
 import fvm.nicofighter45.fr.block.modifiertable.*;
 import fvm.nicofighter45.fr.block.ore.ModOres;
-import fvm.nicofighter45.fr.database.DataBaseManager;
 import fvm.nicofighter45.fr.items.ModItems;
 import fvm.nicofighter45.fr.items.enchantment.ModEnchants;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -27,12 +25,6 @@ public class FVM implements ModInitializer {
 
     //screen handler for modifiers table
     public static ScreenHandlerType<ModifiersTableGuiDescription> SCREEN_HANDLER_TYPE;
-
-    //player who got less than regen heart
-    public static Map<PlayerEntity, Integer> TickNumberForHeal = new HashMap<>();
-
-    //database mysql
-    public static DataBaseManager dataBaseManager;
 
     //new crafts
     public static Map<ModifierCraft, Item> crafts = new HashMap<>();
@@ -83,7 +75,6 @@ public class FVM implements ModInitializer {
         ModItems.registerAll();
         ModEnchants.registerAll();
         ModOres.registerAll();
-        Listeners.blockBreakEventRegister();
         Listeners.onItemRightClickRegister();
         ModifierTableRegister.registerAll();
     }

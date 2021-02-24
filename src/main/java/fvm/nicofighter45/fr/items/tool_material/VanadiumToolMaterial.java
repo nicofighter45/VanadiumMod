@@ -1,12 +1,12 @@
-package fvm.nicofighter45.fr.items;
+package fvm.nicofighter45.fr.items.tool_material;
 
+import fvm.nicofighter45.fr.items.ModItems;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 
 public class VanadiumToolMaterial implements ToolMaterial {
 
     public static final VanadiumToolMaterial INSTANCE = new VanadiumToolMaterial();
-
 
     @Override
     public int getDurability() {

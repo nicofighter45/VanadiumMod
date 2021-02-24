@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "fvm:vanadium_ore"
+  },
+  "result": "fvm:vanadium_nugget",
+  "experience": 1,
+  "cookingtime": 100
+}

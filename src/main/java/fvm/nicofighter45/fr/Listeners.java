@@ -62,15 +62,15 @@ public class Listeners {
                                 Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
                                 sendMsg(server_player, "You got " + (heart + 2) + " heart");
                                 give = true;
-                            }else if(item == ModItems.SIMPLE_REGEN_BOOSTER && regen < 8){
+                            }else if(item == ModItems.SIMPLE_REGEN_BOOSTER && regen < 8 && (regen+2) <= heart){
                                 data_player.setRegen(regen + 2);
                                 sendMsg(server_player, "You got " + (regen + 2) + " regen");
                                 give = true;
-                            }else if(item == ModItems.BASE_REGEN_BOOSTER && regen >= 8 && regen < 16){
+                            }else if(item == ModItems.BASE_REGEN_BOOSTER && regen >= 8 && regen < 16 && (regen+2) <= heart){
                                 data_player.setRegen(regen + 2);
                                 sendMsg(server_player, "You got " + (regen + 2) + " regen");
                                 give = true;
-                            }else if(item == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 16 && regen < 24){
+                            }else if(item == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 16 && regen < 24 && (regen+2) <= heart){
                                 data_player.setRegen(regen + 2);
                                 sendMsg(server_player, "You got " + (regen + 2) + " regen");
                                 give = true;
@@ -80,6 +80,9 @@ public class Listeners {
                                     if(inventory.getStack(slot) == it){
                                         inventory.removeStack(slot, 1);
                                     }
+                                }
+                                if (server_player.getHealth() < FVMServer.dataBaseManager.getPlayer(server_player.getEntityName()).getRegen()) {
+                                    FVMServer.TickNumberForHeal.put(server_player, 1);
                                 }
                             }
                         });

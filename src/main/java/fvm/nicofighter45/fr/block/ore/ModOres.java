@@ -84,7 +84,7 @@ public class ModOres {
                         5,
                         15)))
                 .spreadHorizontally()
-                .repeat(3);
+                .repeat(2);
 
         RegistryKey<ConfiguredFeature<?, ?>> tungsten_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
                 new Identifier(FVM.MODID, "tungsten_ore"));
@@ -129,7 +129,7 @@ public class ModOres {
                         40,
                         70)))
                 .spreadHorizontally()
-                .repeat(5);
+                .repeat(8);
 
 
         RegistryKey<ConfiguredFeature<?, ?>> copper_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
@@ -141,7 +141,7 @@ public class ModOres {
         Registry.register(Registry.BLOCK, new Identifier(FVM.MODID, "tin_ore"), TIN_ORE);
         Registry.register(Registry.ITEM, new Identifier(FVM.MODID, "tin_ore"), TIN_ORE_ITEM);
 
-        //génération du minearais d'étain'
+        //génération du minearais d'étain
         ConfiguredFeature<?, ?> TIN_ORE_GENERATION = Feature.ORE
                 .configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.STONE),
                         TIN_ORE.getDefaultState(),
@@ -150,9 +150,9 @@ public class ModOres {
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
                         20,
                         20,
-                        70)))
+                        50)))
                 .spreadHorizontally()
-                .repeat(4);
+                .repeat(6);
 
 
         RegistryKey<ConfiguredFeature<?, ?>> tin_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,

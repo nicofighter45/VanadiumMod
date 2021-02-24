@@ -5,6 +5,9 @@ import fvm.nicofighter45.fr.items.armor.EmeraldArmorMaterials;
 import fvm.nicofighter45.fr.items.armor.TungstenArmorMaterials;
 import fvm.nicofighter45.fr.items.armor.VanadiumArmorMaterials;
 import fvm.nicofighter45.fr.items.enchantment.UpgradeItem;
+import fvm.nicofighter45.fr.items.hammer.CopperHammer;
+import fvm.nicofighter45.fr.items.tool_material.CopperToolMaterial;
+import fvm.nicofighter45.fr.items.tool_material.VanadiumToolMaterial;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -51,6 +54,7 @@ public class ModItems {
 
     //copper
     public static final Item COPPER_INGOT = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP));
+    //public static final Item COPPER_HAMMER = new CopperHammer(CopperToolMaterial.INSTANCE, 1, 2, new Item.Settings().group(FVM.VANADIUM_GROUP));
 
     //étain
     public static final Item TIN_INGOT = new Item(new Item.Settings().group(FVM.VANADIUM_GROUP));
@@ -113,6 +117,7 @@ public class ModItems {
         registerNewItem("silver_ingot", SILVER_INGOT);
 
         registerNewItem("copper_ingot", COPPER_INGOT);
+        //registerNewItem("copper_hammer", COPPER_HAMMER);
 
         registerNewItem("tin_ingot", TIN_INGOT);
 

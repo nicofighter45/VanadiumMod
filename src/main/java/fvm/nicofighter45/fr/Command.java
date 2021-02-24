@@ -240,20 +240,26 @@ public class Command {
             dispatcher.register(literal("shop")
                     .then(literal("info")
                             .executes(c -> {
-                                sendMsg(c.getSource().getPlayer(), "Correct usage /shop info <item>");
+                                ServerPlayerEntity player = c.getSource().getPlayer();
+                                sendMsg(player, "All the item in sale are :");
+                                sendMsg(player, "item:buyvalue/sellvalue/stock/complexvalue");
+                                for(DataBaseItem dbitem : FVMServer.dataBaseManager.dataBaseItems.values()){
+                                    sendMsg(player, dbitem.getItem().getTranslationKey() + ":" + dbitem.getBuyValue() +  "/" + dbitem.getSellValue() + "/" + dbitem.getStock() + "/" + dbitem.getComplexValue());
+                                }
                                 return 1;
                             })
                             .then(argument("item", itemStack())
                                     .executes(c -> {
                                         Item item = getItemStackArgument(c, "item").getItem();
                                         DataBaseItem dbitem = FVMServer.dataBaseManager.dataBaseItems.get(item);
+                                        ServerPlayerEntity player = c.getSource().getPlayer();
                                         if(dbitem == null){
-                                            sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
+                                            sendMsg(player, "This item isn't register in the database. Sorry :(");
                                         }else{
-                                            sendMsg(c.getSource().getPlayer(), "Stock : " + dbitem.getStock() + "/1000");
-                                            sendMsg(c.getSource().getPlayer(), "BuyValue : " + dbitem.getBuyValue());
-                                            sendMsg(c.getSource().getPlayer(), "SellValue : " + dbitem.getSellValue());
-                                            sendMsg(c.getSource().getPlayer(), "InstantValue : " + dbitem.getComplexValue());
+                                            sendMsg(player, "Stock : " + dbitem.getStock() + "/" + FVM.maxStockForItem);
+                                            sendMsg(player, "BuyValue : " + dbitem.getBuyValue());
+                                            sendMsg(player, "SellValue : " + dbitem.getSellValue());
+                                            sendMsg(player, "ComplexValue : " + dbitem.getComplexValue());
                                         }
                                         return 1;
                                     })

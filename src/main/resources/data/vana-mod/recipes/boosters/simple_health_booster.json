@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CTC",
+    "TGT",
+    "CTC"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "T": {
+      "item": "vana-mod:tin_ingot"
+    },
+    "C": {
+      "item": "vana-mod:copper_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:simple_health_booster",
+    "count": 1
+  }
+}

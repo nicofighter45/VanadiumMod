@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VHV",
+    "V V",
+    "   "
+  ],
+  "key": {
+    "V": {
+      "item": "vana-mod:vanadium_ingot"
+    },
+    "H": {
+      "item": "vana-mod:vanadium_heart"
+    }
+  },
+  "result": {
+    "item": "vana-mod:vanadium_helmet",
+    "count": 1
+  }
+}

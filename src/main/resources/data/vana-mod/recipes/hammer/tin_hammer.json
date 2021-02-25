@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BIB",
+    "ISI",
+    " S "
+  ],
+  "key": {
+    "I": {
+      "item": "vana-mod:tin_ingot"
+    },
+    "B": {
+      "item": "vana-mod:tin_block_item"
+    },
+    "S": {
+      "item": "vana-mod:tin_stick"
+    }
+  },
+  "result": {
+    "item": "vana-mod:tin_hammer",
+    "count": 1
+  }
+}

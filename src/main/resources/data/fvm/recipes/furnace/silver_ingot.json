@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "fvm:silver_ore"
-  },
-  "result": "fvm:silver_ingot",
-  "experience": 1,
-  "cookingtime": 200
-}

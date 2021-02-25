@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CGC",
+    "STS",
+    "GSG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "T": {
+      "item": "vana-mod:tin_ingot"
+    },
+    "C": {
+      "item": "vana-mod:copper_ingot"
+    },
+    "S": {
+      "item": "vana-mod:silver_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:simple_regen_booster",
+    "count": 1
+  }
+}

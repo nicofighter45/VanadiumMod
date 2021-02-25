@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "C"
+  ],
+  "key": {
+    "C": {
+      "item": "vana-mod:copper_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:copper_stick",
+    "count": 2
+  }
+}

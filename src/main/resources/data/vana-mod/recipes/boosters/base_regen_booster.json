@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GSG",
+    "STS",
+    "GSG"
+  ],
+  "key": {
+    "S": {
+      "item": "vana-mod:simple_regen_booster"
+    },
+    "T": {
+      "item": "vana-mod:transistor"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    }
+  },
+  "result": {
+    "item": "vana-mod:base_regen_booster",
+    "count": 1
+  }
+}

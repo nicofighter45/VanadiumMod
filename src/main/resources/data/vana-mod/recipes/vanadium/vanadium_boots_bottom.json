@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "V V",
+    "V V"
+  ],
+  "key": {
+    "V": {
+      "item": "vana-mod:vanadium_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:vanadium_boots",
+    "count": 1
+  }
+}

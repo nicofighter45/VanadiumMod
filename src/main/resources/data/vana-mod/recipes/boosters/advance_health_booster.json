@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VPV",
+    "BPB",
+    "VPV"
+  ],
+  "key": {
+    "B": {
+      "item": "vana-mod:base_health_booster"
+    },
+    "V": {
+      "item": "vana-mod:vanadium_ingot"
+    },
+    "P": {
+      "item": "vana-mod:processor"
+    }
+  },
+  "result": {
+    "item": "vana-mod:advance_health_booster",
+    "count": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T",
+    "T"
+  ],
+  "key": {
+    "T": {
+      "item": "vana-mod:tungsten_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:tungsten_stick",
+    "count": 2
+  }
+}

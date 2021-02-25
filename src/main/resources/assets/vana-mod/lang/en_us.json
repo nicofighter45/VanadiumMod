@@ -1,0 +1,87 @@
+{
+  "block.vana-mod.vanadium_ore": "Vanadium Ore",
+  "item.vana-mod.vanadium_ore": "Vanadium Ore",
+  "item.vana-mod.vanadium_nugget": "Vanadium Nugget",
+  "item.vana-mod.vanadium_ingot": "Vanadium Ingot",
+  "block.vana-mod.vanadium_block": "Vanadium Block",
+  "item.vana-mod.vanadium_block_item": "Vanadium Block",
+
+  "item.vana-mod.vanadium_stick": "Vanadium Stick",
+  "item.vana-mod.vanadium_heart": "Vanadium Heart",
+  "item.vana-mod.vanadium_sword": "Vanadium Sword",
+  "item.vana-mod.vanadium_hammer": "Vanadium Hammer",
+
+  "item.vana-mod.vanadium_helmet": "Vanadium Helmet",
+  "item.vana-mod.vanadium_chestplate": "Vanadium Chestplate",
+  "item.vana-mod.vanadium_leggings": "Vanadium Leggings",
+  "item.vana-mod.vanadium_boots": "Vanadium Boots",
+
+  "item.vana-mod.emerald_heart": "Emerald Heart",
+
+  "item.vana-mod.emerald_helmet": "Emerald Helmet",
+  "item.vana-mod.emerald_chestplate": "Emerald Chestplate",
+  "item.vana-mod.emerald_leggings": "Emerald Leggings",
+  "item.vana-mod.emerald_boots": "Emerald Boots",
+
+  "enchantment.vana-mod.faster": "Faster",
+  "enchantment.vana-mod.jumper": "Jumper",
+  "enchantment.vana-mod.haster": "Haster",
+  "enchantment.vana-mod.strenghter": "Strenghter",
+  "enchantment.vana-mod.resistancer": "Resistancer",
+  "enchantment.vana-mod.no_fall": "No Fall",
+
+  "block.vana-mod.tungsten_ore": "Tungsten Ore",
+  "item.vana-mod.tungsten_ore": "Tungsten Ore",
+  "item.vana-mod.tungsten_ingot": "Tungsten Ingot",
+  "item.vana-mod.tungsten_stick": "Tungsten Stick",
+  "item.vana-mod.tungsten_hammer": "Tungsten Hammer",
+  "item.vana-mod.tungsten_chestplate": "Tungsten Chestplate",
+  "block.vana-mod.tungsten_block": "Tungsten Block",
+  "item.vana-mod.tungsten_block_item": "Tungsten Block",
+
+  "block.vana-mod.silver_ore": "Silver Ore",
+  "item.vana-mod.silver_ore": "Silver Ore",
+  "item.vana-mod.silver_ingot": "Silver Ingot",
+
+  "block.vana-mod.copper_ore": "Copper Ore",
+  "item.vana-mod.copper_ore": "Copper Ore",
+  "item.vana-mod.copper_ingot": "Copper Ingot",
+  "item.vana-mod.copper_stick": "Copper Stick",
+  "item.vana-mod.copper_hammer": "Copper Hammer",
+  "block.vana-mod.copper_block": "Copper Block",
+  "item.vana-mod.copper_block_item": "Copper Block",
+
+  "block.vana-mod.tin_ore": "Tin Ore",
+  "item.vana-mod.tin_ore": "Tin Ore",
+  "item.vana-mod.tin_ingot": "Tin Ingot",
+  "item.vana-mod.tin_stick": "Tin Stick",
+  "item.vana-mod.tin_hammer": "Tin Hammer",
+  "block.vana-mod.tin_block": "Tin Block",
+  "item.vana-mod.tin_block_item": "Tin Block",
+
+  "item.vana-mod.transistor": "Transistor",
+  "item.vana-mod.processor": "Processor",
+  "block.vana-mod.modifiers_table": "Modifiers Table",
+  "item.vana-mod.modifiers_table": "Modifiers Table",
+
+  "item.vana-mod.haste_stone": "Haste Stone",
+  "item.vana-mod.strength_stone": "Strength Stone",
+  "item.vana-mod.resistance_stone": "Resistance Stone",
+  "item.vana-mod.speed_stone": "Speed Stone",
+  "item.vana-mod.jump_stone": "Jump Stone",
+  "item.vana-mod.no_fall_stone": "No Fall Stone",
+
+  "item.vana-mod.power_cell": "Power Cell",
+
+  "item.vana-mod.simple_health_booster": "Simple Health Booster",
+  "item.vana-mod.base_health_booster": "Base Health Booster",
+  "item.vana-mod.advance_health_booster": "Advance Health Booster",
+
+  "item.vana-mod.simple_regen_booster": "Simple Regen Booster",
+  "item.vana-mod.base_regen_booster": "Base Regen Booster",
+  "item.vana-mod.advance_regen_booster": "Advance Regen Booster",
+
+  "item.vana-mod.hat": "Hat",
+
+  "itemGroup.vana-mod.vanadium": "VanaMod"
+}

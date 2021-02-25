@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "vana-mod:vanadium_hammer",
+    "vana-mod:tungsten_hammer",
+    "vana-mod:tin_hammer",
+    "vana-mod:copper_hammer"
+  ]
+}

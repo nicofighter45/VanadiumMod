@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "fvm",
+  "id": "vana-mod",
   "version": "${version}",
 
   "name": "Fabric Vana Mod",
@@ -14,19 +14,22 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/fvm/icon.png",
+  "icon": "assets/vana-mod/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "fvm.nicofighter45.fr.FVM"
+      "vana_mod.nicofighter45.fr.MAIN"
     ],
     "client": [
-      "fvm.nicofighter45.fr.FVMClient"
+      "vana_mod.nicofighter45.fr.MAINClient"
+    ],
+    "server": [
+
     ]
   },
   "mixins": [
-    "fvm.mixins.json"
+    "vana-mod.mixins.json"
   ],
 
   "depends": {

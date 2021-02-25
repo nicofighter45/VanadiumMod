@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "vana-mod:tungsten_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:tungsten_block_item",
+    "count": 1
+  }
+}

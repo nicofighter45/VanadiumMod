@@ -79,7 +79,6 @@ public class MAIN implements ModInitializer {
         ModBlocks.registerAll();
         Listeners.onItemRightClickRegister();
         ModifierTableRegister.registerAll();
-        ModOreGeneration.generateOres();
     }
 
     private static void newCraft(Item item0, Item item1, Item item2, Item item3, Item result){

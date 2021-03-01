@@ -28,6 +28,6 @@ public class ResistancerEnchantment extends Enchantment {
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return true;
+        return false;
     }
 }

@@ -132,7 +132,7 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                 boolean doCancell = false;
                 Map<Enchantment, Integer> enchant_item = EnchantmentHelper.get(vanaItem);
                 if(vanaItem.getItem() == ModItems.VANADIUM_HELMET){
-                    if(upgrade.getItem() == ModItems.HASTE_STONE && (enchant_item.get(ModEnchants.HASTER) == null || enchant_item.get(ModEnchants.HASTER) < 5)){
+                    if(upgrade.getItem() == ModItems.HASTE_STONE && (enchant_item.get(ModEnchants.HASTER) == null || enchant_item.get(ModEnchants.HASTER) < 3)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.HASTER, vanaItem), vanaItem);
                     }else if(upgrade.getItem() == ModItems.STRENGTH_STONE && (enchant_item.get(ModEnchants.STRENGHTER) == null || enchant_item.get(ModEnchants.STRENGHTER) < 2)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.STRENGHTER, vanaItem), vanaItem);
@@ -149,8 +149,7 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                     }
                 }else if(vanaItem.getItem() == ModItems.VANADIUM_BOOTS){
                     if(upgrade.getItem() == ModItems.JUMP_STONE &&
-                            (enchant_item.get(ModEnchants.JUMPER) == null ||
-                                    enchant_item.get(ModEnchants.JUMPER) < 5)){
+                            (enchant_item.get(ModEnchants.JUMPER) == null || enchant_item.get(ModEnchants.JUMPER) < 5)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.JUMPER, vanaItem), vanaItem);
                     }else if(upgrade.getItem() == ModItems.NO_FALL_STONE && (enchant_item.get(ModEnchants.NO_FALL) == null || enchant_item.get(ModEnchants.NO_FALL) == 0)){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.NO_FALL, vanaItem), vanaItem);
@@ -189,16 +188,5 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
         }
         return enchant_item;
     }
-
-//    private boolean inventoryFull(PlayerInventory inv) {
-//        for(int i = 0; i < 36; i++){
-//            ItemStack it = inv.getStack(i);
-//            if(it.getCount() < it.getMaxCount()){
-//                return false;
-//            }
-//
-//        }
-//        return true;
-//    }
 
 }

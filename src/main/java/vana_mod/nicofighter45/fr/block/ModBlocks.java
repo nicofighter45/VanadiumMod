@@ -34,6 +34,7 @@ public class ModBlocks {
         registerNewBlock("tin_block", TIN_BLOCK);
         registerNewBlock("copper_block", COPPER_BLOCK);
 
+        ModOreGeneration.generateOres();
         ModBlocksItem.registerAll();
     }
 

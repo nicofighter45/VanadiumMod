@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.swing.tree.TreeNode;
 import java.util.Objects;
 
 @Mixin(ServerWorld.class)
@@ -47,8 +48,8 @@ public class ServerWorldMixin {
             ServerPlayerEntity player = (ServerPlayerEntity) entity;
             if(MAINServer.TickNumberForHeal.containsKey(player)){
                 if(MAINServer.TickNumberForHeal.get(player) == 0) {
-                    MAINServer.TickNumberForHeal.remove(player);
                     player.heal(0.5f);
+                    MAINServer.TickNumberForHeal.remove(player);
                     if (player.getHealth() < MAINServer.dataBaseManager.getPlayer(player.getEntityName()).getRegen()) {
                         MAINServer.TickNumberForHeal.put(player, 40);
                     }

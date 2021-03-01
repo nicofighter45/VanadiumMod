@@ -39,7 +39,7 @@ public class ModOreGeneration {
 
 
         RegistryKey<ConfiguredFeature<?, ?>> vanadium_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
-                new Identifier(MAIN.MODID, "vanadium_ore"));
+                new Identifier(MAIN.MODID, "vanadium_ore_gen"));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, vanadium_ore.getValue(), VANADIUM_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES, vanadium_ore);
 
@@ -58,7 +58,7 @@ public class ModOreGeneration {
                 .repeat(2);
 
         RegistryKey<ConfiguredFeature<?, ?>> tungsten_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
-                new Identifier(MAIN.MODID, "tungsten_ore"));
+                new Identifier(MAIN.MODID, "tungsten_ore_gen"));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, tungsten_ore.getValue(), TUNGSTEN_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, tungsten_ore);
 
@@ -77,7 +77,7 @@ public class ModOreGeneration {
 
 
         RegistryKey<ConfiguredFeature<?, ?>> silver_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
-                new Identifier(MAIN.MODID, "silver_ore"));
+                new Identifier(MAIN.MODID, "silver_ore_gen"));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, silver_ore.getValue(), SILVER_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Feature.UNDERGROUND_ORES, silver_ore);
 
@@ -96,7 +96,7 @@ public class ModOreGeneration {
 
 
         RegistryKey<ConfiguredFeature<?, ?>> copper_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
-                new Identifier(MAIN.MODID, "copper_ore"));
+                new Identifier(MAIN.MODID, "copper_ore_gen"));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, copper_ore.getValue(), COPPER_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, copper_ore);
 
@@ -115,7 +115,7 @@ public class ModOreGeneration {
 
 
         RegistryKey<ConfiguredFeature<?, ?>> tin_ore = RegistryKey.of(Registry.CONFIGURED_FEATURE_WORLDGEN,
-                new Identifier(MAIN.MODID, "tin_ore"));
+                new Identifier(MAIN.MODID, "tin_ore_gen"));
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, tin_ore.getValue(), TIN_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, tin_ore);
     }

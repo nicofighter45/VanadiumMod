@@ -2,6 +2,7 @@ package vana_mod.nicofighter45.fr.mixins;
 
 import com.mojang.authlib.GameProfile;
 import vana_mod.nicofighter45.fr.MAINServer;
+import vana_mod.nicofighter45.fr.items.ModItems;
 import vana_mod.nicofighter45.fr.items.enchantment.ModEnchants;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -40,6 +41,9 @@ abstract class ServerPlayerEntityMixin extends PlayerEntity implements ScreenHan
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if(source == DamageSource.FALL && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)){
             cir.setReturnValue(false);
+        }
+        if(player.inventory.armor.get(2).getItem() == ModItems.TUNGSTEN_CHESTPLATE && (source == DamageSource.IN_FIRE || source == DamageSource.ON_FIRE)){
+            return;
         }
         if(amount > 0){
             if(!MAINServer.TickNumberForHeal.containsKey(player) && MAINServer.dataBaseManager.getPlayer(player.getEntityName()).getRegen() != 0){

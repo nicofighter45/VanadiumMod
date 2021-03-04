@@ -1,9 +1,7 @@
 package vana_mod.nicofighter45.fr.mixins;
 
-import vana_mod.nicofighter45.fr.MAINServer;
-import net.minecraft.entity.Entity;
+import vana_mod.nicofighter45.fr.main.VanadiumModServer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.*;
@@ -12,16 +10,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.swing.tree.TreeNode;
 import java.util.Objects;
+import java.util.function.BooleanSupplier;
 
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
 
+    private final ServerWorld world = (ServerWorld) (Object) this;
+    private int timer = 40;
+
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
     public void onPlayerConnected(ServerPlayerEntity player, CallbackInfo info) {
-        MAINServer.dataBaseManager.addNewPlayer(player.getEntityName());
-        Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(MAINServer.dataBaseManager.getPlayer(player.getEntityName()).getHeart());
+        VanadiumModServer.dataBaseManager.addNewPlayer(player.getEntityName());
+        Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(VanadiumModServer.dataBaseManager.getPlayer(player.getEntityName()).getHeart());
         player.sendMessage(new TranslatableText("Welcome to Vanadium !"), true);
         player.sendMessage(new TranslatableText("Those are the command you must know :"), false);
         player.sendMessage(new TranslatableText("/shop : access to shop"), false);
@@ -37,28 +38,23 @@ public class ServerWorldMixin {
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")
     public void onPlayerRespawned(ServerPlayerEntity player, CallbackInfo info) {
-        int heart = MAINServer.dataBaseManager.getPlayer(player.getEntityName()).getHeart();
+        int heart = VanadiumModServer.dataBaseManager.getPlayer(player.getEntityName()).getHeart();
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(heart);
         player.setHealth(heart);
     }
 
-    @Inject(at= @At("HEAD"), method = "tickEntity")
-    public void tickEntity(Entity entity, CallbackInfo info){
-        if(entity instanceof PlayerEntity){
-            ServerPlayerEntity player = (ServerPlayerEntity) entity;
-            if(MAINServer.TickNumberForHeal.containsKey(player)){
-                if(MAINServer.TickNumberForHeal.get(player) == 0) {
+    @Inject(at= @At("HEAD"), method = "tick")
+    public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo info) {
+        if(timer > 0){
+            timer--;
+        }else if(timer == 0){
+            timer--;
+            for(ServerPlayerEntity player : world.getPlayers()){
+                if(player.getHealth() < VanadiumModServer.dataBaseManager.getPlayer(player.getEntityName()).getRegen()){
                     player.heal(0.5f);
-                    MAINServer.TickNumberForHeal.remove(player);
-                    if (player.getHealth() < MAINServer.dataBaseManager.getPlayer(player.getEntityName()).getRegen()) {
-                        MAINServer.TickNumberForHeal.put(player, 40);
-                    }
-                }else {
-                    int ticks = MAINServer.TickNumberForHeal.get(player);
-                    MAINServer.TickNumberForHeal.remove(player);
-                    MAINServer.TickNumberForHeal.put(player, ticks - 1);
                 }
             }
+            timer = 40;
         }
     }
 

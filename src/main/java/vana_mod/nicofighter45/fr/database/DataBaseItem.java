@@ -1,6 +1,6 @@
 package vana_mod.nicofighter45.fr.database;
 
-import vana_mod.nicofighter45.fr.MAIN;
+import vana_mod.nicofighter45.fr.main.VanadiumMod;
 import net.minecraft.item.Item;
 
 public class DataBaseItem {
@@ -47,7 +47,7 @@ public class DataBaseItem {
 
     public float getComplexValue(){
         float ret = stock;
-        ret /= MAIN.maxStockForItem;
+        ret /= VanadiumMod.maxStockForItem;
         return  (1 - ret) * buyValue;
     }
 

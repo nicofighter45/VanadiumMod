@@ -1,0 +1,58 @@
+{
+  "parent": "vana-mod:modifiers",
+  "display": {
+    "icon": {
+      "item": "vana-mod:vanadium_chestplate",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.vana-mod.vanaarmor.title"
+    },
+    "description": {
+      "translate": "advancements.vana-mod.vanaarmor.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "vanadium_helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "vana-mod:vanadium_helmet"
+          }
+        ]
+      }
+    },
+    "vanadium_leggings": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "vana-mod:vanadium_leggings"
+          }
+        ]
+      }
+    },
+    "vanadium_boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "vana-mod:vanadium_boots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "vanadium_helmet",
+      "vanadium_leggings",
+      "vanadium_boots"
+    ]
+  ]
+}

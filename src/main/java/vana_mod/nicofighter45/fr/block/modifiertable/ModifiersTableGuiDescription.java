@@ -1,6 +1,6 @@
 package vana_mod.nicofighter45.fr.block.modifiertable;
 
-import vana_mod.nicofighter45.fr.MAIN;
+import vana_mod.nicofighter45.fr.main.VanadiumMod;
 import vana_mod.nicofighter45.fr.items.ModItems;
 import vana_mod.nicofighter45.fr.items.enchantment.ModEnchants;
 import vana_mod.nicofighter45.fr.items.enchantment.UpgradeItem;
@@ -27,11 +27,11 @@ import java.util.Map;
 
 public class ModifiersTableGuiDescription extends SyncedGuiDescription {
 
-    private static final Identifier MESSAGE_ITEM = new Identifier(MAIN.MODID, "item");
+    private static final Identifier MESSAGE_ITEM = new Identifier(VanadiumMod.MODID, "item");
 
     public ModifiersTableGuiDescription(int syncId, PlayerInventory playerinv, ScreenHandlerContext context) {
 
-        super(MAIN.SCREEN_HANDLER_TYPE, syncId, playerinv, getBlockInventory(context, 4), getBlockPropertyDelegate(context));
+        super(VanadiumMod.SCREEN_HANDLER_TYPE, syncId, playerinv, getBlockInventory(context, 4), getBlockPropertyDelegate(context));
 
         PlayerEntity player = playerinv.player;
 
@@ -112,9 +112,9 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                 }
                 ModifierCraft craft = null;
                 Item item = null;
-                for(ModifierCraft result : MAIN.crafts.keySet()){
+                for(ModifierCraft result : VanadiumMod.crafts.keySet()){
                     if(result.getItem0() == item0.getItem() && result.getItem1() == item1.getItem() && result.getItem2() == item2.getItem() && result.getItem3() == item3.getItem()){
-                        item = MAIN.crafts.get(result);
+                        item = VanadiumMod.crafts.get(result);
                         craft = result;
                         break;
                     }
@@ -125,7 +125,7 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                     for(int slot : craft.getNeededItem()){
                         getBlockInventory(context).removeStack(slot, 1);
                     }
-                    server_player.inventory.insertStack(new ItemStack(item));
+                    server_player.inventory.offerOrDrop(world, new ItemStack(item));
                 }
             }
             if(vana){
@@ -133,26 +133,26 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                 Map<Enchantment, Integer> enchant_item = EnchantmentHelper.get(vanaItem);
                 if(vanaItem.getItem() == ModItems.VANADIUM_HELMET){
                     if(upgrade.getItem() == ModItems.HASTE_STONE && (enchant_item.get(ModEnchants.HASTER) == null || enchant_item.get(ModEnchants.HASTER) < 3)){
-                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.HASTER, vanaItem), vanaItem);
+                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.HASTER), vanaItem);
                     }else if(upgrade.getItem() == ModItems.STRENGTH_STONE && (enchant_item.get(ModEnchants.STRENGHTER) == null || enchant_item.get(ModEnchants.STRENGHTER) < 2)){
-                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.STRENGHTER, vanaItem), vanaItem);
+                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.STRENGHTER), vanaItem);
                     }else{
                         doCancell = true;
                     }
                 }else if(vanaItem.getItem() == ModItems.VANADIUM_LEGGINGS){
                     if(upgrade.getItem() == ModItems.RESISTANCE_STONE && (enchant_item.get(ModEnchants.RESISTANCER) == null || enchant_item.get(ModEnchants.RESISTANCER) < 2)){
-                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.RESISTANCER, vanaItem), vanaItem);
+                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.RESISTANCER), vanaItem);
                     }else if(upgrade.getItem() == ModItems.SPEED_STONE && (enchant_item.get(ModEnchants.FASTER) == null || enchant_item.get(ModEnchants.FASTER) < 5)){
-                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.FASTER, vanaItem), vanaItem);
+                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.FASTER), vanaItem);
                     }else{
                         doCancell = true;
                     }
                 }else if(vanaItem.getItem() == ModItems.VANADIUM_BOOTS){
                     if(upgrade.getItem() == ModItems.JUMP_STONE &&
                             (enchant_item.get(ModEnchants.JUMPER) == null || enchant_item.get(ModEnchants.JUMPER) < 5)){
-                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.JUMPER, vanaItem), vanaItem);
+                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.JUMPER), vanaItem);
                     }else if(upgrade.getItem() == ModItems.NO_FALL_STONE && (enchant_item.get(ModEnchants.NO_FALL) == null || enchant_item.get(ModEnchants.NO_FALL) == 0)){
-                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.NO_FALL, vanaItem), vanaItem);
+                        EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.NO_FALL), vanaItem);
                     }else{
                         doCancell = true;
                     }
@@ -161,10 +161,19 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                 }
                 if(!doCancell){
                     getBlockInventory(context).clear();
-                    server_player.inventory.insertStack(vanaItem);
+                    server_player.inventory.offerOrDrop(world, vanaItem);
                 }
             }
+
+            //// Or use .getAllMatches if you want all of the matches
+            //Optional<ModifiersCraft> match = world.getRecipeManager()
+            //    .getFirstMatch(ModifiersCraft.Type.INSTANCE, getBlockInventory(context, 4), world);
+            //if (match.isPresent()) {
+            //server_player.inventory.offerOrDrop(world, match.get().getOutput().copy());
+            //getBlockInventory(context).clear();
+            //}
         });
+
     }
 
     private ItemStack upgrades(ItemStack item0, ItemStack item1, ItemStack item2) {
@@ -178,7 +187,7 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
         return null;
     }
 
-    private Map<Enchantment, Integer> setActualEnchants(Map<Enchantment, Integer> enchant_item, Enchantment enchantment, ItemStack item) {
+    private Map<Enchantment, Integer> setActualEnchants(Map<Enchantment, Integer> enchant_item, Enchantment enchantment) {
         if(!enchant_item.containsKey(enchantment)){
             enchant_item.put(enchantment, 1);
         }else{

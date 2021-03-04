@@ -1,6 +1,6 @@
 package vana_mod.nicofighter45.fr.items.enchantment;
 
-import vana_mod.nicofighter45.fr.MAIN;
+import vana_mod.nicofighter45.fr.main.VanadiumMod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
@@ -54,12 +54,12 @@ public class ModEnchants {
     );
 
     public static void registerAll(){
-        Registry.register(Registry.ENCHANTMENT, new Identifier(MAIN.MODID, "faster"), FASTER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(MAIN.MODID, "jumper"), JUMPER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(MAIN.MODID, "haster"), HASTER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(MAIN.MODID, "strenghter"), STRENGHTER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(MAIN.MODID, "resistancer"), RESISTANCER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(MAIN.MODID, "no_fall"), NO_FALL);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "faster"), FASTER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "jumper"), JUMPER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "haster"), HASTER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "strenghter"), STRENGHTER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "resistancer"), RESISTANCER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "no_fall"), NO_FALL);
     }
 
 }

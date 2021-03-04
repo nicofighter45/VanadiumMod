@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "vana-mod:vanadium_block_item"
+    },
+    "title": {
+      "translate": "advancements.vana-mod.root.title"
+    },
+    "description": {
+      "translate": "advancements.vana-mod.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "vana-mod:textures/block/vanadium_ore.png"
+  },
+  "criteria": {
+    "stone_pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:stone_pickaxe"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "stone_pickaxe"
+    ]
+  ]
+}

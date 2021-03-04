@@ -1,7 +1,7 @@
 package vana_mod.nicofighter45.fr.database;
 
-import vana_mod.nicofighter45.fr.MAIN;
-import vana_mod.nicofighter45.fr.MAINServer;
+import vana_mod.nicofighter45.fr.main.VanadiumMod;
+import vana_mod.nicofighter45.fr.main.VanadiumModServer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -19,9 +19,9 @@ public class Economic {
             sendMsg(giver_player, "You can't send money to yourself");
             return;
         }
-        DataBasePlayer giver = MAINServer.dataBaseManager.getPlayer(giver_player.getEntityName());
+        DataBasePlayer giver = VanadiumModServer.dataBaseManager.getPlayer(giver_player.getEntityName());
         if(giver.getMoney() >= value){
-            DataBasePlayer receiver = MAINServer.dataBaseManager.getPlayer(receiver_player.getEntityName());
+            DataBasePlayer receiver = VanadiumModServer.dataBaseManager.getPlayer(receiver_player.getEntityName());
             receiver.addMoney(value);
             giver.addMoney(-value);
             sendMsg(giver_player, "You got " + giver.getMoney());
@@ -32,12 +32,12 @@ public class Economic {
     }
 
     public static void buyInstant(Item item, Integer amount, ServerPlayerEntity player){
-        DataBasePlayer dbplayer = MAINServer.dataBaseManager.getPlayer(player.getEntityName());
-        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+        DataBasePlayer dbplayer = VanadiumModServer.dataBaseManager.getPlayer(player.getEntityName());
+        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
         float value = dbitem.getBuyValue() * amount;
         if(dbplayer.getMoney() >= value){
             if(player.inventory.insertStack(new ItemStack(item, amount))){
-                dbplayer.addMoney(-value*(1+ MAIN.commissionValue));
+                dbplayer.addMoney(-value*(1+ VanadiumMod.commissionValue));
                 sendMsg(player, "You got " + dbplayer.getMoney());
                 sendMsg(player, "You buy " + amount);
             }else{
@@ -49,17 +49,17 @@ public class Economic {
     }
 
     public static void buy(Item item, Integer amount, ServerPlayerEntity player){
-        DataBasePlayer dbplayer = MAINServer.dataBaseManager.getPlayer(player.getEntityName());
-        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+        DataBasePlayer dbplayer = VanadiumModServer.dataBaseManager.getPlayer(player.getEntityName());
+        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
         if(dbitem.getStock() - amount < 0){
-            sendMsg(player, "There isn't enough stock : " + dbitem.getStock() + "/" + MAIN.maxStockForItem + " so you will buy in instant not complex");
+            sendMsg(player, "There isn't enough stock : " + dbitem.getStock() + "/" + VanadiumMod.maxStockForItem + " so you will buy in instant not complex");
             buyInstant(item, amount, player);
             return;
         }
         for(int i = 1; i <= amount; i++){
             if(dbplayer.getMoney() >= dbitem.getComplexValue()){
                 if(player.inventory.insertStack(new ItemStack(item, 1))){
-                    dbplayer.addMoney(-dbitem.getComplexValue()*(1+ MAIN.commissionValue));
+                    dbplayer.addMoney(-dbitem.getComplexValue()*(1+ VanadiumMod.commissionValue));
                     dbitem.addStock(-1);
                 }else{
                     sendMsg(player, "You buy " + i);
@@ -77,10 +77,10 @@ public class Economic {
     }
 
     public static void sell(Item item, Integer amount, ServerPlayerEntity player){
-        DataBasePlayer dbplayer = MAINServer.dataBaseManager.getPlayer(player.getEntityName());
-        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
-        if(dbitem.getStock() + amount > MAIN.maxStockForItem){
-            sendMsg(player, "There is too many stock : " + dbitem.getStock() + "/"  + MAIN.maxStockForItem + " so you will sell on instant");
+        DataBasePlayer dbplayer = VanadiumModServer.dataBaseManager.getPlayer(player.getEntityName());
+        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
+        if(dbitem.getStock() + amount > VanadiumMod.maxStockForItem){
+            sendMsg(player, "There is too many stock : " + dbitem.getStock() + "/"  + VanadiumMod.maxStockForItem + " so you will sell on instant");
             sellInstant(item, amount, player);
             return;
         }
@@ -90,8 +90,8 @@ public class Economic {
     }
 
     public static void sellInstant(Item item, Integer amount, ServerPlayerEntity player){
-        DataBasePlayer dbplayer = MAINServer.dataBaseManager.getPlayer(player.getEntityName());
-        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+        DataBasePlayer dbplayer = VanadiumModServer.dataBaseManager.getPlayer(player.getEntityName());
+        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
         deleting(player, item, amount, dbplayer, true);
     }
 
@@ -108,7 +108,7 @@ public class Economic {
         if(number >= amount){
             int delete = 0;
             float money = 0;
-            DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+            DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
             for(Integer slot : slots.keySet()){
                 while(amount > delete){
                     player.inventory.removeStack(slot, 1);
@@ -123,7 +123,7 @@ public class Economic {
                     }
                 }
             }
-            dbplayer.addMoney(money*(1- MAIN.commissionValue));
+            dbplayer.addMoney(money*(1- VanadiumMod.commissionValue));
             sendMsg(player, "You got " + dbplayer.getMoney());
             sendMsg(player, "You sell " + amount);
             return true;

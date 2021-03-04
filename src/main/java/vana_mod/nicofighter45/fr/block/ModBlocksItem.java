@@ -1,6 +1,6 @@
 package vana_mod.nicofighter45.fr.block;
 
-import vana_mod.nicofighter45.fr.MAIN;
+import vana_mod.nicofighter45.fr.main.VanadiumMod;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -8,7 +8,7 @@ import net.minecraft.util.registry.Registry;
 
 public class ModBlocksItem {
 
-    private final static Item.Settings settings = new Item.Settings().group(MAIN.VANADIUM_GROUP);
+    private final static Item.Settings settings = new Item.Settings().group(VanadiumMod.VANADIUM_GROUP);
 
     public static final BlockItem VANADIUM_ORE_ITEM = new BlockItem(ModBlocks.VANADIUM_ORE, settings);
     public static final BlockItem TUNGSTEN_ORE_ITEM = new BlockItem(ModBlocks.TUNGSTEN_ORE, settings);
@@ -36,6 +36,6 @@ public class ModBlocksItem {
     }
 
     private static void registerNewItemBlock(String name, BlockItem block){
-        Registry.register(Registry.ITEM, new Identifier(MAIN.MODID, name), block);
+        Registry.register(Registry.ITEM, new Identifier(VanadiumMod.MODID, name), block);
     }
 }

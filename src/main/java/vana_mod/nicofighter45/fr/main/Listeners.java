@@ -1,4 +1,4 @@
-package vana_mod.nicofighter45.fr;
+package vana_mod.nicofighter45.fr.main;
 
 import vana_mod.nicofighter45.fr.database.DataBasePlayer;
 import vana_mod.nicofighter45.fr.items.ModItems;
@@ -41,7 +41,7 @@ public class Listeners {
                         server.execute(() -> {
                             ItemStack it = server_player.getMainHandStack();
                             Item item = it.getItem();
-                            DataBasePlayer data_player = MAINServer.dataBaseManager.getPlayer(server_player.getEntityName());
+                            DataBasePlayer data_player = VanadiumModServer.dataBaseManager.getPlayer(server_player.getEntityName());
                             PlayerInventory inventory = server_player.inventory;
                             int heart = data_player.getHeart();
                             int regen = data_player.getRegen();
@@ -79,9 +79,6 @@ public class Listeners {
                                     if(inventory.getStack(slot) == it){
                                         inventory.removeStack(slot, 1);
                                     }
-                                }
-                                if (server_player.getHealth() < MAINServer.dataBaseManager.getPlayer(server_player.getEntityName()).getRegen()) {
-                                    MAINServer.TickNumberForHeal.put(server_player, 1);
                                 }
                             }
                         });

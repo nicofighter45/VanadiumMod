@@ -1,0 +1,17 @@
+{
+  "type": "vana-mod:modifiers_recipe",
+  "input1" : {
+    "item": "vana-mod:vanadium_nugget"
+  },
+  "input2": {
+    "item": "vana-mod:vanadium_nugget"
+  },
+  "input3": {
+    "item": "vana-mod:vanadium_nugget"
+  },
+  "input4": {
+    "item": "vana-mod:vanadium_nugget"
+  },
+  "outputItem": "vana-mod:vanadium_ingot",
+  "outputAmount": "1"
+}

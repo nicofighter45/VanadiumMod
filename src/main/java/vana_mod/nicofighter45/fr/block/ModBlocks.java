@@ -1,6 +1,6 @@
 package vana_mod.nicofighter45.fr.block;
 
-import vana_mod.nicofighter45.fr.MAIN;
+import vana_mod.nicofighter45.fr.main.VanadiumMod;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -39,6 +39,6 @@ public class ModBlocks {
     }
 
     private static void registerNewBlock(String name, Block block){
-        Registry.register(Registry.BLOCK, new Identifier(MAIN.MODID, name), block);
+        Registry.register(Registry.BLOCK, new Identifier(VanadiumMod.MODID, name), block);
     }
 }

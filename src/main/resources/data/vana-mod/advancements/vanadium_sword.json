@@ -1,0 +1,36 @@
+{
+  "parent": "vana-mod:modifiers",
+  "display": {
+    "icon": {
+      "item": "vana-mod:vanadium_sword",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.vana-mod.vanasword.title"
+    },
+    "description": {
+      "translate": "advancements.vana-mod.vanasword.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "craft_vanasword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "vana-mod:vanadium_sword"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "craft_vanasword"
+    ]
+  ]
+}

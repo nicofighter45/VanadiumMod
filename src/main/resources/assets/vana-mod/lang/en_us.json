@@ -10,6 +10,8 @@
   "item.vana-mod.vanadium_heart": "Vanadium Heart",
   "item.vana-mod.vanadium_sword": "Vanadium Sword",
   "item.vana-mod.vanadium_hammer": "Vanadium Hammer",
+  "item.vana-mod.vanadium_axe": "Vanadium Axe",
+  "item.vana-mod.vanadium_shovel": "Vanadium Shovel",
 
   "item.vana-mod.vanadium_helmet": "Vanadium Helmet",
   "item.vana-mod.vanadium_chestplate": "Vanadium Chestplate",
@@ -83,5 +85,36 @@
 
   "item.vana-mod.hat": "Hat",
 
-  "itemGroup.vana-mod.vanadium": "VanaMod"
+  "itemGroup.vana-mod.vanadium": "VanaMod",
+
+  "advancements.vana-mod.root.title": "Vanadium",
+  "advancements.vana-mod.root.description": "Find Your way trough this world",
+
+  "advancements.vana-mod.copper.title": "Born Miner",
+  "advancements.vana-mod.copper.description": "Mine some copper",
+  "advancements.vana-mod.copperhammer.title": "Hammer ?",
+  "advancements.vana-mod.copperhammer.description": "Craft a copper hammer",
+
+  "advancements.vana-mod.tin.title": "Smith",
+  "advancements.vana-mod.tin.description": "Mine some tin",
+  "advancements.vana-mod.simplehealth.title": "Health Boost",
+  "advancements.vana-mod.simplehealth.description": "Craft a simple health booster",
+  "advancements.vana-mod.simpleregen.title": "Regen Boost",
+  "advancements.vana-mod.simpleregen.description": "Craft a simple regen booster",
+
+  "advancements.vana-mod.tungsten.title": "Hot Ingot!",
+  "advancements.vana-mod.tungsten.description": "Find tungsten ingot",
+  "advancements.vana-mod.tungstenchest.title": "Fire Bender!",
+  "advancements.vana-mod.tungstenchest.description": "Craft a tungsten chestplate",
+
+  "advancements.vana-mod.vanadium.title": "Vanadium!",
+  "advancements.vana-mod.vanadium.description": "Get some Vanadium Nugget",
+  "advancements.vana-mod.vanahammer.title": "That's a hammer!",
+  "advancements.vana-mod.vanahammer.description": "Craft a vanadium hammer",
+  "advancements.vana-mod.vanaarmor.title": "The Armor",
+  "advancements.vana-mod.vanaarmor.description": "Craft a piece of vanadium armor",
+  "advancements.vana-mod.modifiers.title": "Table",
+  "advancements.vana-mod.modifiers.description": "Craft a modifiers_table",
+  "advancements.vana-mod.vanasword.title": "The Sword",
+  "advancements.vana-mod.vanasword.description": "Craft a vanadium sword"
 }

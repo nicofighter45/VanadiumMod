@@ -19,6 +19,9 @@ repositories {
 		name = "CottonMC"
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
+	maven {
+		url "https://maven.shedaniel.me/"
+	}
 }
 
 dependencies {
@@ -34,6 +37,9 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modImplementation include("io.github.cottonmc:LibGui:3.3.3+1.16.5")
+
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:5.10.184"
+	modRuntime "me.shedaniel:RoughlyEnoughItems:5.10.184"
 }
 
 processResources {

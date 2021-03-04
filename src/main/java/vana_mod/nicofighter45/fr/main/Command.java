@@ -1,4 +1,4 @@
-package vana_mod.nicofighter45.fr;
+package vana_mod.nicofighter45.fr.main;
 
 import vana_mod.nicofighter45.fr.database.DataBaseItem;
 import vana_mod.nicofighter45.fr.database.Economic;
@@ -86,15 +86,15 @@ public class Command {
                                                                     sendMsg(player, "The buyvalue is inferior to the sellvalue");
                                                                     return 1;
                                                                 }
-                                                                if(stock > MAIN.maxStockForItem){
+                                                                if(stock > VanadiumMod.maxStockForItem){
                                                                     sendMsg(player, "The stock is superior to the max stock");
                                                                     return 1;
                                                                 }
-                                                                if (MAINServer.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                                if (VanadiumModServer.dataBaseManager.dataBaseItems.containsKey(item)){
                                                                     sendMsg(player, "This item is already register");
                                                                     return 1;
                                                                 }
-                                                                MAINServer.dataBaseManager.dataBaseItems.put(item, new DataBaseItem(item, sellvalue, buyvalue, stock));
+                                                                VanadiumModServer.dataBaseManager.dataBaseItems.put(item, new DataBaseItem(item, sellvalue, buyvalue, stock));
                                                                 sendMsg(player, "This item has been register");
                                                                 return 1;
                                                             })
@@ -123,11 +123,11 @@ public class Command {
                                                         ServerPlayerEntity player = c.getSource().getPlayer();
                                                         Item item = getItemStackArgument(c, "item").getItem();
                                                         float value = getFloat(c, "value");
-                                                        if (!MAINServer.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                        if (!VanadiumModServer.dataBaseManager.dataBaseItems.containsKey(item)){
                                                             sendMsg(player, "Need a register item to change values");
                                                             return 1;
                                                         }
-                                                        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+                                                        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
                                                         dbitem.setBuyValue(value);
                                                         sendMsg(player, "The buyvalue of the item have been change");
                                                         return 1;
@@ -144,11 +144,11 @@ public class Command {
                                                         ServerPlayerEntity player = c.getSource().getPlayer();
                                                         Item item = getItemStackArgument(c, "item").getItem();
                                                         float value = getFloat(c, "value");
-                                                        if (!MAINServer.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                        if (!VanadiumModServer.dataBaseManager.dataBaseItems.containsKey(item)){
                                                             sendMsg(player, "Need a register item to change values");
                                                             return 1;
                                                         }
-                                                        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+                                                        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
                                                         dbitem.setSellValue(value);
                                                         sendMsg(player, "The sellvalue of the item have been change");
                                                         return 1;
@@ -165,15 +165,15 @@ public class Command {
                                                         ServerPlayerEntity player = c.getSource().getPlayer();
                                                         Item item = getItemStackArgument(c, "item").getItem();
                                                         int value = getInteger(c, "value");
-                                                        if(value > MAIN.maxStockForItem){
+                                                        if(value > VanadiumMod.maxStockForItem){
                                                             sendMsg(player, "The stock is superior to the max stock");
                                                             return 1;
                                                         }
-                                                        if (!MAINServer.dataBaseManager.dataBaseItems.containsKey(item)){
+                                                        if (!VanadiumModServer.dataBaseManager.dataBaseItems.containsKey(item)){
                                                             sendMsg(player, "Need a register item to change values");
                                                             return 1;
                                                         }
-                                                        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+                                                        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
                                                         dbitem.setStock(value);
                                                         sendMsg(player, "The stock of the item have been change");
                                                         return 1;
@@ -190,11 +190,11 @@ public class Command {
                             .then(argument("item", itemStack())
                                     .executes(c -> {
                                         Item item = getItemStackArgument(c, "item").getItem();
-                                        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+                                        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
                                         if(dbitem == null){
                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                         }else{
-                                            MAINServer.dataBaseManager.dataBaseItems.remove(item);
+                                            VanadiumModServer.dataBaseManager.dataBaseItems.remove(item);
                                             sendMsg(c.getSource().getPlayer(), "This item has been delete");
                                         }
                                         return 1;
@@ -226,13 +226,13 @@ public class Command {
                     .then(argument("player", player())
                             .executes(c -> {
                                 ServerPlayerEntity player = c.getSource().getPlayer();
-                                sendMsg(player, "He got " + MAINServer.dataBaseManager.getPlayer(getPlayer(c, "player").getEntityName()).getMoney());
+                                sendMsg(player, "He got " + VanadiumModServer.dataBaseManager.getPlayer(getPlayer(c, "player").getEntityName()).getMoney());
                                 return 1;
                             })
                     )
                     .executes(c -> {
                         ServerPlayerEntity player = c.getSource().getPlayer();
-                        sendMsg(player, "You got " + MAINServer.dataBaseManager.getPlayer(player.getEntityName()).getMoney());
+                        sendMsg(player, "You got " + VanadiumModServer.dataBaseManager.getPlayer(player.getEntityName()).getMoney());
                         return 1;
                     })
             );
@@ -243,7 +243,7 @@ public class Command {
                                 ServerPlayerEntity player = c.getSource().getPlayer();
                                 sendMsg(player, "All the item in sale are :");
                                 sendMsg(player, "item:buyvalue/sellvalue/stock/complexvalue");
-                                for(DataBaseItem dbitem : MAINServer.dataBaseManager.dataBaseItems.values()){
+                                for(DataBaseItem dbitem : VanadiumModServer.dataBaseManager.dataBaseItems.values()){
                                     sendMsg(player, dbitem.getItem().getTranslationKey() + ":" + dbitem.getBuyValue() +  "/" + dbitem.getSellValue() + "/" + dbitem.getStock() + "/" + dbitem.getComplexValue());
                                 }
                                 return 1;
@@ -251,12 +251,12 @@ public class Command {
                             .then(argument("item", itemStack())
                                     .executes(c -> {
                                         Item item = getItemStackArgument(c, "item").getItem();
-                                        DataBaseItem dbitem = MAINServer.dataBaseManager.dataBaseItems.get(item);
+                                        DataBaseItem dbitem = VanadiumModServer.dataBaseManager.dataBaseItems.get(item);
                                         ServerPlayerEntity player = c.getSource().getPlayer();
                                         if(dbitem == null){
                                             sendMsg(player, "This item isn't register in the database. Sorry :(");
                                         }else{
-                                            sendMsg(player, "Stock : " + dbitem.getStock() + "/" + MAIN.maxStockForItem);
+                                            sendMsg(player, "Stock : " + dbitem.getStock() + "/" + VanadiumMod.maxStockForItem);
                                             sendMsg(player, "BuyValue : " + dbitem.getBuyValue());
                                             sendMsg(player, "SellValue : " + dbitem.getSellValue());
                                             sendMsg(player, "ComplexValue : " + dbitem.getComplexValue());
@@ -272,7 +272,7 @@ public class Command {
                             })
                             .then(argument("item", itemStack())
                                     .executes(c -> {
-                                        if(MAINServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                        if(VanadiumModServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                         }else{
                                             Economic.buy(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
@@ -281,7 +281,7 @@ public class Command {
                                     })
                                     .then(argument("amount", integer(1))
                                         .executes(c -> {
-                                            if(MAINServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                            if(VanadiumModServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                                 sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                             }else{
                                                 Economic.buy(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());
@@ -298,7 +298,7 @@ public class Command {
                             })
                             .then(argument("item", itemStack())
                                     .executes(c -> {
-                                        if(MAINServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                        if(VanadiumModServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                             sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                         }else{
                                             Economic.sell(getItemStackArgument(c, "item").getItem(), 1, c.getSource().getPlayer());
@@ -307,7 +307,7 @@ public class Command {
                                     })
                                     .then(argument("amount", integer(1))
                                             .executes(c -> {
-                                                if(MAINServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
+                                                if(VanadiumModServer.dataBaseManager.dataBaseItems.get(getItemStackArgument(c, "item").getItem()) == null){
                                                     sendMsg(c.getSource().getPlayer(), "This item isn't register in the database. Sorry :(");
                                                 }else{
                                                     Economic.sell(getItemStackArgument(c, "item").getItem(), getInteger(c, "amount"), c.getSource().getPlayer());

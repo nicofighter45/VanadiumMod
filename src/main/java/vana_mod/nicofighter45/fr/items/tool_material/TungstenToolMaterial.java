@@ -35,6 +35,6 @@ public class TungstenToolMaterial implements ToolMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.ofItems(ModItems.TIN_INGOT);
+        return Ingredient.ofItems(ModItems.TUNGSTEN_INGOT);
     }
 }

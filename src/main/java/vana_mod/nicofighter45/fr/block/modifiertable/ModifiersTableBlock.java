@@ -1,6 +1,6 @@
 package vana_mod.nicofighter45.fr.block.modifiertable;
 
-import vana_mod.nicofighter45.fr.MAIN;
+import vana_mod.nicofighter45.fr.main.VanadiumMod;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ModifiersTableBlock extends Block implements BlockEntityProvider{
-    public static final Identifier ID = new Identifier(MAIN.MODID, "modifierstable");
+    public static final Identifier ID = new Identifier(VanadiumMod.MODID, "modifierstable");
 
     public ModifiersTableBlock(){
         super(FabricBlockSettings.of(Material.METAL).breakByHand(false).sounds(BlockSoundGroup.METAL)

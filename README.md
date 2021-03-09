@@ -1,5 +1,20 @@
 # Fabric Vanadium Mod
 
+## License
+
+This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+To learn what you can and can't do check : https://choosealicense.com/licenses/mit/
+
+## Info
+
+### Warning !
+
+This projet is currently in developppement. Feel free to send your message if you found a issue. This Mod isn't available for singleplayer currently. You can still test it in solo but saving player health and regen won't be opperationnal.
+
+### Video
+
+Here is a video in french to learn how to install and play with this mod in vanadium server : https://www.youtube.com/watch?v=-hX_PsVFtgQ&t=17s
+
 ## Setup
 
 ### Java
@@ -40,8 +55,4 @@ Put all those mod in your mod folder
 
 ### VanaMod
 
-Add to your mod folder the latest version of VanaMod (check on release page)
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Add to your mod folder the latest version of VanaMod : https://github.com/nicofighter45/FabricVanaMod/releases

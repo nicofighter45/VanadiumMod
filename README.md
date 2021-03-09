@@ -79,7 +79,3 @@ Enter the given IP if you want to play multiplayer (currently vanadium.jeanba.fr
 Or create a new world in solo
 
 Enjoy :)
-Put all the mods into the mod folder.
-Launch you
-
-

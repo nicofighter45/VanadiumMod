@@ -70,8 +70,8 @@ Download the latest version of VanaMod (pre release are beta version, take the o
 #### Go into your mod folder of minecraft:
 #### windows + R
 #### %appdata%
-#### go into .roaming and then .minecraft
-#### put all the mods int the mod folder
+#### go into .minecraft
+#### put all the mods in the mods folder
 
 #### Lauch your minecraft client and run the new version that has been created called fabric-<version>
 

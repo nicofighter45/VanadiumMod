@@ -67,15 +67,15 @@ Download the latest version of VanaMod (pre release are beta version, take the o
 
 ### Installation
 
-Go into your mod folder of minecraft:
-windows + R
-%appdata%
-go into .roaming and then .minecraft
-put all the mods int the mod folder
+#### Go into your mod folder of minecraft:
+#### windows + R
+#### %appdata%
+#### go into .roaming and then .minecraft
+#### put all the mods int the mod folder
 
-Lauch your minecraft client and run the new version that has been created called fabric-<version>
+#### Lauch your minecraft client and run the new version that has been created called fabric-<version>
 
-Enter the given IP if you want to play multiplayer (currently vanadium.jeanba.fr)
-Or create a new world in solo
+#### Enter the given IP if you want to play multiplayer (currently vanadium.jeanba.fr)
+#### Or create a new world in solo
 
-Enjoy :)
+#### Enjoy :)

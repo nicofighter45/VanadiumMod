@@ -54,7 +54,7 @@ https://www.curseforge.com/minecraft/mc-mods/cloth-api/download/3194917
 ##### Cloth API config:
 https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3210410
 
-#### Change Generation
+#### Change Generation :
 
 ##### CaveBiomes : 
 https://media.forgecdn.net/files/3186/845/cavebiomes-0.6.2.jar
@@ -63,7 +63,7 @@ https://media.forgecdn.net/files/3169/629/repurposed_structures-1.16.4-1.7.4.jar
 
 ### VanaMod
 
-Download the latest version of VanaMod (pre release are beta version, take the one name latest release: https://github.com/nicofighter45/FabricVanaMod/releases
+Download the latest version of VanaMod (pre release are beta version, take the one name latest release) : https://github.com/nicofighter45/FabricVanaMod/releases
 
 ### Installation
 

@@ -1,12 +1,12 @@
 {
   "type": "minecraft:smithing",
   "base": {
-    "item": "vana-mod:emerald_leggings"
+    "item": "minecraft:netherite_shovel"
   },
   "addition": {
     "item": "vana-mod:vanadium_plack"
   },
   "result": {
-    "item": "vana-mod:vanadium_leggings"
+    "item": "vana-mod:vanadium_shovel"
   }
 }

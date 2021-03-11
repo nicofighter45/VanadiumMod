@@ -6,8 +6,7 @@
   "block.vana-mod.vanadium_block": "Vanadium Block",
   "item.vana-mod.vanadium_block_item": "Vanadium Block",
 
-  "item.vana-mod.vanadium_stick": "Vanadium Stick",
-  "item.vana-mod.vanadium_heart": "Vanadium Heart",
+  "item.vana-mod.vanadium_plack": "Vanadium Plack",
   "item.vana-mod.vanadium_sword": "Vanadium Sword",
   "item.vana-mod.vanadium_hammer": "Vanadium Hammer",
   "item.vana-mod.vanadium_axe": "Vanadium Axe",
@@ -18,7 +17,7 @@
   "item.vana-mod.vanadium_leggings": "Vanadium Leggings",
   "item.vana-mod.vanadium_boots": "Vanadium Boots",
 
-  "item.vana-mod.emerald_heart": "Emerald Heart",
+  "item.vana-mod.emerald_plack": "Emerald Plack",
 
   "item.vana-mod.emerald_helmet": "Emerald Helmet",
   "item.vana-mod.emerald_chestplate": "Emerald Chestplate",
@@ -31,11 +30,11 @@
   "enchantment.vana-mod.strenghter": "Strenghter",
   "enchantment.vana-mod.resistancer": "Resistancer",
   "enchantment.vana-mod.no_fall": "No Fall",
+  "enchantment.vana-mod.experience": "Experience",
 
   "block.vana-mod.tungsten_ore": "Tungsten Ore",
   "item.vana-mod.tungsten_ore": "Tungsten Ore",
   "item.vana-mod.tungsten_ingot": "Tungsten Ingot",
-  "item.vana-mod.tungsten_stick": "Tungsten Stick",
   "item.vana-mod.tungsten_hammer": "Tungsten Hammer",
   "item.vana-mod.tungsten_chestplate": "Tungsten Chestplate",
   "block.vana-mod.tungsten_block": "Tungsten Block",
@@ -48,7 +47,6 @@
   "block.vana-mod.copper_ore": "Copper Ore",
   "item.vana-mod.copper_ore": "Copper Ore",
   "item.vana-mod.copper_ingot": "Copper Ingot",
-  "item.vana-mod.copper_stick": "Copper Stick",
   "item.vana-mod.copper_hammer": "Copper Hammer",
   "block.vana-mod.copper_block": "Copper Block",
   "item.vana-mod.copper_block_item": "Copper Block",
@@ -56,7 +54,6 @@
   "block.vana-mod.tin_ore": "Tin Ore",
   "item.vana-mod.tin_ore": "Tin Ore",
   "item.vana-mod.tin_ingot": "Tin Ingot",
-  "item.vana-mod.tin_stick": "Tin Stick",
   "item.vana-mod.tin_hammer": "Tin Hammer",
   "block.vana-mod.tin_block": "Tin Block",
   "item.vana-mod.tin_block_item": "Tin Block",

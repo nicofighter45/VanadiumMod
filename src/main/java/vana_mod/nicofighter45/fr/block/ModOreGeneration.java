@@ -1,5 +1,6 @@
 package vana_mod.nicofighter45.fr.block;
 
+import net.minecraft.world.gen.UniformIntDistribution;
 import vana_mod.nicofighter45.fr.main.VanadiumMod;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -32,7 +33,7 @@ public class ModOreGeneration {
                         4))
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
                         55,
-                        55,
+                        0,
                         70)))
                 .spreadHorizontally()
                 .repeat(1);
@@ -46,13 +47,13 @@ public class ModOreGeneration {
         //génération du minearai de tungsten
         ConfiguredFeature<?, ?> TUNGSTEN_ORE_GENERATION = Feature.ORE
                 .configure(new OreFeatureConfig(
-                        new BlockMatchRuleTest(Blocks.STONE),
+                        OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
                         ModBlocks.TUNGSTEN_ORE.getDefaultState(),
 
                         4))
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
                         5,
-                        5,
+                        0,
                         15)))
                 .spreadHorizontally()
                 .repeat(2);
@@ -64,13 +65,13 @@ public class ModOreGeneration {
 
         //génération du minearais d'argent
         ConfiguredFeature<?, ?> SILVER_ORE_GENERATION = Feature.ORE
-                .configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.NETHERRACK),
+                .configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_NETHER,
                         ModBlocks.SILVER_ORE.getDefaultState(),
 
                         4))
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
                         30,
-                        30,
+                        0,
                         40)))
                 .spreadHorizontally()
                 .repeat(4);
@@ -83,13 +84,13 @@ public class ModOreGeneration {
 
         //génération du minearais de cuivre
         ConfiguredFeature<?, ?> COPPER_ORE_GENERATION = Feature.ORE
-                .configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.STONE),
+                .configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
                         ModBlocks.COPPER_ORE.getDefaultState(),
 
                         8))
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
                         40,
-                        40,
+                        0,
                         70)))
                 .spreadHorizontally()
                 .repeat(8);
@@ -102,13 +103,13 @@ public class ModOreGeneration {
 
         //génération du minearais d'étain
         ConfiguredFeature<?, ?> TIN_ORE_GENERATION = Feature.ORE
-                .configure(new OreFeatureConfig(new BlockMatchRuleTest(Blocks.STONE),
+                .configure(new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD,
                         ModBlocks.TIN_ORE.getDefaultState(),
 
                         8))
                 .decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(
                         20,
-                        20,
+                        0,
                         50)))
                 .spreadHorizontally()
                 .repeat(6);

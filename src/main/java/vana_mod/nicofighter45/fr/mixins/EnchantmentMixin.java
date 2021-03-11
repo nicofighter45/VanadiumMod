@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import vana_mod.nicofighter45.fr.items.Hammer;
+import vana_mod.nicofighter45.fr.items.custom.Hammer;
 
 @Mixin(Enchantment.class)
 public class EnchantmentMixin {

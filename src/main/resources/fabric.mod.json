@@ -26,7 +26,7 @@
       "vana_mod.nicofighter45.fr.main.VanadiumModClient"
     ],
     "server": [
-      "vana-mod.nicofighter45.fr.main.VanadiumModServer"
+      "vana_mod.nicofighter45.fr.main.VanadiumModServer"
     ],
     "rei_plugins": [
       "vana_mod.nicofighter45.fr.rei.Plugin"

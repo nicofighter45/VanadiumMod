@@ -1,5 +1,8 @@
 package vana_mod.nicofighter45.fr.items;
 
+import vana_mod.nicofighter45.fr.items.custom.Excavator;
+import vana_mod.nicofighter45.fr.items.custom.Hammer;
+import vana_mod.nicofighter45.fr.items.custom.MegaAxe;
 import vana_mod.nicofighter45.fr.main.VanadiumMod;
 import vana_mod.nicofighter45.fr.items.armor.EmeraldArmorMaterials;
 import vana_mod.nicofighter45.fr.items.armor.TungstenArmorMaterials;
@@ -23,23 +26,22 @@ public class ModItems {
     }
 
     //vanadium
-    public static final Item VANADIUM_NUGGET = new Item(settings());
-    public static final Item VANADIUM_INGOT = new Item(settings());
-    public static final Item VANADIUM_STICK = new Item(settings().maxCount(16));
-    public static final Item VANADIUM_HEART = new Item(settings().maxCount(8));
-    public static final Item VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -1.0F, settings().maxCount(1));
-    public static final Item VANADIUM_HAMMER = new Hammer(VanadiumToolMaterial.INSTANCE, 4, settings().maxCount(1));
-    public static final Item VANADIUM_AXE = new MegaAxe(VanadiumToolMaterial.INSTANCE, settings().maxCount(1));
-    public static final Item VANADIUM_SHOVEL = new ShovelItem(VanadiumToolMaterial.INSTANCE, 1, 1, settings().maxCount(1));
+    public static final Item VANADIUM_NUGGET = new Item(settings().fireproof());
+    public static final Item VANADIUM_INGOT = new Item(settings().fireproof());
+    public static final Item VANADIUM_PLACK = new Item(settings().maxCount(64).fireproof());
+    public static final Item VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -1.0F, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_HAMMER = new Hammer(VanadiumToolMaterial.INSTANCE, 4, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_AXE = new MegaAxe(VanadiumToolMaterial.INSTANCE, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_SHOVEL = new Excavator(VanadiumToolMaterial.INSTANCE, 1, 1, settings().maxCount(1).fireproof());
 
     //armure en vanadium
-    public static final Item VANADIUM_HELMET = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.HEAD, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
-    public static final Item VANADIUM_CHESTPLATE = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.CHEST, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
-    public static final Item VANADIUM_LEGGINGS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.LEGS, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
-    public static final Item VANADIUM_BOOTS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.FEET, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
+    public static final Item VANADIUM_HELMET = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.HEAD, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_CHESTPLATE = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.CHEST, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_LEGGINGS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.LEGS, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_BOOTS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.FEET, settings().maxCount(1).fireproof());
 
     //armure en emeraude
-    public static final Item EMERALD_HEART = new Item(settings().maxCount(8));
+    public static final Item EMERALD_PLACK = new Item(settings().maxCount(64));
     public static final Item EMERALD_HELMET = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.HEAD, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
     public static final Item EMERALD_CHESTPLATE = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.CHEST, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
     public static final Item EMERALD_LEGGINGS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.LEGS, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
@@ -47,8 +49,8 @@ public class ModItems {
 
     //tungsten
     public static final Item TUNGSTEN_INGOT = new Item(settings().maxCount(64));
+    public static final Item TUNGSTEN_PLACK = new Item(settings().maxCount(64));
     public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(TungstenArmorMaterials.TUNGSTEN, EquipmentSlot.CHEST, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
-    public static final Item TUNGSTEN_STICK = new Item(settings().maxCount(16));
     public static final Item TUNGSTEN_HAMMER = new Hammer(TungstenToolMaterial.INSTANCE, 3, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
 
     //argent
@@ -56,13 +58,13 @@ public class ModItems {
 
     //copper
     public static final Item COPPER_INGOT = new Item(settings().maxCount(64));
+    public static final Item COPPER_PLACK = new Item(settings().maxCount(64));
     public static final Item COPPER_HAMMER = new Hammer(CopperToolMaterial.INSTANCE, 1, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
-    public static final Item COPPER_STICK = new Item(settings().maxCount(16));
 
     //étain
     public static final Item TIN_INGOT = new Item(settings().maxCount(64));
+    public static final Item TIN_PLACK = new Item(settings().maxCount(64));
     public static final Item TIN_HAMMER = new Hammer(TinToolMaterial.INSTANCE, 2, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
-    public static final Item TIN_STICK = new Item(settings().maxCount(16));
 
     //processeur
     public static final Item TRANSISTOR = new Item(settings().maxCount(16));
@@ -99,9 +101,8 @@ public class ModItems {
         registerNewItem("vanadium_nugget", VANADIUM_NUGGET);
         registerNewItem("vanadium_ingot", VANADIUM_INGOT);
 
-        registerNewItem("vanadium_stick", VANADIUM_STICK);
-        registerNewItem("vanadium_heart", VANADIUM_HEART);
-        registerNewItem("emerald_heart", EMERALD_HEART);
+        registerNewItem("vanadium_plack", VANADIUM_PLACK);
+        registerNewItem("emerald_plack", EMERALD_PLACK);
         registerNewItem("vanadium_sword", VANADIUM_SWORD);
         registerNewItem("vanadium_hammer", VANADIUM_HAMMER);
         registerNewItem("vanadium_axe", VANADIUM_AXE);
@@ -119,19 +120,19 @@ public class ModItems {
         registerNewItem("emerald_boots", EMERALD_BOOTS);
 
         registerNewItem("tungsten_ingot", TUNGSTEN_INGOT);
+        registerNewItem("tungsten_plack", TUNGSTEN_PLACK);
         registerNewItem("tungsten_chestplate", TUNGSTEN_CHESTPLATE);
-        registerNewItem("tungsten_stick", TUNGSTEN_STICK);
         registerNewItem("tungsten_hammer", TUNGSTEN_HAMMER);
 
         registerNewItem("silver_ingot", SILVER_INGOT);
 
         registerNewItem("copper_ingot", COPPER_INGOT);
+        registerNewItem("copper_plack", COPPER_PLACK);
         registerNewItem("copper_hammer", COPPER_HAMMER);
-        registerNewItem("copper_stick", COPPER_STICK);
 
         registerNewItem("tin_ingot", TIN_INGOT);
+        registerNewItem("tin_plack", TIN_PLACK);
         registerNewItem("tin_hammer", TIN_HAMMER);
-        registerNewItem("tin_stick", TIN_STICK);
 
         registerNewItem("transistor", TRANSISTOR);
         registerNewItem("processor", PROCESSOR);

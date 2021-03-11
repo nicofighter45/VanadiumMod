@@ -4,11 +4,11 @@
   "package": "vana_mod.nicofighter45.fr.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "EnchantmentMixin",
     "MinecraftServerMixin",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
-    "ServerWorldMixin",
-    "EnchantmentMixin"
+    "ServerWorldMixin"
   ],
   "client": [
   ],

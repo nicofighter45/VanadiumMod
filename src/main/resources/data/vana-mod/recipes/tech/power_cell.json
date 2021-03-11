@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " T ",
+    " I ",
     "CGC",
-    " T "
+    " I "
   ],
   "key": {
-    "T": {
-      "item": "vana-mod:tin_ingot"
+    "I": {
+      "item": "minecraft:iron_ingot"
     },
     "C" : {
       "item" : "vana-mod:copper_ingot"

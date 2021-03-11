@@ -6,6 +6,7 @@ import vana_mod.nicofighter45.fr.block.ModBlocksItem;
 import vana_mod.nicofighter45.fr.block.modifiertable.*;
 import vana_mod.nicofighter45.fr.block.modifiertable.craft.ModifiersCraft;
 import vana_mod.nicofighter45.fr.block.modifiertable.craft.ModifiersRecipeSerializer;
+import vana_mod.nicofighter45.fr.entity.ModEntity;
 import vana_mod.nicofighter45.fr.items.ModItems;
 import vana_mod.nicofighter45.fr.items.enchantment.ModEnchants;
 import net.fabricmc.api.ModInitializer;
@@ -60,8 +61,6 @@ public class VanadiumMod implements ModInitializer {
     private void addCrafts() {
         newCraft(ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_NUGGET, ModItems.VANADIUM_INGOT);
         newCraft(ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_INGOT, ModBlocksItem.VANADIUM_BLOCK_ITEM);
-        newCraft(ModBlocksItem.VANADIUM_BLOCK_ITEM, Items.DIAMOND, Items.DIAMOND, ModBlocksItem.VANADIUM_BLOCK_ITEM, ModItems.VANADIUM_HEART);
-        newCraft(ModItems.VANADIUM_STICK, ModItems.VANADIUM_HEART, ModBlocksItem.VANADIUM_BLOCK_ITEM, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_SWORD);
 
         newCraft(ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.PROCESSOR);
 
@@ -71,11 +70,6 @@ public class VanadiumMod implements ModInitializer {
         newCraft(ModItems.VANADIUM_NUGGET, Items.BROWN_MUSHROOM_BLOCK, Items.RED_MUSHROOM_BLOCK, ModItems.VANADIUM_NUGGET, ModItems.SPEED_STONE);
         newCraft(ModItems.VANADIUM_NUGGET, Items.SLIME_BLOCK, Items.SLIME_BLOCK, ModItems.VANADIUM_NUGGET, ModItems.JUMP_STONE);
         newCraft(ModItems.VANADIUM_NUGGET, Items.DRAGON_HEAD, Items.NETHER_STAR, ModItems.VANADIUM_NUGGET, ModItems.NO_FALL_STONE);
-
-        newCraft(ModItems.VANADIUM_INGOT, Items.AIR, Items.AIR, Items.AIR, ModItems.VANADIUM_STICK);
-        newCraft(Items.AIR, ModItems.VANADIUM_INGOT, Items.AIR, Items.AIR, ModItems.VANADIUM_STICK);
-        newCraft(Items.AIR, Items.AIR, ModItems.VANADIUM_INGOT, Items.AIR, ModItems.VANADIUM_STICK);
-        newCraft(Items.AIR, Items.AIR, Items.AIR, ModItems.VANADIUM_INGOT, ModItems.VANADIUM_STICK);
     }
 
     private void registers() {
@@ -84,6 +78,7 @@ public class VanadiumMod implements ModInitializer {
         ModBlocks.registerAll();
         Listeners.onItemRightClickRegister();
         ModifierTableRegister.registerAll();
+        ModEntity.registerAll();
     }
 
     private static void newCraft(Item item0, Item item1, Item item2, Item item3, Item result){

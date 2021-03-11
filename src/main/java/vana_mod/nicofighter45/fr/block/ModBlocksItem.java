@@ -10,13 +10,13 @@ public class ModBlocksItem {
 
     private final static Item.Settings settings = new Item.Settings().group(VanadiumMod.VANADIUM_GROUP);
 
-    public static final BlockItem VANADIUM_ORE_ITEM = new BlockItem(ModBlocks.VANADIUM_ORE, settings);
+    public static final BlockItem VANADIUM_ORE_ITEM = new BlockItem(ModBlocks.VANADIUM_ORE, settings.fireproof());
     public static final BlockItem TUNGSTEN_ORE_ITEM = new BlockItem(ModBlocks.TUNGSTEN_ORE, settings);
     public static final BlockItem SILVER_ORE_ITEM = new BlockItem(ModBlocks.SILVER_ORE, settings);
     public static final BlockItem COPPER_ORE_ITEM = new BlockItem(ModBlocks.COPPER_ORE, settings);
     public static final BlockItem TIN_ORE_ITEM = new BlockItem(ModBlocks.TIN_ORE, settings);
     
-    public static final BlockItem VANADIUM_BLOCK_ITEM = new BlockItem(ModBlocks.VANADIUM_BLOCK, settings);
+    public static final BlockItem VANADIUM_BLOCK_ITEM = new BlockItem(ModBlocks.VANADIUM_BLOCK, settings.fireproof());
     public static final BlockItem TIN_BLOCK_ITEM = new BlockItem(ModBlocks.TIN_BLOCK, settings);
     public static final BlockItem TUNGSTEN_BLOCK_ITEM = new BlockItem(ModBlocks.TUNGSTEN_BLOCK, settings);
     public static final BlockItem COPPER_BLOCK_ITEM = new BlockItem(ModBlocks.COPPER_BLOCK, settings);

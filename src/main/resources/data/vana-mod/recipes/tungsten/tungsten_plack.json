@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "vana-mod:tungsten_block_item"
+  },
+  "result": "vana-mod:tungsten_plack",
+  "experience": 1,
+  "cookingtime": 800
+}

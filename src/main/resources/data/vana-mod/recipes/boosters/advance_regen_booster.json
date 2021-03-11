@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "PBP",
+    "VPV",
     "BVB",
-    "PBP"
+    "VPV"
   ],
   "key": {
     "B": {

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "vana-mod:tin_hammer"
+  },
+  "addition": {
+    "item": "vana-mod:tungsten_plack"
+  },
+  "result": {
+    "item": "vana-mod:tungsten_hammer"
+  }
+}

@@ -52,6 +52,13 @@ public class ModEnchants {
                     EquipmentSlot.FEET
             }
     );
+    public static Enchantment EXPERIENCE = new ExperienceEnchantment(
+            Enchantment.Rarity.RARE,
+            EnchantmentTarget.WEAPON,
+            new EquipmentSlot[]{
+                    EquipmentSlot.MAINHAND
+            }
+    );
 
     public static void registerAll(){
         Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "faster"), FASTER);
@@ -60,6 +67,7 @@ public class ModEnchants {
         Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "strenghter"), STRENGHTER);
         Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "resistancer"), RESISTANCER);
         Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "no_fall"), NO_FALL);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "experience"), EXPERIENCE);
     }
 
 }

@@ -1,5 +1,20 @@
 # Fabric Vanadium Mod
 
+## License
+
+This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+To learn what you can and can't do check : https://choosealicense.com/licenses/mit/
+
+## Info
+
+### Warning !
+
+This projet is currently in developppement. Feel free to send your message if you found a issue. This Mod isn't available for singleplayer currently. You can still test it in solo but saving player health and regen won't be opperationnal.
+
+### Video
+
+Here is a video in french to learn how to install and play with this mod in vanadium server : https://www.youtube.com/watch?v=-hX_PsVFtgQ&t=17s
+
 ## Setup
 
 ### Java
@@ -14,34 +29,53 @@ https://fabricmc.net/use/
 
 ### Mods
 
-Download all those needed mod:
-#### Sodium : 
-https://www.curseforge.com/minecraft/mc-mods/sodium/download/3067101
-#### Fabric Api : 
+#### Needed :
+##### Fabric Api : 
 https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3203908
-#### Fabric Language Kotlin : 
+##### Sodium : 
+https://www.curseforge.com/minecraft/mc-mods/sodium/download/3067101
+##### Fabric Language Kotlin : 
 https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin/download/3136960
-#### Adorn : 
+##### Adorn : 
 https://www.curseforge.com/minecraft/mc-mods/adorn/download/3177342
-#### Terrestria : 
+##### Terrestria : 
 https://www.curseforge.com/minecraft/mc-mods/terrestria/download/3193392
-#### Adventurez : 
+##### Adventurez : 
 https://www.curseforge.com/minecraft/mc-mods/adventurez/download/3121114
-#### ModMenu : 
+##### ModMenu : 
 https://www.curseforge.com/minecraft/mc-mods/modmenu/download/3211066
 
-And if you want those mod to change the generation:
-#### CaveBiomes : 
-https://media.forgecdn.net/files/3186/845/cavebiomes-0.6.2.jar
-#### Repurposed_structures : 
-https://media.forgecdn.net/files/3169/629/repurposed_structures-1.16.4-1.7.4.jar
+#### View Crafts :
 
-Put all those mod in your mod folder
+##### Rei : 
+https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/3218065
+##### Cloth API :
+https://www.curseforge.com/minecraft/mc-mods/cloth-api/download/3194917
+##### Cloth API config:
+https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3210410
+
+#### Change Generation :
+
+##### CaveBiomes : 
+https://media.forgecdn.net/files/3186/845/cavebiomes-0.6.2.jar
+##### Repurposed_structures : 
+https://media.forgecdn.net/files/3169/629/repurposed_structures-1.16.4-1.7.4.jar
 
 ### VanaMod
 
-Add to your mod folder the latest version of VanaMod (check on release page)
+Download the latest version of VanaMod (pre release are beta version, take the one name latest release) : https://github.com/nicofighter45/FabricVanaMod/releases
 
-## License
+### Installation
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+#### Go into your mod folder of minecraft:
+#### windows + R
+#### %appdata%
+#### go into .minecraft
+#### put all the mods in the mods folder
+
+#### Lauch your minecraft client and run the new version that has been created called fabric-<version>
+
+#### Enter the given IP if you want to play multiplayer (currently vanadium.jeanba.fr)
+#### Or create a new world in solo
+
+#### Enjoy :)

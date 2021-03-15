@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "vana-mod:steam_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:steam_block_item",
+    "count": 1
+  }
+}

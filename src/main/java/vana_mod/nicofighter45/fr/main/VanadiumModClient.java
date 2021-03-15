@@ -14,6 +14,5 @@ public class VanadiumModClient implements ClientModInitializer {
         //register modifiers table screen on client
         ScreenRegistry.<ModifiersTableGuiDescription, ModifiersTableScreen>register(VanadiumMod.SCREEN_HANDLER_TYPE,
                 (gui, inventory, title) -> new ModifiersTableScreen(gui, inventory.player, title));
-
     }
 }

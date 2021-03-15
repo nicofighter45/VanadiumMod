@@ -20,7 +20,7 @@ public class ModBlocksItem {
     public static final BlockItem TIN_BLOCK_ITEM = new BlockItem(ModBlocks.TIN_BLOCK, settings);
     public static final BlockItem TUNGSTEN_BLOCK_ITEM = new BlockItem(ModBlocks.TUNGSTEN_BLOCK, settings);
     public static final BlockItem COPPER_BLOCK_ITEM = new BlockItem(ModBlocks.COPPER_BLOCK, settings);
-
+    public static final BlockItem STEAM_BLOCK_ITEM = new BlockItem(ModBlocks.STEAM_BLOCK, settings);
 
     public static void registerAll() {
         registerNewItemBlock("vanadium_ore_item", VANADIUM_ORE_ITEM);
@@ -33,6 +33,7 @@ public class ModBlocksItem {
         registerNewItemBlock("tin_block_item", TIN_BLOCK_ITEM);
         registerNewItemBlock("tungsten_block_item", TUNGSTEN_BLOCK_ITEM);
         registerNewItemBlock("copper_block_item", COPPER_BLOCK_ITEM);
+        registerNewItemBlock("steam_block_item", STEAM_BLOCK_ITEM);
     }
 
     private static void registerNewItemBlock(String name, BlockItem block){

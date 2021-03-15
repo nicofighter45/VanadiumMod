@@ -76,7 +76,7 @@ public class VanadiumMod implements ModInitializer {
         ModItems.registerAll();
         ModEnchants.registerAll();
         ModBlocks.registerAll();
-        Listeners.onItemRightClickRegister();
+        Listeners.registerAll();
         ModifierTableRegister.registerAll();
         ModEntity.registerAll();
     }
@@ -89,76 +89,6 @@ public class VanadiumMod implements ModInitializer {
     public static final ItemGroup VANADIUM_GROUP = FabricItemGroupBuilder.create(
             new Identifier(MODID, "vanadium"))
             .icon(() -> new ItemStack(ModItems.VANADIUM_INGOT))
-//            .appendItems(stacks -> {
-//
-//                stacks.add(new ItemStack(ModBlocksItem.COPPER_ORE_ITEM));
-//                stacks.add(new ItemStack(ModItems.COPPER_INGOT));
-//
-//                stacks.add(new ItemStack(ModBlocksItem.TIN_ORE_ITEM));
-//                stacks.add(new ItemStack(ModItems.TIN_INGOT));
-//
-//                stacks.add(new ItemStack(Items.AIR));
-//
-//                stacks.add(new ItemStack(ModItems.TUNGSTEN_INGOT));
-//                stacks.add(new ItemStack(ModBlocksItem.TUNGSTEN_ORE_ITEM));
-//
-//                stacks.add(new ItemStack(ModItems.SILVER_INGOT));
-//                stacks.add(new ItemStack(ModBlocksItem.SILVER_ORE_ITEM));
-//
-//
-//                stacks.add(new ItemStack(ModBlocksItem.VANADIUM_ORE_ITEM));
-//                stacks.add(new ItemStack(ModItems.VANADIUM_NUGGET));
-//                stacks.add(new ItemStack(ModItems.VANADIUM_INGOT));
-//                stacks.add(new ItemStack(ModBlocksItem.VANADIUM_BLOCK_ITEM));
-//
-//                stacks.add(new ItemStack(Items.AIR));
-//
-//                stacks.add(new ItemStack(ModItems.VANADIUM_SWORD));
-//                stacks.add(new ItemStack(ModItems.VANADIUM_STICK));
-//                stacks.add(new ItemStack(ModItems.VANADIUM_HEART));
-//                stacks.add(new ItemStack(ModItems.EMERALD_HEART));
-//
-//
-//                stacks.add(new ItemStack(ModItems.EMERALD_HELMET));
-//                stacks.add(new ItemStack(ModItems.EMERALD_CHESTPLATE));
-//                stacks.add(new ItemStack(ModItems.EMERALD_LEGGINGS));
-//                stacks.add(new ItemStack(ModItems.EMERALD_BOOTS));
-//
-//                stacks.add(new ItemStack(ModItems.TUNGSTEN_CHESTPLATE));
-//
-//                stacks.add(new ItemStack(ModItems.VANADIUM_BOOTS));
-//                stacks.add(new ItemStack(ModItems.VANADIUM_LEGGINGS));
-//                stacks.add(new ItemStack(ModItems.VANADIUM_CHESTPLATE));
-//                stacks.add(new ItemStack(ModItems.VANADIUM_HELMET));
-//
-//
-//                stacks.add(new ItemStack(ModItems.SIMPLE_HEALTH_BOOSTER));
-//                stacks.add(new ItemStack(ModItems.BASE_HEALTH_BOOSTER));
-//                stacks.add(new ItemStack(ModItems.ADVANCE_HEALTH_BOOSTER));
-//
-//                stacks.add(new ItemStack(ModItems.TRANSISTOR));
-//                stacks.add(new ItemStack(ModifierTableRegister.MODIFIERS_TABLE_ITEM));
-//                stacks.add(new ItemStack(ModItems.PROCESSOR));
-//
-//                stacks.add(new ItemStack(ModItems.ADVANCE_REGEN_BOOSTER));
-//                stacks.add(new ItemStack(ModItems.BASE_REGEN_BOOSTER));
-//                stacks.add(new ItemStack(ModItems.SIMPLE_REGEN_BOOSTER));
-//
-//
-//                stacks.add(new ItemStack(Items.AIR));
-//
-//                stacks.add(new ItemStack(ModItems.HASTE_STONE));
-//                stacks.add(new ItemStack(ModItems.RESISTANCE_STONE));
-//                stacks.add(new ItemStack(ModItems.NO_FALL_STONE));
-//
-//                stacks.add(new ItemStack(ModItems.POWER_CELL));
-//
-//                stacks.add(new ItemStack(ModItems.JUMP_STONE));
-//                stacks.add(new ItemStack(ModItems.SPEED_STONE));
-//                stacks.add(new ItemStack(ModItems.STRENGTH_STONE));
-//
-//                stacks.add(new ItemStack(Items.AIR));
-//            })
             .build();
 
 }

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "vana-mod:steam_chestplate"
+  },
+  "addition": {
+    "item": "vana-mod:diamond_plack"
+  },
+  "result": {
+    "item": "minecraft:diamond_chestplate"
+  }
+}

@@ -6,8 +6,7 @@
   "name": "Fabric Vana Mod",
   "description": "Mod for minecraft vanadium server !",
   "authors": [
-    "nicofighter45",
-    "Spiirits_"
+    "nicofighter45"
   ],
   "contact": {
     "homepage": "https://github.com/nicofighter45/FabricVanaMod",
@@ -27,9 +26,6 @@
     ],
     "server": [
       "vana_mod.nicofighter45.fr.main.VanadiumModServer"
-    ],
-    "rei_plugins": [
-      "vana_mod.nicofighter45.fr.rei.Plugin"
     ]
   },
   "mixins": [

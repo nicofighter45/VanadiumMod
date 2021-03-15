@@ -1,5 +1,6 @@
 package vana_mod.nicofighter45.fr.items;
 
+import vana_mod.nicofighter45.fr.items.armor.SteamArmorMaterials;
 import vana_mod.nicofighter45.fr.items.custom.Excavator;
 import vana_mod.nicofighter45.fr.items.custom.Hammer;
 import vana_mod.nicofighter45.fr.items.custom.MegaAxe;
@@ -96,6 +97,17 @@ public class ModItems {
     //hat
     public static final Item HAT = new Item(settings().maxCount(1));
 
+    //steam
+    public static final Item STEAM_INGOT = new Item(settings().maxCount(64));
+    public static final Item STEAM_PLACK = new Item(settings().maxCount(64));
+    public static final Item STEAM_HELMET = new ArmorItem(SteamArmorMaterials.STEAM, EquipmentSlot.HEAD, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
+    public static final Item STEAM_CHESTPLATE = new ArmorItem(SteamArmorMaterials.STEAM, EquipmentSlot.CHEST, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
+    public static final Item STEAM_LEGGINGS = new ArmorItem(SteamArmorMaterials.STEAM, EquipmentSlot.LEGS, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
+    public static final Item STEAM_BOOTS = new ArmorItem(SteamArmorMaterials.STEAM, EquipmentSlot.FEET, new Item.Settings().group(VanadiumMod.VANADIUM_GROUP));
+
+    //plack
+    public static final Item DIAMOND_PLACK = new Item(settings().maxCount(64));
+
     public static void registerAll() {
 
         registerNewItem("vanadium_nugget", VANADIUM_NUGGET);
@@ -155,6 +167,15 @@ public class ModItems {
         registerNewItem("advance_regen_booster", ADVANCE_REGEN_BOOSTER);
 
         registerNewItem("hat", HAT);
+
+        registerNewItem("steam_ingot", STEAM_INGOT);
+        registerNewItem("steam_plack", STEAM_PLACK);
+        registerNewItem("steam_helmet", STEAM_HELMET);
+        registerNewItem("steam_chestplate", STEAM_CHESTPLATE);
+        registerNewItem("steam_leggings", STEAM_LEGGINGS);
+        registerNewItem("steam_boots", STEAM_BOOTS);
+
+        registerNewItem("diamond_plack", DIAMOND_PLACK);
     }
 
     private static void registerNewItem(String name, Item item){

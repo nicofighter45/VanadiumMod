@@ -39,13 +39,6 @@ abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "equipStack")
-    public void equipStack(EquipmentSlot slot, ItemStack stack, CallbackInfo info) {
-        if (getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.TUNGSTEN_CHESTPLATE) {
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 140, 0, false, false, true));
-        }
-    }
-
     @Inject(at = @At("HEAD"), method = "tick")              //inject lign 1 of tick method of PlayerEntity class
     private void tick(CallbackInfo info) {
         if(timer > 0){
@@ -76,8 +69,6 @@ abstract class PlayerEntityMixin extends LivingEntity {
             //check chesplate
             if (chestplate.getItem() == ModItems.EMERALD_CHESTPLATE) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 140, 0, false, false, true));
-            }else if (chestplate.getItem() == ModItems.TUNGSTEN_CHESTPLATE) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 140, 0, false, false, true));
             }
 
             //check leggings

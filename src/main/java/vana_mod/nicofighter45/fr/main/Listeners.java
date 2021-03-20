@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import vana_mod.nicofighter45.fr.database.DataBasePlayer;
 import vana_mod.nicofighter45.fr.items.ModItems;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -136,7 +135,7 @@ public class Listeners {
                 ServerPlayerEntity server_player = (ServerPlayerEntity) player;
                 ItemStack it = server_player.getMainHandStack();
                 Item item_server = it.getItem();
-                DataBasePlayer data_player = VanadiumModServer.dataBaseManager.getPlayer(server_player.getEntityName());
+                CustomPlayer data_player = VanadiumModServer.players.get(server_player.getEntityName());
                 PlayerInventory inventory = server_player.inventory;
                 int heart = data_player.getHeart();
                 int regen = data_player.getRegen();

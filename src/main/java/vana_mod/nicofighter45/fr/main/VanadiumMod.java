@@ -43,6 +43,9 @@ public class VanadiumMod implements ModInitializer {
         //register all items and blocks
         registers();
 
+        //add keybinds
+        KeyBinds.registerAll();
+
         //creating the new crafts
         addCrafts();
 

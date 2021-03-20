@@ -9,7 +9,7 @@ To learn what you can and can't do check : https://choosealicense.com/licenses/m
 
 ### Warning !
 
-This projet is currently in developppement. Feel free to send your message if you found a issue. This Mod isn't available for singleplayer currently. You can still test it in solo but saving player health and regen won't be opperationnal.
+This projet is currently in developppement. Feel free to send your message if you found a issue.
 
 ### Video
 

@@ -1,6 +1,8 @@
 package vana_mod.nicofighter45.fr.main;
 
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,6 +19,10 @@ public class Command {
                         ServerPlayerEntity player = c.getSource().getPlayer();
                         ItemStack hand = player.getMainHandStack();
                         if(hand.getItem() == Items.AIR){
+                            ZombieEntity zb = EntityType.ZOMBIE.create(player.getServerWorld());
+                            assert zb != null;
+                            zb.refreshPositionAndAngles(player.getBlockPos(), 0, 0);
+                            player.getServerWorld().spawnEntity(zb);
                             sendMsg(player, "You have nothing in your hand");
                             return 1;
                         }

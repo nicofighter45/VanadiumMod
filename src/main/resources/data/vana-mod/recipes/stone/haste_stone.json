@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:modifiers_recipe",
+  "input1": "vana-mod:vanadium_nugget",
+  "input2": "minecraft:coal_block",
+  "input3": "minecraft:coal_block",
+  "input4": "vana-mod:vanadium_nugget",
+  "outputItem": "vana-mod:haste_stone",
+  "outputAmount": "1"
+}

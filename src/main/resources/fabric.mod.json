@@ -26,6 +26,9 @@
     ],
     "server": [
       "vana_mod.nicofighter45.fr.main.VanadiumModServer"
+    ],
+    "rei_plugins": [
+      "vana_mod.nicofighter45.fr.rei.Plugin"
     ]
   },
   "mixins": [

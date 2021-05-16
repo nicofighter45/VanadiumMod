@@ -22,6 +22,10 @@ repositories {
 	maven {
 		url "https://maven.shedaniel.me/"
 	}
+	maven {
+		name = 'Ladysnake Mods'
+		url = 'https://ladysnake.jfrog.io/artifactory/mods'
+	}
 }
 
 dependencies {
@@ -33,6 +37,10 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modImplementation include("io.github.cottonmc:LibGui:3.3.3+1.16.5")
+
+	// Replace modImplementation with modApi if you expose components in your own API
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.8.1"
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:2.8.1"
 
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:5.10.184"
 	modRuntime "me.shedaniel:RoughlyEnoughItems:5.10.184"

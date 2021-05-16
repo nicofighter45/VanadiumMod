@@ -1,20 +1,20 @@
-package vana_mod.nicofighter45.fr.main;
+package vana_mod.nicofighter45.fr.bosses;
 
 public class CustomBossConfig {
 
-    private final String key;
+    private final int key;
     private double x;
     private double y;
     private double z;
 
-    public CustomBossConfig(String key){
+    public CustomBossConfig(int key, double x, double y, double z){
         this.key = key;
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
-    public String getKey() {
+    public int getKey() {
         return key;
     }
 

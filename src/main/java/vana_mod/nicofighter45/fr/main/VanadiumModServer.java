@@ -1,7 +1,7 @@
 package vana_mod.nicofighter45.fr.main;
 
 import net.fabricmc.api.DedicatedServerModInitializer;
-import net.minecraft.entity.player.PlayerEntity;
+import vana_mod.nicofighter45.fr.bosses.BossesManagement;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,14 +11,16 @@ public class VanadiumModServer implements DedicatedServerModInitializer {
 
     //custom player
     public static Map<String, CustomPlayer> players = new HashMap<>();
+    public static BossesManagement bossesManagement;
 
     @Override
-    public void onInitializeServer() { System.out.println("The Server Side is loading"); }
+    public void onInitializeServer() {
+        System.out.println("The Server Side is loading");
+    }
 
     public static void addNewPlayer(String name, UUID uuid){
         if(!players.containsKey(name)){
             players.put(name, new CustomPlayer(uuid, 10, 0));
         }
     }
-
 }

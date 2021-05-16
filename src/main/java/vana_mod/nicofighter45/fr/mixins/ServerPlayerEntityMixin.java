@@ -1,7 +1,17 @@
 package vana_mod.nicofighter45.fr.mixins;
 
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.MovementType;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import vana_mod.nicofighter45.fr.bosses.BossComponent;
+import vana_mod.nicofighter45.fr.bosses.CustomBossConfig;
 import vana_mod.nicofighter45.fr.main.CustomPlayer;
 import vana_mod.nicofighter45.fr.items.enchantment.ModEnchants;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -16,10 +26,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vana_mod.nicofighter45.fr.main.VanadiumModServer;
 
+import java.util.Objects;
+
 @Mixin(ServerPlayerEntity.class)
 public class ServerPlayerEntityMixin {
 
-    private final PlayerEntity player = (ServerPlayerEntity) (Object) this;
+    private final ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 
     public ItemStack getEquippedStack(EquipmentSlot slot) {
         if (slot == EquipmentSlot.MAINHAND) {
@@ -55,5 +67,29 @@ public class ServerPlayerEntityMixin {
         tag.putInt("heart", pl.getHeart());
         tag.putInt("regen", pl.getRegen());
         tag.putUuid("uuid", player.getUuid());
+    }
+
+    @Inject(at = @At("HEAD"), method = "dropItem")
+    public void dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> info) {
+        if(player.getEntityWorld().getDimension() == Objects.requireNonNull(player.getServer()).getOverworld().getDimension()){
+            for(CustomBossConfig boss : BossComponent.WORLD_COMPONENT_KEY.get(player.getServer().getOverworld()).bosses.values()){
+                if(isNearTo(player.getX(), boss.getX(), player.getY(), boss.getY(), player.getZ(), boss.getZ()) && stack.getItem() == Items.IRON_BLOCK){
+                    if(VanadiumModServer.bossesManagement.spawnBoss(boss)){
+                        stack.setCount(0);
+                        player.getServerWorld().spawnParticles(ParticleTypes.CLOUD, boss.getX(), boss.getY(), boss.getZ(), 10000, 0, 0, 0, 1);
+                        player.getServerWorld().playSound(null, boss.getX(), boss.getY(), boss.getZ(),
+                                SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.HOSTILE, 1f, 1f);
+                        player.setVelocity(5*(player.getX()-boss.getX()), 0.5, 5*(player.getZ()-boss.getZ()));
+                        player.damage(DamageSource.MAGIC, 0.5f);
+                        player.heal(0.5f);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isNearTo(double x1, double x2, double y1, double y2, double z1, double z2){
+        double dist = Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) + Math.pow(z1-z2, 2));
+        return dist <= 5 && dist >= 1.5;
     }
 }

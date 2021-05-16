@@ -29,12 +29,19 @@
     ],
     "rei_plugins": [
       "vana_mod.nicofighter45.fr.rei.Plugin"
+    ],
+    "cardinal-components-world": [
+      "vana_mod.nicofighter45.fr.bosses.BossComponent"
     ]
   },
   "mixins": [
     "vana-mod.mixins.json"
   ],
-
+  "custom": {
+    "cardinal-components": [
+      "vana-mod:bosses"
+    ]
+  },
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",

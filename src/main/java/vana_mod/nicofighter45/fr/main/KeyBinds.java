@@ -19,7 +19,7 @@ public class KeyBinds {
 
         KeyBinding keybinding_night_vision = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + VanadiumMod.MODID + ".night_vision", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, category));
         KeyBinding keybinding_hat = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + VanadiumMod.MODID + ".hat", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, category));
-        KeyBinding keybinding_fire_protection = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + VanadiumMod.MODID + ".fire_resistance", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, category));
+        KeyBinding keybinding_fire_protection = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + VanadiumMod.MODID + ".armor_effect", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_COMMA, category));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(keybinding_hat.isPressed()){
@@ -51,6 +51,14 @@ public class KeyBinds {
                 if(player.inventory.getArmorStack(2).getItem() == ModItems.TUNGSTEN_CHESTPLATE){
                     if(!player.hasStatusEffect(StatusEffects.SLOWNESS)){
                         player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 600, 0, false, false, true));
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 1200, 0, false, false, true));
+                    }
+                }else if(player.inventory.getArmorStack(3).getItem() == ModItems.STEAM_HELMET &&
+                        player.inventory.getArmorStack(2).getItem() == ModItems.STEAM_CHESTPLATE &&
+                        player.inventory.getArmorStack(1).getItem() == ModItems.STEAM_LEGGINGS &&
+                        player.inventory.getArmorStack(0).getItem() == ModItems.STEAM_BOOTS){
+                    if(!player.hasStatusEffect(StatusEffects.SLOWNESS)){
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 600, 0, false, false, true));
                         player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 1200, 0, false, false, true));
                     }
                 }

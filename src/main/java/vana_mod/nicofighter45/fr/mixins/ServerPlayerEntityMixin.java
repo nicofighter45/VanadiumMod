@@ -73,13 +73,14 @@ public class ServerPlayerEntityMixin {
     public void dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> info) {
         if(player.getEntityWorld().getDimension() == Objects.requireNonNull(player.getServer()).getOverworld().getDimension()){
             for(CustomBossConfig boss : BossComponent.WORLD_COMPONENT_KEY.get(player.getServer().getOverworld()).bosses.values()){
-                if(isNearTo(player.getX(), boss.getX(), player.getY(), boss.getY(), player.getZ(), boss.getZ()) && stack.getItem() == Items.IRON_BLOCK){
+                if(isNearTo(player.getX(), boss.getX(), player.getY(), boss.getY(), player.getZ(), boss.getZ()) && stack.getItem() == boss.getToSpawn()){
                     if(VanadiumModServer.bossesManagement.spawnBoss(boss)){
                         stack.setCount(0);
                         player.getServerWorld().spawnParticles(ParticleTypes.CLOUD, boss.getX(), boss.getY(), boss.getZ(), 10000, 0, 0, 0, 1);
                         player.getServerWorld().playSound(null, boss.getX(), boss.getY(), boss.getZ(),
                                 SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.HOSTILE, 1f, 1f);
-                        player.setVelocity(5*(player.getX()-boss.getX()), 0.5, 5*(player.getZ()-boss.getZ()));
+                        player.setVelocity(calc(player.getX()-boss.getX()), 0.5, calc(player.getZ()-boss.getZ()));
+                        //actualize velocity changes
                         player.damage(DamageSource.MAGIC, 0.5f);
                         player.heal(0.5f);
                     }
@@ -87,9 +88,12 @@ public class ServerPlayerEntityMixin {
             }
         }
     }
+    private double calc(double nb){
+        return 5/Math.exp(0.3 * nb);
+    }
 
     private boolean isNearTo(double x1, double x2, double y1, double y2, double z1, double z2){
         double dist = Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) + Math.pow(z1-z2, 2));
-        return dist <= 5 && dist >= 1.5;
+        return dist <= 10;
     }
 }

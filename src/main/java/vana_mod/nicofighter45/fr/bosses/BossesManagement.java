@@ -1,13 +1,13 @@
 package vana_mod.nicofighter45.fr.bosses;
 
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.TntEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
-import net.minecraft.entity.mob.SpiderEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,15 +18,16 @@ import vana_mod.nicofighter45.fr.items.ModItems;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BossesManagement {
 
     private final ServerWorld world;
-    private final List<HostileEntity> boss1 = new ArrayList<>();
-    private final List<HostileEntity> boss2 = new ArrayList<>();
-    private final List<HostileEntity> boss3 = new ArrayList<>();
-    private final List<HostileEntity> boss4 = new ArrayList<>();
-    private final List<HostileEntity> boss5 = new ArrayList<>();
+    private final List<Entity> boss1 = new ArrayList<>();
+    private final List<Entity> boss2 = new ArrayList<>();
+    private final List<Entity> boss3 = new ArrayList<>();
+    private final List<Entity> boss4 = new ArrayList<>();
+    private final List<Entity> boss5 = new ArrayList<>();
 
     public BossesManagement(ServerWorld world){
         this.world = world;
@@ -34,35 +35,35 @@ public class BossesManagement {
 
     public void despawnBosses(){
         if(!boss1.isEmpty()){
-            for(HostileEntity en : boss1){
+            for(Entity en : boss1){
                 if(en.isAlive()){
                     en.kill();
                 }
             }
         }
         if(!boss2.isEmpty()){
-            for(HostileEntity en : boss2){
+            for(Entity en : boss2){
                 if(en.isAlive()){
                     en.kill();
                 }
             }
         }
         if(!boss3.isEmpty()){
-            for(HostileEntity en : boss3){
+            for(Entity en : boss3){
                 if(en.isAlive()){
                     en.kill();
                 }
             }
         }
         if(!boss4.isEmpty()){
-            for(HostileEntity en : boss4){
+            for(Entity en : boss4){
                 if(en.isAlive()){
                     en.kill();
                 }
             }
         }
         if(!boss5.isEmpty()){
-            for(HostileEntity en : boss5){
+            for(Entity en : boss5){
                 if(en.isAlive()){
                     en.kill();
                 }
@@ -72,7 +73,7 @@ public class BossesManagement {
 
     public boolean spawnBoss(CustomBossConfig boss){
         if(boss.getKey() == 1){
-            for(HostileEntity he : boss1){
+            for(Entity he : boss1){
                 if(he.getName().equals(new LiteralText("§6Boss 1")) && he.isAlive()){
                     return false;
                 }
@@ -80,7 +81,7 @@ public class BossesManagement {
             spawn1(boss);
             return true;
         }else if(boss.getKey() == 2){
-            for(HostileEntity he : boss2){
+            for(Entity he : boss2){
                 if(he.getName().equals(new LiteralText("§6Boss 2")) && he.isAlive()){
                     return false;
                 }
@@ -97,8 +98,8 @@ public class BossesManagement {
         return false;
     }
 
-    private void spawnEn(List<HostileEntity> boss){
-        for(HostileEntity hs : boss){
+    private void spawnEn(List<Entity> boss){
+        for(Entity hs : boss){
             world.spawnEntity(hs);
         }
     }
@@ -119,7 +120,7 @@ public class BossesManagement {
         zb.setEquipmentDropChance(EquipmentSlot.HEAD, 0);
         zb.setCustomName(new LiteralText("§6Boss 1"));
         zb.setGlowing(true);
-        zb.addStatusEffect(new StatusEffectInstance(StatusEffects.HEALTH_BOOST, Integer.MAX_VALUE, 2, false, false, false));
+        Objects.requireNonNull(zb.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(30);
         zb.setHealth(30);
         ItemStack bow = new ItemStack(Items.BOW);
         bow.addEnchantment(Enchantments.POWER, 2);
@@ -161,7 +162,40 @@ public class BossesManagement {
     private void spawn2(CustomBossConfig boss){
         SkeletonEntity sk = EntityType.SKELETON.create(world);
         boss2.add(sk);
-        //boss2 creation is #todo
+        sk.refreshPositionAndAngles(boss.getX(), boss.getY(), boss.getZ(), 0,0);
+        ItemStack main_hand = new ItemStack(Items.BOW);
+        main_hand.addEnchantment(Enchantments.POWER, 4);
+        ItemStack helmet = new ItemStack(ModItems.EMERALD_HELMET);
+        helmet.addEnchantment(Enchantments.PROTECTION, 4);
+        ItemStack chestplate = new ItemStack(ModItems.EMERALD_CHESTPLATE);
+        chestplate.addEnchantment(Enchantments.PROTECTION, 4);
+        ItemStack leggings = new ItemStack(ModItems.EMERALD_LEGGINGS);
+        leggings.addEnchantment(Enchantments.PROTECTION, 4);
+        ItemStack boots = new ItemStack(ModItems.EMERALD_BOOTS);
+        boots.addEnchantment(Enchantments.PROTECTION, 4);
+        sk.equipStack(EquipmentSlot.MAINHAND, main_hand);
+        sk.equipStack(EquipmentSlot.OFFHAND, boss.getDrop());
+        sk.equipStack(EquipmentSlot.HEAD, helmet);
+        sk.equipStack(EquipmentSlot.CHEST, chestplate);
+        sk.equipStack(EquipmentSlot.LEGS, leggings);
+        sk.equipStack(EquipmentSlot.FEET, boots);
+        sk.setEquipmentDropChance(EquipmentSlot.MAINHAND, 0);
+        sk.setEquipmentDropChance(EquipmentSlot.OFFHAND, 100);
+        sk.setEquipmentDropChance(EquipmentSlot.HEAD, 0);
+        sk.setEquipmentDropChance(EquipmentSlot.CHEST, 0);
+        sk.setEquipmentDropChance(EquipmentSlot.LEGS, 0);
+        sk.setEquipmentDropChance(EquipmentSlot.FEET, 0);
+        sk.setCustomName(new LiteralText("§6Boss 2"));
+        sk.setGlowing(true);
+        Objects.requireNonNull(sk.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(100);
+        sk.setHealth(100);
+        TntEntity tnt = EntityType.TNT.create(world);
+        boss2.add(tnt);
+        assert tnt != null;
+        tnt.setFuse(40);
+        tnt.setInvisible(false);
+        tnt.refreshPositionAndAngles(boss.getX() + 5, boss.getY(), boss.getZ() + 5, 0,0);
+        spawnEn(boss2);
     }
 
 }

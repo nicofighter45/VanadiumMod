@@ -8,6 +8,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vana_mod.nicofighter45.fr.bosses.BossComponent;
@@ -73,6 +74,7 @@ public class ServerPlayerEntityMixin {
     public void dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> info) {
         if(player.getEntityWorld().getDimension() == Objects.requireNonNull(player.getServer()).getOverworld().getDimension()){
             for(CustomBossConfig boss : BossComponent.WORLD_COMPONENT_KEY.get(player.getServer().getOverworld()).bosses.values()){
+                player.sendMessage(new LiteralText(stack.getItem().getTranslationKey()), false);
                 if(isNearTo(player.getX(), boss.getX(), player.getY(), boss.getY(), player.getZ(), boss.getZ()) && stack.getItem() == boss.getToSpawn()){
                     if(VanadiumModServer.bossesManagement.spawnBoss(boss)){
                         stack.setCount(0);
@@ -89,11 +91,15 @@ public class ServerPlayerEntityMixin {
         }
     }
     private double calc(double nb){
-        return 5/Math.exp(0.3 * nb);
+        if(nb < 0){
+            return -5/Math.exp(0.3 * -nb);
+        }else if(nb > 0){
+            return 5/Math.exp(0.3 * nb);
+        }else{
+            return 5;
+        }
     }
 
     private boolean isNearTo(double x1, double x2, double y1, double y2, double z1, double z2){
-        double dist = Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) + Math.pow(z1-z2, 2));
-        return dist <= 10;
-    }
+        return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) + Math.pow(z1-z2, 2)) <= 10; }
 }

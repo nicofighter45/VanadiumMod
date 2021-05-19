@@ -3,6 +3,7 @@ package vana_mod.nicofighter45.fr.bosses;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import vana_mod.nicofighter45.fr.block.ModBlocksItem;
 import vana_mod.nicofighter45.fr.items.ModItems;
 
 public class CustomBossConfig {
@@ -24,17 +25,17 @@ public class CustomBossConfig {
                 this.drop = new ItemStack(ModItems.STEAM_PLACK);
                 this.toSpawn = Items.IRON_BLOCK;
             case 2:
-                this.drop = new ItemStack(ModItems.STEAM_PLACK);
-                this.toSpawn = Items.IRON_BLOCK;
+                this.drop = new ItemStack(ModItems.DIAMOND_PLACK);
+                this.toSpawn = ModBlocksItem.STEAM_BLOCK_ITEM;
             case 3:
-                this.drop = new ItemStack(ModItems.STEAM_PLACK);
-                this.toSpawn = Items.IRON_BLOCK;
+                this.drop = new ItemStack(ModItems.EMERALD_PLACK);
+                this.toSpawn = Items.DIAMOND_BLOCK;
             case 4:
-                this.drop = new ItemStack(ModItems.STEAM_PLACK);
-                this.toSpawn = Items.IRON_BLOCK;
+                this.drop = new ItemStack(ModItems.VANADIUM_PLACK);
+                this.toSpawn = Items.EMERALD_BLOCK;
             case 5:
-                this.drop = new ItemStack(ModItems.STEAM_PLACK);
-                this.toSpawn = Items.IRON_BLOCK;
+                this.drop = new ItemStack(ModItems.VANADIUM_CHESTPLATE);
+                this.toSpawn = ModBlocksItem.VANADIUM_BLOCK_ITEM;
         }
     }
 

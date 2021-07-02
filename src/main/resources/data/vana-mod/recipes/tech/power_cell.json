@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "CGC",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C" : {
+      "item" : "vana-mod:copper_ingot"
+    },
+    "G" : {
+      "item" : "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:power_cell",
+    "count": 1
+  }
+}

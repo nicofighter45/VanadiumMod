@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_chestplate"
+  },
+  "addition": {
+    "item": "vana-mod:emerald_plack"
+  },
+  "result": {
+    "item": "vana-mod:emerald_chestplate"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IC",
+    "TI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "vana-mod:copper_ingot"
+    },
+    "T": {
+      "item": "vana-mod:tin_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:steam_ingot",
+    "count": 1
+  }
+}

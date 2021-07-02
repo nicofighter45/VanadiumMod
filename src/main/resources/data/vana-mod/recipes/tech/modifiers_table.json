@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "STS",
+    "TVT",
+    "STS"
+  ],
+  "key": {
+    "V": {
+      "item": "vana-mod:vanadium_nugget"
+    },
+    "T": {
+      "item": "vana-mod:transistor"
+    },
+    "S": {
+      "item": "vana-mod:silver_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:modifiers_table_item",
+    "count": 1
+  }
+}

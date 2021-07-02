@@ -1,0 +1,36 @@
+{
+  "parent": "vana-mod:tungsten",
+  "display": {
+    "icon": {
+      "item": "vana-mod:vanadium_ingot",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.vana-mod.vanadium.title"
+    },
+    "description": {
+      "translate": "advancements.vana-mod.vanadium.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "get_vanadium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "vana-mod:vanadium_nugget"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "get_vanadium"
+    ]
+  ]
+}

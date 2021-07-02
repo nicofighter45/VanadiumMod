@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_sword"
+  },
+  "addition": {
+    "item": "vana-mod:vanadium_plack"
+  },
+  "result": {
+    "item": "vana-mod:vanadium_sword"
+  }
+}

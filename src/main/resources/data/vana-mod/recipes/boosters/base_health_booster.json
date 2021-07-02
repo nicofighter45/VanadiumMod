@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DSD",
+    "STS",
+    "DSD"
+  ],
+  "key": {
+    "S": {
+      "item": "vana-mod:simple_health_booster"
+    },
+    "T": {
+      "item": "vana-mod:transistor"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "vana-mod:base_health_booster",
+    "count": 1
+  }
+}

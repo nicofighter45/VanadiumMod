@@ -19,19 +19,16 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "vana_mod.nicofighter45.fr.main.VanadiumMod"
+      "fr.vana_mod.nicofighter45.main.VanadiumMod"
     ],
     "client": [
-      "vana_mod.nicofighter45.fr.main.VanadiumModClient"
+      "fr.vana_mod.nicofighter45.main.VanadiumModClient"
     ],
     "server": [
-      "vana_mod.nicofighter45.fr.main.VanadiumModServer"
-    ],
-    "rei_plugins": [
-      "vana_mod.nicofighter45.fr.rei.Plugin"
+      "fr.vana_mod.nicofighter45.main.VanadiumModServer"
     ],
     "cardinal-components-world": [
-      "vana_mod.nicofighter45.fr.bosses.BossComponent"
+      "fr.vana_mod.nicofighter45.bosses.BossComponent"
     ]
   },
   "mixins": [

@@ -20,9 +20,9 @@ repositories {
 		name = "CottonMC"
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
-	maven {
-		url "https://maven.shedaniel.me/"
-	}
+//	maven {
+//		url "https://maven.shedaniel.me/"
+//	}
 	maven {
 		name = 'Ladysnake Mods'
 		url = 'https://ladysnake.jfrog.io/artifactory/mods'
@@ -46,8 +46,8 @@ dependencies {
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:3.0.0"
 	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:3.0.0"
 
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:5.12.248"
-	modRuntime "me.shedaniel:RoughlyEnoughItems:5.12.248"
+//	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:5.12.248"
+//	modRuntime "me.shedaniel:RoughlyEnoughItems:5.12.248"
 
 }
 

@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "vana-mod:item/steam_chestplate"
-  }
-}

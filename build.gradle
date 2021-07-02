@@ -1,9 +1,5 @@
 plugins {
-<<<<<<< HEAD
 	id 'fabric-loom' version '0.8-SNAPSHOT'
-=======
-	id 'fabric-loom' version '0.7-SNAPSHOT'
->>>>>>> origin/master
 	id 'maven-publish'
 }
 

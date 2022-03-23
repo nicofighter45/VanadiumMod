@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing",
   "base": {
-    "item": "vana-mod:steam_helmet"
+    "item": "vana-mod:steel_helmet"
   },
   "addition": {
     "item": "vana-mod:diamond_plack"

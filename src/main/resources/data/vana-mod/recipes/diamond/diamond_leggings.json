@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing",
   "base": {
-    "item": "vana-mod:steam_leggings"
+    "item": "vana-mod:steel_leggings"
   },
   "addition": {
     "item": "vana-mod:diamond_plack"

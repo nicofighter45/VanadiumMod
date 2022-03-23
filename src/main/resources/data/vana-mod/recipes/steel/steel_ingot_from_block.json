@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    " "
+  ],
+  "key": {
+    "C": {
+      "item": "vana-mod:steel_block_item"
+    }
+  },
+  "result": {
+    "item": "vana-mod:steel_ingot",
+    "count": 9
+  }
+}

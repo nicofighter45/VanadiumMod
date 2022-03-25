@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "vana-mod:vanadium_block",
+    "vana-mod:tungsten_ore",
+    "vana-mod:silver_ore"
+  ]
+}

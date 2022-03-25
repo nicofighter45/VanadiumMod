@@ -51,9 +51,8 @@ public class EnchanterTableBlockEntity extends BlockEntity implements NamedScree
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, this.inventory);
-        return nbt;
     }
 }

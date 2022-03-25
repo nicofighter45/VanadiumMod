@@ -22,6 +22,9 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -53,9 +56,7 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
 
         //button
         WButton button = new WButton(new LiteralText("Modify"));
-        button.setOnClick(() -> {
-            ScreenNetworking.of(this, NetworkSide.CLIENT).send(MESSAGE_ITEM, buf -> buf.writeBoolean(this.isTitleVisible()));
-        });
+        button.setOnClick(() -> ScreenNetworking.of(this, NetworkSide.CLIENT).send(MESSAGE_ITEM, buf -> buf.writeBoolean(this.isTitleVisible())));
         root.add(button, 3, 3, 3, 1);
 
         //add player inventory
@@ -132,26 +133,26 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                 boolean doCancell = false;
                 Map<Enchantment, Integer> enchant_item = EnchantmentHelper.get(vanaItem);
                 if(vanaItem.getItem() == ModItems.VANADIUM_HELMET){
-                    if(upgrade.getItem() == ModItems.HASTE_STONE && (enchant_item.get(ModEnchants.HASTER) == null || enchant_item.get(ModEnchants.HASTER) < 3)){
+                    if(upgrade.getItem() == ModItems.HASTE_STONE && (enchant_item.get(ModEnchants.HASTER) == null || enchant_item.get(ModEnchants.HASTER) < ModEnchants.HASTER.getMaxLevel())){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.HASTER), vanaItem);
-                    }else if(upgrade.getItem() == ModItems.STRENGTH_STONE && (enchant_item.get(ModEnchants.STRENGHTER) == null || enchant_item.get(ModEnchants.STRENGHTER) < 2)){
+                    }else if(upgrade.getItem() == ModItems.STRENGTH_STONE && (enchant_item.get(ModEnchants.STRENGHTER) == null || enchant_item.get(ModEnchants.STRENGHTER) < ModEnchants.STRENGHTER.getMaxLevel())){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.STRENGHTER), vanaItem);
                     }else{
                         doCancell = true;
                     }
                 }else if(vanaItem.getItem() == ModItems.VANADIUM_LEGGINGS){
-                    if(upgrade.getItem() == ModItems.RESISTANCE_STONE && (enchant_item.get(ModEnchants.RESISTANCER) == null || enchant_item.get(ModEnchants.RESISTANCER) < 2)){
+                    if(upgrade.getItem() == ModItems.RESISTANCE_STONE && (enchant_item.get(ModEnchants.RESISTANCER) == null || enchant_item.get(ModEnchants.RESISTANCER) < ModEnchants.RESISTANCER.getMaxLevel())){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.RESISTANCER), vanaItem);
-                    }else if(upgrade.getItem() == ModItems.SPEED_STONE && (enchant_item.get(ModEnchants.FASTER) == null || enchant_item.get(ModEnchants.FASTER) < 5)){
+                    }else if(upgrade.getItem() == ModItems.SPEED_STONE && (enchant_item.get(ModEnchants.FASTER) == null || enchant_item.get(ModEnchants.FASTER) < ModEnchants.FASTER.getMaxLevel())){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.FASTER), vanaItem);
                     }else{
                         doCancell = true;
                     }
                 }else if(vanaItem.getItem() == ModItems.VANADIUM_BOOTS){
                     if(upgrade.getItem() == ModItems.JUMP_STONE &&
-                            (enchant_item.get(ModEnchants.JUMPER) == null || enchant_item.get(ModEnchants.JUMPER) < 5)){
+                            (enchant_item.get(ModEnchants.JUMPER) == null || enchant_item.get(ModEnchants.JUMPER) < ModEnchants.JUMPER.getMaxLevel())){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.JUMPER), vanaItem);
-                    }else if(upgrade.getItem() == ModItems.NO_FALL_STONE && (enchant_item.get(ModEnchants.NO_FALL) == null || enchant_item.get(ModEnchants.NO_FALL) == 0)){
+                    }else if(upgrade.getItem() == ModItems.NO_FALL_STONE && (enchant_item.get(ModEnchants.NO_FALL) == null || enchant_item.get(ModEnchants.NO_FALL) < ModEnchants.NO_FALL.getMaxLevel())){
                         EnchantmentHelper.set(setActualEnchants(enchant_item, ModEnchants.NO_FALL), vanaItem);
                     }else{
                         doCancell = true;
@@ -164,19 +165,11 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
                     server_player.getInventory().offerOrDrop(vanaItem);
                 }
             }
-
-            //// Or use .getAllMatches if you want all of the matches
-            //Optional<ModifiersCraft> match = world.getRecipeManager()
-            //    .getFirstMatch(ModifiersCraft.Type.INSTANCE, getBlockInventory(context, 4), world);
-            //if (match.isPresent()) {
-            //server_player.inventory.offerOrDrop(world, match.get().getOutput().copy());
-            //getBlockInventory(context).clear();
-            //}
         });
 
     }
 
-    private ItemStack upgrades(ItemStack item0, ItemStack item1, ItemStack item2) {
+    private @Nullable ItemStack upgrades(@NotNull ItemStack item0, ItemStack item1, ItemStack item2) {
         if(item0.getItem() instanceof UpgradeItem){
             return item0;
         }else if(item1.getItem() instanceof UpgradeItem){
@@ -187,7 +180,8 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
         return null;
     }
 
-    private Map<Enchantment, Integer> setActualEnchants(Map<Enchantment, Integer> enchant_item, Enchantment enchantment) {
+    @Contract("_, _ -> param1")
+    private @NotNull Map<Enchantment, Integer> setActualEnchants(@NotNull Map<Enchantment, Integer> enchant_item, Enchantment enchantment) {
         if(!enchant_item.containsKey(enchantment)){
             enchant_item.put(enchantment, 1);
         }else{

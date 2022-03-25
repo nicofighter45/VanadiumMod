@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "vana-mod:tin_ore",
+    "vana-mod:tungsten_block",
+    "vana-mod:steel_block",
+    "vana-mod:tin_block"
+  ]
+}

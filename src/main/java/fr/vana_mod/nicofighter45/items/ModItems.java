@@ -81,7 +81,7 @@ public class ModItems {
     //healing item
     public static final Item POWER_CELL = new Item(settings().food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(10).hunger(6).statusEffect(
-                    new StatusEffectInstance(StatusEffects.REGENERATION, 60, 1, true, true, true), 100).build()));
+                    new StatusEffectInstance(StatusEffects.REGENERATION, 120, 1, true, true, true), 100).build()));
 
     //health boost
     public static final Item SIMPLE_HEALTH_BOOSTER = new Item(settings().maxCount(8));

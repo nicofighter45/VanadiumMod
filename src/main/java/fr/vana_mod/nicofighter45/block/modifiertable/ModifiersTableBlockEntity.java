@@ -39,9 +39,8 @@ public class ModifiersTableBlockEntity extends BlockEntity implements Implemente
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public void writeNbt(NbtCompound nbt) {
         Inventories.writeNbt(nbt, items);
-        return super.writeNbt(nbt);
     }
 
     @Override

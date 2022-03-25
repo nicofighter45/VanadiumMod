@@ -4,7 +4,6 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,14 +15,15 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ModifiersTableBlock extends Block implements BlockEntityProvider{
     public static final Identifier ID = new Identifier(VanadiumMod.MODID, "modifierstable");
 
     public ModifiersTableBlock(){
-        super(FabricBlockSettings.of(Material.METAL).breakByHand(false).sounds(BlockSoundGroup.METAL)
-                .strength(5, 0.5f).breakByTool(FabricToolTags.PICKAXES, 3).requiresTool());
+        super(FabricBlockSettings.of(Material.METAL).sounds(BlockSoundGroup.METAL)
+                .strength(5, 0.5f).requiresTool());
     }
 
     @Nullable
@@ -33,13 +33,13 @@ public class ModifiersTableBlock extends Block implements BlockEntityProvider{
     }
 
     @Nullable
-    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, @NotNull World world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
     }
 
     @Override
-    public ActionResult onUse(BlockState blockState, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockHitResult blockHitResult) {
+    public ActionResult onUse(@NotNull BlockState blockState, World world, BlockPos blockPos, @NotNull PlayerEntity player, Hand hand, BlockHitResult blockHitResult) {
         // You need a Block.createScreenHandlerFactory implementation that delegates to the block entity,
         // such as the one from BlockWithEntity
         player.openHandledScreen(blockState.createScreenHandlerFactory(world, blockPos));

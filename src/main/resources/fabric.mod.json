@@ -35,6 +35,9 @@
     ],
     "cardinal-components-world": [
       "fr.vana_mod.nicofighter45.bosses.BossComponent"
+    ],
+    "rei": [
+      "fr.vana_mod.nicofighter45.rei.ReiPlugin"
     ]
   },
   "mixins": [

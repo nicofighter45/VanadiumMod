@@ -19,6 +19,11 @@ repositories {
 		name = 'Ladysnake Mods'
 		url = 'https://ladysnake.jfrog.io/artifactory/mods'
 	}
+
+	maven {
+		name = "Roughly Enough Item"
+		url "https://maven.shedaniel.me"
+	}
 }
 
 dependencies {
@@ -34,8 +39,8 @@ dependencies {
 	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:4.1.4"
 	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-world:4.1.4"
 
-	//modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:8.0.442"
-	//modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:8.0.442"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:8.0.442"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:8.0.442"
 
 }
 

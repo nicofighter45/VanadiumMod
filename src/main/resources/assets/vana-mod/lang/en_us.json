@@ -61,14 +61,14 @@
   "block.vana-mod.tin_block": "Tin Block",
   "item.vana-mod.tin_block_item": "Tin Block",
 
-  "item.vana-mod.steam_ingot": "Steam Ingot",
-  "item.vana-mod.steam_plack": "Steam Plack",
-  "item.vana-mod.steam_helmet": "Steam Helmet",
-  "item.vana-mod.steam_chestplate": "Steam Chestplate",
-  "item.vana-mod.steam_leggings": "Steam Leggings",
-  "item.vana-mod.steam_boots": "Steam Boots",
-  "block.vana-mod.steam_block": "Steam Block",
-  "item.vana-mod.steam_block_item": "Steam Block",
+  "item.vana-mod.steel_ingot": "Steel Ingot",
+  "item.vana-mod.steel_plack": "Steel Plack",
+  "item.vana-mod.steel_helmet": "Steel Helmet",
+  "item.vana-mod.steel_chestplate": "Steel Chestplate",
+  "item.vana-mod.steel_leggings": "Steel Leggings",
+  "item.vana-mod.steel_boots": "Steel Boots",
+  "block.vana-mod.steel_block": "Steel Block",
+  "item.vana-mod.steel_block_item": "Steel Block",
 
   "item.vana-mod.diamond_plack": "Diamond Plack",
 
@@ -132,5 +132,7 @@
   "category.vana-mod.vanadium": "Vanadium",
   "key.vana-mod.night_vision": "Night Vision",
   "key.vana-mod.hat": "Hat",
-  "key.vana-mod.armor_effect": "Armor Effect"
+  "key.vana-mod.armor_effect": "Armor Effect",
+
+  "rei_category.vana-mod.modifiers_table": "Modifiers Table Craft"
 }

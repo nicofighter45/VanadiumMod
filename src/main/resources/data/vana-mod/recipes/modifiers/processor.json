@@ -1,0 +1,10 @@
+{
+  "type": "vana-mod:modifiers_recipe",
+  "input1": "vana-mod:transistor",
+  "input2": "vana-mod:transistor",
+  "input3": "vana-mod:transistor",
+  "input4": "vana-mod:transistor",
+  "result": {
+    "item": "vana-mod:processor"
+  }
+}

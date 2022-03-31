@@ -1,6 +1,8 @@
 package fr.vana_mod.nicofighter45.block.modifiertable;
 
 import fr.vana_mod.nicofighter45.block.ModBlocksItem;
+import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersCraft;
+import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipeSerializer;
 import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -30,6 +32,9 @@ public class ModifierTableRegister {
 
     public static void registerAll(){
 
+        Registry.register(Registry.RECIPE_SERIALIZER, ModifiersRecipeSerializer.ID, ModifiersRecipeSerializer.INSTANCE);
+        Registry.register(Registry.RECIPE_TYPE, new Identifier(VanadiumMod.MODID, ModifiersCraft.Type.ID), ModifiersCraft.Type.INSTANCE);
+
         //creating the new crafts
         addCrafts();
 
@@ -46,7 +51,7 @@ public class ModifierTableRegister {
         newCraft(ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.TRANSISTOR, ModItems.TRANSISTOR, new ItemStack(ModItems.PROCESSOR));
 
         newCraft(ModItems.VANADIUM_NUGGET, Items.COAL_BLOCK, Items.COAL_BLOCK, ModItems.VANADIUM_NUGGET, enchantBook(ModEnchants.HASTER));
-        newCraft(ModItems.VANADIUM_NUGGET, Items.SHULKER_SHELL, Items.SHULKER_SHELL, ModItems.VANADIUM_NUGGET, enchantBook(ModEnchants.HASTER));
+        newCraft(ModItems.VANADIUM_NUGGET, Items.SHULKER_SHELL, Items.SHULKER_SHELL, ModItems.VANADIUM_NUGGET, enchantBook(ModEnchants.STRENGHTER));
         newCraft(ModItems.VANADIUM_NUGGET, ModItems.TUNGSTEN_INGOT, ModItems.TUNGSTEN_INGOT, ModItems.VANADIUM_NUGGET, enchantBook(ModEnchants.RESISTANCER));
         newCraft(ModItems.VANADIUM_NUGGET, Items.BROWN_MUSHROOM_BLOCK, Items.RED_MUSHROOM_BLOCK, ModItems.VANADIUM_NUGGET, enchantBook(ModEnchants.FASTER));
         newCraft(ModItems.VANADIUM_NUGGET, Items.SLIME_BLOCK, Items.SLIME_BLOCK, ModItems.VANADIUM_NUGGET, enchantBook(ModEnchants.JUMPER));

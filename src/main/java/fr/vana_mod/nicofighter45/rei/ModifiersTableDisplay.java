@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModifiersTableDisplay<R extends ModifierDisplay> implements DisplayCategory<Display> {
+public class ModifiersTableDisplay<R extends ModifiersDisplay> implements DisplayCategory<Display> {
     @Override
     public Renderer getIcon() {
         return EntryStacks.of(ModifierTableRegister.MODIFIERS_TABLE);

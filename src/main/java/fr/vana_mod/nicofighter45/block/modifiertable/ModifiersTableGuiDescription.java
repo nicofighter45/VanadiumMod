@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.block.modifiertable;
 
+import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersCraft;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import io.github.cottonmc.cotton.gui.SyncedGuiDescription;
 import io.github.cottonmc.cotton.gui.networking.NetworkSide;
@@ -9,11 +10,13 @@ import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WItemSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
+
+import java.util.Optional;
 
 public class ModifiersTableGuiDescription extends SyncedGuiDescription {
 
@@ -28,8 +31,6 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
         //panel type
         WGridPanel root = new WGridPanel();
         setRootPanel(root);
-        //panel size
-        //root.setSize(0, 0);
 
         //items slots
         WItemSlot itemSlot1 = WItemSlot.of(blockInventory, 0);
@@ -54,24 +55,16 @@ public class ModifiersTableGuiDescription extends SyncedGuiDescription {
         ScreenNetworking.of(this, NetworkSide.SERVER).receive(MESSAGE_ITEM, buf -> {
             ServerPlayerEntity server_player = (ServerPlayerEntity) player;
             for(int i = 64; i >= 0; i--){
-                ItemStack item0 = this.getSlot(0).getStack();
-                ItemStack item1 = this.getSlot(1).getStack();
-                ItemStack item2 = this.getSlot(2).getStack();
-                ItemStack item3 = this.getSlot(3).getStack();
-                ItemStack result = null;
-                for(ModifierCraft craft : ModifierTableRegister.crafts.keySet()){
-                    if(craft.getItem0() == item0.getItem() && craft.getItem1() == item1.getItem() && craft.getItem2() == item2.getItem() && craft.getItem3() == item3.getItem()){
-                        result = ModifierTableRegister.crafts.get(craft);
-                        break;
-                    }
-                }
-                if(result == null){
-                    break;
-                }else{
+                Optional<ModifiersCraft> match = world.getRecipeManager().getFirstMatch(ModifiersCraft.Type.INSTANCE,
+                        new SimpleInventory(this.getSlot(0).getStack(), this.getSlot(1).getStack(),
+                                this.getSlot(2).getStack(), this.getSlot(3).getStack()), world);
+                if(match.isPresent()){
+                    server_player.getInventory().offerOrDrop(match.get().getOutput().copy());
                     for(int slot = 0; slot < 4; slot++){
                         getBlockInventory(context).removeStack(slot, 1);
                     }
-                    server_player.getInventory().offerOrDrop(result);
+                }else{
+                    break;
                 }
             }
         });

@@ -1,11 +1,8 @@
 package fr.vana_mod.nicofighter45.main;
 
 import net.minecraft.item.*;
-import net.minecraft.util.registry.Registry;
 import fr.vana_mod.nicofighter45.block.ModBlocks;
 import fr.vana_mod.nicofighter45.block.modifiertable.*;
-import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersCraft;
-import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipeSerializer;
 import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
 import net.fabricmc.api.ModInitializer;
@@ -14,8 +11,6 @@ import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
-
-import java.util.*;
 
 public class VanadiumMod implements ModInitializer {
 
@@ -35,9 +30,6 @@ public class VanadiumMod implements ModInitializer {
         SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(ModifiersTableBlock.ID, (syncId, inventory) ->
                 new ModifiersTableGuiDescription(syncId, inventory, ScreenHandlerContext.EMPTY)
         );
-
-        Registry.register(Registry.RECIPE_SERIALIZER, ModifiersRecipeSerializer.ID, ModifiersRecipeSerializer.INSTANCE);
-        Registry.register(Registry.RECIPE_TYPE, new Identifier(MODID, ModifiersCraft.Type.ID), ModifiersCraft.Type.INSTANCE);
 
         //register command
         Command.registerAllCommands();

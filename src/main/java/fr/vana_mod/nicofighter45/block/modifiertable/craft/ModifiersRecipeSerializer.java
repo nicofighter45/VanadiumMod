@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
@@ -46,13 +48,10 @@ public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersCraf
         Ingredient input4 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input4))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input4))));
         ItemStack output = Ingredient.fromJson(recipeJson.result).getMatchingStacks()[0];
-        System.out.println(Arrays.toString(Ingredient.fromJson(recipeJson.result).getMatchingStacks()));
         if(output.getItem() == Items.ENCHANTED_BOOK){
-            JsonElement enchanted_Characteristics = recipeJson.result.get("EnchantedBookCharacteristics");
-            System.out.println(enchanted_Characteristics);
-            if(enchanted_Characteristics != null){
-                System.out.println("Book detected");
-                System.out.println(recipeJson.result.getAsJsonArray("EnchantedBookCharacteristics"));
+            if(recipeJson.result.get("EnchantedBookCharacteristics") != null){
+                output.addEnchantment(ModEnchants.getEnchant(recipeJson.result.get("id").getAsString()),
+                        recipeJson.result.get("lvl").getAsInt());
             }
         }
         return new ModifiersCraft(input1, input2, input3, input4, output, id);

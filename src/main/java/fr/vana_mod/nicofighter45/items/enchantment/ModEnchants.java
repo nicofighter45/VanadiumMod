@@ -6,6 +6,9 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 public class ModEnchants {
 
@@ -68,6 +71,16 @@ public class ModEnchants {
         Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "resistancer"), RESISTANCER);
         Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "no_fall"), NO_FALL);
         Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "experience"), EXPERIENCE);
+    }
+
+    public static @Nullable Enchantment getEnchant(String name){
+        Enchantment[] table = {FASTER, JUMPER, HASTER, STRENGHTER, RESISTANCER, NO_FALL, EXPERIENCE};
+        for(Enchantment enchantment : table){
+            if(enchantment.getTranslationKey().equals(name)){
+                return enchantment;
+            }
+        }
+        return null;
     }
 
 }

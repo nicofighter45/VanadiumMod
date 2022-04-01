@@ -22,19 +22,19 @@ public class CustomBossConfig {
         this.z = simplify(z);
         switch (key) {
             case 1 -> {
-                this.drop = new ItemStack(ModItems.STEEL_PLACK);
+                this.drop = new ItemStack(ModItems.STEEL_PLATE);
                 this.toSpawn = Items.IRON_BLOCK;
             }
             case 2 -> {
-                this.drop = new ItemStack(ModItems.DIAMOND_PLACK);
+                this.drop = new ItemStack(ModItems.DIAMOND_PLATE);
                 this.toSpawn = ModBlocksItem.STEEL_BLOCK_ITEM;
             }
             case 3 -> {
-                this.drop = new ItemStack(ModItems.EMERALD_PLACK);
+                this.drop = new ItemStack(ModItems.EMERALD_PLATE);
                 this.toSpawn = Items.DIAMOND_BLOCK;
             }
             case 4 -> {
-                this.drop = new ItemStack(ModItems.VANADIUM_PLACK);
+                this.drop = new ItemStack(ModItems.VANADIUM_PLATE);
                 this.toSpawn = Items.EMERALD_BLOCK;
             }
             case 5 -> {

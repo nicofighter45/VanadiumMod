@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "vana-mod:item/steel_plack"
+    "layer0": "vana-mod:item/steel_plate"
   }
 }

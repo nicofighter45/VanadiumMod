@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "minecraft:emerald_block"
+    "item": "vana-mod:steel_block_item"
   },
-  "result": "vana-mod:emerald_plack",
+  "result": "vana-mod:steel_plate",
   "experience": 1,
   "cookingtime": 800
 }

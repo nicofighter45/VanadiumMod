@@ -1,9 +1,9 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "vana-mod:vanadium_block_item"
+    "item": "vana-mod:tin_block_item"
   },
-  "result": "vana-mod:vanadium_plack",
+  "result": "vana-mod:tin_plate",
   "experience": 1,
   "cookingtime": 800
 }

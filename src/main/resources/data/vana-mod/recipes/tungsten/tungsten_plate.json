@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "vana-mod:tungsten_block_item"
   },
-  "result": "vana-mod:tungsten_plack",
+  "result": "vana-mod:tungsten_plate",
   "experience": 1,
   "cookingtime": 800
 }

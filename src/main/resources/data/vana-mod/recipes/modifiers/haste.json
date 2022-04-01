@@ -6,8 +6,11 @@
   "input4": "vana-mod:vanadium_nugget",
   "result": {
     "item": "minecraft:enchanted_book",
-    "enchantment": {
-      "minecraft.enchantment.vana-mod:haster": 3
-    }
+    "EnchantedBookCharacteristics": [
+      {
+        "id": "minecraft:sharpness",
+        "lvl": 1
+      }
+    ]
   }
 }

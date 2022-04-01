@@ -4,7 +4,7 @@
     "item": "minecraft:iron_block"
   },
   "addition": {
-    "item": "vana-mod:copper_plack"
+    "item": "vana-mod:copper_plate"
   },
   "result": {
     "item": "vana-mod:copper_hammer"

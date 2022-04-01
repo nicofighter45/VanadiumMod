@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "vana-mod:vanadium_block_item"
+  },
+  "result": "vana-mod:vanadium_plate",
+  "experience": 1,
+  "cookingtime": 800
+}

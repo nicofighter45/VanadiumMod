@@ -6,7 +6,7 @@
   "block.vana-mod.vanadium_block": "Vanadium Block",
   "item.vana-mod.vanadium_block_item": "Vanadium Block",
 
-  "item.vana-mod.vanadium_plack": "Vanadium Plack",
+  "item.vana-mod.vanadium_plate": "Vanadium Plate",
   "item.vana-mod.vanadium_sword": "Vanadium Sword",
   "item.vana-mod.vanadium_hammer": "Vanadium Hammer",
   "item.vana-mod.vanadium_axe": "Vanadium Axe",
@@ -17,7 +17,7 @@
   "item.vana-mod.vanadium_leggings": "Vanadium Leggings",
   "item.vana-mod.vanadium_boots": "Vanadium Boots",
 
-  "item.vana-mod.emerald_plack": "Emerald Plack",
+  "item.vana-mod.emerald_plate": "Emerald Plate",
 
   "item.vana-mod.emerald_helmet": "Emerald Helmet",
   "item.vana-mod.emerald_chestplate": "Emerald Chestplate",
@@ -35,7 +35,7 @@
   "block.vana-mod.tungsten_ore": "Tungsten Ore",
   "item.vana-mod.tungsten_ore": "Tungsten Ore",
   "item.vana-mod.tungsten_ingot": "Tungsten Ingot",
-  "item.vana-mod.tungsten_plack": "Tungsten Plack",
+  "item.vana-mod.tungsten_plate": "Tungsten Plate",
   "item.vana-mod.tungsten_hammer": "Tungsten Hammer",
   "item.vana-mod.tungsten_chestplate": "Tungsten Chestplate",
   "block.vana-mod.tungsten_block": "Tungsten Block",
@@ -48,7 +48,7 @@
   "block.vana-mod.copper_ore": "Copper Ore",
   "item.vana-mod.copper_ore": "Copper Ore",
   "item.vana-mod.copper_ingot": "Copper Ingot",
-  "item.vana-mod.copper_plack": "Copper Plack",
+  "item.vana-mod.copper_plate": "Copper Plate",
   "item.vana-mod.copper_hammer": "Copper Hammer",
   "block.vana-mod.copper_block": "Copper Block",
   "item.vana-mod.copper_block_item": "Copper Block",
@@ -56,13 +56,13 @@
   "block.vana-mod.tin_ore": "Tin Ore",
   "item.vana-mod.tin_ore": "Tin Ore",
   "item.vana-mod.tin_ingot": "Tin Ingot",
-  "item.vana-mod.tin_plack": "Tin Plack",
+  "item.vana-mod.tin_plate": "Tin Plate",
   "item.vana-mod.tin_hammer": "Tin Hammer",
   "block.vana-mod.tin_block": "Tin Block",
   "item.vana-mod.tin_block_item": "Tin Block",
 
   "item.vana-mod.steel_ingot": "Steel Ingot",
-  "item.vana-mod.steel_plack": "Steel Plack",
+  "item.vana-mod.steel_plate": "Steel Plate",
   "item.vana-mod.steel_helmet": "Steel Helmet",
   "item.vana-mod.steel_chestplate": "Steel Chestplate",
   "item.vana-mod.steel_leggings": "Steel Leggings",
@@ -70,7 +70,7 @@
   "block.vana-mod.steel_block": "Steel Block",
   "item.vana-mod.steel_block_item": "Steel Block",
 
-  "item.vana-mod.diamond_plack": "Diamond Plack",
+  "item.vana-mod.diamond_plate": "Diamond Plate",
 
   "item.vana-mod.transistor": "Transistor",
   "item.vana-mod.processor": "Processor",

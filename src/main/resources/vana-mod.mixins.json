@@ -7,8 +7,7 @@
     "EnchantmentMixin",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
-    "ServerWorldMixin",
-    "EntityMixin"
+    "ServerWorldMixin"
   ],
   "client": [
   ],

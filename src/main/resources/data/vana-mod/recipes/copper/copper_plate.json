@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "vana-mod:copper_block_item"
+    "item": "minecraft:copper_block"
   },
   "result": "vana-mod:copper_plate",
   "experience": 1,

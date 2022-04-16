@@ -1,11 +1,15 @@
 package fr.vana_mod.nicofighter45.mixins;
 
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import fr.vana_mod.nicofighter45.bosses.CustomBossConfig;
 import fr.vana_mod.nicofighter45.main.CustomPlayer;
@@ -42,6 +46,36 @@ public class ServerPlayerEntityMixin {
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if(source == DamageSource.FALL && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)){
             cir.setReturnValue(false);
+        }else if(player.getHealth() <= amount){
+            PlayerInventory inventory = player.getInventory();
+            if(inventory.contains(new ItemStack(Items.EMERALD_BLOCK)) || inventory.contains(new ItemStack(Items.EMERALD))){
+                int count = inventory.getStack(inventory.getSlotWithStack(new ItemStack(Items.EMERALD))).getCount() +
+                        9 * inventory.getStack(inventory.getSlotWithStack(new ItemStack(Items.EMERALD_BLOCK))).getCount();
+                System.out.println(count);
+                if (count > 17) {
+                    if(inventory.contains(new ItemStack(Items.EMERALD_BLOCK))){
+                        int slot = inventory.getSlotWithStack(new ItemStack(Items.EMERALD_BLOCK));
+                        System.out.println("1:" + slot);
+                        int value = inventory.count(Items.EMERALD_BLOCK);
+                        System.out.println("1:" + value);
+                        inventory.setStack(slot, new ItemStack(Items.EMERALD_BLOCK, value -1));
+                    }else{
+                        System.out.println("4");
+                        inventory.removeStack(inventory.getSlotWithStack(new ItemStack(Items.EMERALD)), 18);
+                    }
+                    cir.setReturnValue(false);
+//                    player.setHealth(player.getMaxHealth());
+//                    BlockPos pos = player.getSpawnPointPosition();
+//                    ServerWorld world = Objects.requireNonNull(player.getServer()).getOverworld();
+//                    if(pos == null){
+//                        pos = world.getSpawnPos();
+//                    }
+//                    player.teleport(world, pos.getX(), pos.getY(), pos.getZ(), 0, 0);
+//                    world.spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 2);
+//                    world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE,
+//                            SoundCategory.BLOCKS, 1f, 1f);
+                }
+            }
         }
     }
 
@@ -57,7 +91,7 @@ public class ServerPlayerEntityMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "writeCustomDataToNbt")
-    public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+    public void writeCustomDataToNbt(@NotNull NbtCompound nbt, CallbackInfo ci) {
         CustomPlayer pl = VanadiumModServer.players.get(player.getEntityName());
         nbt.putInt("heart", pl.getHeart());
         nbt.putInt("regen", pl.getRegen());
@@ -88,6 +122,7 @@ public class ServerPlayerEntityMixin {
             }
         }
     }
+
     private double calc(double nb){
         if(nb < 0){
             return -5/Math.exp(0.3 * -nb);

@@ -6,6 +6,7 @@ import fr.vana_mod.nicofighter45.main.VanadiumModServer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,14 +21,14 @@ public class ServerWorldMixin {
     private final ServerWorld world = (ServerWorld) (Object) this;
 
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
-    public void onPlayerConnected(ServerPlayerEntity player, CallbackInfo info) {
+    public void onPlayerConnected(@NotNull ServerPlayerEntity player, CallbackInfo info) {
         VanadiumModServer.addNewPlayer(player.getEntityName(), player.getUuid());
         CustomPlayer cp = VanadiumModServer.players.get(player.getEntityName());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(cp.getHeart());
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")
-    public void onPlayerRespawned(ServerPlayerEntity player, CallbackInfo info) {
+    public void onPlayerRespawned(@NotNull ServerPlayerEntity player, CallbackInfo info) {
         int heart = VanadiumModServer.players.get(player.getEntityName()).getHeart();
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(heart);
         player.setHealth(heart);

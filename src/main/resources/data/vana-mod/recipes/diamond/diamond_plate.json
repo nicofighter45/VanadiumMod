@@ -1,16 +1,9 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DDD",
-    "DDD"
-  ],
-  "key": {
-    "D": {
-      "item": "minecraft:diamond"
-    }
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "minecraft:diamond_block"
   },
-  "result": {
-    "item": "vana-mod:diamond_plate",
-    "count": 1
-  }
+  "result": "vana-mod:diamond_plate",
+  "experience": 1,
+  "cookingtime": 800
 }

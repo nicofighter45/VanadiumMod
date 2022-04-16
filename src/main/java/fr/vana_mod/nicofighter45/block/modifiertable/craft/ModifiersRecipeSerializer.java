@@ -1,13 +1,9 @@
 package fr.vana_mod.nicofighter45.block.modifiertable.craft;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
@@ -15,8 +11,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 
 public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersCraft> {
 
@@ -48,12 +42,18 @@ public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersCraf
         Ingredient input4 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input4))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input4))));
         ItemStack output = Ingredient.fromJson(recipeJson.result).getMatchingStacks()[0];
-        if(output.getItem() == Items.ENCHANTED_BOOK){
-            if(recipeJson.result.get("EnchantedBookCharacteristics") != null){
-                output.addEnchantment(ModEnchants.getEnchant(recipeJson.result.get("id").getAsString()),
-                        recipeJson.result.get("lvl").getAsInt());
-            }
-        }
+//        if(output.getItem() == Items.ENCHANTED_BOOK){
+//            JsonElement characteristics = recipeJson.result.get("EnchantedBookCharacteristics");
+//            if(characteristics != null){
+//                String[] strings = characteristics.getAsString().split("\"");
+//                System.out.println("enchant " + Arrays.toString(strings));
+//                String enchant_element = strings[3];
+//                String lvl_element = strings[6];
+//                System.out.println("enchant " + enchant_element + lvl_element);
+//                output.addEnchantment(ModEnchants.getEnchant(enchant_element), Integer.parseInt(lvl_element));
+//            }
+//            System.out.println("json null" + recipeJson.result.get("EnchantedBookCharacteristics"));
+//        }
         return new ModifiersCraft(input1, input2, input3, input4, output, id);
     }
 

@@ -8,7 +8,7 @@
     "item": "minecraft:enchanted_book",
     "EnchantedBookCharacteristics": [
       {
-        "id": "minecraft:sharpness",
+        "id": "vana-mod:haster",
         "lvl": 1
       }
     ]

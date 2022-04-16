@@ -76,6 +76,7 @@ public class ModEnchants {
     public static @Nullable Enchantment getEnchant(String name){
         Enchantment[] table = {FASTER, JUMPER, HASTER, STRENGHTER, RESISTANCER, NO_FALL, EXPERIENCE};
         for(Enchantment enchantment : table){
+            System.out.println(enchantment.getTranslationKey());
             if(enchantment.getTranslationKey().equals(name)){
                 return enchantment;
             }

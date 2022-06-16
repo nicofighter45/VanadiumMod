@@ -22,14 +22,16 @@ public class ServerWorldMixin {
 
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
     public void onPlayerConnected(@NotNull ServerPlayerEntity player, CallbackInfo info) {
-        VanadiumModServer.addNewPlayer(player.getEntityName(), player.getUuid());
-        CustomPlayer cp = VanadiumModServer.players.get(player.getEntityName());
-        Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(cp.getHeart());
+        if(!VanadiumModServer.players.containsKey(player.getUuid())){
+            VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false));
+        }
+        CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
+        Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")
     public void onPlayerRespawned(@NotNull ServerPlayerEntity player, CallbackInfo info) {
-        int heart = VanadiumModServer.players.get(player.getEntityName()).getHeart();
+        int heart = VanadiumModServer.players.get(player.getUuid()).getHeart();
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(heart);
         player.setHealth(heart);
     }
@@ -50,7 +52,7 @@ public class ServerWorldMixin {
         }else if(timer_heal == 0){
             timer_heal--;
             for(ServerPlayerEntity player : world.getPlayers()){
-                if(player.getHealth() < VanadiumModServer.players.get(player.getEntityName()).getRegen()){
+                if(player.getHealth() < VanadiumModServer.players.get(player.getUuid()).getRegen()){
                     player.heal(0.5f);
                 }else if(player.getHealth() < player.getMaxHealth() && getDistFromCenter(player) < 100
                         && world.getServer().getOverworld() == world && player.getY() < 150){

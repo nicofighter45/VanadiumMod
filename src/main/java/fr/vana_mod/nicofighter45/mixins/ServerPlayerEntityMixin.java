@@ -71,24 +71,24 @@ public abstract class ServerPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "readCustomDataFromNbt")
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        if(VanadiumModServer.players.containsKey(player.getEntityName())){
-            CustomPlayer pl = VanadiumModServer.players.get(player.getEntityName());
+        System.out.println("Reading Custom Data on ServerPlayer");
+        if(VanadiumModServer.players.containsKey(player.getUuid())){
+            CustomPlayer pl = VanadiumModServer.players.get(player.getUuid());
             pl.setHeart(nbt.getInt("heart"));
             pl.setRegen(nbt.getInt("regen"));
             pl.setCraft(nbt.getBoolean("craft"));
             pl.setEnder_chest(nbt.getBoolean("ender_chest"));
         }else{
-            VanadiumModServer.players.put(player.getEntityName(), new CustomPlayer(player.getUuid(), nbt.getInt("heart"),
+            VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(nbt.getInt("heart"),
                     nbt.getInt("regen"), nbt.getBoolean("craft"), nbt.getBoolean("ender_chest")));
         }
     }
 
     @Inject(at = @At("HEAD"), method = "writeCustomDataToNbt")
     public void writeCustomDataToNbt(@NotNull NbtCompound nbt, CallbackInfo ci) {
-        CustomPlayer pl = VanadiumModServer.players.get(player.getEntityName());
+        CustomPlayer pl = VanadiumModServer.players.get(player.getUuid());
         nbt.putInt("heart", pl.getHeart());
         nbt.putInt("regen", pl.getRegen());
-        nbt.putUuid("uuid", player.getUuid());
         nbt.putBoolean("craft", pl.isCraft());
         nbt.putBoolean("ender_chest", pl.isEnder_chest());
     }

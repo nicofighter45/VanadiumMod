@@ -2,12 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "T T",
-    "TTT",
+    "TPT",
     "TTT"
   ],
   "key": {
     "T": {
       "item": "vana-mod:tungsten_ingot"
+    },
+    "P": {
+      "item": "vana-mod:tungsten_plate"
     }
   },
   "result": {

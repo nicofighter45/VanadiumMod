@@ -36,7 +36,7 @@
     "cardinal-components-world": [
       "fr.vana_mod.nicofighter45.bosses.BossComponent"
     ],
-    "rei_common": [
+    "rei_client": [
       "fr.vana_mod.nicofighter45.rei.ReiPlugin"
     ]
   },

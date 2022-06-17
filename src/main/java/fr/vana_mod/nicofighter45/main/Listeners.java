@@ -138,52 +138,48 @@ public class Listeners {
     private static final Identifier ITEM_RIGHT_CLICK_ID = new Identifier(VanadiumMod.MODID, "use_item_callback_packet");
 
     public static void onItemRightClickRegister(){
-        UseItemCallback.EVENT.register((player, world, hand) -> {
-            ServerPlayNetworking.registerGlobalReceiver(ITEM_RIGHT_CLICK_ID, (server, packet_player, handler, buf, responseSender) -> {
-                System.out.println("server");
-                ServerPlayerEntity server_player = (ServerPlayerEntity) player;
-                ItemStack it = server_player.getMainHandStack();
-                Item item_server = it.getItem();
-                CustomPlayer data_player = VanadiumModServer.players.get(server_player.getEntityName());
-                int heart = data_player.getHeart();
-                int regen = data_player.getRegen();
-                System.out.println(item_server + " " + data_player.isCraft() + data_player.isEnder_chest() + heart + regen);
-                if(item_server == ModItems.SIMPLE_HEALTH_BOOSTER && heart < 10){
-                    data_player.setHeart(heart + 1);
-                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
-                    sendMsg(server_player, "You got " + heart + " heart");
-                }else if(item_server == ModItems.BASE_HEALTH_BOOSTER && heart >= 10 && heart < 15){
-                    data_player.setHeart(heart + 1);
-                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
-                    sendMsg(server_player, "You got " + heart + " heart");
-                }else if(item_server == ModItems.ADVANCE_HEALTH_BOOSTER && heart >= 15 && heart < 20){
-                    data_player.setHeart(heart + 1);
-                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
-                    sendMsg(server_player, "You got " + heart + " heart");
-                }else if(item_server == ModItems.SIMPLE_REGEN_BOOSTER && regen < 4 && (regen+1) <= heart){
-                    data_player.setRegen(regen + 1);
-                    sendMsg(server_player, "You got " + regen + " regen");
-                }else if(item_server == ModItems.BASE_REGEN_BOOSTER && regen >= 4 && regen < 8 && (regen+1) <= heart){
-                    data_player.setRegen(regen + 1);
-                    sendMsg(server_player, "You got " + regen + " regen");
-                }else if(item_server == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 8 && regen < 12 && (regen+1) <= heart){
-                    data_player.setRegen(regen + 1);
-                    sendMsg(server_player, "You got " + regen + " regen");
-                }else if(item_server == ModItems.CRAFTING_STONE && !data_player.isCraft()){
-                    data_player.setCraft(true);
-                    sendMsg(server_player, "You now can do /craft to access crafting table");
-                }else if(item_server == ModItems.ENDER_CHEST_STONE && !data_player.isEnder_chest()){
-                    data_player.setEnder_chest(true);
-                    sendMsg(server_player, "You no can do /ec to access your ender chest");
-                }else{
-                    return;
-                }
-                it.setCount(0);
-            });
-            System.out.println("ItemRightClickRegister");
-            if(world.isClient){
-                ClientPlayNetworking.send(ITEM_RIGHT_CLICK_ID, PacketByteBufs.empty());
+
+        ServerPlayNetworking.registerGlobalReceiver(ITEM_RIGHT_CLICK_ID, (server, server_player, handler, buf, responseSender) -> {
+            ItemStack it = server_player.getMainHandStack();
+            Item item_server = it.getItem();
+            CustomPlayer data_player = VanadiumModServer.players.get(server_player.getUuid());
+            int heart = data_player.getHeart();
+            int regen = data_player.getRegen();
+            if (item_server == ModItems.SIMPLE_HEALTH_BOOSTER && heart < 20) {
+                data_player.setHeart(heart + 2);
+                Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
+                sendMsg(server_player, "You got " + (heart + 2)/2 + " heart");
+            } else if (item_server == ModItems.BASE_HEALTH_BOOSTER && heart >= 20 && heart < 30) {
+                data_player.setHeart(heart + 2);
+                Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
+                sendMsg(server_player, "You got " + (heart + 2)/2 + " heart");
+            } else if (item_server == ModItems.ADVANCE_HEALTH_BOOSTER && heart >= 30 && heart < 40) {
+                data_player.setHeart(heart + 2);
+                Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
+                sendMsg(server_player, "You got " + (heart + 2)/2 + " heart");
+            } else if (item_server == ModItems.SIMPLE_REGEN_BOOSTER && regen < 8 && (regen + 2) <= heart) {
+                data_player.setRegen(regen + 2);
+                sendMsg(server_player, "You got " + (regen + 2)/2 + " regen");
+            } else if (item_server == ModItems.BASE_REGEN_BOOSTER && regen >= 8 && regen < 16 && (regen + 2) <= heart) {
+                data_player.setRegen(regen + 2);
+                sendMsg(server_player, "You got " + (regen + 2)/2 + " regen");
+            } else if (item_server == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 16 && regen < 24 && (regen + 2) <= heart) {
+                data_player.setRegen(regen + 2);
+                sendMsg(server_player, "You got " + (regen + 2)/2 + " regen");
+            } else if (item_server == ModItems.CRAFTING_STONE && !data_player.isCraft()) {
+                data_player.setCraft(true);
+                sendMsg(server_player, "You now can do /craft to access crafting table");
+            } else if (item_server == ModItems.ENDER_CHEST_STONE && !data_player.isEnder_chest()) {
+                data_player.setEnder_chest(true);
+                sendMsg(server_player, "You no can do /ec to access your ender chest");
+            } else {
+                return;
             }
+            it.setCount(it.getCount() - 1);
+        });
+
+        UseItemCallback.EVENT.register((player, world, hand) -> {
+            ClientPlayNetworking.send(ITEM_RIGHT_CLICK_ID, PacketByteBufs.empty());
             return TypedActionResult.pass(player.getMainHandStack());
         });
     }

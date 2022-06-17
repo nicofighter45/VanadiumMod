@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -32,6 +33,14 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class Command {
 
     public static void registerAllCommands(){
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("stat")
+                .executes(c -> {
+                    ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                    CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
+                    sendMsg(player, player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH) + "");
+                    return 1;
+                })
+        ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("craft")
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
@@ -265,6 +274,12 @@ public class Command {
                                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                                     int value = IntegerArgumentType.getInteger(c, "value");
                                                     VanadiumModServer.players.get(uuid).setHeart(value);
+                                                    for(ServerPlayerEntity server_player : Objects.requireNonNull(player.getServer()).getPlayerManager().getPlayerList()){
+                                                        if(server_player.getUuid() == uuid){
+                                                            Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(value);
+                                                            sendMsg(server_player, "You now have " + value/2 + " heart(s)");
+                                                        }
+                                                    }
                                                     sendMsg(player, "The number of heart of " + uuid + " is now " + value);
                                                     return 1;
                                                 })

@@ -1,15 +1,25 @@
 package fr.vana_mod.nicofighter45.mixins;
 
+import net.minecraft.client.option.ChatVisibility;
+import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.message.MessageSender;
+import net.minecraft.network.message.MessageType;
+import net.minecraft.network.message.SignedMessage;
+import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -71,7 +81,6 @@ public abstract class ServerPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "readCustomDataFromNbt")
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        System.out.println("Reading Custom Data on ServerPlayer");
         if(VanadiumModServer.players.containsKey(player.getUuid())){
             CustomPlayer pl = VanadiumModServer.players.get(player.getUuid());
             pl.setHeart(nbt.getInt("heart"));
@@ -130,4 +139,30 @@ public abstract class ServerPlayerEntityMixin {
 
     private boolean isNearTo(double x1, double x2, double y1, double y2, double z1, double z2){
         return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) + Math.pow(z1-z2, 2)) <= 10; }
+
+    @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
+    public void sendChatMessage(SignedMessage message, MessageSender sender, RegistryKey<MessageType> typeKey, CallbackInfo ci) {
+        if (acceptsMessage(typeKey)) {
+            String pre_msg = "§8[§9Player§8] §9" + player.getEntityName() + " §8: §f";
+            if(Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(player.getGameProfile())){
+                pre_msg = "§8[§4Admin§8] §4" + player.getEntityName() + " §8: §f";
+            }
+            for(ServerPlayerEntity player : player.getServer().getPlayerManager().getPlayerList()){
+                player.sendMessage(MutableText.of(new TranslatableTextContent(pre_msg + message.getContent().getString())), false);
+            }
+            ci.cancel();
+        }
+
+    }
+
+    private boolean acceptsMessage(RegistryKey<MessageType> typeKey) {
+        ChatVisibility clientChatVisibility = player.getClientChatVisibility();
+        if (clientChatVisibility == ChatVisibility.HIDDEN) {
+            return typeKey == MessageType.GAME_INFO;
+        } else if (clientChatVisibility == ChatVisibility.SYSTEM) {
+            return typeKey == MessageType.SYSTEM || typeKey == MessageType.GAME_INFO;
+        }
+        return true;
+    }
+
 }

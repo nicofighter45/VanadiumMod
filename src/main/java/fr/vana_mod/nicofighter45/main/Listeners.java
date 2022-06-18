@@ -1,5 +1,7 @@
 package fr.vana_mod.nicofighter45.main;
 
+import dev.architectury.event.EventResult;
+import dev.architectury.event.events.common.ChatEvent;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -7,6 +9,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -181,7 +184,7 @@ public class Listeners {
             sendMsg(server_player, "You now can do /craft to access crafting table");
         } else if (item_server == ModItems.ENDER_CHEST_STONE && !data_player.isEnder_chest()) {
             data_player.setEnder_chest(true);
-            sendMsg(server_player, "You no can do /ec to access your ender chest");
+            sendMsg(server_player, "You now can do /ec to access your ender chest");
         } else {
             return;
         }

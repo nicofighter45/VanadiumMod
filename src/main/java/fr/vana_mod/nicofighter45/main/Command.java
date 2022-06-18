@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.ZombieEntity;
@@ -19,10 +20,13 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import fr.vana_mod.nicofighter45.bosses.CustomBossConfig;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -43,10 +47,52 @@ public class Command {
                     return 1;
                 })
         ));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("spawn")
+                .executes(c -> {
+                    ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                    sendMsg(player, "§8[§6Server§8] §fYou will be teleported to the spawn in 10s");
+                    new Timer().schedule(
+                            new TimerTask() {
+                                @Override
+                                public void run() {
+                                    BlockPos spawn = Objects.requireNonNull(player.getServer()).getOverworld().getSpawnPos();
+                                    player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), spawn.getX(), spawn.getY(), spawn.getZ(), 180,0);
+                                    sendMsg(player, "§8[§6Server§8] §fYou have been teleported to the spawn");
+                                    cancel();
+                                }
+                            }
+                    , 10000, 1);
+                    return 1;
+                })
+        ));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("broadcast")
+                .requires(source -> source.hasPermissionLevel(2))
+                .executes(c -> {
+                    c.getSource().sendError(Text.of("Correct usage /broadcast <message>"));
+                    return 1;
+                })
+                .then(argument("message", MessageArgumentType.message()).executes(c -> {
+                    String msg = MessageArgumentType.getMessage(c, "message").getString();
+                    for(ServerPlayerEntity player : c.getSource().getServer().getPlayerManager().getPlayerList()){
+                        sendMsg(player, "§8[§4BROADCAST§8] §f" + msg);
+                        player.sendMessage(MutableText.of(new TranslatableTextContent(msg)), true);
+                    }
+                    return 1;
+                }))
+        ));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("pvp")
+                .requires(source -> source.hasPermissionLevel(2))
+                .executes(c -> {
+                    ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
+                    Objects.requireNonNull(server_player.getServer()).setPvpEnabled(!server_player.getServer().isPvpEnabled());
+                    sendMsg(server_player, "§8[§6Server§8] §fPvp is now " + server_player.getServer().isPvpEnabled());
+                    return 1;
+                })
+        ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("craft")
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
-                    server_player.sendMessage(Text.of("This command is still WIP"));
+                    server_player.sendMessage(Text.of("§8[§6Server§8] §fThis command is still WIP"));
                     return 1;
 //                    if(VanadiumModServer.players.get(server_player.getUuid()).isCraft()){
 //                        server_player.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, inventory, player)
@@ -75,7 +121,7 @@ public class Command {
                             }
                         });
                     }else{
-                        sendMsg(player, "You haven't unlock this feature");
+                        sendMsg(player, "§8[§6Server§8] §fYou haven't unlock this feature");
                     }
                     return 1;
                 })
@@ -89,11 +135,11 @@ public class Command {
                     assert zb != null;
                     zb.refreshPositionAndAngles(player.getBlockPos(), 0, 0);
                     player.getWorld().spawnEntity(zb);
-                    sendMsg(player, "You have nothing in your hand");
+                    sendMsg(player, "§8[§6Server§8] §fYou have nothing in your hand");
                     return 1;
                 }
                 if(hand.getCount() != 1){
-                    sendMsg(player, "You can't put many items in your head");
+                    sendMsg(player, "§8[§6Server§8] §fYou can't put many items in your head");
                     return 1;
                 }
                 ItemStack helmet = player.getInventory().armor.get(3);
@@ -102,7 +148,7 @@ public class Command {
                     player.getInventory().insertStack(helmet);
                 }
                 player.getInventory().insertStack(39, hand);
-                sendMsg(player, "Your hand and your helmet have been exchange");
+                sendMsg(player, "§8[§6Server§8] §fYour hand and your helmet have been exchange");
                 return 1;
             })
         ));
@@ -110,7 +156,7 @@ public class Command {
             .requires(source -> source.hasPermissionLevel(2))
             .executes(c -> {
                 ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                sendMsg(player, "Correct usage /boss remove|set");
+                sendMsg(player, "§8[§6Server§8] §fCorrect usage /boss remove|set");
                 sendMsg(player,"Here is the list of all bosses and there locations :");
                 for(int key : VanadiumModServer.bosses.keySet()){
                     sendMsg(player, key + " : " + VanadiumModServer.bosses.get(key).getX() + ";" +
@@ -120,7 +166,7 @@ public class Command {
             })
             .then(literal("remove")
                 .executes(c -> {
-                    sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /boss remove <key>");
+                    c.getSource().sendError(Text.of("Correct usage /boss remove <key>"));
                     return 1;
                 })
                     .then(argument("key", IntegerArgumentType.integer(1,5))
@@ -129,9 +175,9 @@ public class Command {
                                 int key = IntegerArgumentType.getInteger(c,"key");
                                 if(VanadiumModServer.bosses.containsKey(key)){
                                     VanadiumModServer.bosses.remove(key);
-                                    sendMsg(player, "Boss with key " + key + " has been delete");
+                                    sendMsg(player, "§8[§6Server§8] §fBoss with key " + key + " has been delete");
                                 }else{
-                                    sendMsg(player, "This boss isn't register");
+                                    sendMsg(player, "§8[§6Server§8] §fThis boss isn't register");
                                 }
                                 return 1;
                             })
@@ -139,7 +185,7 @@ public class Command {
             )
             .then(literal("set")
                 .executes(c -> {
-                    sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /boss set <key> (<x>) (<y>) (<z>)");
+                    c.getSource().sendError(Text.of("Correct usage /boss set <key> (<x>) (<y>) (<z>)"));
                     return 1;
                 })
 
@@ -149,17 +195,17 @@ public class Command {
                                 int key = IntegerArgumentType.getInteger(c,"key");
                                 VanadiumModServer.bosses.remove(key);
                                 VanadiumModServer.bosses.put(key, new CustomBossConfig(key, player.getX(), player.getY(), player.getZ()));
-                                sendMsg(player, "Boss with key " + key + " set on your location");
+                                sendMsg(player, "§8[§6Server§8] §fBoss with key " + key + " set on your location");
                                 return 1;
                             })
                             .then(argument("x", DoubleArgumentType.doubleArg())
                                     .executes(c -> {
-                                        sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /boss set <key> (<x>) (<y>) (<z>)");
+                                        c.getSource().sendError(Text.of("Correct usage /boss set <key> (<x>) (<y>) (<z>)"));
                                         return 1;
                                     })
                                     .then(argument("y", DoubleArgumentType.doubleArg())
                                             .executes(c -> {
-                                                sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /boss set <key> (<x>) (<y>) (<z>)");
+                                                c.getSource().sendError(Text.of("Correct usage /boss set <key> (<x>) (<y>) (<z>)"));
                                                 return 1;
                                             })
                                             .then(argument("z", DoubleArgumentType.doubleArg())
@@ -171,19 +217,20 @@ public class Command {
                                                         double z = DoubleArgumentType.getDouble(c, "z");
                                                         VanadiumModServer.bosses.remove(key);
                                                         VanadiumModServer.bosses.put(key, new CustomBossConfig(key, x, y, z));
-                                                        sendMsg(player, "Boss with key " + key + " set on " + x + ";" + y + ";" + z);
+                                                        sendMsg(player, "§8[§6Server§8] §fBoss with key " + key + " set on " + x + ";" + y + ";" + z);
                                                         return 1;
-                                                    })
-                                            )
-                                    )
-                            )
-                    )
+                                                    }
+                                                )
+                                        )
+                                )
+                        )
+                )
             )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("dim")
                 .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
-                    sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /dim <overworld|nether|end>");
+                    c.getSource().sendError(Text.of("Correct usage /dim <overworld|nether|end>"));
                     return 1;
                 })
                 .then(literal("overworld")
@@ -191,11 +238,11 @@ public class Command {
                             ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                             ServerWorld overworld = Objects.requireNonNull(player.getServer()).getOverworld();
                             if(overworld == player.getWorld()) {
-                                sendMsg(player, "You are already in the overworld");
+                                sendMsg(player, "§8[§6Server§8] §fYou are already in the overworld");
                             }else{
                                 player.teleport(overworld, overworld.getSpawnPos().getX(), overworld.getSpawnPos().getY(),
                                         overworld.getSpawnPos().getZ(), 0, 0);
-                                sendMsg(player, "You are now in the overworld");
+                                sendMsg(player, "§8[§6Server§8] §fYou are now in the overworld");
                             }
                             return 1;
                         })
@@ -206,11 +253,11 @@ public class Command {
                             ServerWorld nether = Objects.requireNonNull(player.getServer()).getWorld(World.NETHER);
                             assert nether != null;
                             if(nether == player.getWorld()) {
-                                sendMsg(player, "You are already in the nether");
+                                sendMsg(player, "§8[§6Server§8] §fYou are already in the nether");
                             }else{
                                 player.teleport(nether, nether.getSpawnPos().getX(), nether.getSpawnPos().getY(),
                                         nether.getSpawnPos().getZ(), 0, 0);
-                                sendMsg(player, "You are now in the nether");
+                                sendMsg(player, "§8[§6Server§8] §fYou are now in the nether");
                             }
                             return 1;
                         })
@@ -222,10 +269,10 @@ public class Command {
                             ServerWorld end = Objects.requireNonNull(player.getServer()).getWorld(World.END);
                             assert end != null;
                             if(end == player.getWorld()) {
-                                sendMsg(player, "You are already in the end");
+                                sendMsg(player, "§8[§6Server§8] §fYou are already in the end");
                             }else{
                                 player.teleport(end, 0, 100, 0, 0, 0);
-                                sendMsg(player, "You are now in the end");
+                                sendMsg(player, "§8[§6Server§8] §fYou are now in the end");
                             }
                             return 1;
                         })
@@ -236,7 +283,7 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    sendMsg(player, "This is the list of all register players with their data :");
+                    sendMsg(player, "§8[§6Server§8] §fThis is the list of all register players with their data :");
                     for (UUID uuid : VanadiumModServer.players.keySet()){
                         sendMsg(player, "    " + uuid + " :");
                         CustomPlayer cp = VanadiumModServer.players.get(uuid);
@@ -250,17 +297,17 @@ public class Command {
                 })
                 .then(literal("set")
                         .executes(c -> {
-                            sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>");
+                            c.getSource().sendError(Text.of("Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
                             return 1;
                         })
                         .then(argument("player", EntityArgumentType.player())
                                 .executes(c -> {
-                                    sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>");
+                                    c.getSource().sendError(Text.of("Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
                                     return 1;
                                 })
                                 .then(literal("health")
                                         .executes(c -> {
-                                            sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>");
+                                            c.getSource().sendError(Text.of("Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
                                             return 1;
                                         })
                                         .then(argument("value", IntegerArgumentType.integer(0))
@@ -272,17 +319,17 @@ public class Command {
                                                     for(ServerPlayerEntity server_player : Objects.requireNonNull(player.getServer()).getPlayerManager().getPlayerList()){
                                                         if(server_player.getUuid() == uuid){
                                                             Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(value);
-                                                            sendMsg(server_player, "You now have " + value/2 + " heart(s)");
+                                                            sendMsg(server_player, "§8[§6Server§8] §fYou now have " + value/2 + " heart(s)");
                                                         }
                                                     }
-                                                    sendMsg(player, "The number of heart of " + uuid + " is now " + value);
+                                                    sendMsg(player, "§8[§6Server§8] §fThe number of heart of " + uuid + " is now " + value);
                                                     return 1;
                                                 })
                                         )
                                 )
                                 .then(literal("regen")
                                         .executes(c -> {
-                                            sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>");
+                                            c.getSource().sendError(Text.of("Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
                                             return 1;
                                         })
                                         .then(argument("value", IntegerArgumentType.integer(0))
@@ -291,14 +338,14 @@ public class Command {
                                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                                     int value = IntegerArgumentType.getInteger(c, "value");
                                                     VanadiumModServer.players.get(uuid).setRegen(value);
-                                                    sendMsg(player, "The number of regen heart of " + uuid + " is now " + value);
+                                                    sendMsg(player, "§8[§6Server§8] §fThe number of regen heart of " + uuid + " is now " + value);
                                                     return 1;
                                                 })
                                         )
                                 )
                                 .then(literal("craft")
                                         .executes(c -> {
-                                            sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>");
+                                            c.getSource().sendError(Text.of("Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
                                             return 1;
                                         })
                                         .then(argument("value", BoolArgumentType.bool())
@@ -307,14 +354,14 @@ public class Command {
                                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                                     boolean value = BoolArgumentType.getBool(c, "value");
                                                     VanadiumModServer.players.get(uuid).setCraft(value);
-                                                    sendMsg(player, uuid + " crafting table feature is now set to " + value);
+                                                    sendMsg(player, "§8[§6Server§8] §f" + uuid + " crafting table feature is now set to " + value);
                                                     return 1;
                                                 })
                                         )
                                 )
                                 .then(literal("ender_chest")
                                         .executes(c -> {
-                                            sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>");
+                                            c.getSource().sendError(Text.of("Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
                                             return 1;
                                         })
                                         .then(argument("value", BoolArgumentType.bool())
@@ -323,7 +370,7 @@ public class Command {
                                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                                     boolean value = BoolArgumentType.getBool(c, "value");
                                                     VanadiumModServer.players.get(uuid).setEnder_chest(value);
-                                                    sendMsg(player, uuid + " crafting table feature is now set to " + value);
+                                                    sendMsg(player, "§8[§6Server§8] §f" + uuid + " crafting table feature is now set to " + value);
                                                     return 1;
                                                 })
                                         )
@@ -332,7 +379,7 @@ public class Command {
                 )
                 .then(literal("get")
                         .executes(c -> {
-                            sendMsg(c.getSource().getPlayerOrThrow(), "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>");
+                            c.getSource().sendError(Text.of("Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
                             return 1;
                         })
                         .then(argument("player", EntityArgumentType.player())
@@ -340,7 +387,7 @@ public class Command {
                                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                     CustomPlayer cp = VanadiumModServer.players.get(uuid);
-                                    sendMsg(player, uuid + " :");
+                                    sendMsg(player, "§8[§6Server§8] §f" + uuid + " :");
                                     sendMsg(player, "   health : " + cp.getHeart());
                                     sendMsg(player, "   regen  : " + cp.getRegen());
                                     sendMsg(player, "   craft  : " + cp.isCraft());
@@ -353,14 +400,14 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("invsee")
                 .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
-                    sendMsg(c.getSource().getPlayerOrThrow(), "\nCorrect usage /invsee <player>");
+                    c.getSource().sendError(Text.of("\nCorrect usage /invsee <player>"));
                     return 1;
                 })
                 .then(argument("player", EntityArgumentType.player())
                         .executes(c -> {
                             ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                             ServerPlayerEntity player_to_see = EntityArgumentType.getPlayer(c, "player");
-                            sendMsg(player, "Printing inventory of " + player_to_see.getEntityName());
+                            sendMsg(player, "§8[§6Server§8] §fPrinting inventory of " + player_to_see.getEntityName());
                             player.openHandledScreen(new NamedScreenHandlerFactory() {
                                 @Override
                                 public Text getDisplayName() {
@@ -379,14 +426,14 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("ecsee")
                 .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
-                    sendMsg(c.getSource().getPlayerOrThrow(), "\nCorrect usage /ecsee <player>");
+                    c.getSource().sendError(Text.of("Correct usage /ecsee <player>"));
                     return 1;
                 })
                 .then(argument("player", EntityArgumentType.player())
                         .executes(c -> {
                             ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                             ServerPlayerEntity player_to_see = EntityArgumentType.getPlayer(c, "player");
-                            sendMsg(player, "Printing inventory of " + player_to_see.getEntityName());
+                            sendMsg(player, "§8[§6Server§8] §fPrinting inventory of " + player_to_see.getEntityName());
                             player.openHandledScreen(new NamedScreenHandlerFactory() {
                                 @Override
                                 public Text getDisplayName() {

@@ -55,7 +55,7 @@ public class ServerWorldMixin {
             for(ServerPlayerEntity player : world.getPlayers()){
                 if(player.getHealth() < VanadiumModServer.players.get(player.getUuid()).getRegen()){
                     player.heal(0.5f);
-                }else if(player.getHealth() < player.getMaxHealth() && getDistFromCenter(player) < 100
+                }else if(player.getHealth() < player.getMaxHealth() && getDistFromCenter(player) < 50
                         && world.getServer().getOverworld() == world && player.getY() < 150){
                     player.heal(0.5f);
                 }

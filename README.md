@@ -29,10 +29,11 @@ You need to have a minecraft 1.19 instance and launch it once at least. Then you
 ### Fabric
 
 Download the fabric launcher and install the last client version in 1.19
-This will create a new profile on your minecraft launcher
 https://fabricmc.net/use/
+This will create a new profile on your minecraft launcher
 
-### Mods
+
+### Obligatory Mods
 
 #### REI
 
@@ -50,7 +51,7 @@ https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3827486
 
 https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3831112
 
-### Mods Pour Optimisation
+### Optimisation Mods
 
 #### Client : Sodium
 
@@ -72,15 +73,15 @@ Download the latest version of VanaMod (pre release are beta version, take the o
 
 ### Installation
 
-#### Go into your mod folder of minecraft:
-#### windows + R
-#### %appdata%
-#### go into .minecraft
-#### put all the mods in the mods folder
+Go into your mod folder of minecraft:
+windows + R
+%appdata%
+go into .minecraft
+put all the mods in the mods folder
 
-#### Lauch your minecraft client and run the new version that has been created called fabric-<version>
+Lauch your minecraft client and run the new version that has been created called fabric-<version>
 
-#### Enter the given IP if you want to play multiplayer (currently vanadium.jeanba.fr)
-#### Or create a new world in solo
+Enter the given IP if you want to play multiplayer
+Or create a new world in solo
 
-#### Enjoy :)
+Enjoy :)

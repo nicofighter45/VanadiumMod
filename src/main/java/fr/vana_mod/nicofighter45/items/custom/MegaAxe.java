@@ -35,12 +35,10 @@ public class MegaAxe extends AxeItem {
 
                 while(previous < checkBlocks.size()){
                     previous = checkBlocks.size();
-                    System.out.println(woodBlocks.size());
                     for(BlockPos posWood : woodBlocks){
                         if(!checkBlocks.contains(posWood)){
 
                             //check in a 3 by 3 grid
-                            System.out.println(block.getTranslationKey());
                             for(int x = -1; x < 2; x++){
                                 for(int y = -1; y < 2; y++){
                                     for(int z = -1; z < 2; z++){

@@ -12,9 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.screen.GenericContainerScreenHandler;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.MutableText;
@@ -37,29 +35,26 @@ public class Command {
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                     CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
-                    sendMsg(player, player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH) + "");
+                    sendMsg(player, "Here is your stats :");
+                    sendMsg(player, "    health  : " + customPlayer.getHeart());
+                    sendMsg(player, "    regen  : " + customPlayer.getRegen());
+                    sendMsg(player, "    craft   : " + customPlayer.isCraft());
+                    sendMsg(player, "    ec      : " + customPlayer.isEnder_chest());
                     return 1;
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("craft")
                 .executes(c -> {
-                    ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    player.sendMessage(Text.of("This command is still WIP"));
+                    ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
+                    server_player.sendMessage(Text.of("This command is still WIP"));
                     return 1;
-//                    if(VanadiumModServer.players.get(player.getEntityName()).isCraft()){
-//                        player.openHandledScreen(new NamedScreenHandlerFactory() {
-//                            @Override
-//                            public Text getDisplayName() {
-//                                return Text.of("Crafting");
-//                            }
-//
-//                            @Override
-//                            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-//                                return new CraftingScreenHandler(syncId, inv);
-//                            }
-//                        });
+//                    if(VanadiumModServer.players.get(server_player.getUuid()).isCraft()){
+//                        server_player.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, inventory, player)
+//                                -> new CraftingScreenHandler(syncId, inventory, ScreenHandlerContext.create(player.getWorld(),
+//                                player.getBlockPos())),Text.translatable("container.crafting")));
+//                        server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
 //                    }else{
-//                        sendMsg(player, "You haven't unlock this feature");
+//                        sendMsg(server_player, "You haven't unlock this feature");
 //                    }
 //                    return 1;
                 })
@@ -353,6 +348,58 @@ public class Command {
                                     return 1;
                                 })
                         )
+                )
+        ));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("invsee")
+                .requires(source -> source.hasPermissionLevel(2))
+                .executes(c -> {
+                    sendMsg(c.getSource().getPlayerOrThrow(), "\nCorrect usage /invsee <player>");
+                    return 1;
+                })
+                .then(argument("player", EntityArgumentType.player())
+                        .executes(c -> {
+                            ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                            ServerPlayerEntity player_to_see = EntityArgumentType.getPlayer(c, "player");
+                            sendMsg(player, "Printing inventory of " + player_to_see.getEntityName());
+                            player.openHandledScreen(new NamedScreenHandlerFactory() {
+                                @Override
+                                public Text getDisplayName() {
+                                    return Text.of("Inventory of " + player_to_see.getEntityName());
+                                }
+
+                                @Override
+                                public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                                    return new GenericContainerScreenHandler(ScreenHandlerType.GENERIC_9X4, syncId, inv, player_to_see.getInventory(), 4);
+                                }
+                            });
+                            return 1;
+                        })
+                )
+        ));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("ecsee")
+                .requires(source -> source.hasPermissionLevel(2))
+                .executes(c -> {
+                    sendMsg(c.getSource().getPlayerOrThrow(), "\nCorrect usage /ecsee <player>");
+                    return 1;
+                })
+                .then(argument("player", EntityArgumentType.player())
+                        .executes(c -> {
+                            ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                            ServerPlayerEntity player_to_see = EntityArgumentType.getPlayer(c, "player");
+                            sendMsg(player, "Printing inventory of " + player_to_see.getEntityName());
+                            player.openHandledScreen(new NamedScreenHandlerFactory() {
+                                @Override
+                                public Text getDisplayName() {
+                                    return Text.of("Ender chest of " + player_to_see.getEntityName());
+                                }
+
+                                @Override
+                                public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                                    return new GenericContainerScreenHandler(ScreenHandlerType.GENERIC_9X3, syncId, inv, player_to_see.getEnderChestInventory(), 3);
+                                }
+                            });
+                            return 1;
+                        })
                 )
         ));
     }

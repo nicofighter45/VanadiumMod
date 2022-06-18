@@ -27,6 +27,7 @@ public class ServerWorldMixin {
         }
         CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
+        player.setHealth(customPlayer.getHeart());
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")
@@ -63,7 +64,7 @@ public class ServerWorldMixin {
         }
     }
 
-    private double getDistFromCenter(ServerPlayerEntity player) {
+    private double getDistFromCenter(@NotNull ServerPlayerEntity player) {
         double x = player.getX();
         double z = player.getZ();
         return Math.sqrt(x*x+z*z);

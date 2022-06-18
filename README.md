@@ -46,6 +46,22 @@ https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3827486
 
 https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3831112
 
+### Mods Pour Optimisation
+
+#### Client : Sodium
+
+https://www.curseforge.com/minecraft/mc-mods/sodium/download/3820973
+
+#### Server
+
+##### Lithium
+
+https://www.curseforge.com/minecraft/mc-mods/lithium/download/3825272
+
+##### Phosphor
+
+https://www.curseforge.com/minecraft/mc-mods/phosphor/download/3832074
+
 ### VanaMod
 
 Download the latest version of VanaMod (pre release are beta version, take the one name latest release) : https://github.com/nicofighter45/FabricVanaMod/releases

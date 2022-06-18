@@ -24,24 +24,43 @@ https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html
 
 ### Fabric
 
-Download the fabric launcher and install the last client version in 1.18.2
+Download the fabric launcher and install the last client version in 1.19
 This will create a new profile on your minecraft launcher
 https://fabricmc.net/use/
 
 ### Mods
 
-#### Needed :
-##### Fabric Api : 
-https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3203908
+#### REI
 
-#### View Crafts :
+https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/3836158
 
-##### Rei : 
-https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/3218065
-##### Cloth API :
-https://www.curseforge.com/minecraft/mc-mods/cloth-api/download/3194917
-##### Cloth API config:
-https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3210410
+#### Architectury API
+
+https://www.curseforge.com/minecraft/mc-mods/architectury-api/download/3834396
+
+#### Cloth Config API
+
+https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3827486
+
+#### Fabric API
+
+https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3831112
+
+### Mods Pour Optimisation
+
+#### Client : Sodium
+
+https://www.curseforge.com/minecraft/mc-mods/sodium/download/3820973
+
+#### Server
+
+##### Lithium
+
+https://www.curseforge.com/minecraft/mc-mods/lithium/download/3825272
+
+##### Phosphor
+
+https://www.curseforge.com/minecraft/mc-mods/phosphor/download/3832074
 
 ### VanaMod
 

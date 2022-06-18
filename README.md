@@ -30,18 +30,21 @@ https://fabricmc.net/use/
 
 ### Mods
 
-#### Needed :
-##### Fabric Api : 
-https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3203908
+#### REI
 
-#### View Crafts :
+https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/3836158
 
-##### Rei : 
-https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/3218065
-##### Cloth API :
-https://www.curseforge.com/minecraft/mc-mods/cloth-api/download/3194917
-##### Cloth API config:
-https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3210410
+#### Architectury API
+
+https://www.curseforge.com/minecraft/mc-mods/architectury-api/download/3834396
+
+#### Cloth Config API
+
+https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3827486
+
+#### Fabric API
+
+https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3831112
 
 ### VanaMod
 

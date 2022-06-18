@@ -22,6 +22,10 @@ Here is a video in french to learn how to install and play with this mod in vana
 If java isn't install in your computer, install it
 https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html
 
+### Minecraft
+
+You need to have a minecraft 1.19 instance and launch it once at least. Then you can leave minecraft
+
 ### Fabric
 
 Download the fabric launcher and install the last client version in 1.19

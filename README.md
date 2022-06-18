@@ -24,7 +24,7 @@ https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html
 
 ### Fabric
 
-Download the fabric launcher and install the last client version in 1.18.2
+Download the fabric launcher and install the last client version in 1.19
 This will create a new profile on your minecraft launcher
 https://fabricmc.net/use/
 

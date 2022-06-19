@@ -14,10 +14,8 @@ import java.util.function.Supplier;
 
 public enum SteelArmorMaterials implements ArmorMaterial {
 
-    STEEL("steam", 200, new int[] {3, 5, 5, 4}, 8,
-            SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 0.5F, () -> {
-        return Ingredient.ofItems(ModItems.STEEL_INGOT);
-    });
+    STEEL("steam", 50, new int[] {3, 5, 5, 4}, 8,
+            SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 0.5F, () -> Ingredient.ofItems(ModItems.STEEL_INGOT));
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
     private final String name;

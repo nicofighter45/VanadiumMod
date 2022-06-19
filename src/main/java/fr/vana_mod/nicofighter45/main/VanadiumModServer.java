@@ -15,6 +15,7 @@ public class VanadiumModServer implements DedicatedServerModInitializer {
     public static Map<UUID, CustomPlayer> players = new HashMap<>();
     public static BossesManagement bossesManagement;
     public static Map<Integer, CustomBossConfig> bosses = new HashMap<>();
+    public static boolean isOn = true;
 
     @Override
     public void onInitializeServer() {

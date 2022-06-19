@@ -1,11 +1,13 @@
 {
-  "required":  true,
+  "required": true,
   "minVersion": "0.8",
   "package": "fr.vana_mod.nicofighter45.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "EnchantmentMixin",
+    "MinecraftServerMixin",
     "PlayerEntityMixin",
+    "PlayerManagerMixin",
     "ServerPlayerEntityMixin",
     "ServerWorldMixin"
   ],

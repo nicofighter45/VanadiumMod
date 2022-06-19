@@ -15,9 +15,7 @@ import java.util.function.Supplier;
 public enum EmeraldArmorMaterials implements ArmorMaterial {
 
     EMERALD("emerald", 100, new int[] {3, 6, 8, 3}, 10,
-            SoundEvents.ENTITY_VILLAGER_TRADE, 2.0F, 1.0F, () -> {
-        return Ingredient.ofItems(Items.EMERALD);
-    });
+            SoundEvents.ENTITY_VILLAGER_TRADE, 2.0F, 1.0F, () -> Ingredient.ofItems(Items.EMERALD));
 
     private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
     private final String name;

@@ -62,6 +62,9 @@ public class PlayerEntityMixin {
             //check chesplate
             if (chestplate.getItem() == ModItems.EMERALD_CHESTPLATE) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 140, 0, false, false, true));
+            }else if(chestplate.getItem() == ModItems.TUNGSTEN_CHESTPLATE){
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 140, 0, false, false, true));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 140, 1, false, false, true));
             }
 
             //check leggings

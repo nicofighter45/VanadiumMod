@@ -6,6 +6,7 @@ import fr.vana_mod.nicofighter45.main.VanadiumModServer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,12 +23,22 @@ public class ServerWorldMixin {
 
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
     public void onPlayerConnected(@NotNull ServerPlayerEntity player, CallbackInfo info) {
+        if(!VanadiumModServer.isOn){
+            Objects.requireNonNull(player.getServer()).getPlayerManager().disconnectAllPlayers();
+        }
         if(!VanadiumModServer.players.containsKey(player.getUuid())){
             VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false));
+            player.setHealth(10);
         }
         CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
-        player.setHealth(customPlayer.getHeart());
+        String color = "§9";
+        if(Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(player.getGameProfile())){
+            color = "§4";
+        }
+        for (ServerPlayerEntity pl : player.getServer().getPlayerManager().getPlayerList()){
+            pl.sendMessage(Text.of("§8[§6Server§8] " + color + player.getEntityName() + " §fjoined the game"));
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")

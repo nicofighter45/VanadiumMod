@@ -1,7 +1,6 @@
 package fr.vana_mod.nicofighter45.mixins;
 
 import net.minecraft.client.option.ChatVisibility;
-import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.Items;
@@ -9,16 +8,12 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.message.MessageSender;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.network.message.SignedMessage;
-import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Shadow;
@@ -73,7 +68,7 @@ public abstract class ServerPlayerEntityMixin {
                 world.spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 2);
                 world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE,
                         SoundCategory.BLOCKS, 1f, 1f);
-                sendMessage(Text.of("You were respawn against 2 emerald block in your ender chest"));
+                sendMessage(Text.of("§8[§6Server§8] §fYou were respawn against 2 emerald block in your ender chest"));
                 cir.setReturnValue(false);
             }
         }
@@ -143,16 +138,16 @@ public abstract class ServerPlayerEntityMixin {
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     public void sendChatMessage(SignedMessage message, MessageSender sender, RegistryKey<MessageType> typeKey, CallbackInfo ci) {
         if (acceptsMessage(typeKey)) {
-            String pre_msg = "§8[§9Player§8] §9" + player.getEntityName() + " §8: §f";
-            if(Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(player.getGameProfile())){
-                pre_msg = "§8[§4Admin§8] §4" + player.getEntityName() + " §8: §f";
+            String pre_msg = "§8[§9Player§8] §9" + sender.name().getString() + " §8: §f";
+            for(ServerPlayerEntity pl : Objects.requireNonNull(player.getServer()).getPlayerManager().getPlayerList()){
+                if(pl.getUuid().equals(sender.uuid()) && Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(pl.getGameProfile())){
+                    pre_msg = "§8[§4Admin§8] §4" + sender.name().getString() + " §8: §f";
+                }
             }
-            for(ServerPlayerEntity player : player.getServer().getPlayerManager().getPlayerList()){
-                player.sendMessage(MutableText.of(new TranslatableTextContent(pre_msg + message.getContent().getString())), false);
-            }
+            Text msg = Text.of(pre_msg + message.getContent().getString());
+            player.sendMessage(msg);
             ci.cancel();
         }
-
     }
 
     private boolean acceptsMessage(RegistryKey<MessageType> typeKey) {

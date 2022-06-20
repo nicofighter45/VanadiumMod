@@ -5,9 +5,10 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.server.network.ServerPlayerEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class ExperienceEnchantment extends Enchantment {
 
@@ -21,7 +22,7 @@ public class ExperienceEnchantment extends Enchantment {
     }
 
     @Override
-    public boolean isAcceptableItem(ItemStack stack) {
+    public boolean isAcceptableItem(@NotNull ItemStack stack) {
         return stack.getItem() instanceof SwordItem;
     }
 
@@ -36,10 +37,9 @@ public class ExperienceEnchantment extends Enchantment {
     }
 
     @Override
-    public void onTargetDamaged(LivingEntity user, Entity attacker, int level) {
-        if(!attacker.isAlive()){
-            ((ServerPlayerEntity) user).addExperience(level*3);
+    public void onTargetDamaged(LivingEntity user, @NotNull Entity attacker, int level) {
+        if(!attacker.isAlive() && user instanceof PlayerEntity){
+            ((PlayerEntity) user).addExperience(level*3);
         }
-        super.onUserDamaged(user, attacker, level);
     }
 }

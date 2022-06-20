@@ -22,21 +22,27 @@ public class PlayerManagerMixin {
 
     @Inject(at = @At("HEAD"), method = "broadcast(Lnet/minecraft/text/Text;Lnet/minecraft/util/registry/RegistryKey;)V", cancellable = true)
     void broadcast(Text message, RegistryKey<MessageType> typeKey, CallbackInfo ci) {
-        if (message instanceof MutableText MT && typeKey == MessageType.SYSTEM) {
-            String key = ((TranslatableTextContent) MT.getContent()).getKey();
-            if (key.equals("multiplayer.player.joined")){
-                ci.cancel();
-            }else if (key.equals("multiplayer.player.left")){
-                String name = (message.getString()).split(" ")[0];
-                String color = "§9";
-                for(ServerPlayerEntity player : Objects.requireNonNull(manager.getServer()).getPlayerManager().getPlayerList()){
-                    if(Objects.equals(player.getEntityName(), name) && Objects.requireNonNull(manager.getServer()).getPlayerManager().isOperator(player.getGameProfile())){
-                        color = "§4";
+        if (message instanceof MutableText MT) {
+            if(typeKey == MessageType.SYSTEM){
+                String key = ((TranslatableTextContent) MT.getContent()).getKey();
+                System.out.println(key);
+                if (key.equals("multiplayer.player.joined")){
+                    ci.cancel();
+                }else if (key.equals("multiplayer.player.left")){
+                    String name = (message.getString()).split(" ")[0];
+                    String color = "§9";
+                    for(ServerPlayerEntity player : Objects.requireNonNull(manager.getServer()).getPlayerManager().getPlayerList()){
+                        if(Objects.equals(player.getEntityName(), name) && Objects.requireNonNull(manager.getServer()).getPlayerManager().isOperator(player.getGameProfile())){
+                            color = "§4";
+                        }
                     }
+                    Text finalMessage = Text.of("§8[§6Server§8] " + color + name + " §fleft the game");
+                    manager.broadcast(message, (player) -> finalMessage, typeKey);
+                    ci.cancel();
+                }else{
+                    manager.broadcast(message, (player) -> Text.of("§8[§6Server§8] §f" + message.getString()), typeKey);
+                    ci.cancel();
                 }
-                Text finalMessage = Text.of("§8[§6Server§8] " + color + name + " §fleft the game");
-                manager.broadcast(message, (player) -> finalMessage, typeKey);
-                ci.cancel();
             }
         }
     }

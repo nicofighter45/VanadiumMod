@@ -3,11 +3,8 @@ package fr.vana_mod.nicofighter45.main;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import fr.vana_mod.nicofighter45.bosses.BossesManagement;
 import fr.vana_mod.nicofighter45.bosses.CustomBossConfig;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class VanadiumModServer implements DedicatedServerModInitializer {
 
@@ -16,6 +13,12 @@ public class VanadiumModServer implements DedicatedServerModInitializer {
     public static BossesManagement bossesManagement;
     public static Map<Integer, CustomBossConfig> bosses = new HashMap<>();
     public static boolean isOn = true;
+
+    public static List<UUID> tpPlayer = new ArrayList<>();
+
+    public static boolean jump = false;
+
+    public static List<UUID> freezePlayer = new ArrayList<>();
 
     @Override
     public void onInitializeServer() {

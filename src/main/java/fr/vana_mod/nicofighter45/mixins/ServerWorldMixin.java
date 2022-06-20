@@ -7,6 +7,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +24,8 @@ public class ServerWorldMixin {
 
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
     public void onPlayerConnected(@NotNull ServerPlayerEntity player, CallbackInfo info) {
-        if(!VanadiumModServer.isOn){
+        boolean op = Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(player.getGameProfile());
+        if(!VanadiumModServer.isOn && !op){
             Objects.requireNonNull(player.getServer()).getPlayerManager().disconnectAllPlayers();
         }
         if(!VanadiumModServer.players.containsKey(player.getUuid())){
@@ -33,7 +35,7 @@ public class ServerWorldMixin {
         CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
         String color = "§9";
-        if(Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(player.getGameProfile())){
+        if(op){
             color = "§4";
         }
         for (ServerPlayerEntity pl : player.getServer().getPlayerManager().getPlayerList()){
@@ -72,6 +74,13 @@ public class ServerWorldMixin {
                 }
             }
             timer_heal = 40;
+        }
+        if(!VanadiumModServer.freezePlayer.isEmpty()){
+            for(ServerPlayerEntity player : world.getPlayers()){
+                if(VanadiumModServer.freezePlayer.contains(player.getUuid())){
+                    player.applyMovementInput(Vec3d.ZERO, 0);
+                }
+            }
         }
     }
 

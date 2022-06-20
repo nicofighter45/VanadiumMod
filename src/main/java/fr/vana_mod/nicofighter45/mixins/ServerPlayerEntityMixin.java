@@ -55,6 +55,9 @@ public abstract class ServerPlayerEntityMixin {
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if(source == DamageSource.FALL && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)){
             cir.setReturnValue(false);
+        }else if(source == DamageSource.FALL && VanadiumModServer.jump && Math.sqrt(Math.pow(player.getX(), 2) +
+                Math.pow(player.getY(), 2)) <= 100){
+            cir.setReturnValue(false);
         }else if(player.getHealth() <= amount){
             EnderChestInventory inventory = player.getEnderChestInventory();
             if(inventory.removeItem(Items.EMERALD_BLOCK, 2).getCount() == 2){

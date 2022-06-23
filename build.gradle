@@ -15,10 +15,6 @@ repositories {
 		name = "CottonMC"
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
-	maven {
-		name = 'Ladysnake Mods'
-		url = 'https://ladysnake.jfrog.io/artifactory/mods'
-	}
 
 	maven {
 		name = "Roughly Enough Item"
@@ -35,9 +31,6 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modImplementation include("io.github.cottonmc:LibGui:${project.LibGui_version}")
-
-	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.CardinalComponent_version}"
-	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-world:${project.CardinalComponent_version}"
 
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.REI_version}"
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.REI_version}"

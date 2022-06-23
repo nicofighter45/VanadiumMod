@@ -17,7 +17,6 @@ import java.util.Objects;
 
 @Mixin(PlayerManager.class)
 public class PlayerManagerMixin {
-
     private final PlayerManager manager = (PlayerManager) (Object) this;
 
     @Inject(at = @At("HEAD"), method = "broadcast(Lnet/minecraft/text/Text;Lnet/minecraft/util/registry/RegistryKey;)V", cancellable = true)
@@ -25,22 +24,18 @@ public class PlayerManagerMixin {
         if (message instanceof MutableText MT) {
             if(typeKey == MessageType.SYSTEM){
                 String key = ((TranslatableTextContent) MT.getContent()).getKey();
-                System.out.println(key);
                 if (key.equals("multiplayer.player.joined")){
                     ci.cancel();
-                }else if (key.equals("multiplayer.player.left")){
+                }else if (key.equals("multiplayer.player.left")) {
                     String name = (message.getString()).split(" ")[0];
                     String color = "§9";
-                    for(ServerPlayerEntity player : Objects.requireNonNull(manager.getServer()).getPlayerManager().getPlayerList()){
-                        if(Objects.equals(player.getEntityName(), name) && Objects.requireNonNull(manager.getServer()).getPlayerManager().isOperator(player.getGameProfile())){
+                    for (ServerPlayerEntity player : Objects.requireNonNull(manager.getServer()).getPlayerManager().getPlayerList()) {
+                        if (Objects.equals(player.getEntityName(), name) && Objects.requireNonNull(manager.getServer()).getPlayerManager().isOperator(player.getGameProfile())) {
                             color = "§4";
                         }
                     }
                     Text finalMessage = Text.of("§8[§6Server§8] " + color + name + " §fleft the game");
                     manager.broadcast(message, (player) -> finalMessage, typeKey);
-                    ci.cancel();
-                }else{
-                    manager.broadcast(message, (player) -> Text.of("§8[§6Server§8] §f" + message.getString()), typeKey);
                     ci.cancel();
                 }
             }

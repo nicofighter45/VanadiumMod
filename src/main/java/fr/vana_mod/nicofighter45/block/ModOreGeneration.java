@@ -80,7 +80,7 @@ public class ModOreGeneration {
                         ModBlocks.TIN_ORE.getDefaultState(), 8));
         PlacedFeature TIN_ORE_GENERATION = new PlacedFeature(
                 RegistryEntry.of(TIN_ORE_FEATURE),
-                Arrays.asList(CountPlacementModifier.of(10), // number of veins per chunk
+                Arrays.asList(CountPlacementModifier.of(25), // number of veins per chunk
                         SquarePlacementModifier.of(), // spreading horizontally
                         HeightRangePlacementModifier.uniform(YOffset.aboveBottom(20), YOffset.belowTop(50)))); // height
 

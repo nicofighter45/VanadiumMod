@@ -1,13 +1,11 @@
 package fr.vana_mod.nicofighter45.mixins;
 
-import fr.vana_mod.nicofighter45.bosses.BossesManagement;
-import fr.vana_mod.nicofighter45.main.CustomPlayer;
-import fr.vana_mod.nicofighter45.main.VanadiumModServer;
+import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
+import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,16 +49,9 @@ public class ServerWorldMixin {
     }
 
     private int timer_heal = 40; // 40 ticks = 2 sec
-    private boolean first_tick = true;
 
     @Inject(at= @At("HEAD"), method = "tick")
     public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo info) {
-        if(first_tick){
-            if(world == world.getServer().getOverworld()){
-                VanadiumModServer.bossesManagement = new BossesManagement(world);
-            }
-            first_tick = false;
-        }
         if(timer_heal > 0){
             timer_heal--;
         }else if(timer_heal == 0){
@@ -74,13 +65,6 @@ public class ServerWorldMixin {
                 }
             }
             timer_heal = 40;
-        }
-        if(!VanadiumModServer.freezePlayer.isEmpty()){
-            for(ServerPlayerEntity player : world.getPlayers()){
-                if(VanadiumModServer.freezePlayer.contains(player.getUuid())){
-                    player.applyMovementInput(Vec3d.ZERO, 0);
-                }
-            }
         }
     }
 

@@ -1,25 +1,30 @@
-package fr.vana_mod.nicofighter45.main;
+package fr.vana_mod.nicofighter45.main.server;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
-import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
-import fr.vana_mod.nicofighter45.bosses.CustomBossConfig;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -51,20 +56,35 @@ public class Command {
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                     sendMsg(player, "§8[§6Server§8] §fYou will be teleported to the spawn in 10s");
-                    VanadiumModServer.tpPlayer.add(player.getUuid());
                     new Timer().schedule(
                             new TimerTask() {
+
+                                private int timer = 10;
+                                private BlockPos lastPos = player.getBlockPos();
+                                private float lastHealth = player.getHealth();
+
                                 @Override
                                 public void run() {
-                                    if(VanadiumModServer.tpPlayer.contains(player.getUuid())){
+                                    timer --;
+                                    if(player.getBlockPos() != lastPos || player.getHealth() < lastHealth){
+                                        sendMsg(player, "§8[§6Server§8] §fTeleportation cancel : you moved or loosed health");
+                                        cancel();
+                                    }
+                                    lastPos = player.getBlockPos();
+                                    lastHealth = player.getHealth();
+                                    if(timer == 0){
                                         BlockPos spawn = Objects.requireNonNull(player.getServer()).getOverworld().getSpawnPos();
                                         player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), spawn.getX(), spawn.getY(), spawn.getZ(), 180,0);
                                         sendMsg(player, "§8[§6Server§8] §fYou have been teleported to the spawn");
+                                        cancel();
+                                    }else if(timer == 5){
+                                        sendMsg(player, "§8[§6Server§8] §fTeleporting in 5s");
+                                    }else if(timer < 4){
+                                        sendMsg(player, "§8[§6Server§8] §fTeleporting in " + timer + "s");
                                     }
-                                    cancel();
                                 }
                             }
-                    , 10000, 1);
+                    , 1000, 1000);
                     return 1;
                 })
         ));
@@ -109,17 +129,22 @@ public class Command {
                 .then(argument("player", EntityArgumentType.player())
                         .executes(c -> {
                             ServerPlayerEntity player = EntityArgumentType.getPlayer(c, "player");
-                            if(VanadiumModServer.freezePlayer.contains(player.getUuid())){
-                                VanadiumModServer.freezePlayer.remove(player.getUuid());
+                            if(player.hasStatusEffect(StatusEffects.BLINDNESS) && player.hasStatusEffect(StatusEffects.SLOWNESS)){
+                                player.removeStatusEffect(StatusEffects.BLINDNESS);
+                                player.removeStatusEffect(StatusEffects.SLOWNESS);
+                                player.sendMessage(Text.of("§8[§6Server§8] §fYour are now un-freeze"));
                                 c.getSource().sendFeedback(Text.of("§8[§6Server§8] §f" + player.getEntityName() + " is un-freeze"), true);
                             }else{
-                                VanadiumModServer.freezePlayer.add(player.getUuid());
+                                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, Integer.MAX_VALUE, 26, false, false, false));
+                                player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, Integer.MAX_VALUE, 26, false, false, false));
+                                player.sendMessage(Text.of("§8[§6Server§8] §fYour are now freeze"));
                                 c.getSource().sendFeedback(Text.of("§8[§6Server§8] §f" + player.getEntityName() + " is freeze"), true);
                             }
                             return 1;
                         })
                 )
         ));
+
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("craft")
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
@@ -186,73 +211,34 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("boss")
             .requires(source -> source.hasPermissionLevel(2))
             .executes(c -> {
-                c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fCorrect usage /boss remove|set"), false);
-                c.getSource().sendFeedback(Text.of("Here is the list of all bosses and there locations :"), false);
-                for(int key : VanadiumModServer.bosses.keySet()){
-                    c.getSource().sendFeedback(Text.of(key + " : " + VanadiumModServer.bosses.get(key).getX() + ";" +
-                            VanadiumModServer.bosses.get(key).getY() + ";" +  VanadiumModServer.bosses.get(key).getZ()), false);
-                }
+                c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /boss <int> <x> <y> <z>"));
                 return 1;
             })
-            .then(literal("remove")
-                .executes(c -> {
-                    c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /boss remove <key>"));
-                    return 1;
-                })
-                    .then(argument("key", IntegerArgumentType.integer(1,5))
+            .then(argument("number", IntegerArgumentType.integer(1, 5))
+                    .executes(c -> {
+                        c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /boss <int> <x> <y> <z>"));
+                        return 1;
+                    })
+                    .then(argument("pos", BlockPosArgumentType.blockPos())
                             .executes(c -> {
-                                int key = IntegerArgumentType.getInteger(c,"key");
-                                if(VanadiumModServer.bosses.containsKey(key)){
-                                    VanadiumModServer.bosses.remove(key);
-                                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fBoss with key " + key + " has been delete"), true);
-                                }else{
-                                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fThis boss isn't register"), false);
+                                ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                                BlockPos pos = BlockPosArgumentType.getBlockPos(c, "pos");
+                                int number = IntegerArgumentType.getInteger(c, "number");
+                                for(ServerPlayerEntity pl : player.getWorld().getPlayers()){
+                                    if(isNearTo(pos.getX(), pl.getX(), pos.getY(), pl.getY(), pos.getZ(), pl.getZ())){
+                                        pl.setVelocity(calc(pl.getX()-pos.getX()), 0.5, calc(pl.getZ()-pos.getZ()));
+                                        //actualize velocity changes
+                                        pl.damage(DamageSource.MAGIC, 0.5f);
+                                        pl.heal(0.5f);
+                                    }
                                 }
+                                player.getWorld().spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 1);
+                                player.getWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(),
+                                        SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.HOSTILE, 1f, 1f);
+                                BossSpawner.spawnBoss(number, player.getWorld(), pos);
                                 return 1;
                             })
                     )
-            )
-            .then(literal("set")
-                .executes(c -> {
-                    c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /boss set <key> (<x>) (<y>) (<z>)"));
-                    return 1;
-                })
-
-                    .then(argument("key", IntegerArgumentType.integer(1,5))
-                            .executes(c -> {
-                                ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                                int key = IntegerArgumentType.getInteger(c,"key");
-                                VanadiumModServer.bosses.remove(key);
-                                VanadiumModServer.bosses.put(key, new CustomBossConfig(key, player.getX(), player.getY(), player.getZ()));
-                                sendMsg(player, "§8[§6Server§8] §fBoss with key " + key + " set on your location");
-                                return 1;
-                            })
-                            .then(argument("x", DoubleArgumentType.doubleArg())
-                                    .executes(c -> {
-                                        c.getSource().sendError(Text.of("Correct usage /boss set <key> (<x>) (<y>) (<z>)"));
-                                        return 1;
-                                    })
-                                    .then(argument("y", DoubleArgumentType.doubleArg())
-                                            .executes(c -> {
-                                                c.getSource().sendError(Text.of("Correct usage /boss set <key> (<x>) (<y>) (<z>)"));
-                                                return 1;
-                                            })
-                                            .then(argument("z", DoubleArgumentType.doubleArg())
-                                                    .executes(c -> {
-                                                        int key = IntegerArgumentType.getInteger(c,"key");
-                                                        double x = DoubleArgumentType.getDouble(c, "x");
-                                                        double y = DoubleArgumentType.getDouble(c, "y");
-                                                        double z = DoubleArgumentType.getDouble(c, "z");
-                                                        VanadiumModServer.bosses.remove(key);
-                                                        VanadiumModServer.bosses.put(key, new CustomBossConfig(key, x, y, z));
-                                                        c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fBoss with key " + key + " set on " + x + ";" + y + ";" + z), true);
-                                                        return 1;
-                                                    }
-                                                )
-                                        )
-                                )
-                        )
-                )
             )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("dim")
@@ -472,6 +458,19 @@ public class Command {
                 )
         ));
     }
+
+    private static double calc(double nb){
+        if(nb < 0){
+            return -5/Math.exp(0.3 * -nb);
+        }else if(nb > 0){
+            return 5/Math.exp(0.3 * nb);
+        }else{
+            return 5;
+        }
+    }
+
+    private static boolean isNearTo(double x1, double x2, double y1, double y2, double z1, double z2){
+        return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) + Math.pow(z1-z2, 2)) <= 10; }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text){
         player.sendMessage(MutableText.of(new TranslatableTextContent(text)), false);

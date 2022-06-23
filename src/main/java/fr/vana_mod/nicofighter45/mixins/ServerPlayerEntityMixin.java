@@ -1,7 +1,6 @@
 package fr.vana_mod.nicofighter45.mixins;
 
 import net.minecraft.client.option.ChatVisibility;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -16,10 +15,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import fr.vana_mod.nicofighter45.bosses.CustomBossConfig;
-import fr.vana_mod.nicofighter45.main.CustomPlayer;
+import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
 import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -30,14 +27,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import fr.vana_mod.nicofighter45.main.VanadiumModServer;
+import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
 
 import java.util.Objects;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin {
-
-    @Shadow public abstract void sendMessage(Text message);
 
     private final ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 
@@ -51,6 +46,28 @@ public abstract class ServerPlayerEntityMixin {
         }
     }
 
+    @Inject(at = @At("HEAD"), method = "onDeath", cancellable = true)
+    public void onDeath(DamageSource damageSource, CallbackInfo ci) {
+        EnderChestInventory inventory = player.getEnderChestInventory();
+        if(inventory.removeItem(Items.EMERALD_BLOCK, 2).getCount() == 2){
+            player.setHealth(player.getMaxHealth());
+            BlockPos pos = player.getSpawnPointPosition();
+            ServerWorld world = Objects.requireNonNull(player.getServer()).getOverworld();
+            if(pos == null){
+                pos = world.getSpawnPos();
+            }
+            player.teleport(world, pos.getX(), pos.getY(), pos.getZ(), 0, 0);
+            world.spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 2);
+            world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE,
+                    SoundCategory.BLOCKS, 1f, 1f);
+            for(ServerPlayerEntity players : player.getServer().getPlayerManager().getPlayerList()){
+                players.sendMessage(Text.of("§8[§6Server§8] §fPlayer " + player.getEntityName() + " died and was respawn"));
+            }
+            ci.cancel();
+        }
+    }
+
+
     @Inject(at = @At("HEAD"), method = "damage", cancellable = true)
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if(source == DamageSource.FALL && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)){
@@ -58,22 +75,6 @@ public abstract class ServerPlayerEntityMixin {
         }else if(source == DamageSource.FALL && VanadiumModServer.jump && Math.sqrt(Math.pow(player.getX(), 2) +
                 Math.pow(player.getY(), 2)) <= 100){
             cir.setReturnValue(false);
-        }else if(player.getHealth() <= amount){
-            EnderChestInventory inventory = player.getEnderChestInventory();
-            if(inventory.removeItem(Items.EMERALD_BLOCK, 2).getCount() == 2){
-                player.setHealth(player.getMaxHealth());
-                BlockPos pos = player.getSpawnPointPosition();
-                ServerWorld world = Objects.requireNonNull(player.getServer()).getOverworld();
-                if(pos == null){
-                    pos = world.getSpawnPos();
-                }
-                player.teleport(world, pos.getX(), pos.getY(), pos.getZ(), 0, 0);
-                world.spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 2);
-                world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE,
-                        SoundCategory.BLOCKS, 1f, 1f);
-                sendMessage(Text.of("§8[§6Server§8] §fYou were respawn against 2 emerald block in your ender chest"));
-                cir.setReturnValue(false);
-            }
         }
     }
 
@@ -99,44 +100,6 @@ public abstract class ServerPlayerEntityMixin {
         nbt.putBoolean("craft", pl.isCraft());
         nbt.putBoolean("ender_chest", pl.isEnder_chest());
     }
-
-    @Inject(at = @At("HEAD"), method = "dropItem")
-    public void dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> info) {
-        if(player.getEntityWorld().getDimension() == Objects.requireNonNull(player.getServer()).getOverworld().getDimension()){
-            for(CustomBossConfig boss : VanadiumModServer.bosses.values()){
-                if(isNearTo(player.getX(), boss.getX(), player.getY(), boss.getY(), player.getZ(), boss.getZ()) && stack.getItem() == boss.getToSpawn()){
-                    ServerWorld world = player.getWorld();
-                    if(VanadiumModServer.bossesManagement.spawnBoss(boss, world)){
-                        stack.setCount(0);
-                        for(ServerPlayerEntity pl : world.getPlayers()){
-                            if(isNearTo(pl.getX(), boss.getX(), pl.getY(), boss.getY(), pl.getZ(), boss.getZ())){
-                                pl.setVelocity(calc(pl.getX()-boss.getX()), 0.5, calc(pl.getZ()-boss.getZ()));
-                                //actualize velocity changes
-                                pl.damage(DamageSource.MAGIC, 0.5f);
-                                pl.heal(0.5f);
-                            }
-                        }
-                        world.spawnParticles(ParticleTypes.CLOUD, boss.getX(), boss.getY(), boss.getZ(), 10000, 0, 0, 0, 1);
-                        world.playSound(null, boss.getX(), boss.getY(), boss.getZ(),
-                                SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.HOSTILE, 1f, 1f);
-                    }
-                }
-            }
-        }
-    }
-
-    private double calc(double nb){
-        if(nb < 0){
-            return -5/Math.exp(0.3 * -nb);
-        }else if(nb > 0){
-            return 5/Math.exp(0.3 * nb);
-        }else{
-            return 5;
-        }
-    }
-
-    private boolean isNearTo(double x1, double x2, double y1, double y2, double z1, double z2){
-        return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) + Math.pow(z1-z2, 2)) <= 10; }
 
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     public void sendChatMessage(SignedMessage message, MessageSender sender, RegistryKey<MessageType> typeKey, CallbackInfo ci) {

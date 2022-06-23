@@ -1,8 +1,8 @@
 package fr.vana_mod.nicofighter45.main;
 
+import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
+import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.event.EventFactory;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;

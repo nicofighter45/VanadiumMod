@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.mixins;
 
-import fr.vana_mod.nicofighter45.main.VanadiumModServer;
+import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -31,10 +31,7 @@
       "fr.vana_mod.nicofighter45.main.VanadiumModClient"
     ],
     "server": [
-      "fr.vana_mod.nicofighter45.main.VanadiumModServer"
-    ],
-    "cardinal-components-world": [
-      "fr.vana_mod.nicofighter45.bosses.BossComponent"
+      "fr.vana_mod.nicofighter45.main.server.VanadiumModServer"
     ],
     "rei_client": [
       "fr.vana_mod.nicofighter45.rei.ReiPlugin"

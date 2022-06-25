@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class MegaAxe extends AxeItem {
 
     public MegaAxe(ToolMaterial material, Settings settings) {
-        super(material, 4,2, settings);
+        super(material, 7,2, settings);
     }
 
     @Override

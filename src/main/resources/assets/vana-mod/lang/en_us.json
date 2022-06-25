@@ -11,6 +11,7 @@
   "item.vana-mod.vanadium_hammer": "Vanadium Hammer",
   "item.vana-mod.vanadium_axe": "Vanadium Axe",
   "item.vana-mod.vanadium_shovel": "Vanadium Shovel",
+  "item.vana-mod.vanadium_hoe": "Vanadium Hoe",
 
   "item.vana-mod.vanadium_helmet": "Vanadium Helmet",
   "item.vana-mod.vanadium_chestplate": "Vanadium Chestplate",
@@ -85,6 +86,7 @@
   "item.vana-mod.no_fall_stone": "No Fall Stone",
 
   "item.vana-mod.power_cell": "Power Cell",
+  "item.vana-mod.super_power_cell": "Super Power Cell",
 
   "item.vana-mod.simple_health_booster": "Simple Health Booster",
   "item.vana-mod.base_health_booster": "Base Health Booster",

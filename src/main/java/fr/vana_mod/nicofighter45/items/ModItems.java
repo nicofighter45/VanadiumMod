@@ -4,6 +4,7 @@ import fr.vana_mod.nicofighter45.items.armor.SteelArmorMaterials;
 import fr.vana_mod.nicofighter45.items.custom.Excavator;
 import fr.vana_mod.nicofighter45.items.custom.Hammer;
 import fr.vana_mod.nicofighter45.items.custom.MegaAxe;
+import fr.vana_mod.nicofighter45.items.custom.SuperHoe;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import fr.vana_mod.nicofighter45.items.armor.EmeraldArmorMaterials;
 import fr.vana_mod.nicofighter45.items.armor.TungstenArmorMaterials;
@@ -30,10 +31,11 @@ public class ModItems {
     public static final Item VANADIUM_NUGGET = new Item(settings().fireproof());
     public static final Item VANADIUM_INGOT = new Item(settings().fireproof());
     public static final Item VANADIUM_PLATE = new Item(settings().maxCount(64).fireproof());
-    public static final Item VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -1.0F, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -2, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_HAMMER = new Hammer(VanadiumToolMaterial.INSTANCE, 4, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_AXE = new MegaAxe(VanadiumToolMaterial.INSTANCE, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_SHOVEL = new Excavator(VanadiumToolMaterial.INSTANCE, 1, 1, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_HOE = new SuperHoe(VanadiumToolMaterial.INSTANCE, 1, -3.9F, settings().maxCount(1).fireproof());
 
     //armure en vanadium
     public static final Item VANADIUM_HELMET = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.HEAD, settings().maxCount(1).fireproof());
@@ -82,6 +84,9 @@ public class ModItems {
     public static final Item POWER_CELL = new Item(settings().food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(10).hunger(6).statusEffect(
                     new StatusEffectInstance(StatusEffects.REGENERATION, 120, 1, true, true, true), 100).build()));
+    public static final Item SUPER_POWER_CELL = new Item(settings().food(new FoodComponent.Builder()
+            .alwaysEdible().saturationModifier(10).hunger(6).statusEffect(
+                    new StatusEffectInstance(StatusEffects.REGENERATION, 300, 1, true, true, true), 100).build()));
 
     //health boost
     public static final Item SIMPLE_HEALTH_BOOSTER = new Item(settings().maxCount(8));
@@ -122,6 +127,7 @@ public class ModItems {
         registerNewItem("vanadium_hammer", VANADIUM_HAMMER);
         registerNewItem("vanadium_axe", VANADIUM_AXE);
         registerNewItem("vanadium_shovel", VANADIUM_SHOVEL);
+        registerNewItem("vanadium_hoe", VANADIUM_HOE);
 
         registerNewItem("vanadium_helmet", VANADIUM_HELMET);
         registerNewItem("vanadium_chestplate", VANADIUM_CHESTPLATE);
@@ -159,6 +165,7 @@ public class ModItems {
         registerNewItem("no_fall_stone", NO_FALL_STONE);
 
         registerNewItem("power_cell", POWER_CELL);
+        registerNewItem("super_power_cell", SUPER_POWER_CELL);
 
         registerNewItem("simple_health_booster", SIMPLE_HEALTH_BOOSTER);
         registerNewItem("base_health_booster", BASE_HEALTH_BOOSTER);

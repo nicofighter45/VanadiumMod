@@ -43,7 +43,6 @@ public class VanadiumMod implements ModInitializer {
         ModEnchants.registerAll();
         ModBlocks.registerAll();
         Listeners.registerAll();
-        //ModifierTableRegister.registerAll();
     }
 
     //item group

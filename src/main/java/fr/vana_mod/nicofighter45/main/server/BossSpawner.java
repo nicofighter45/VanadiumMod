@@ -6,6 +6,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.ItemStack;
@@ -178,11 +180,27 @@ public class BossSpawner {
 
     private static void spawn4(@NotNull ServerWorld world, @NotNull BlockPos pos){
         List<Entity> entities = new ArrayList<>();
+        WitherEntity wither = EntityType.WITHER.create(world);
+        entities.add(wither);
+        assert wither != null;
+        wither.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
+        wither.setCustomName(MutableText.of(new LiteralTextContent("§6Boss 4")));
+        wither.setGlowing(true);
+        Objects.requireNonNull(wither.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(200);
+        wither.setHealth(200);
         spawnEn(entities, world);
     }
 
     private static void spawn5(@NotNull ServerWorld world, @NotNull BlockPos pos){
         List<Entity> entities = new ArrayList<>();
+        EnderDragonEntity dragon = EntityType.ENDER_DRAGON.create(world);
+        entities.add(dragon);
+        assert dragon != null;
+        dragon.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
+        dragon.setCustomName(MutableText.of(new LiteralTextContent("§6Boss 5")));
+        dragon.setGlowing(true);
+        Objects.requireNonNull(dragon.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(500);
+        dragon.setHealth(500);
         spawnEn(entities, world);
     }
 

@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.rei;
 
-import fr.vana_mod.nicofighter45.block.modifiertable.ModifierTableRegister;
+import fr.vana_mod.nicofighter45.block.ModBlocks;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -23,7 +23,7 @@ import java.util.List;
 public class ModifiersTableDisplay<R extends ModifiersDisplay> implements DisplayCategory<Display> {
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ModifierTableRegister.MODIFIERS_TABLE);
+        return EntryStacks.of(ModBlocks.MODIFIERS_TABLE_BLOCK);
     }
 
     @Override

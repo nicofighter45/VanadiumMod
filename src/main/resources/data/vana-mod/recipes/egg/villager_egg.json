@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EPE",
+    "PTP",
+    "EPE"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "P": {
+      "item": "vana-mod:emerald_plate"
+    },
+    "T": {
+      "item": "vana-mod:tungsten_plate"
+    }
+  },
+  "result": {
+    "item": "minecraft:villager_spawn_egg",
+    "count": 1
+  }
+}

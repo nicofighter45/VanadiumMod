@@ -74,8 +74,8 @@
 
   "item.vana-mod.transistor": "Transistor",
   "item.vana-mod.processor": "Processor",
-  "block.vana-mod.modifiers_table": "Modifiers Table",
-  "item.vana-mod.modifiers_table": "Modifiers Table",
+  "block.vana-mod.modifiers_table_block": "Modifiers Table",
+  "item.vana-mod.modifiers_table_block_item": "Modifiers Table",
 
   "item.vana-mod.haste_stone": "Haste Stone",
   "item.vana-mod.strength_stone": "Strength Stone",

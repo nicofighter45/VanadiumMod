@@ -22,7 +22,7 @@ public class MinecraftServerMixin {
             Calendar calendar = Calendar.getInstance();
             int hours = calendar.get(Calendar.HOUR_OF_DAY);
             int minutes = calendar.get(Calendar.MINUTE);
-            if (hours == 0 && minutes < 15){
+            if (hours == 4 && minutes < 15){
                 VanadiumModServer.isOn = false;
                 server.getPlayerManager().disconnectAllPlayers();
                 server.setMotd("\\u00a76\\u00a7l                   Vanadium\\u00a76 v3\\u00a7r\\n\\u00a7c        Server \\u00a74Down \\u00a72- \\u00a7erestart at 8:00am");

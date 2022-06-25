@@ -1,26 +1,28 @@
 package fr.vana_mod.nicofighter45.main;
 
+import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipe;
+import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipeSerializer;
+import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableScreenHandler;
 import fr.vana_mod.nicofighter45.main.server.Command;
 import net.minecraft.item.*;
 import fr.vana_mod.nicofighter45.block.ModBlocks;
-import fr.vana_mod.nicofighter45.block.modifiertable.*;
 import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class VanadiumMod implements ModInitializer {
 
 
     //the mod id used to create new blocks and items
     public static final String MODID = "vana-mod";
-
-    //screen handler for modifiers table
-    public static ScreenHandlerType<ModifiersTableGuiDescription> SCREEN_HANDLER_TYPE;
+    public static ScreenHandlerType<ModifiersTableScreenHandler> MODIFIERS_TABLE_SCREEN_HANDLER;
+    public static RecipeType<ModifiersRecipe> MODIFIERS_RECIPE_TYPE = ModifiersRecipe.Type.INSTANCE;
 
     @Override
     public void onInitialize() {
@@ -28,9 +30,9 @@ public class VanadiumMod implements ModInitializer {
         registers();
 
         //register screen for modifiers table
-        SCREEN_HANDLER_TYPE = ScreenHandlerRegistry.registerSimple(ModifiersTableBlock.ID, (syncId, inventory) ->
-                new ModifiersTableGuiDescription(syncId, inventory, ScreenHandlerContext.EMPTY)
-        );
+        MODIFIERS_TABLE_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(MODID, "modifiers_table_screen_handler"), ModifiersTableScreenHandler::new);
+        Registry.register(Registry.RECIPE_SERIALIZER, ModifiersRecipeSerializer.ID, ModifiersRecipeSerializer.INSTANCE);
+        MODIFIERS_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(VanadiumMod.MODID, ModifiersRecipe.Type.ID), MODIFIERS_RECIPE_TYPE);
 
         //register command
         Command.registerAllCommands();
@@ -41,13 +43,11 @@ public class VanadiumMod implements ModInitializer {
         ModEnchants.registerAll();
         ModBlocks.registerAll();
         Listeners.registerAll();
-        ModifierTableRegister.registerAll();
+        //ModifierTableRegister.registerAll();
     }
 
     //item group
-    public static final ItemGroup VANADIUM_GROUP = FabricItemGroupBuilder.create(
-            new Identifier(MODID, "vanadium"))
-            .icon(() -> new ItemStack(ModItems.VANADIUM_INGOT))
-            .build();
+    public static final ItemGroup VANADIUM_GROUP = FabricItemGroupBuilder.create(new Identifier(MODID, "vanadium"))
+            .icon(() -> new ItemStack(ModItems.VANADIUM_INGOT)).build();
 
 }

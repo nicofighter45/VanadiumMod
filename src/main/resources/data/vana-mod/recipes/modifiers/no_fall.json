@@ -1,0 +1,19 @@
+{
+  "type": "vana-mod:modifiers_recipe",
+  "input1": "vana-mod:vanadium_nugget",
+  "input2": "minecraft:nether_star",
+  "input3": "minecraft:nether_star",
+  "input4": "vana-mod:vanadium_nugget",
+  "result": {
+    "type": "minecraft:item_nbt",
+    "item": "minecraft:enchanted_book",
+    "nbt": {
+      "StoredEnchantments": [
+        {
+          "id": "vana-mod:no_fall",
+          "lvl": 1
+        }
+      ]
+    }
+  }
+}

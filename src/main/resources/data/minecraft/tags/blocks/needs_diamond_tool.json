@@ -2,6 +2,6 @@
   "replace": false,
   "values": [
     "vana-mod:vanadium_ore",
-    "vana-mod:modifiers_table"
+    "vana-mod:modifiers_table_block"
   ]
 }

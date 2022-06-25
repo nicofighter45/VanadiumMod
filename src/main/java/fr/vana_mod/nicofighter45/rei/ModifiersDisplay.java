@@ -1,5 +1,7 @@
 package fr.vana_mod.nicofighter45.rei;
 
+import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipe;
+import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
@@ -28,6 +30,6 @@ public class ModifiersDisplay extends BasicDisplay {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return null;
+        return CategoryIdentifier.of(VanadiumMod.MODID, ModifiersRecipe.Type.ID);
     }
 }

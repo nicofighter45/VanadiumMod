@@ -1,0 +1,19 @@
+{
+  "type": "vana-mod:modifiers_recipe",
+  "input1": "vana-mod:vanadium_nugget",
+  "input2": "minecraft:brown_mushroom_block",
+  "input3": "minecraft:red_mushroom_block",
+  "input4": "vana-mod:vanadium_nugget",
+  "result": {
+    "type": "minecraft:item_nbt",
+    "item": "minecraft:enchanted_book",
+    "nbt": {
+      "StoredEnchantments": [
+        {
+          "id": "vana-mod:faster",
+          "lvl": 1
+        }
+      ]
+    }
+  }
+}

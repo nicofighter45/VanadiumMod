@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "vana-mod:modifiers_table_item"
+          "name": "vana-mod:modifiers_table_block_item"
         }
       ],
       "conditions": [

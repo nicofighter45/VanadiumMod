@@ -5,12 +5,15 @@
   "input3": "minecraft:coal_block",
   "input4": "vana-mod:vanadium_nugget",
   "result": {
+    "type": "minecraft:item_nbt",
     "item": "minecraft:enchanted_book",
-    "EnchantedBookCharacteristics": [
-      {
-        "id": "vana-mod:haster",
-        "lvl": 1
-      }
-    ]
+    "nbt": {
+      "StoredEnchantments": [
+        {
+          "id": "vana-mod:haster",
+          "lvl": 1
+        }
+      ]
+    }
   }
 }

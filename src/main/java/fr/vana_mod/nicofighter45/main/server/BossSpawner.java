@@ -29,6 +29,12 @@ public class BossSpawner {
             spawn1(world, pos);
         }else if(number == 2){
             spawn2(world, pos);
+        }else if(number == 3){
+            spawn3(world, pos);
+        }else if(number == 4){
+            spawn4(world, pos);
+        }else if(number == 5){
+            spawn5(world, pos);
         }
     }
 
@@ -126,6 +132,57 @@ public class BossSpawner {
         tnt.setFuse(40);
         tnt.setInvisible(false);
         tnt.refreshPositionAndAngles(pos.getX() + 5, pos.getY(), pos.getZ() + 5, 0,0);
+        spawnEn(entities, world);
+    }
+
+    private static void spawn3(@NotNull ServerWorld world, @NotNull BlockPos pos){
+        List<Entity> entities = new ArrayList<>();
+        ZombieEntity zb = EntityType.ZOMBIE.create(world);
+        entities.add(zb);
+        assert zb != null;
+        zb.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
+        ItemStack main_hand = new ItemStack(Items.BOW);
+        main_hand.addEnchantment(Enchantments.POWER, 5);
+        ItemStack helmet = new ItemStack(ModItems.VANADIUM_HELMET);
+        helmet.addEnchantment(Enchantments.PROTECTION, 4);
+        ItemStack chestplate = new ItemStack(ModItems.VANADIUM_CHESTPLATE);
+        chestplate.addEnchantment(Enchantments.PROTECTION, 4);
+        ItemStack leggings = new ItemStack(ModItems.VANADIUM_LEGGINGS);
+        leggings.addEnchantment(Enchantments.PROTECTION, 4);
+        ItemStack boots = new ItemStack(ModItems.VANADIUM_BOOTS);
+        boots.addEnchantment(Enchantments.PROTECTION, 4);
+        zb.equipStack(EquipmentSlot.MAINHAND, main_hand);
+        zb.equipStack(EquipmentSlot.HEAD, helmet);
+        zb.equipStack(EquipmentSlot.CHEST, chestplate);
+        zb.equipStack(EquipmentSlot.LEGS, leggings);
+        zb.equipStack(EquipmentSlot.FEET, boots);
+        zb.setEquipmentDropChance(EquipmentSlot.MAINHAND, 0);
+        zb.setEquipmentDropChance(EquipmentSlot.HEAD, 0);
+        zb.setEquipmentDropChance(EquipmentSlot.CHEST, 0);
+        zb.setEquipmentDropChance(EquipmentSlot.LEGS, 0);
+        zb.setEquipmentDropChance(EquipmentSlot.FEET, 0);
+        zb.setCustomName(MutableText.of(new LiteralTextContent("§6Boss 3")));
+        zb.setGlowing(true);
+        Objects.requireNonNull(zb.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(100);
+        Objects.requireNonNull(zb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(4);
+        Objects.requireNonNull(zb.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(2);
+        zb.setHealth(100);
+        TntEntity tnt = EntityType.TNT.create(world);
+        entities.add(tnt);
+        assert tnt != null;
+        tnt.setFuse(40);
+        tnt.setInvisible(false);
+        tnt.refreshPositionAndAngles(pos.getX() + 5, pos.getY(), pos.getZ() + 5, 0,0);
+        spawnEn(entities, world);
+    }
+
+    private static void spawn4(@NotNull ServerWorld world, @NotNull BlockPos pos){
+        List<Entity> entities = new ArrayList<>();
+        spawnEn(entities, world);
+    }
+
+    private static void spawn5(@NotNull ServerWorld world, @NotNull BlockPos pos){
+        List<Entity> entities = new ArrayList<>();
         spawnEn(entities, world);
     }
 

@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.rei;
 
-import fr.vana_mod.nicofighter45.block.modifiertable.ModifierTableRegister;
+import fr.vana_mod.nicofighter45.block.ModBlocks;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -17,7 +17,7 @@ public class ReiPlugin implements REIClientPlugin {
     @Override
     public void registerCategories(@NotNull CategoryRegistry registry) {
         registry.add(new ModifiersTableDisplay<>());
-        registry.addWorkstations(CategoryIdentifier.of(new Identifier(VanadiumMod.MODID, "modifiers_table")), EntryStacks.of(ModifierTableRegister.MODIFIERS_TABLE));
+        registry.addWorkstations(CategoryIdentifier.of(new Identifier(VanadiumMod.MODID, "modifiers_table")), EntryStacks.of(ModBlocks.MODIFIERS_TABLE_BLOCK));
     }
 
     @Override
@@ -27,7 +27,6 @@ public class ReiPlugin implements REIClientPlugin {
 
     @Override
     public void registerDisplays(@NotNull DisplayRegistry registry) {
-        System.out.println("Register Displays called");
-        //registry.registerFiller(ModifiersCraft.class, new ModifiersDisplay());
+        registry.add(ModifiersDisplay.class);
     }
 }

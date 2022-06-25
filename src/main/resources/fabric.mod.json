@@ -33,7 +33,7 @@
     "server": [
       "fr.vana_mod.nicofighter45.main.server.VanadiumModServer"
     ],
-    "rei_client": [
+    "rei_common": [
       "fr.vana_mod.nicofighter45.rei.ReiPlugin"
     ]
   },

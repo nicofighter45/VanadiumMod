@@ -2,7 +2,7 @@
   "parent": "vana-mod:vanadium",
   "display": {
     "icon": {
-      "item": "vana-mod:modifiers_table_item",
+      "item": "vana-mod:modifiers_table_block_item",
       "nbt": "{Damage:0}"
     },
     "title": {
@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:modifiers_table_item"
+            "item": "vana-mod:modifiers_table_block_item"
           }
         ]
       }

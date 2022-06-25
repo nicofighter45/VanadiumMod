@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "vana-mod:item/jump_stone"
+    "layer0": "vana-mod:item/ender_chest_stone"
   }
 }

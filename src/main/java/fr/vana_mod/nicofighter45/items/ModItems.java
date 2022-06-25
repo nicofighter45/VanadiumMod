@@ -9,7 +9,6 @@ import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import fr.vana_mod.nicofighter45.items.armor.EmeraldArmorMaterials;
 import fr.vana_mod.nicofighter45.items.armor.TungstenArmorMaterials;
 import fr.vana_mod.nicofighter45.items.armor.VanadiumArmorMaterials;
-import fr.vana_mod.nicofighter45.items.enchantment.UpgradeItem;
 import fr.vana_mod.nicofighter45.items.tool_material.CopperToolMaterial;
 import fr.vana_mod.nicofighter45.items.tool_material.TinToolMaterial;
 import fr.vana_mod.nicofighter45.items.tool_material.TungstenToolMaterial;
@@ -71,14 +70,6 @@ public class ModItems {
     //processeur
     public static final Item TRANSISTOR = new Item(settings().maxCount(16));
     public static final Item PROCESSOR = new Item(settings().maxCount(16));
-
-    //enchant stone
-    public static final Item HASTE_STONE = new UpgradeItem(settings().maxCount(1));
-    public static final Item STRENGTH_STONE = new UpgradeItem(settings().maxCount(1));
-    public static final Item RESISTANCE_STONE = new UpgradeItem(settings().maxCount(1));
-    public static final Item SPEED_STONE = new UpgradeItem(settings().maxCount(1));
-    public static final Item JUMP_STONE = new UpgradeItem(settings().maxCount(1));
-    public static final Item NO_FALL_STONE = new UpgradeItem(settings().maxCount(1));
 
     //healing item
     public static final Item POWER_CELL = new Item(settings().food(new FoodComponent.Builder()
@@ -156,13 +147,6 @@ public class ModItems {
 
         registerNewItem("transistor", TRANSISTOR);
         registerNewItem("processor", PROCESSOR);
-
-        registerNewItem("haste_stone", HASTE_STONE);
-        registerNewItem("strength_stone", STRENGTH_STONE);
-        registerNewItem("resistance_stone", RESISTANCE_STONE);
-        registerNewItem("speed_stone", SPEED_STONE);
-        registerNewItem("jump_stone", JUMP_STONE);
-        registerNewItem("no_fall_stone", NO_FALL_STONE);
 
         registerNewItem("power_cell", POWER_CELL);
         registerNewItem("super_power_cell", SUPER_POWER_CELL);

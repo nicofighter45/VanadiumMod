@@ -186,8 +186,8 @@ public class BossSpawner {
         wither.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
         wither.setCustomName(MutableText.of(new LiteralTextContent("§6Boss 4")));
         wither.setGlowing(true);
-        Objects.requireNonNull(wither.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(200);
-        wither.setHealth(200);
+        Objects.requireNonNull(wither.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(400);
+        wither.setHealth(400);
         spawnEn(entities, world);
     }
 
@@ -199,8 +199,9 @@ public class BossSpawner {
         dragon.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
         dragon.setCustomName(MutableText.of(new LiteralTextContent("§6Boss 5")));
         dragon.setGlowing(true);
-        Objects.requireNonNull(dragon.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(500);
-        dragon.setHealth(500);
+        Objects.requireNonNull(dragon.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(100);
+        dragon.setHealth(100);
+        dragon.setPositionTarget(pos, 20);
         spawnEn(entities, world);
     }
 

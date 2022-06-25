@@ -12,11 +12,6 @@ group = project.maven_group
 
 repositories {
 	maven {
-		name = "CottonMC"
-		url = "https://server.bbkr.space/artifactory/libs-release"
-	}
-
-	maven {
 		name = "Roughly Enough Item"
 		url "https://maven.shedaniel.me"
 	}
@@ -29,8 +24,6 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	modImplementation include("io.github.cottonmc:LibGui:${project.LibGui_version}")
 
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.REI_version}"
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.REI_version}"

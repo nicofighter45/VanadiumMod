@@ -78,13 +78,6 @@
   "block.vana-mod.modifiers_table_block": "Modifiers Table",
   "item.vana-mod.modifiers_table_block_item": "Modifiers Table",
 
-  "item.vana-mod.haste_stone": "Haste Stone",
-  "item.vana-mod.strength_stone": "Strength Stone",
-  "item.vana-mod.resistance_stone": "Resistance Stone",
-  "item.vana-mod.speed_stone": "Speed Stone",
-  "item.vana-mod.jump_stone": "Jump Stone",
-  "item.vana-mod.no_fall_stone": "No Fall Stone",
-
   "item.vana-mod.power_cell": "Power Cell",
   "item.vana-mod.super_power_cell": "Super Power Cell",
 
@@ -97,6 +90,9 @@
   "item.vana-mod.advance_regen_booster": "Advance Regen Booster",
 
   "item.vana-mod.hat": "Hat",
+
+  "item.vana-mod.crafting_stone": "Hat",
+  "item.vana-mod.ender_chest_stone": "Hat",
 
   "itemGroup.vana-mod.vanadium": "VanaMod",
 

@@ -29,12 +29,12 @@ public class ModOreGeneration {
         //génération du minearais de vanadium
         ConfiguredFeature<?, ?> VANADIUM_ORE_FEATURE = new ConfiguredFeature<>
                 (Feature.ORE, new OreFeatureConfig(new BlockMatchRuleTest(Blocks.END_STONE),
-                        ModBlocks.VANADIUM_ORE.getDefaultState(), 3));
+                        ModBlocks.VANADIUM_ORE.getDefaultState(), 4));
         PlacedFeature VANADIUM_ORE_GENERATION = new PlacedFeature(
                 RegistryEntry.of(VANADIUM_ORE_FEATURE),
                 Arrays.asList(CountPlacementModifier.of(4), // number of veins per chunk
                         SquarePlacementModifier.of(), // spreading horizontally
-                        HeightRangePlacementModifier.uniform(YOffset.aboveBottom(50), YOffset.belowTop(70)))); // height
+                        HeightRangePlacementModifier.uniform(YOffset.aboveBottom(50), YOffset.getTop()))); // height
 
         Identifier VANADIUM_ORE_ID = new Identifier(VanadiumMod.MODID, "vanadium_ore_gen");
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, VANADIUM_ORE_ID, VANADIUM_ORE_FEATURE);

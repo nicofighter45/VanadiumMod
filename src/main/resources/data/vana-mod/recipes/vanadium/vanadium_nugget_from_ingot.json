@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I ",
+    "  "
+  ],
+  "key": {
+    "I": {
+      "item": "vana-mod:vanadium_ingot"
+    }
+  },
+  "result": {
+    "item": "vana-mod:vanadium_nugget",
+    "count": 4
+  }
+}

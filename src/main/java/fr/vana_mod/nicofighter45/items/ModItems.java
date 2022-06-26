@@ -34,7 +34,7 @@ public class ModItems {
     public static final Item VANADIUM_HAMMER = new Hammer(VanadiumToolMaterial.INSTANCE, 4, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_AXE = new MegaAxe(VanadiumToolMaterial.INSTANCE, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_SHOVEL = new Excavator(VanadiumToolMaterial.INSTANCE, 1, 1, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_HOE = new SuperHoe(VanadiumToolMaterial.INSTANCE, 1, -3.9F, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_HOE = new SuperHoe(VanadiumToolMaterial.INSTANCE, 1, -3F, settings().maxCount(1).fireproof());
 
     //armure en vanadium
     public static final Item VANADIUM_HELMET = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.HEAD, settings().maxCount(1).fireproof());

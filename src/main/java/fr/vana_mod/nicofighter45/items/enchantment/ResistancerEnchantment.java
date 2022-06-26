@@ -1,8 +1,10 @@
 package fr.vana_mod.nicofighter45.items.enchantment;
 
+import fr.vana_mod.nicofighter45.items.armor.VanadiumArmorMaterials;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 
 public class ResistancerEnchantment extends Enchantment {
@@ -18,6 +20,9 @@ public class ResistancerEnchantment extends Enchantment {
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
+        if(stack.getItem() instanceof ArmorItem armor){
+            return armor.getSlotType() == EquipmentSlot.LEGS && armor.getMaterial() instanceof VanadiumArmorMaterials;
+        }
         return false;
     }
 

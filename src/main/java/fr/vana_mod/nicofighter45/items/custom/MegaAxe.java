@@ -17,13 +17,15 @@ import java.util.ArrayList;
 
 public class MegaAxe extends AxeItem {
 
+    private boolean isActive = true;
+
     public MegaAxe(ToolMaterial material, Settings settings) {
         super(material, 7,2, settings);
     }
 
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        if(miner instanceof PlayerEntity) {
+        if(miner instanceof PlayerEntity && this.isActive) {
             Block block = state.getBlock();
             if (block instanceof PillarBlock) {
 
@@ -73,6 +75,11 @@ public class MegaAxe extends AxeItem {
             }
         }
         return super.postMine(stack, world, state, pos, miner);
+    }
+
+    public boolean changeActivity(){
+        this.isActive = !this.isActive;
+        return this.isActive;
     }
 
 }

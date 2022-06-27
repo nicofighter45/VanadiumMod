@@ -1,15 +1,19 @@
 package fr.vana_mod.nicofighter45.main.server;
 
+import net.minecraft.util.math.BlockPos;
+
 public class CustomPlayer {
 
     private int heart, regen;
     private boolean craft, ender_chest;
+    private BlockPos base;
 
-    public CustomPlayer(int heart, int regen, boolean craft, boolean ender_chest){
+    public CustomPlayer(int heart, int regen, boolean craft, boolean ender_chest, BlockPos base){
         this.heart = heart;
         this.regen = regen;
         this.craft = craft;
         this.ender_chest = ender_chest;
+        this.base = base;
     }
 
     public int getHeart() {
@@ -43,4 +47,13 @@ public class CustomPlayer {
     public void setEnder_chest(boolean ender_chest) {
         this.ender_chest = ender_chest;
     }
+
+    public BlockPos getBase(){
+        return this.base;
+    }
+
+    public void setBase(BlockPos base){
+        this.base = base;
+    }
+
 }

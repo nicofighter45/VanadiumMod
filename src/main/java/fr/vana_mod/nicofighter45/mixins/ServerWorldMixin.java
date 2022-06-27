@@ -5,8 +5,6 @@ import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
 import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -31,7 +29,7 @@ public class ServerWorldMixin {
             Objects.requireNonNull(player.getServer()).getPlayerManager().disconnectAllPlayers();
         }
         if(!VanadiumModServer.players.containsKey(player.getUuid())){
-            VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false));
+            VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false, world.getSpawnPos()));
             player.setHealth(10);
         }
         CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
@@ -65,7 +63,7 @@ public class ServerWorldMixin {
                 if (player.getInventory().getArmorStack(EquipmentSlot.HEAD.getEntitySlotId()).getItem() == ModItems.VANADIUM_HELMET &&
                         player.getInventory().getArmorStack(EquipmentSlot.LEGS.getEntitySlotId()).getItem() == ModItems.VANADIUM_LEGGINGS &&
                         player.getInventory().getArmorStack(EquipmentSlot.FEET.getEntitySlotId()).getItem() == ModItems.VANADIUM_BOOTS) {
-                    regen += 8;
+                    regen += 16;
                 }
                 if(player.getHealth() < regen){
                     player.heal(0.5f);

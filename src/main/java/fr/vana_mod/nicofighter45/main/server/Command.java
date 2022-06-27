@@ -14,6 +14,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
@@ -40,6 +41,18 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class Command {
 
     public static void registerAllCommands(){
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("setbase")
+                .executes(c -> {
+                    ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                    if(player.getWorld() == Objects.requireNonNull(player.getServer()).getOverworld()){
+                        VanadiumModServer.players.get(player.getUuid()).setBase(player.getBlockPos());
+                        sendMsg(player, "§8[§6Server§8] §fYour base has been reposition to your position");
+                    }else{
+                        sendMsg(player, "§8[§6Server§8] §fYou need to be in the overworld");
+                    }
+                    return 1;
+                })
+        ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("stat")
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
@@ -49,6 +62,50 @@ public class Command {
                     sendMsg(player, "    regen  : " + customPlayer.getRegen());
                     sendMsg(player, "    craft   : " + customPlayer.isCraft());
                     sendMsg(player, "    ec      : " + customPlayer.isEnder_chest());
+                    sendMsg(player, "    baseX   : " + customPlayer.getBase().getX());
+                    sendMsg(player, "    baseY   : " + customPlayer.getBase().getY());
+                    sendMsg(player, "    baseZ   : " + customPlayer.getBase().getZ());
+                    return 1;
+                })
+        ));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("base")
+                .executes(c -> {
+                    ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                    sendMsg(player, "§8[§6Server§8] §fYou will be teleported to your base in 10s against 1 emerald block");
+                    new Timer().schedule(
+                            new TimerTask() {
+
+                                private int timer = 10;
+                                private BlockPos lastPos = player.getBlockPos();
+                                private float lastHealth = player.getHealth();
+
+                                @Override
+                                public void run() {
+                                    timer --;
+                                    if(player.getBlockPos() != lastPos || player.getHealth() < lastHealth){
+                                        sendMsg(player, "§8[§6Server§8] §fTeleportation cancel : you moved or loosed health");
+                                        cancel();
+                                    }
+                                    lastPos = player.getBlockPos();
+                                    lastHealth = player.getHealth();
+                                    if(timer == 0){
+                                        EnderChestInventory inventory = player.getEnderChestInventory();
+                                        if(inventory.removeItem(Items.EMERALD_BLOCK, 1).getCount() == 1){
+                                            BlockPos base = VanadiumModServer.players.get(player.getUuid()).getBase();
+                                            player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), base.getX(), base.getY(), base.getZ(), 180,0);
+                                            sendMsg(player, "§8[§6Server§8] §fYou have been teleported to your base");
+                                        }else{
+                                            sendMsg(player, "§8[§6Server§8] §fYou don't have any emerald block in your ender chest");
+                                        }
+                                        cancel();
+                                    }else if(timer == 5){
+                                        sendMsg(player, "§8[§6Server§8] §fTeleporting in 5s");
+                                    }else if(timer < 4){
+                                        sendMsg(player, "§8[§6Server§8] §fTeleporting in " + timer + "s");
+                                    }
+                                }
+                            }
+                            , 1000, 1000);
                     return 1;
                 })
         ));

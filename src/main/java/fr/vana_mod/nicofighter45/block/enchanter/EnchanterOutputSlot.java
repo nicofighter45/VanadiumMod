@@ -72,7 +72,7 @@ public class EnchanterOutputSlot extends Slot {
         }
     }
 
-    public static void reloadEnchant(EnchanterScreenHandler handler) {
+    public static void reloadEnchant(@NotNull EnchanterScreenHandler handler) {
         ItemStack itemStack = handler.getInput().getStack(0).copy();
         boolean rename = itemStack.hasCustomName();
         Text name = itemStack.getName();
@@ -93,6 +93,12 @@ public class EnchanterOutputSlot extends Slot {
                         slot_empty.add(slot);
                     }
                 }
+            }
+        }
+        for(int slot = 0; slot < 7; slot ++){
+            if(slot_empty.isEmpty()){
+                break;
+            }else{
                 NbtCompound nbt = handler.getOutput().getStack(slot).getNbt();
                 assert nbt != null;
                 Map<Enchantment, Integer> enchantmentMap = EnchantmentHelper.get(handler.getOutput().getStack(slot));
@@ -102,6 +108,7 @@ public class EnchanterOutputSlot extends Slot {
             }
         }
         handler.getInput().setStack(0, itemStack);
+        handler.resetEnchantments();
     }
 
 }

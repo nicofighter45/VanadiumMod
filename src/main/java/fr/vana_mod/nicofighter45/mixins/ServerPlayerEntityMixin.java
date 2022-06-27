@@ -86,9 +86,11 @@ public abstract class ServerPlayerEntityMixin {
             pl.setRegen(nbt.getInt("regen"));
             pl.setCraft(nbt.getBoolean("craft"));
             pl.setEnder_chest(nbt.getBoolean("ender_chest"));
+            pl.setBase(new BlockPos( nbt.getInt("baseX"),  nbt.getInt("baseY"),  nbt.getInt("baseZ")));
         }else{
             VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(nbt.getInt("heart"),
-                    nbt.getInt("regen"), nbt.getBoolean("craft"), nbt.getBoolean("ender_chest")));
+                    nbt.getInt("regen"), nbt.getBoolean("craft"), nbt.getBoolean("ender_chest"),
+                    new BlockPos( nbt.getInt("baseX"),  nbt.getInt("baseY"),  nbt.getInt("baseZ"))));
         }
     }
 
@@ -99,6 +101,9 @@ public abstract class ServerPlayerEntityMixin {
         nbt.putInt("regen", pl.getRegen());
         nbt.putBoolean("craft", pl.isCraft());
         nbt.putBoolean("ender_chest", pl.isEnder_chest());
+        nbt.putInt("baseX", pl.getBase().getX());
+        nbt.putInt("baseY", pl.getBase().getX());
+        nbt.putInt("baseZ", pl.getBase().getX());
     }
 
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)

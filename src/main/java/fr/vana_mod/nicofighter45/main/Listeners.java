@@ -1,16 +1,16 @@
 package fr.vana_mod.nicofighter45.main;
 
+import fr.vana_mod.nicofighter45.items.custom.MegaAxe;
+import fr.vana_mod.nicofighter45.items.custom.SuperHoe;
 import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
 import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import fr.vana_mod.nicofighter45.items.ModItems;
@@ -32,14 +32,16 @@ public class Listeners {
 
     private static final Map<BlockPos, List<BlockPos>> map = new HashMap<>();
 
-    public static void onAttackBlockRegister(){
+    private static void onAttackBlockRegister(){
         PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, entity) -> {
             if(!world.isClient){
                 if(map.containsKey(pos)){
                     List<BlockPos> list = map.get(pos);
                     ItemStack stack = player.getMainHandStack();
                     for(BlockPos pos_final : list){
-                        if(world.getBlockState(pos_final).getBlock() == state.getBlock()){
+                        if(world.getBlockState(pos_final).getBlock() == state.getBlock() ||
+                                (world.getBlockState(pos_final).getBlock() == Blocks.GRASS_BLOCK && state.getBlock() == Blocks.DIRT) ||
+                                (world.getBlockState(pos_final).getBlock() == Blocks.DIRT && state.getBlock() == Blocks.GRASS_BLOCK)){
                             if(stack.getDamage() > 0){
                                 world.breakBlock(pos_final, true, player);
                                 stack.damage(1, Random.create(), (ServerPlayerEntity) player);
@@ -55,7 +57,7 @@ public class Listeners {
                 ItemStack stack = player.getMainHandStack();
                 BlockState state = world.getBlockState(pos);
                 if(stack.getItem() instanceof Hammer){
-                    if(stack.getItem().isSuitableFor(state)){
+                    if(stack.getItem().isSuitableFor(state) && ((Hammer) stack.getItem()).isActive()){
                         int mining_range = ((Hammer) stack.getItem()).getMiningRange();
                         Direction looking = player.getMovementDirection();
                         if(mining_range >= 3 && (direction == Direction.UP || direction == Direction.DOWN)){
@@ -87,13 +89,13 @@ public class Listeners {
                         }
                     }
                 }else if(stack.getItem() instanceof Excavator){
-                    if(stack.getItem().isSuitableFor(state)){
+                    if(stack.getItem().isSuitableFor(state) && ((Excavator) stack.getItem()).isActive()){
                         if(direction == Direction.UP || direction == Direction.DOWN){
                             registerBlocks(pos, pos.add(1, 0, 1), pos.add(1,0,-1), pos.add(-1,0,1), pos.add(-1,0,-1), pos.add(0, 0, 1), pos.add(0,0,-1), pos.add(1,0,0), pos.add(-1,0,0));
                         }else if(direction == Direction.NORTH || direction == Direction.SOUTH){
-                            registerBlocks(pos, pos.add(-1, 0, 0), pos.add(1, 0, 0), pos.add(1, 1, 0), pos.add(-1,1,0), pos.add(1,-1,0), pos.add(-1,-1,0), pos.add(1, 0, 0), pos.add(-1,0,0));
+                            registerBlocks(pos, pos.add(0, 1, 0), pos.add(0, -1, 0), pos.add(1, 0, 0), pos.add(-1,0,0), pos.add(1,1,0), pos.add(-1,1,0), pos.add(1, -1, 0), pos.add(-1,-1,0));
                         }else if (direction == Direction.EAST || direction == Direction.WEST){
-                            registerBlocks(pos, pos.add(-1, 0, 0), pos.add(1, 0, 0), pos.add(0, 1, 1), pos.add(0,1,-1), pos.add(0,-1,1), pos.add(0,-1,-1), pos.add(0, 0, 1), pos.add(0,0,-1));
+                            registerBlocks(pos, pos.add(0, 1, 0), pos.add(0, -1, 0), pos.add(0, 0, 1), pos.add(0,0,-1), pos.add(0,1,1), pos.add(0,1,-1), pos.add(0, -1, 1), pos.add(0,-1,-1));
                         }
                     }
                 }
@@ -137,65 +139,75 @@ public class Listeners {
         }
     }
 
-    private static final Identifier ITEM_RIGHT_CLICK_ID = new Identifier(VanadiumMod.MODID, "use_item_callback_packet");
-
-    public static void onItemRightClickRegister(){
-        ServerPlayNetworking.registerGlobalReceiver(ITEM_RIGHT_CLICK_ID, (server, server_player, handler, buf, responseSender) -> onItemRightClickAction(server_player));
+    private static void onItemRightClickRegister(){
         UseItemCallback.EVENT.register((player, world, hand) -> {
-            if(world.isClient){
-                ClientPlayNetworking.send(ITEM_RIGHT_CLICK_ID, PacketByteBufs.empty());
-            }else{
-                onItemRightClickAction((ServerPlayerEntity) player);
+            if(!world.isClient){
+                ServerPlayerEntity server_player = (ServerPlayerEntity) player;
+                ItemStack it = server_player.getMainHandStack();
+                Item item_server = it.getItem();
+                CustomPlayer data_player = VanadiumModServer.players.get(server_player.getUuid());
+                int heart = data_player.getHeart();
+                int regen = data_player.getRegen();
+                if (item_server == ModItems.SIMPLE_HEALTH_BOOSTER && heart < 20) {
+                    data_player.setHeart(heart + 2);
+                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
+                    sendMsg(server_player, "§8[§6Server§8] §fYou got " + (heart + 2)/2 + " heart");
+                } else if (item_server == ModItems.BASE_HEALTH_BOOSTER && heart >= 20 && heart < 30) {
+                    data_player.setHeart(heart + 2);
+                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
+                    sendMsg(server_player, "§8[§6Server§8] §fYou got " + (heart + 2)/2 + " heart");
+                } else if (item_server == ModItems.ADVANCE_HEALTH_BOOSTER && heart >= 30 && heart < 40) {
+                    data_player.setHeart(heart + 2);
+                    Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
+                    sendMsg(server_player, "§8[§6Server§8] §fYou got " + (heart + 2)/2 + " heart");
+                } else if (item_server == ModItems.SIMPLE_REGEN_BOOSTER && regen < 8 && (regen + 2) <= heart) {
+                    data_player.setRegen(regen + 2);
+                    sendMsg(server_player, "§8[§6Server§8] §fYou got " + (regen + 2)/2 + " regen");
+                } else if (item_server == ModItems.BASE_REGEN_BOOSTER && regen >= 8 && regen < 16 && (regen + 2) <= heart) {
+                    data_player.setRegen(regen + 2);
+                    sendMsg(server_player, "§8[§6Server§8] §fYou got " + (regen + 2)/2 + " regen");
+                } else if (item_server == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 16 && regen < 24 && (regen + 2) <= heart) {
+                    data_player.setRegen(regen + 2);
+                    sendMsg(server_player, "§8[§6Server§8] §fYou got " + (regen + 2)/2 + " regen");
+                } else if (item_server == ModItems.CRAFTING_STONE && !data_player.isCraft()) {
+                    data_player.setCraft(true);
+                    sendMsg(server_player, "§8[§6Server§8] §fYou now can do /craft to access crafting table");
+                } else if (item_server == ModItems.ENDER_CHEST_STONE && !data_player.isEnder_chest()) {
+                    data_player.setEnder_chest(true);
+                    sendMsg(server_player, "§8[§6Server§8] §fYou now can do /ec to access your ender chest");
+                } else {
+                    if(it.getItem() instanceof Hammer){
+                        sendMsg(server_player, "§8[§6Server§8] §fYour hammer is now " + ((Hammer) it.getItem()).changeActivity());
+                    } else if(it.getItem() instanceof Excavator){
+                        sendMsg(server_player, "§8[§6Server§8] §fYour shovel is now " + ((Excavator) it.getItem()).changeActivity());
+                    } else if(it.getItem() instanceof MegaAxe){
+                        sendMsg(server_player, "§8[§6Server§8] §fYour axe is now " + ((MegaAxe) it.getItem()).changeActivity());
+                    }
+                    return TypedActionResult.pass(player.getMainHandStack());
+                }
+                it.setCount(it.getCount() - 1);
             }
             return TypedActionResult.pass(player.getMainHandStack());
         });
-    }
-
-    private static void onItemRightClickAction(@NotNull ServerPlayerEntity server_player){
-        ItemStack it = server_player.getMainHandStack();
-        Item item_server = it.getItem();
-        CustomPlayer data_player = VanadiumModServer.players.get(server_player.getUuid());
-        int heart = data_player.getHeart();
-        int regen = data_player.getRegen();
-        if (item_server == ModItems.SIMPLE_HEALTH_BOOSTER && heart < 20) {
-            data_player.setHeart(heart + 2);
-            Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
-            sendMsg(server_player, "§8[§6Server§8] §fYou got " + (heart + 2)/2 + " heart");
-        } else if (item_server == ModItems.BASE_HEALTH_BOOSTER && heart >= 20 && heart < 30) {
-            data_player.setHeart(heart + 2);
-            Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
-            sendMsg(server_player, "§8[§6Server§8] §fYou got " + (heart + 2)/2 + " heart");
-        } else if (item_server == ModItems.ADVANCE_HEALTH_BOOSTER && heart >= 30 && heart < 40) {
-            data_player.setHeart(heart + 2);
-            Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
-            sendMsg(server_player, "§8[§6Server§8] §fYou got " + (heart + 2)/2 + " heart");
-        } else if (item_server == ModItems.SIMPLE_REGEN_BOOSTER && regen < 8 && (regen + 2) <= heart) {
-            data_player.setRegen(regen + 2);
-            sendMsg(server_player, "§8[§6Server§8] §fYou got " + (regen + 2)/2 + " regen");
-        } else if (item_server == ModItems.BASE_REGEN_BOOSTER && regen >= 8 && regen < 16 && (regen + 2) <= heart) {
-            data_player.setRegen(regen + 2);
-            sendMsg(server_player, "§8[§6Server§8] §fYou got " + (regen + 2)/2 + " regen");
-        } else if (item_server == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 16 && regen < 24 && (regen + 2) <= heart) {
-            data_player.setRegen(regen + 2);
-            sendMsg(server_player, "§8[§6Server§8] §fYou got " + (regen + 2)/2 + " regen");
-        } else if (item_server == ModItems.CRAFTING_STONE && !data_player.isCraft()) {
-            data_player.setCraft(true);
-            sendMsg(server_player, "§8[§6Server§8] §fYou now can do /craft to access crafting table");
-        } else if (item_server == ModItems.ENDER_CHEST_STONE && !data_player.isEnder_chest()) {
-            data_player.setEnder_chest(true);
-            sendMsg(server_player, "§8[§6Server§8] §fYou now can do /ec to access your ender chest");
-        } else {
-            return;
-        }
-        it.setCount(it.getCount() - 1);
     }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text){
         player.sendMessage(MutableText.of(new TranslatableTextContent(text)), false);
     }
 
+    private static void onEntityAttack(){
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+            if(player.getMainHandStack().getItem() instanceof SuperHoe){
+                entity.setVelocity(1/(1+(entity.getX() - player.getX())),  1/(1 + (entity.getY() - player.getY())),
+                        1/(1 + (entity.getZ() - player.getZ())));
+            }
+            return ActionResult.SUCCESS;
+        });
+    }
+
     public static void registerAll() {
         onAttackBlockRegister();
         onItemRightClickRegister();
+        onEntityAttack();
     }
 }

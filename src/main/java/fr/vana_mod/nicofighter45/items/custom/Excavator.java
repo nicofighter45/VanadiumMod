@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 public class Excavator extends ShovelItem {
 
     private final List<Block> list = new ArrayList<>();
+    private boolean isActive = true;
 
     public Excavator(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
         super(material, attackDamage, attackSpeed, settings);
@@ -24,6 +26,15 @@ public class Excavator extends ShovelItem {
     }
 
     @Override
-    public boolean isSuitableFor(BlockState state) { return list.contains(state.getBlock()); }
+    public boolean isSuitableFor(@NotNull BlockState state) { return list.contains(state.getBlock()); }
+
+    public boolean isActive(){
+        return this.isActive;
+    }
+
+    public boolean changeActivity(){
+        this.isActive = !this.isActive;
+        return this.isActive;
+    }
 
 }

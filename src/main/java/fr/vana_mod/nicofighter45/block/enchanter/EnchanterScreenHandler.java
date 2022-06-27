@@ -143,6 +143,10 @@ public class EnchanterScreenHandler  extends ScreenHandler {
 
     public void setFirstItem(){
         this.firstItem = this.getInput().getStack(0).copy();
+        resetEnchantments();
+    }
+
+    public void resetEnchantments(){
         this.itemEnchantments.clear();
         this.itemEnchantments.addAll(EnchantmentHelper.get(this.firstItem).keySet());
     }

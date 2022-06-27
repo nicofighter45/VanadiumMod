@@ -2,7 +2,6 @@ package fr.vana_mod.nicofighter45.block.enchanter;
 
 import fr.vana_mod.nicofighter45.block.ModBlocks;
 import fr.vana_mod.nicofighter45.block.modifiertable.ImplementedInventory;
-import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;

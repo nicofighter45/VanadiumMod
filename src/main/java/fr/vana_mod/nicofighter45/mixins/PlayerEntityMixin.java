@@ -88,11 +88,6 @@ public class PlayerEntityMixin {
                 }
             }
 
-            //check full vanadium
-            if (helmet.getItem() == ModItems.VANADIUM_HELMET && leggings.getItem() == ModItems.VANADIUM_LEGGINGS &&
-                    boots.getItem() == ModItems.VANADIUM_BOOTS) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 140, 0, false, false, true));
-            }
             timer = 100;
         }
     }

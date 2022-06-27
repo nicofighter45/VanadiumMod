@@ -77,6 +77,8 @@
   "item.vana-mod.processor": "Processor",
   "block.vana-mod.modifiers_table_block": "Modifiers Table",
   "item.vana-mod.modifiers_table_block_item": "Modifiers Table",
+  "block.vana-mod.enchanter_block": "Enchanter",
+  "item.vana-mod.enchanter_block_item": "Enchanter",
 
   "item.vana-mod.power_cell": "Power Cell",
   "item.vana-mod.super_power_cell": "Super Power Cell",

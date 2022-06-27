@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VTV",
+    "TLT",
+    "VTV"
+  ],
+  "key": {
+    "V": {
+      "item": "vana-mod:vanadium_nugget"
+    },
+    "T": {
+      "item": "vana-mod:transistor"
+    },
+    "L": {
+      "item": "minecraft:lapis_block"
+    }
+  },
+  "result": {
+    "item": "vana-mod:enchanter_block_item",
+    "count": 1
+  }
+}

@@ -22,6 +22,8 @@ public class ModBlocksItem {
 
     public static final BlockItem MODIFIERS_TABLE_BLOCK_ITEM = new BlockItem(ModBlocks.MODIFIERS_TABLE_BLOCK, settings);
 
+    public static final BlockItem ENCHANTER_BLOCK_ITEM = new BlockItem(ModBlocks.ENCHANTER_BLOCK, settings);
+
     public static void registerAll() {
         registerNewItemBlock("vanadium_ore_item", VANADIUM_ORE_ITEM);
         registerNewItemBlock("tungsten_ore_item", TUNGSTEN_ORE_ITEM);
@@ -34,6 +36,7 @@ public class ModBlocksItem {
         registerNewItemBlock("steel_block_item", STEEL_BLOCK_ITEM);
 
         registerNewItemBlock("modifiers_table_block_item", MODIFIERS_TABLE_BLOCK_ITEM);
+        registerNewItemBlock("enchanter_block_item", ENCHANTER_BLOCK_ITEM);
     }
 
     private static void registerNewItemBlock(String name, BlockItem block){

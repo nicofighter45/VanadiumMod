@@ -6,6 +6,7 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class No_FallEnchantment extends Enchantment {
 
@@ -19,7 +20,7 @@ public class No_FallEnchantment extends Enchantment {
     }
 
     @Override
-    public boolean isAcceptableItem(ItemStack stack) {
+    public boolean isAcceptableItem(@NotNull ItemStack stack) {
         if(stack.getItem() instanceof ArmorItem armor){
             return armor.getSlotType() == EquipmentSlot.FEET && armor.getMaterial() instanceof VanadiumArmorMaterials;
         }

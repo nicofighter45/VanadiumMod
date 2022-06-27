@@ -124,7 +124,7 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
                 slot.onQuickTransfer(itemStack2, itemStack);
             } else if (index >= 5 && index < 41) {
                 if (!this.insertItem(itemStack2, 1, 5, false)) {
-                    if (index < 37) {
+                    if (index < 32) {
                         if (!this.insertItem(itemStack2, 32, 41, false)) {
                             return ItemStack.EMPTY;
                         }

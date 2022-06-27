@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.main;
 
+import fr.vana_mod.nicofighter45.block.enchanter.EnchanterScreenHandler;
 import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipe;
 import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipeSerializer;
 import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableScreenHandler;
@@ -24,6 +25,8 @@ public class VanadiumMod implements ModInitializer {
     public static ScreenHandlerType<ModifiersTableScreenHandler> MODIFIERS_TABLE_SCREEN_HANDLER;
     public static RecipeType<ModifiersRecipe> MODIFIERS_RECIPE_TYPE = ModifiersRecipe.Type.INSTANCE;
 
+    public static ScreenHandlerType<EnchanterScreenHandler> ENCHANTER_SCREEN_HANDLER;
+
     @Override
     public void onInitialize() {
         //register all items and blocks
@@ -31,8 +34,13 @@ public class VanadiumMod implements ModInitializer {
 
         //register screen for modifiers table
         MODIFIERS_TABLE_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(MODID, "modifiers_table_screen_handler"), ModifiersTableScreenHandler::new);
+
+        //register recipe for modifiers table
         Registry.register(Registry.RECIPE_SERIALIZER, ModifiersRecipeSerializer.ID, ModifiersRecipeSerializer.INSTANCE);
         MODIFIERS_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(VanadiumMod.MODID, ModifiersRecipe.Type.ID), MODIFIERS_RECIPE_TYPE);
+
+        //register screen for enchanter
+        ENCHANTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(MODID, "enchanter_screen_handler"), EnchanterScreenHandler::new);
 
         //register command
         Command.registerAllCommands();

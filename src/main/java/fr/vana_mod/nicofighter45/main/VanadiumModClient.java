@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.main;
 
+import fr.vana_mod.nicofighter45.block.enchanter.EnchanterScreen;
 import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
@@ -12,6 +13,9 @@ public class VanadiumModClient implements ClientModInitializer {
 
         //register modifiers table screen on client
         ScreenRegistry.register(VanadiumMod.MODIFIERS_TABLE_SCREEN_HANDLER, ModifiersTableScreen::new);
+
+        //register enchanter on client
+        ScreenRegistry.register(VanadiumMod.ENCHANTER_SCREEN_HANDLER, EnchanterScreen::new);
 
         //register entities
         ModEntity.registerAll();

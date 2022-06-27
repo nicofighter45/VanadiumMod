@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "vana-mod:vanadium_ore",
-    "vana-mod:modifiers_table_block"
+    "vana-mod:modifiers_table_block",
+    "vana-mod:enchanter_block"
   ]
 }

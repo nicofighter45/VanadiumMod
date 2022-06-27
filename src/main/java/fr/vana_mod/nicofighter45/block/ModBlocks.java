@@ -1,6 +1,8 @@
 package fr.vana_mod.nicofighter45.block;
 
 
+import fr.vana_mod.nicofighter45.block.enchanter.EnchanterBlock;
+import fr.vana_mod.nicofighter45.block.enchanter.EnchanterBlockEntity;
 import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableBlock;
 import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableBlockEntity;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
@@ -28,6 +30,10 @@ public class ModBlocks {
     public static BlockEntityType<ModifiersTableBlockEntity> MODIFIERS_TABLE_BLOCK_ENTITY_TYPE =
             BlockEntityType.Builder.create(ModifiersTableBlockEntity::new, MODIFIERS_TABLE_BLOCK).build(null);
 
+    public static Block ENCHANTER_BLOCK = new EnchanterBlock();
+    public static BlockEntityType<EnchanterBlockEntity> ENCHANTER_BLOCK_ENTITY_TYPE =
+            BlockEntityType.Builder.create(EnchanterBlockEntity::new, ENCHANTER_BLOCK).build(null);
+
     public static void registerAll() {
         registerNewBlock("vanadium_ore", VANADIUM_ORE);
         registerNewBlock("tungsten_ore", TUNGSTEN_ORE);
@@ -41,6 +47,8 @@ public class ModBlocks {
 
         registerNewBlock("modifiers_table_block", MODIFIERS_TABLE_BLOCK);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(VanadiumMod.MODID, "modifiers_table_block_entity_type"), MODIFIERS_TABLE_BLOCK_ENTITY_TYPE);
+        registerNewBlock("enchanter_block", ENCHANTER_BLOCK);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(VanadiumMod.MODID, "enchanter_block_entity_type"), ENCHANTER_BLOCK_ENTITY_TYPE);
 
         ModOreGeneration.generateOres();
         ModBlocksItem.registerAll();

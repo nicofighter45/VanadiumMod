@@ -1,8 +1,11 @@
 {
   "replace": false,
   "values": [
-    "vana-mod:vanadium_ore",
     "vana-mod:modifiers_table_block",
-    "vana-mod:enchanter_block"
+    "vana-mod:enchanter_block",
+    "vana-mod:tungsten_ore",
+    "vana-mod:silver_ore",
+    "vana-mod:silver_block",
+    "vana-mod:tungsten_block"
   ]
 }

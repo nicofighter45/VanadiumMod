@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    " "
+  ],
+  "key": {
+    "C": {
+      "item": "vana-mod:silver_block_item"
+    }
+  },
+  "result": {
+    "item": "vana-mod:silver_ingot",
+    "count": 9
+  }
+}

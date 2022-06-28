@@ -25,6 +25,7 @@ public class ModBlocks {
     public static final Block TUNGSTEN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(10, 0.5f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block TIN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(9, 0.4f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block STEEL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(10, 0.6f).sounds(BlockSoundGroup.METAL).requiresTool());
+    public static final Block SILVER_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(10, 0.5f).sounds(BlockSoundGroup.METAL).requiresTool());
 
     public static Block MODIFIERS_TABLE_BLOCK = new ModifiersTableBlock();
     public static BlockEntityType<ModifiersTableBlockEntity> MODIFIERS_TABLE_BLOCK_ENTITY_TYPE =
@@ -44,6 +45,7 @@ public class ModBlocks {
         registerNewBlock("tungsten_block", TUNGSTEN_BLOCK);
         registerNewBlock("tin_block", TIN_BLOCK);
         registerNewBlock("steel_block", STEEL_BLOCK);
+        registerNewBlock("silver_block", SILVER_BLOCK);
 
         registerNewBlock("modifiers_table_block", MODIFIERS_TABLE_BLOCK);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(VanadiumMod.MODID, "modifiers_table_block_entity_type"), MODIFIERS_TABLE_BLOCK_ENTITY_TYPE);

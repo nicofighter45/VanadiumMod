@@ -35,6 +35,10 @@ public class VanadiumModClient implements ClientModInitializer {
             return entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F;
         });
 
+        ModelPredicateProviderRegistry.register(ModItems.VANADIUM_ELYTRA, new Identifier("broken"), (stack, world, entity, seed) -> {
+            return 1;
+        });
+
         //register entities
         ModEntity.registerAll();
 

@@ -39,6 +39,8 @@ public class ModItems {
     public static final Item VANADIUM_CHESTPLATE = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.CHEST, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_LEGGINGS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.LEGS, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_BOOTS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.FEET, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_ELYTRA = new VanadiumElytra(settings().maxCount(1).fireproof().maxDamage(500));
+
 
     //armure en emeraude
     public static final Item EMERALD_PLATE = new Item(settings().maxCount(64));
@@ -132,6 +134,7 @@ public class ModItems {
         registerNewItem("vanadium_chestplate", VANADIUM_CHESTPLATE);
         registerNewItem("vanadium_leggings", VANADIUM_LEGGINGS);
         registerNewItem("vanadium_boots", VANADIUM_BOOTS);
+        registerNewItem("vanadium_elytra", VANADIUM_ELYTRA);
 
 
         registerNewItem("emerald_helmet", EMERALD_HELMET);

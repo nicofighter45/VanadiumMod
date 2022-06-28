@@ -2,6 +2,7 @@ package fr.vana_mod.nicofighter45.main.server;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import fr.vana_mod.nicofighter45.gui.CustomCraftingScreenHandler;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -23,6 +24,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
@@ -205,17 +207,22 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("craft")
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
-                    server_player.sendMessage(Text.of("§8[§6Server§8] §fThis command is still WIP"));
+                    if(VanadiumModServer.players.get(server_player.getUuid()).isCraft()){
+                        server_player.openHandledScreen(new NamedScreenHandlerFactory() {
+                            @Override
+                            public Text getDisplayName() {
+                                return Text.of("Crafting Table");
+                            }
+                            @Override
+                            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                                return new CustomCraftingScreenHandler(syncId, inv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos()));
+                            }
+                        });
+                        server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
+                    }else{
+                        sendMsg(server_player, "§8[§6Server§8] §fYou haven't unlock this feature");
+                    }
                     return 1;
-//                    if(VanadiumModServer.players.get(server_player.getUuid()).isCraft()){
-//                        server_player.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, inventory, player)
-//                                -> new CraftingScreenHandler(syncId, inventory, ScreenHandlerContext.create(player.getWorld(),
-//                                player.getBlockPos())),Text.translatable("container.crafting")));
-//                        server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
-//                    }else{
-//                        sendMsg(server_player, "You haven't unlock this feature");
-//                    }
-//                    return 1;
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("ec")
@@ -233,6 +240,7 @@ public class Command {
                                 return GenericContainerScreenHandler.createGeneric9x3(syncId, inv, player.getEnderChestInventory());
                             }
                         });
+                        player.incrementStat(Stats.OPEN_ENDERCHEST);
                     }else{
                         sendMsg(player, "§8[§6Server§8] §fYou haven't unlock this feature");
                     }

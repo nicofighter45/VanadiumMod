@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:bow"
+  },
+  "addition": {
+    "item": "vana-mod:vanadium_plate"
+  },
+  "result": {
+    "item": "vana-mod:vanadium_bow"
+  }
+}

@@ -1,7 +1,6 @@
 package fr.vana_mod.nicofighter45.main;
 
-import fr.vana_mod.nicofighter45.items.custom.MegaAxe;
-import fr.vana_mod.nicofighter45.items.custom.SuperHoe;
+import fr.vana_mod.nicofighter45.items.custom.*;
 import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
 import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
@@ -9,20 +8,24 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.*;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import fr.vana_mod.nicofighter45.items.ModItems;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.TypedActionResult;
-import fr.vana_mod.nicofighter45.items.custom.Excavator;
-import fr.vana_mod.nicofighter45.items.custom.Hammer;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.NotNull;
 
@@ -177,11 +180,39 @@ public class Listeners {
                     sendMsg(server_player, "§8[§6Server§8] §fYou now can do /ec to access your ender chest");
                 } else {
                     if(it.getItem() instanceof Hammer){
-                        sendMsg(server_player, "§8[§6Server§8] §fYour hammer is now " + ((Hammer) it.getItem()).changeActivity());
+                        if(((Hammer) it.getItem()).changeActivity()){
+                            server_player.sendMessage(Text.of("§6Hammer mode §4activate"), true);
+                        }else{
+                            server_player.sendMessage(Text.of("§6Hammer mode §4deactivate"), true);
+                        }
                     } else if(it.getItem() instanceof Excavator){
-                        sendMsg(server_player, "§8[§6Server§8] §fYour shovel is now " + ((Excavator) it.getItem()).changeActivity());
+                        if(((Excavator) it.getItem()).changeActivity()){
+                            server_player.sendMessage(Text.of("§6Excavator mode §4activate"), true);
+                        }else{
+                            server_player.sendMessage(Text.of("§6Excavator mode §4deactivate"), true);
+                        }
                     } else if(it.getItem() instanceof MegaAxe){
-                        sendMsg(server_player, "§8[§6Server§8] §fYour axe is now " + ((MegaAxe) it.getItem()).changeActivity());
+                        if(((MegaAxe) it.getItem()).changeActivity()){
+                            server_player.sendMessage(Text.of("§6MegaAxe mode §4activate"), true);
+                        }else{
+                            server_player.sendMessage(Text.of("§6MegaAxe mode §4deactivate"), true);
+                        }
+                    }else if(it.getItem() instanceof EnderBow){
+                        if(((EnderBow) it.getItem()).isEnderPearl()){
+                            PlayerInventory inventory = player.getInventory();
+                            if(removePearl(inventory).getCount() == 1 && server_player.getItemCooldownManager().getCooldownProgress(Items.ENDER_PEARL, 0) == 0) {
+                                world.playSound(null, server_player.getX(), server_player.getY(), server_player.getZ(),
+                                        SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F,
+                                        0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                                server_player.getItemCooldownManager().set(Items.ENDER_PEARL, 20);
+                                EnderPearlEntity enderPearlEntity = new EnderPearlEntity(world, server_player);
+                                enderPearlEntity.setItem(new ItemStack(Items.ENDER_PEARL, 1));
+                                enderPearlEntity.setVelocity(server_player, server_player.getPitch(), server_player.getYaw(),
+                                        0.2F, 3F, 0.2F);
+                                world.spawnEntity(enderPearlEntity);
+                                server_player.incrementStat(Stats.USED.getOrCreateStat(Items.ENDER_PEARL));
+                            }
+                        }
                     }
                     return TypedActionResult.pass(player.getMainHandStack());
                 }
@@ -189,6 +220,22 @@ public class Listeners {
             }
             return TypedActionResult.pass(player.getMainHandStack());
         });
+    }
+
+    private static @NotNull ItemStack removePearl(@NotNull Inventory inventory) {
+        ItemStack itemStack = new ItemStack(Items.ENDER_PEARL, 0);
+        for(int i = inventory.size() - 1; i >= 0; --i) {
+            ItemStack itemStack2 = inventory.getStack(i);
+            if (itemStack2.getItem().equals(Items.ENDER_PEARL)) {
+                int j = 1 - itemStack.getCount();
+                ItemStack itemStack3 = itemStack2.split(j);
+                itemStack.increment(itemStack3.getCount());
+                if (itemStack.getCount() == 1) {
+                    break;
+                }
+            }
+        }
+        return itemStack;
     }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text){

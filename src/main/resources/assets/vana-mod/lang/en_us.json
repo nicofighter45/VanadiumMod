@@ -12,6 +12,7 @@
   "item.vana-mod.vanadium_axe": "Vanadium Axe",
   "item.vana-mod.vanadium_shovel": "Vanadium Shovel",
   "item.vana-mod.vanadium_hoe": "Vanadium Hoe",
+  "item.vana-mod.vanadium_bow": "Vanadium Bow",
 
   "item.vana-mod.vanadium_helmet": "Vanadium Helmet",
   "item.vana-mod.vanadium_chestplate": "Vanadium Chestplate",
@@ -83,6 +84,7 @@
   "item.vana-mod.power_cell": "Power Cell",
   "item.vana-mod.super_power_cell": "Super Power Cell",
   "item.vana-mod.mamad_chicken": "Mamad Chicken",
+  "item.vana-mod.vanadium_apple": "Vanadium Apple",
 
   "item.vana-mod.simple_health_booster": "Simple Health Booster",
   "item.vana-mod.base_health_booster": "Base Health Booster",
@@ -132,8 +134,7 @@
 
   "category.vana-mod.vanadium": "Vanadium",
   "key.vana-mod.night_vision": "Night Vision",
-  "key.vana-mod.hat": "Hat",
-  "key.vana-mod.armor_effect": "Armor Effect",
+  "key.vana-mod.ender_bow_switch": "Ender Bow Switch",
 
   "rei_category.vana-mod.modifiers_table": "Modifiers Table Craft"
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VVV",
+    "VAV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "vana-mod:vanadium_ingot"
+    },
+    "A": {
+      "item": "minecraft:apple"
+    }
+  },
+  "result": {
+    "item": "vana-mod:vanadium_apple",
+    "count": 1
+  }
+}

@@ -56,12 +56,13 @@ public abstract class ServerPlayerEntityMixin {
             if(pos == null){
                 pos = world.getSpawnPos();
             }
+            player.fallDistance = 0;
             player.teleport(world, pos.getX(), pos.getY(), pos.getZ(), 0, 0);
             world.spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 2);
             world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE,
                     SoundCategory.BLOCKS, 1f, 1f);
             for(ServerPlayerEntity players : player.getServer().getPlayerManager().getPlayerList()){
-                players.sendMessage(Text.of("§8[§6Server§8] §fPlayer " + player.getEntityName() + " died and was respawn"));
+                players.sendMessage(player.getDamageTracker().getDeathMessage());
             }
             ci.cancel();
         }

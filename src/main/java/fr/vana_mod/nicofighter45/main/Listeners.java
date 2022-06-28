@@ -8,13 +8,7 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.*;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -216,7 +210,7 @@ public class Listeners {
                 entity.setVelocity(1/(1+(entity.getX() - player.getX())),  1/(1 + (entity.getY() - player.getY())),
                         1/(1 + (entity.getZ() - player.getZ())));
             }
-            return ActionResult.SUCCESS;
+            return ActionResult.PASS;
         });
     }
 

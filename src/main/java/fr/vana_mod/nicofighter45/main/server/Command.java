@@ -3,6 +3,7 @@ package fr.vana_mod.nicofighter45.main.server;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import fr.vana_mod.nicofighter45.gui.CustomCraftingScreenHandler;
+import fr.vana_mod.nicofighter45.items.custom.VanadiumBow;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -67,6 +68,19 @@ public class Command {
                     sendMsg(player, "    baseX   : " + customPlayer.getBase().getX());
                     sendMsg(player, "    baseY   : " + customPlayer.getBase().getY());
                     sendMsg(player, "    baseZ   : " + customPlayer.getBase().getZ());
+                    return 1;
+                })
+        ));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("bow")
+                .executes(c -> {
+                    ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                    if(player.getMainHandStack().getItem() instanceof VanadiumBow vanadiumBow){
+                        if(vanadiumBow.changeEnderPearl()){
+                            player.sendMessage(Text.of("§2Ender Pearl mode §4activate"), true);
+                        }else{
+                            player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);
+                        }
+                    }
                     return 1;
                 })
         ));

@@ -129,4 +129,5 @@ public class VanadiumBow extends BowItem {
         this.enderPearl = !this.enderPearl;
         return this.enderPearl;
     }
+
 }

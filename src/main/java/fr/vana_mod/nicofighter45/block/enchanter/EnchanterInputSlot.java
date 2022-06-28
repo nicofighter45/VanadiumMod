@@ -33,10 +33,10 @@ public class EnchanterInputSlot extends Slot {
 
     @Override
     public boolean canInsert(ItemStack stack) {
-        return (getIndex() == 0 &&
-                    (stack.isEnchantable() || (stack.hasEnchantments() && EnchantmentHelper.get(stack).size() < 8)) ||
+        return (getIndex() == 0 && (stack.isEnchantable() || (stack.hasEnchantments() && EnchantmentHelper.get(stack).size() < 8)) ||
                 (getIndex() == 1 && stack.getItem() == ModItems.VANADIUM_NUGGET) ||
-                (getIndex() == 2 && stack.getItem() == Items.LAPIS_LAZULI));
+                (getIndex() == 2 && stack.getItem() == Items.LAPIS_LAZULI) ||
+                (stack.getItem() instanceof EnchantedBookItem && EnchantmentHelper.get(stack).size() > 1));
     }
 
     @Override

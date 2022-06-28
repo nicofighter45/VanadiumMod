@@ -35,7 +35,11 @@ public class EnchanterOutputSlot extends Slot {
     public boolean canInsert(@NotNull ItemStack stack) {
         if(stack.getItem() instanceof EnchantedBookItem && areInputsFull()){
             List<Enchantment> itemEnchant = this.handler.getItemEnchantments();
-            for(Enchantment enchantment : EnchantmentHelper.get(stack).keySet()){
+            Map<Enchantment, Integer> bookEnchant = EnchantmentHelper.get(stack);
+            if(bookEnchant.size() > 1){
+                return false;
+            }
+            for(Enchantment enchantment : itemEnchant){
                 if(itemEnchant.contains(enchantment) || !enchantment.isAcceptableItem(this.handler.getFirstItem()) ||
                         !EnchantmentHelper.isCompatible(itemEnchant, enchantment)){
                     return false;
@@ -96,9 +100,7 @@ public class EnchanterOutputSlot extends Slot {
             }
         }
         for(int slot = 0; slot < 7; slot ++){
-            if(slot_empty.isEmpty()){
-                break;
-            }else{
+            if(!slot_empty.contains(slot)){
                 NbtCompound nbt = handler.getOutput().getStack(slot).getNbt();
                 assert nbt != null;
                 Map<Enchantment, Integer> enchantmentMap = EnchantmentHelper.get(handler.getOutput().getStack(slot));

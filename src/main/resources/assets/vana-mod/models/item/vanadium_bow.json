@@ -28,23 +28,49 @@
     "overrides": [
         {
             "predicate": {
-                "pulling": 1
+                "pulling": 1,
+                "ender": 0
             },
             "model": "vana-mod:item/vanadium_bow_pulling_0"
         },
         {
             "predicate": {
                 "pulling": 1,
-                "pull": 0.65
+                "pull": 0.65,
+                "ender": 0
             },
             "model": "vana-mod:item/vanadium_bow_pulling_1"
         },
         {
             "predicate": {
                 "pulling": 1,
-                "pull": 0.9
+                "pull": 0.9,
+                "ender": 0
             },
             "model": "vana-mod:item/vanadium_bow_pulling_2"
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "ender": 1
+            },
+            "model": "vana-mod:item/vanadium_bow_ender_pulling_0"
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.65,
+                "ender": 1
+            },
+            "model": "vana-mod:item/vanadium_bow_ender_pulling_1"
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.9,
+                "ender": 1
+            },
+            "model": "vana-mod:item/vanadium_bow_ender_pulling_2"
         }
     ]
 }

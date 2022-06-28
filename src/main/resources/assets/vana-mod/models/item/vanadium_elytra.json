@@ -1,0 +1,14 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "vana-mod:item/vanadium_elytra"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "broken": 1
+            },
+            "model": "vana-mod:item/broken_vanadium_elytra"
+        }
+    ]
+}

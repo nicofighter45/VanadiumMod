@@ -197,22 +197,6 @@ public class Listeners {
                         }else{
                             server_player.sendMessage(Text.of("§6MegaAxe mode §4deactivate"), true);
                         }
-                    }else if(it.getItem() instanceof VanadiumBow){
-                        if(((VanadiumBow) it.getItem()).isEnderPearl()){
-                            PlayerInventory inventory = player.getInventory();
-                            if(removePearl(inventory).getCount() == 1 && server_player.getItemCooldownManager().getCooldownProgress(Items.ENDER_PEARL, 0) == 0) {
-                                world.playSound(null, server_player.getX(), server_player.getY(), server_player.getZ(),
-                                        SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F,
-                                        0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                                server_player.getItemCooldownManager().set(Items.ENDER_PEARL, 20);
-                                EnderPearlEntity enderPearlEntity = new EnderPearlEntity(world, server_player);
-                                enderPearlEntity.setItem(new ItemStack(Items.ENDER_PEARL, 1));
-                                enderPearlEntity.setVelocity(server_player, server_player.getPitch(), server_player.getYaw(),
-                                        0.2F, 3F, 0.2F);
-                                world.spawnEntity(enderPearlEntity);
-                                server_player.incrementStat(Stats.USED.getOrCreateStat(Items.ENDER_PEARL));
-                            }
-                        }
                     }
                     return TypedActionResult.pass(player.getMainHandStack());
                 }
@@ -220,22 +204,6 @@ public class Listeners {
             }
             return TypedActionResult.pass(player.getMainHandStack());
         });
-    }
-
-    private static @NotNull ItemStack removePearl(@NotNull Inventory inventory) {
-        ItemStack itemStack = new ItemStack(Items.ENDER_PEARL, 0);
-        for(int i = inventory.size() - 1; i >= 0; --i) {
-            ItemStack itemStack2 = inventory.getStack(i);
-            if (itemStack2.getItem().equals(Items.ENDER_PEARL)) {
-                int j = 1 - itemStack.getCount();
-                ItemStack itemStack3 = itemStack2.split(j);
-                itemStack.increment(itemStack3.getCount());
-                if (itemStack.getCount() == 1) {
-                    break;
-                }
-            }
-        }
-        return itemStack;
     }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text){

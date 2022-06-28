@@ -32,7 +32,7 @@ public class ModItems {
     public static final Item VANADIUM_AXE = new MegaAxe(VanadiumToolMaterial.INSTANCE, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_SHOVEL = new Excavator(VanadiumToolMaterial.INSTANCE, 1, 1, settings().maxCount(1).fireproof());
     public static final Item VANADIUM_HOE = new SuperHoe(VanadiumToolMaterial.INSTANCE, 1, -3F, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_BOW = new EnderBow(settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_BOW = new VanadiumBow(settings().maxCount(1).fireproof());
 
     //armure en vanadium
     public static final Item VANADIUM_HELMET = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.HEAD, settings().maxCount(1).fireproof());
@@ -125,6 +125,7 @@ public class ModItems {
         registerNewItem("vanadium_axe", VANADIUM_AXE);
         registerNewItem("vanadium_shovel", VANADIUM_SHOVEL);
         registerNewItem("vanadium_hoe", VANADIUM_HOE);
+
         registerNewItem("vanadium_bow", VANADIUM_BOW);
 
         registerNewItem("vanadium_helmet", VANADIUM_HELMET);

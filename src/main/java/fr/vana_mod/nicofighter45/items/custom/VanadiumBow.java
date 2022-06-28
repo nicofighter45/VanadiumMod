@@ -11,17 +11,14 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Predicate;
-
-public class EnderBow extends RangedWeaponItem {
+public class VanadiumBow extends BowItem {
 
     private boolean enderPearl = false;
 
-    public EnderBow(Settings settings) {
+    public VanadiumBow(Settings settings) {
         super(settings);
     }
 
@@ -83,23 +80,6 @@ public class EnderBow extends RangedWeaponItem {
         }
     }
 
-    public static float getPullProgress(int useTicks) {
-        float f = (float)useTicks / 20.0F;
-        f = (f * f + f * 2.0F) / 3.0F;
-        if (f > 1.0F) {
-            f = 1.0F;
-        }
-        return f;
-    }
-
-    public int getMaxUseTime(ItemStack stack) {
-        return 144000;
-    }
-
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
-    }
-
     public TypedActionResult<ItemStack> use(World world, @NotNull PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if(isEnderPearl()){
@@ -112,14 +92,6 @@ public class EnderBow extends RangedWeaponItem {
             user.setCurrentHand(hand);
             return TypedActionResult.consume(itemStack);
         }
-    }
-
-    public Predicate<ItemStack> getProjectiles() {
-        return BOW_PROJECTILES;
-    }
-
-    public int getRange() {
-        return 15;
     }
 
     public boolean isEnderPearl() {

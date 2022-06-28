@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.main;
 
-import fr.vana_mod.nicofighter45.items.custom.EnderBow;
+import fr.vana_mod.nicofighter45.items.custom.VanadiumBow;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -32,8 +32,8 @@ public class KeyBinds {
             }else if(keybinding_ender_bow_switch.isPressed()){
                 ClientPlayerEntity player = client.player;
                 assert player != null;
-                if(player.getMainHandStack().getItem() instanceof EnderBow){
-                    if(((EnderBow) player.getMainHandStack().getItem()).changeEnderPearl()){
+                if(player.getMainHandStack().getItem() instanceof VanadiumBow){
+                    if(((VanadiumBow) player.getMainHandStack().getItem()).changeEnderPearl()){
                         player.sendMessage(Text.of("§2Ender Pearl mode §4activate"), true);
                     }else{
                         player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);

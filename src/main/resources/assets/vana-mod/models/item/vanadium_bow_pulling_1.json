@@ -1,5 +1,5 @@
 {
-    "parent": "vana-mod:item/vanadium_bow",
+    "parent": "item/bow",
     "textures": {
         "layer0": "vana-mod:item/vanadium_bow_pulling_1"
     }

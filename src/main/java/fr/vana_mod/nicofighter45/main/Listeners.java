@@ -197,8 +197,8 @@ public class Listeners {
                         }else{
                             server_player.sendMessage(Text.of("§6MegaAxe mode §4deactivate"), true);
                         }
-                    }else if(it.getItem() instanceof EnderBow){
-                        if(((EnderBow) it.getItem()).isEnderPearl()){
+                    }else if(it.getItem() instanceof VanadiumBow){
+                        if(((VanadiumBow) it.getItem()).isEnderPearl()){
                             PlayerInventory inventory = player.getInventory();
                             if(removePearl(inventory).getCount() == 1 && server_player.getItemCooldownManager().getCooldownProgress(Items.ENDER_PEARL, 0) == 0) {
                                 world.playSound(null, server_player.getX(), server_player.getY(), server_player.getZ(),

@@ -8,6 +8,9 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,6 +22,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.MiningToolItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.*;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -33,10 +37,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.UUID;
+import java.util.*;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -68,19 +69,6 @@ public class Command {
                     sendMsg(player, "    baseX   : " + customPlayer.getBase().getX());
                     sendMsg(player, "    baseY   : " + customPlayer.getBase().getY());
                     sendMsg(player, "    baseZ   : " + customPlayer.getBase().getZ());
-                    return 1;
-                })
-        ));
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("bow")
-                .executes(c -> {
-                    ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    if(player.getMainHandStack().getItem() instanceof VanadiumBow vanadiumBow){
-                        if(vanadiumBow.changeEnderPearl()){
-                            player.sendMessage(Text.of("§2Ender Pearl mode §4activate"), true);
-                        }else{
-                            player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);
-                        }
-                    }
                     return 1;
                 })
         ));

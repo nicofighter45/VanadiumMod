@@ -6,6 +6,8 @@
     "vana-mod:tungsten_ore",
     "vana-mod:silver_ore",
     "vana-mod:silver_block",
-    "vana-mod:tungsten_block"
+    "vana-mod:tungsten_block",
+    "vana-mod:vanadium_block",
+    "vana-mod:vanadium_ore"
   ]
 }

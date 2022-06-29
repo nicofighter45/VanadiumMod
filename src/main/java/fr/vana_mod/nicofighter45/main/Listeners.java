@@ -1,17 +1,24 @@
 package fr.vana_mod.nicofighter45.main;
 
+import dev.architectury.event.events.common.InteractionEvent;
 import fr.vana_mod.nicofighter45.items.custom.*;
 import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
 import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
+import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import fr.vana_mod.nicofighter45.items.ModItems;
@@ -40,7 +47,10 @@ public class Listeners {
                                 (world.getBlockState(pos_final).getBlock() == Blocks.GRASS_BLOCK && state.getBlock() == Blocks.DIRT) ||
                                 (world.getBlockState(pos_final).getBlock() == Blocks.DIRT && state.getBlock() == Blocks.GRASS_BLOCK)){
                             if(stack.getDamage() > 0){
-                                world.breakBlock(pos_final, true, player);
+                                ((ServerPlayerEntity) player).interactionManager.tryBreakBlock(pos_final);
+                                Block.dropStacks(world.getBlockState(pos_final), world, pos_final, null, player, stack);
+                                world.breakBlock(pos_final, false);
+                                ((ServerPlayerEntity) player).networkHandler.sendPacket(new BlockUpdateS2CPacket(pos_final, world.getBlockState(pos_final)));
                                 stack.damage(1, Random.create(), (ServerPlayerEntity) player);
                             }
                         }
@@ -214,9 +224,30 @@ public class Listeners {
         });
     }
 
+    private final static Identifier BOW_SWITCH_MODE_PACKET = new Identifier(VanadiumMod.MODID, "bow_switch_mode_packet");
+
+    private static void onLeftClick() {
+        ServerPlayNetworking.registerGlobalReceiver(BOW_SWITCH_MODE_PACKET, (server, player, handler, buf, responseSender) -> {
+            if(((VanadiumBow) player.getMainHandStack().getItem()).changeEnderPearl()){
+                player.sendMessage(Text.of("§2Ender Pearl mode §4activate"), true);
+            }else{
+                player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);
+            }
+        });
+        InteractionEvent.CLIENT_LEFT_CLICK_AIR.register((player, hand) -> {
+            if(player.getMainHandStack().getItem() instanceof VanadiumBow){
+                if(ClientPlayNetworking.canSend(BOW_SWITCH_MODE_PACKET)){
+                    ClientPlayNetworking.send(BOW_SWITCH_MODE_PACKET, PacketByteBufs.empty());
+                }
+            }
+        });
+    }
+
     public static void registerAll() {
         onAttackBlockRegister();
         onItemRightClickRegister();
         onEntityAttack();
+        onLeftClick();
     }
+
 }

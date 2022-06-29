@@ -1,12 +1,13 @@
-package fr.vana_mod.nicofighter45.main;
+package fr.vana_mod.nicofighter45.main.client;
 
 import fr.vana_mod.nicofighter45.block.enchanter.EnchanterScreen;
 import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableScreen;
 import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.items.custom.VanadiumBow;
+import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import fr.vana_mod.nicofighter45.entity.ModEntity;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,10 +19,11 @@ public class VanadiumModClient implements ClientModInitializer {
     public void onInitializeClient() {
 
         //register modifiers table screen on client
-        ScreenRegistry.register(VanadiumMod.MODIFIERS_TABLE_SCREEN_HANDLER, ModifiersTableScreen::new);
+
+        HandledScreens.register(VanadiumMod.MODIFIERS_TABLE_SCREEN_HANDLER, ModifiersTableScreen::new);
 
         //register enchanter on client
-        ScreenRegistry.register(VanadiumMod.ENCHANTER_SCREEN_HANDLER, EnchanterScreen::new);
+        HandledScreens.register(VanadiumMod.ENCHANTER_SCREEN_HANDLER, EnchanterScreen::new);
 
         //register vanadium bow
         ModelPredicateProviderRegistry.register(ModItems.VANADIUM_BOW, new Identifier("pull"), (stack, world, entity, seed) -> {

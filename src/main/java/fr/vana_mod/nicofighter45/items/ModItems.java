@@ -26,46 +26,46 @@ public class ModItems {
     //vanadium
     public static final Item VANADIUM_NUGGET = new Item(settings().fireproof());
     public static final Item VANADIUM_INGOT = new Item(settings().fireproof());
-    public static final Item VANADIUM_PLATE = new Item(settings().maxCount(64).fireproof());
-    public static final Item VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -2, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_HAMMER = new Hammer(VanadiumToolMaterial.INSTANCE, 4, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_AXE = new MegaAxe(VanadiumToolMaterial.INSTANCE, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_SHOVEL = new Excavator(VanadiumToolMaterial.INSTANCE, 1, 1, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_HOE = new SuperHoe(VanadiumToolMaterial.INSTANCE, 1, -3F, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_BOW = new VanadiumBow(settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_PLATE = new Item(settings().fireproof());
+    public static final Item VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -2, settings().fireproof());
+    public static final Item VANADIUM_HAMMER = new Hammer(VanadiumToolMaterial.INSTANCE, 4, settings().fireproof());
+    public static final Item VANADIUM_AXE = new MegaAxe(VanadiumToolMaterial.INSTANCE, settings().fireproof());
+    public static final Item VANADIUM_SHOVEL = new Excavator(VanadiumToolMaterial.INSTANCE, 1, 1, settings().fireproof());
+    public static final Item VANADIUM_HOE = new SuperHoe(VanadiumToolMaterial.INSTANCE, 1, -3F, settings().fireproof());
+    public static final Item VANADIUM_BOW = new VanadiumBow(settings().fireproof());
 
     //armure en vanadium
-    public static final Item VANADIUM_HELMET = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.HEAD, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_CHESTPLATE = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.CHEST, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_LEGGINGS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.LEGS, settings().maxCount(1).fireproof());
-    public static final Item VANADIUM_BOOTS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.FEET, settings().maxCount(1).fireproof());
+    public static final Item VANADIUM_HELMET = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.HEAD, settings().fireproof());
+    public static final Item VANADIUM_CHESTPLATE = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.CHEST, settings().fireproof());
+    public static final Item VANADIUM_LEGGINGS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.LEGS, settings().fireproof());
+    public static final Item VANADIUM_BOOTS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.FEET, settings().fireproof());
     public static final Item VANADIUM_ELYTRA = new ElytraItem(settings().maxCount(1).fireproof().maxDamage(500));
 
 
     //armure en emeraude
-    public static final Item EMERALD_PLATE = new Item(settings().maxCount(64));
-    public static final Item EMERALD_HELMET = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.HEAD, settings().maxCount(1).fireproof());
-    public static final Item EMERALD_CHESTPLATE = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.CHEST, settings().maxCount(1).fireproof());
-    public static final Item EMERALD_LEGGINGS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.LEGS, settings().maxCount(1).fireproof());
-    public static final Item EMERALD_BOOTS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.FEET, settings().maxCount(1).fireproof());
+    public static final Item EMERALD_PLATE = new Item(settings());
+    public static final Item EMERALD_HELMET = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.HEAD, settings().fireproof());
+    public static final Item EMERALD_CHESTPLATE = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.CHEST, settings().fireproof());
+    public static final Item EMERALD_LEGGINGS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.LEGS, settings().fireproof());
+    public static final Item EMERALD_BOOTS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.FEET, settings().fireproof());
 
     //tungsten
-    public static final Item TUNGSTEN_INGOT = new Item(settings().maxCount(64));
-    public static final Item TUNGSTEN_PLATE = new Item(settings().maxCount(64));
-    public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(TungstenArmorMaterials.TUNGSTEN, EquipmentSlot.CHEST, settings().maxCount(1).fireproof());
-    public static final Item TUNGSTEN_HAMMER = new Hammer(TungstenToolMaterial.INSTANCE, 3, settings().maxCount(1).fireproof());
+    public static final Item TUNGSTEN_INGOT = new Item(settings());
+    public static final Item TUNGSTEN_PLATE = new Item(settings());
+    public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(TungstenArmorMaterials.TUNGSTEN, EquipmentSlot.CHEST, settings().fireproof());
+    public static final Item TUNGSTEN_HAMMER = new Hammer(TungstenToolMaterial.INSTANCE, 3, settings().fireproof());
 
     //argent
-    public static final Item SILVER_INGOT = new Item((settings()).maxCount(64));
+    public static final Item SILVER_INGOT = new Item((settings()));
 
     //copper
-    public static final Item COPPER_HAMMER = new Hammer(CopperToolMaterial.INSTANCE, 1, settings().maxCount(1));
-    public static final Item COPPER_PLATE = new Item(settings().maxCount(64));
+    public static final Item COPPER_HAMMER = new Hammer(CopperToolMaterial.INSTANCE, 1, settings());
+    public static final Item COPPER_PLATE = new Item(settings());
 
     //tin
-    public static final Item TIN_INGOT = new Item(settings().maxCount(64));
-    public static final Item TIN_PLATE = new Item(settings().maxCount(64));
-    public static final Item TIN_HAMMER = new Hammer(TinToolMaterial.INSTANCE, 2, settings().maxCount(1));
+    public static final Item TIN_INGOT = new Item(settings());
+    public static final Item TIN_PLATE = new Item(settings());
+    public static final Item TIN_HAMMER = new Hammer(TinToolMaterial.INSTANCE, 2, settings());
 
     //processeur
     public static final Item TRANSISTOR = new Item(settings().maxCount(16));
@@ -102,18 +102,18 @@ public class ModItems {
     public static final Item ENDER_CHEST_STONE = new Item(settings().maxCount(1));
 
     //hat
-    public static final Item HAT = new Item(settings().maxCount(1));
+    public static final Item HAT = new Item(settings());
 
     //steam
-    public static final Item STEEL_INGOT = new Item(settings().maxCount(64));
-    public static final Item STEEL_PLATE = new Item(settings().maxCount(64));
-    public static final Item STEEL_HELMET = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.HEAD, settings().maxCount(1));
-    public static final Item STEEL_CHESTPLATE = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.CHEST, settings().maxCount(1));
-    public static final Item STEEL_LEGGINGS = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.LEGS, settings().maxCount(1));
-    public static final Item STEEL_BOOTS = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.FEET, settings().maxCount(1));
+    public static final Item STEEL_INGOT = new Item(settings());
+    public static final Item STEEL_PLATE = new Item(settings());
+    public static final Item STEEL_HELMET = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.HEAD, settings());
+    public static final Item STEEL_CHESTPLATE = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.CHEST, settings());
+    public static final Item STEEL_LEGGINGS = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.LEGS, settings());
+    public static final Item STEEL_BOOTS = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.FEET, settings());
 
     //plate
-    public static final Item DIAMOND_PLATE = new Item(settings().maxCount(64));
+    public static final Item DIAMOND_PLATE = new Item(settings());
 
     public static void registerAll() {
 
@@ -172,7 +172,7 @@ public class ModItems {
         registerNewItem("base_regen_booster", BASE_REGEN_BOOSTER);
         registerNewItem("advance_regen_booster", ADVANCE_REGEN_BOOSTER);
 
-        registerNewItem("crafting_stone", CRAFTING_STONE); // #todo add screen
+        registerNewItem("crafting_stone", CRAFTING_STONE);
         registerNewItem("ender_chest_stone", ENDER_CHEST_STONE);
 
         registerNewItem("hat", HAT);

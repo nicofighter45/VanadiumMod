@@ -32,7 +32,9 @@ public class VanadiumBow extends BowItem {
             if(isEnderPearl()){
                 if(playerEntity.getInventory().contains(new ItemStack(Items.ENDER_PEARL))){
                     playerEntity.getInventory().removeOne(new ItemStack(Items.ENDER_PEARL));
+                    System.out.println("client");
                     if(!world.isClient){
+                        System.out.println("server");
                         stack.damage(1, Random.create(),(ServerPlayerEntity) playerEntity);
                         EnderPearlEntity enderPearlEntity = new EnderPearlEntity(world, playerEntity);
                         enderPearlEntity.setItem(new ItemStack(Items.ENDER_PEARL, 1));

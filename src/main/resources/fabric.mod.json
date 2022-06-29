@@ -22,7 +22,7 @@
       "fr.vana_mod.nicofighter45.main.VanadiumMod"
     ],
     "client": [
-      "fr.vana_mod.nicofighter45.main.VanadiumModClient"
+      "fr.vana_mod.nicofighter45.main.client.VanadiumModClient"
     ],
     "server": [
       "fr.vana_mod.nicofighter45.main.server.VanadiumModServer"

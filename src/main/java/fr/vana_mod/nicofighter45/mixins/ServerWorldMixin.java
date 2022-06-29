@@ -29,7 +29,7 @@ public class ServerWorldMixin {
             Objects.requireNonNull(player.getServer()).getPlayerManager().disconnectAllPlayers();
         }
         if(!VanadiumModServer.players.containsKey(player.getUuid())){
-            VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false, world.getSpawnPos()));
+            VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false, player.getServer().getOverworld().getSpawnPos()));
             player.setHealth(10);
         }
         CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());

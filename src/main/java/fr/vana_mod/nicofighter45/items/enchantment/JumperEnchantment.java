@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.items.enchantment;
 
-import fr.vana_mod.nicofighter45.items.armor.VanadiumArmorMaterials;
+import fr.vana_mod.nicofighter45.items.armor.ModArmorsMaterial;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
@@ -20,10 +20,8 @@ public class JumperEnchantment extends Enchantment {
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        if(stack.getItem() instanceof ArmorItem armor){
-            return armor.getSlotType() == EquipmentSlot.FEET && armor.getMaterial() instanceof VanadiumArmorMaterials;
-        }
-        return false;
+        return stack.getItem() instanceof ArmorItem armor && armor.getSlotType() == EquipmentSlot.FEET &&
+                armor.getMaterial().equals(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL);
     }
 
     @Override

@@ -1,14 +1,30 @@
 package fr.vana_mod.nicofighter45.items.enchantment;
 
+import fr.vana_mod.nicofighter45.items.armor.ModArmorsMaterial;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 public class ModEnchants {
+
+    //test
+    public static Enchantment MINI_HASTER = new BasicEffectEnchantment(Enchantment.Rarity.UNCOMMON,
+            EquipmentSlot.HEAD, false, true, StatusEffects.HASTE,
+            ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 1);
+    public static Enchantment MINI_RESISTANCER = new BasicEffectEnchantment(Enchantment.Rarity.UNCOMMON,
+            EquipmentSlot.CHEST, false, true, StatusEffects.RESISTANCE,
+            ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 1);
+    public static Enchantment MINI_STRENGTHER = new BasicEffectEnchantment(Enchantment.Rarity.UNCOMMON,
+            EquipmentSlot.LEGS, false, true, StatusEffects.STRENGTH,
+            ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 1);
+    public static Enchantment MINI_FASTER = new BasicEffectEnchantment(Enchantment.Rarity.UNCOMMON,
+            EquipmentSlot.FEET, false, true, StatusEffects.SPEED,
+            ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 1);
 
     //enchants
     public static Enchantment FASTER = new FasterEnchantment(

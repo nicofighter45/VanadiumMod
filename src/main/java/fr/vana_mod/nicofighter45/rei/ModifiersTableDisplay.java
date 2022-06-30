@@ -32,7 +32,7 @@ public class ModifiersTableDisplay<R extends ModifiersDisplay> implements Displa
     }
 
     @Override
-    public CategoryIdentifier getCategoryIdentifier() {
+    public CategoryIdentifier<R> getCategoryIdentifier() {
         return CategoryIdentifier.of(new Identifier(VanadiumMod.MODID, "modifiers_table"));
     }
 

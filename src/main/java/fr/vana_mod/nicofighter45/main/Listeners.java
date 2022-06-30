@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.main;
 
+import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.InteractionEvent;
 import fr.vana_mod.nicofighter45.items.custom.*;
 import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
@@ -13,6 +14,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.text.MutableText;
@@ -234,13 +236,33 @@ public class Listeners {
                 player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);
             }
         });
-        InteractionEvent.CLIENT_LEFT_CLICK_AIR.register((player, hand) -> {
-            if(player.getMainHandStack().getItem() instanceof VanadiumBow){
+        InteractionEvent.LEFT_CLICK_BLOCK.register((player, hand, pos, face) -> {
+            if(bowCheck(player)){
+                return EventResult.interrupt(true);
+            }
+            return EventResult.pass();
+        });
+        InteractionEvent.CLIENT_LEFT_CLICK_AIR.register((player, hand) -> bowCheck(player));
+    }
+
+    private static boolean bowCheck(@NotNull PlayerEntity player){
+        if(player.getMainHandStack().getItem() instanceof VanadiumBow){
+            if(player.getWorld().isClient()){
+                System.out.println("Client side");
                 if(ClientPlayNetworking.canSend(BOW_SWITCH_MODE_PACKET)){
                     ClientPlayNetworking.send(BOW_SWITCH_MODE_PACKET, PacketByteBufs.empty());
                 }
+            }else{
+                System.out.println("Server side");
+                if(((VanadiumBow) player.getMainHandStack().getItem()).changeEnderPearl()){
+                    player.sendMessage(Text.of("§2Ender Pearl mode §4activate"), true);
+                }else{
+                    player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);
+                }
             }
-        });
+            return true;
+        }
+        return false;
     }
 
     public static void registerAll() {

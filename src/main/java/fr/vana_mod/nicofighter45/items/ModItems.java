@@ -1,11 +1,8 @@
 package fr.vana_mod.nicofighter45.items;
 
-import fr.vana_mod.nicofighter45.items.armor.SteelArmorMaterials;
+import fr.vana_mod.nicofighter45.items.armor.ModArmorsMaterial;
 import fr.vana_mod.nicofighter45.items.custom.*;
 import fr.vana_mod.nicofighter45.main.VanadiumMod;
-import fr.vana_mod.nicofighter45.items.armor.EmeraldArmorMaterials;
-import fr.vana_mod.nicofighter45.items.armor.TungstenArmorMaterials;
-import fr.vana_mod.nicofighter45.items.armor.VanadiumArmorMaterials;
 import fr.vana_mod.nicofighter45.items.tool_material.CopperToolMaterial;
 import fr.vana_mod.nicofighter45.items.tool_material.TinToolMaterial;
 import fr.vana_mod.nicofighter45.items.tool_material.TungstenToolMaterial;
@@ -35,24 +32,24 @@ public class ModItems {
     public static final Item VANADIUM_BOW = new VanadiumBow(settings().fireproof());
 
     //armure en vanadium
-    public static final Item VANADIUM_HELMET = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.HEAD, settings().fireproof());
-    public static final Item VANADIUM_CHESTPLATE = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.CHEST, settings().fireproof());
-    public static final Item VANADIUM_LEGGINGS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.LEGS, settings().fireproof());
-    public static final Item VANADIUM_BOOTS = new ArmorItem(VanadiumArmorMaterials.VANADIUM, EquipmentSlot.FEET, settings().fireproof());
+    public static final Item VANADIUM_HELMET = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, EquipmentSlot.HEAD, settings().fireproof());
+    public static final Item VANADIUM_CHESTPLATE = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, EquipmentSlot.CHEST, settings().fireproof());
+    public static final Item VANADIUM_LEGGINGS = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, EquipmentSlot.LEGS, settings().fireproof());
+    public static final Item VANADIUM_BOOTS = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, EquipmentSlot.FEET, settings().fireproof());
     public static final Item VANADIUM_ELYTRA = new ElytraItem(settings().maxCount(1).fireproof().maxDamage(500));
 
 
     //armure en emeraude
     public static final Item EMERALD_PLATE = new Item(settings());
-    public static final Item EMERALD_HELMET = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.HEAD, settings().fireproof());
-    public static final Item EMERALD_CHESTPLATE = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.CHEST, settings().fireproof());
-    public static final Item EMERALD_LEGGINGS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.LEGS, settings().fireproof());
-    public static final Item EMERALD_BOOTS = new ArmorItem(EmeraldArmorMaterials.EMERALD, EquipmentSlot.FEET, settings().fireproof());
+    public static final Item EMERALD_HELMET = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.HEAD, settings().fireproof());
+    public static final Item EMERALD_CHESTPLATE = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.CHEST, settings().fireproof());
+    public static final Item EMERALD_LEGGINGS = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.LEGS, settings().fireproof());
+    public static final Item EMERALD_BOOTS = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.FEET, settings().fireproof());
 
     //tungsten
     public static final Item TUNGSTEN_INGOT = new Item(settings());
     public static final Item TUNGSTEN_PLATE = new Item(settings());
-    public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(TungstenArmorMaterials.TUNGSTEN, EquipmentSlot.CHEST, settings().fireproof());
+    public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(ModArmorsMaterial.TUNGSTEN_ARMOR_MATERIAL, EquipmentSlot.CHEST, settings().fireproof());
     public static final Item TUNGSTEN_HAMMER = new Hammer(TungstenToolMaterial.INSTANCE, 3, settings().fireproof());
 
     //argent
@@ -107,10 +104,10 @@ public class ModItems {
     //steam
     public static final Item STEEL_INGOT = new Item(settings());
     public static final Item STEEL_PLATE = new Item(settings());
-    public static final Item STEEL_HELMET = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.HEAD, settings());
-    public static final Item STEEL_CHESTPLATE = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.CHEST, settings());
-    public static final Item STEEL_LEGGINGS = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.LEGS, settings());
-    public static final Item STEEL_BOOTS = new ArmorItem(SteelArmorMaterials.STEEL, EquipmentSlot.FEET, settings());
+    public static final Item STEEL_HELMET = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.HEAD, settings());
+    public static final Item STEEL_CHESTPLATE = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.CHEST, settings());
+    public static final Item STEEL_LEGGINGS = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.LEGS, settings());
+    public static final Item STEEL_BOOTS = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.FEET, settings());
 
     //plate
     public static final Item DIAMOND_PLATE = new Item(settings());

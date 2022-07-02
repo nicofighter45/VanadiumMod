@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class BasicArmorMaterial implements ArmorMaterial {
 
-
     private final int[] baseDurability, protection;
     private final int durabilityMuliplier, enchantability;
     private final SoundEvent equipSound;

@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.block.enchanter;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -11,8 +11,8 @@ import net.minecraft.util.Identifier;
 
 public class EnchanterScreen extends HandledScreen<EnchanterScreenHandler> {
 
-    private static final Identifier TEXTURE_BACKGROUND = new Identifier(VanadiumMod.MODID, "textures/gui/container/enchanter.png");
-    private static final Identifier TEXTURE_VANADIUM_NUGGET = new Identifier(VanadiumMod.MODID, "textures/item/vanadium_nugget.png");
+    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/container/enchanter.png");
+    private static final Identifier TEXTURE_VANADIUM_NUGGET = new Identifier(CommonInitializer.MODID, "textures/item/vanadium_nugget.png");
     private static final Identifier TEXTURE_LAPIS_LAZULI = new Identifier("minecraft", "textures/item/lapis_lazuli.png");
 
     public EnchanterScreen(EnchanterScreenHandler handler, PlayerInventory inventory, Text title) {

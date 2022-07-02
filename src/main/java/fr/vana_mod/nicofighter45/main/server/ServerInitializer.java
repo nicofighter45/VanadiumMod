@@ -4,7 +4,7 @@ import net.fabricmc.api.DedicatedServerModInitializer;
 
 import java.util.*;
 
-public class VanadiumModServer implements DedicatedServerModInitializer {
+public class ServerInitializer implements DedicatedServerModInitializer {
 
     //custom player
     public static Map<UUID, CustomPlayer> players = new HashMap<>();

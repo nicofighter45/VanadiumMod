@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class ExperienceEnchantment extends Enchantment {
 
-    public ExperienceEnchantment(Rarity weight, EnchantmentTarget target, EquipmentSlot[] equipementSlot) {
-        super(weight, target, equipementSlot);
+    public ExperienceEnchantment() {
+        super(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override

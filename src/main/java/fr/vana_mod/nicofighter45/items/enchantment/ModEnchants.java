@@ -1,9 +1,8 @@
 package fr.vana_mod.nicofighter45.items.enchantment;
 
 import fr.vana_mod.nicofighter45.items.armor.ModArmorsMaterial;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Identifier;
@@ -27,64 +26,28 @@ public class ModEnchants {
             ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 1);
 
     //enchants
-    public static Enchantment FASTER = new FasterEnchantment(
-            Enchantment.Rarity.RARE,
-            EnchantmentTarget.ARMOR,
-            new EquipmentSlot[]{
-                    EquipmentSlot.LEGS
-            }
-    );
-    public static Enchantment JUMPER = new JumperEnchantment(
-            Enchantment.Rarity.RARE,
-            EnchantmentTarget.ARMOR,
-            new EquipmentSlot[]{
-                    EquipmentSlot.FEET
-            }
-    );
-    public static Enchantment HASTER = new HasterEnchantment(
-            Enchantment.Rarity.RARE,
-            EnchantmentTarget.ARMOR,
-            new EquipmentSlot[]{
-                    EquipmentSlot.HEAD
-            }
-    );
-    public static Enchantment STRENGHTER = new StrenghterEnchantment(
-            Enchantment.Rarity.RARE,
-            EnchantmentTarget.ARMOR,
-            new EquipmentSlot[]{
-                    EquipmentSlot.HEAD
-            }
-    );
-    public static Enchantment RESISTANCER = new ResistancerEnchantment(
-            Enchantment.Rarity.RARE,
-            EnchantmentTarget.ARMOR,
-            new EquipmentSlot[]{
-                    EquipmentSlot.LEGS
-            }
-    );
-    public static Enchantment NO_FALL = new No_FallEnchantment(
-            Enchantment.Rarity.RARE,
-            EnchantmentTarget.ARMOR,
-            new EquipmentSlot[]{
-                    EquipmentSlot.FEET
-            }
-    );
-    public static Enchantment EXPERIENCE = new ExperienceEnchantment(
-            Enchantment.Rarity.RARE,
-            EnchantmentTarget.WEAPON,
-            new EquipmentSlot[]{
-                    EquipmentSlot.MAINHAND
-            }
-    );
+    public static Enchantment HASTER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.HEAD,
+            false, false, StatusEffects.HASTE, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, 3);
+    public static Enchantment STRENGHTER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.HEAD,
+            false, false, StatusEffects.STRENGTH, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, 2);
+    public static Enchantment RESISTANCER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.LEGS,
+            false, false, StatusEffects.RESISTANCE, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, 2);
+    public static Enchantment FASTER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.LEGS,
+            false, false, StatusEffects.SPEED, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, 5);
+    public static Enchantment JUMPER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.FEET,
+            false, false, StatusEffects.JUMP_BOOST, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, 5);
+
+    public static Enchantment NO_FALL = new NoFallEnchantment();
+    public static Enchantment EXPERIENCE = new ExperienceEnchantment();
 
     public static void registerAll(){
-        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "faster"), FASTER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "jumper"), JUMPER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "haster"), HASTER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "strenghter"), STRENGHTER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "resistancer"), RESISTANCER);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "no_fall"), NO_FALL);
-        Registry.register(Registry.ENCHANTMENT, new Identifier(VanadiumMod.MODID, "experience"), EXPERIENCE);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(CommonInitializer.MODID, "faster"), FASTER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(CommonInitializer.MODID, "jumper"), JUMPER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(CommonInitializer.MODID, "haster"), HASTER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(CommonInitializer.MODID, "strenghter"), STRENGHTER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(CommonInitializer.MODID, "resistancer"), RESISTANCER);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(CommonInitializer.MODID, "no_fall"), NO_FALL);
+        Registry.register(Registry.ENCHANTMENT, new Identifier(CommonInitializer.MODID, "experience"), EXPERIENCE);
     }
 
     public static @Nullable Enchantment getEnchant(String name){

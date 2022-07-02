@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.mixins;
 
 import fr.vana_mod.nicofighter45.items.ModItems;
-import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
+import fr.vana_mod.nicofighter45.items.enchantment.BasicEffectEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -32,7 +32,7 @@ public class PlayerEntityMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "tick")              //inject lign 1 of tick method of PlayerEntity class
+    @Inject(at = @At("HEAD"), method = "tick")
     private void tick(CallbackInfo info) {
         if(timer > 0){
             timer --;
@@ -43,20 +43,21 @@ public class PlayerEntityMixin {
             ItemStack leggings = getEquippedStack(EquipmentSlot.LEGS);
             ItemStack boots = getEquippedStack(EquipmentSlot.FEET);
 
-            Map<Enchantment, Integer> enchantHelmet = EnchantmentHelper.get(helmet);
-            Map<Enchantment, Integer> enchantLeggings = EnchantmentHelper.get(leggings);
-            Map<Enchantment, Integer> enchantBoots = EnchantmentHelper.get(boots);
+            Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(helmet);
+            enchantments.putAll(EnchantmentHelper.get(chestplate));
+            enchantments.putAll(EnchantmentHelper.get(leggings));
+            enchantments.putAll(EnchantmentHelper.get(boots));
+
+            for(Enchantment enchantment : enchantments.keySet()){
+                if(enchantment instanceof BasicEffectEnchantment basicEffectEnchantment){
+                   player.addStatusEffect(new StatusEffectInstance(basicEffectEnchantment.getEffect(), 140,
+                           enchantments.get(enchantment), false, false, true));
+                }
+            }
 
             //check helmet
             if (helmet.getItem() == ModItems.EMERALD_HELMET) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 140, 1, false, false, true));
-            }else {
-                if(enchantHelmet.containsKey(ModEnchants.HASTER)){
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 140, enchantHelmet.get(ModEnchants.HASTER) - 1, false, false, true));
-                }
-                if(enchantHelmet.containsKey(ModEnchants.STRENGHTER)){
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 140, enchantHelmet.get(ModEnchants.STRENGHTER) - 1, false, false, true));
-                }
             }
 
             //check chesplate
@@ -70,22 +71,11 @@ public class PlayerEntityMixin {
             //check leggings
             if (leggings.getItem() == ModItems.EMERALD_LEGGINGS) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 140, 0, false, false, true));
-            }else{
-                if(enchantLeggings.containsKey(ModEnchants.FASTER)){
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 140, enchantLeggings.get(ModEnchants.FASTER) - 1, false, false, true));
-                }
-                if(enchantLeggings.containsKey(ModEnchants.RESISTANCER)){
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 140, enchantLeggings.get(ModEnchants.RESISTANCER) - 1, false, false, true));
-                }
             }
 
             //check boots
             if (boots.getItem() == ModItems.EMERALD_BOOTS) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 140, 1, false, false, true));
-            }else{
-                if(enchantBoots.containsKey(ModEnchants.JUMPER)){
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 140, enchantBoots.get(ModEnchants.JUMPER) - 1, false, false, true));
-                }
             }
 
             timer = 100;

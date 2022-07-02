@@ -13,7 +13,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -26,7 +26,7 @@ public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersReci
     public static final ModifiersRecipeSerializer INSTANCE = new ModifiersRecipeSerializer();
 
     // This will be the "type" field in the json
-    public static final Identifier ID = new Identifier(VanadiumMod.MODID, "modifiers_recipe");
+    public static final Identifier ID = new Identifier(CommonInitializer.MODID, "modifiers_recipe");
 
     @Override
     // Turns json into Recipe

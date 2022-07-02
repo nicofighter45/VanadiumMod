@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
+import fr.vana_mod.nicofighter45.main.server.ServerInitializer;
 
 import java.util.Objects;
 
@@ -73,7 +73,7 @@ public abstract class ServerPlayerEntityMixin {
     public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if(source == DamageSource.FALL && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)){
             cir.setReturnValue(false);
-        }else if(source == DamageSource.FALL && VanadiumModServer.jump && Math.sqrt(Math.pow(player.getX(), 2) +
+        }else if(source == DamageSource.FALL && ServerInitializer.jump && Math.sqrt(Math.pow(player.getX(), 2) +
                 Math.pow(player.getY(), 2)) <= 100){
             cir.setReturnValue(false);
         }
@@ -81,15 +81,15 @@ public abstract class ServerPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "readCustomDataFromNbt")
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        if(VanadiumModServer.players.containsKey(player.getUuid())){
-            CustomPlayer pl = VanadiumModServer.players.get(player.getUuid());
+        if(ServerInitializer.players.containsKey(player.getUuid())){
+            CustomPlayer pl = ServerInitializer.players.get(player.getUuid());
             pl.setHeart(nbt.getInt("heart"));
             pl.setRegen(nbt.getInt("regen"));
             pl.setCraft(nbt.getBoolean("craft"));
             pl.setEnder_chest(nbt.getBoolean("ender_chest"));
             pl.setBase(new BlockPos( nbt.getInt("baseX"),  nbt.getInt("baseY"),  nbt.getInt("baseZ")));
         }else{
-            VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(nbt.getInt("heart"),
+            ServerInitializer.players.put(player.getUuid(), new CustomPlayer(nbt.getInt("heart"),
                     nbt.getInt("regen"), nbt.getBoolean("craft"), nbt.getBoolean("ender_chest"),
                     new BlockPos( nbt.getInt("baseX"),  nbt.getInt("baseY"),  nbt.getInt("baseZ"))));
         }
@@ -97,7 +97,7 @@ public abstract class ServerPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "writeCustomDataToNbt")
     public void writeCustomDataToNbt(@NotNull NbtCompound nbt, CallbackInfo ci) {
-        CustomPlayer pl = VanadiumModServer.players.get(player.getUuid());
+        CustomPlayer pl = ServerInitializer.players.get(player.getUuid());
         nbt.putInt("heart", pl.getHeart());
         nbt.putInt("regen", pl.getRegen());
         nbt.putBoolean("craft", pl.isCraft());

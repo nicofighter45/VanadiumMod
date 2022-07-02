@@ -2,7 +2,7 @@ package fr.vana_mod.nicofighter45.mixins;
 
 import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
-import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
+import fr.vana_mod.nicofighter45.main.server.ServerInitializer;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,14 +25,14 @@ public class ServerWorldMixin {
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
     public void onPlayerConnected(@NotNull ServerPlayerEntity player, CallbackInfo info) {
         boolean op = Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(player.getGameProfile());
-        if(!VanadiumModServer.isOn && !op){
+        if(!ServerInitializer.isOn && !op){
             Objects.requireNonNull(player.getServer()).getPlayerManager().disconnectAllPlayers();
         }
-        if(!VanadiumModServer.players.containsKey(player.getUuid())){
-            VanadiumModServer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false, player.getServer().getOverworld().getSpawnPos()));
+        if(!ServerInitializer.players.containsKey(player.getUuid())){
+            ServerInitializer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false, player.getServer().getOverworld().getSpawnPos()));
             player.setHealth(10);
         }
-        CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
+        CustomPlayer customPlayer = ServerInitializer.players.get(player.getUuid());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
         String color = "§9";
         if(op){
@@ -45,7 +45,7 @@ public class ServerWorldMixin {
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")
     public void onPlayerRespawned(@NotNull ServerPlayerEntity player, CallbackInfo info) {
-        int heart = VanadiumModServer.players.get(player.getUuid()).getHeart();
+        int heart = ServerInitializer.players.get(player.getUuid()).getHeart();
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(heart);
         player.setHealth(heart);
     }
@@ -59,7 +59,7 @@ public class ServerWorldMixin {
         }else if(timer_heal == 0){
             timer_heal--;
             for(ServerPlayerEntity player : world.getPlayers()){
-                int regen = VanadiumModServer.players.get(player.getUuid()).getRegen();
+                int regen = ServerInitializer.players.get(player.getUuid()).getRegen();
                 if (player.getInventory().getArmorStack(EquipmentSlot.HEAD.getEntitySlotId()).getItem() == ModItems.VANADIUM_HELMET &&
                         player.getInventory().getArmorStack(EquipmentSlot.LEGS.getEntitySlotId()).getItem() == ModItems.VANADIUM_LEGGINGS &&
                         player.getInventory().getArmorStack(EquipmentSlot.FEET.getEntitySlotId()).getItem() == ModItems.VANADIUM_BOOTS) {

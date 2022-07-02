@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.block.enchanter;
 
 import fr.vana_mod.nicofighter45.block.ModBlocks;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,7 +35,7 @@ public class EnchanterScreenHandler  extends ScreenHandler {
     }
 
     public EnchanterScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PlayerEntity player, ScreenHandlerContext context) {
-        super(VanadiumMod.ENCHANTER_SCREEN_HANDLER, syncId);
+        super(ModBlocks.ENCHANTER_SCREEN_HANDLER, syncId);
         this.context = context;
         this.player = player;
         this.input = new SimpleInventory(3);

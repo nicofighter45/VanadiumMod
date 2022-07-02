@@ -3,7 +3,7 @@ package fr.vana_mod.nicofighter45.block;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.feature.*;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.Blocks;
@@ -36,7 +36,7 @@ public class ModOreGeneration {
                         SquarePlacementModifier.of(), // spreading horizontally
                         HeightRangePlacementModifier.uniform(YOffset.aboveBottom(50), YOffset.getTop()))); // height
 
-        Identifier VANADIUM_ORE_ID = new Identifier(VanadiumMod.MODID, "vanadium_ore_gen");
+        Identifier VANADIUM_ORE_ID = new Identifier(CommonInitializer.MODID, "vanadium_ore_gen");
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, VANADIUM_ORE_ID, VANADIUM_ORE_FEATURE);
         Registry.register(BuiltinRegistries.PLACED_FEATURE, VANADIUM_ORE_ID, VANADIUM_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES,
@@ -52,7 +52,7 @@ public class ModOreGeneration {
                         SquarePlacementModifier.of(), // spreading horizontally
                         HeightRangePlacementModifier.uniform(YOffset.aboveBottom(-50), YOffset.belowTop(-30)))); // height
 
-        Identifier TUNGSTEN_ORE_ID = new Identifier(VanadiumMod.MODID, "tungsten_ore_gen");
+        Identifier TUNGSTEN_ORE_ID = new Identifier(CommonInitializer.MODID, "tungsten_ore_gen");
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, TUNGSTEN_ORE_ID, TUNGSTEN_ORE_FEATURE);
         Registry.register(BuiltinRegistries.PLACED_FEATURE, TUNGSTEN_ORE_ID, TUNGSTEN_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES,
@@ -68,7 +68,7 @@ public class ModOreGeneration {
                         SquarePlacementModifier.of(), // spreading horizontally
                         HeightRangePlacementModifier.uniform(YOffset.aboveBottom(30), YOffset.belowTop(40)))); // height
 
-        Identifier SILVER_ORE_ID = new Identifier(VanadiumMod.MODID, "silver_ore_gen");
+        Identifier SILVER_ORE_ID = new Identifier(CommonInitializer.MODID, "silver_ore_gen");
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, SILVER_ORE_ID, SILVER_ORE_FEATURE);
         Registry.register(BuiltinRegistries.PLACED_FEATURE, SILVER_ORE_ID, SILVER_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Feature.UNDERGROUND_ORES,
@@ -84,7 +84,7 @@ public class ModOreGeneration {
                         SquarePlacementModifier.of(), // spreading horizontally
                         HeightRangePlacementModifier.uniform(YOffset.aboveBottom(20), YOffset.belowTop(50)))); // height
 
-        Identifier TIN_ORE_ID = new Identifier(VanadiumMod.MODID, "tin_ore_gen");
+        Identifier TIN_ORE_ID = new Identifier(CommonInitializer.MODID, "tin_ore_gen");
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, TIN_ORE_ID, TIN_ORE_FEATURE);
         Registry.register(BuiltinRegistries.PLACED_FEATURE, TIN_ORE_ID, TIN_ORE_GENERATION);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES,

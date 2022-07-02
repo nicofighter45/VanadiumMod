@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.main.client;
 
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -13,9 +13,9 @@ import org.lwjgl.glfw.GLFW;
 public class KeyBinds {
 
     public static void registerAll(){
-        String category = "category." + VanadiumMod.MODID + ".vanadium";
+        String category = "category." + CommonInitializer.MODID + ".vanadium";
 
-        KeyBinding keybinding_night_vision = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + VanadiumMod.MODID + ".night_vision", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, category));
+        KeyBinding keybinding_night_vision = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + CommonInitializer.MODID + ".night_vision", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, category));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(keybinding_night_vision.isPressed()){

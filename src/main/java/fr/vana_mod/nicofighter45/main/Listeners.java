@@ -4,7 +4,7 @@ import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.InteractionEvent;
 import fr.vana_mod.nicofighter45.items.custom.*;
 import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
-import fr.vana_mod.nicofighter45.main.server.VanadiumModServer;
+import fr.vana_mod.nicofighter45.main.server.ServerInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -14,7 +14,6 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.text.MutableText;
@@ -154,7 +153,7 @@ public class Listeners {
                 ServerPlayerEntity server_player = (ServerPlayerEntity) player;
                 ItemStack it = server_player.getMainHandStack();
                 Item item_server = it.getItem();
-                CustomPlayer data_player = VanadiumModServer.players.get(server_player.getUuid());
+                CustomPlayer data_player = ServerInitializer.players.get(server_player.getUuid());
                 int heart = data_player.getHeart();
                 int regen = data_player.getRegen();
                 if (item_server == ModItems.SIMPLE_HEALTH_BOOSTER && heart < 20) {
@@ -226,8 +225,10 @@ public class Listeners {
         });
     }
 
-    private final static Identifier BOW_SWITCH_MODE_PACKET = new Identifier(VanadiumMod.MODID, "bow_switch_mode_packet");
+    private final static Identifier BOW_SWITCH_MODE_PACKET = new Identifier(CommonInitializer.MODID, "bow_switch_mode_packet");
 
+
+    // #TODO need to work both client and server side, working server side but no refresh about bow situation on client
     private static void onLeftClick() {
         ServerPlayNetworking.registerGlobalReceiver(BOW_SWITCH_MODE_PACKET, (server, player, handler, buf, responseSender) -> {
             if(((VanadiumBow) player.getMainHandStack().getItem()).changeEnderPearl()){
@@ -237,32 +238,22 @@ public class Listeners {
             }
         });
         InteractionEvent.LEFT_CLICK_BLOCK.register((player, hand, pos, face) -> {
-            if(bowCheck(player)){
-                return EventResult.interrupt(true);
-            }
-            return EventResult.pass();
-        });
-        InteractionEvent.CLIENT_LEFT_CLICK_AIR.register((player, hand) -> bowCheck(player));
-    }
-
-    private static boolean bowCheck(@NotNull PlayerEntity player){
-        if(player.getMainHandStack().getItem() instanceof VanadiumBow){
-            if(player.getWorld().isClient()){
-                System.out.println("Client side");
-                if(ClientPlayNetworking.canSend(BOW_SWITCH_MODE_PACKET)){
-                    ClientPlayNetworking.send(BOW_SWITCH_MODE_PACKET, PacketByteBufs.empty());
-                }
-            }else{
-                System.out.println("Server side");
-                if(((VanadiumBow) player.getMainHandStack().getItem()).changeEnderPearl()){
+            if(!player.getWorld().isClient() && player.getMainHandStack().getItem() instanceof VanadiumBow vanadiumBow){
+                if(vanadiumBow.changeEnderPearl()){
                     player.sendMessage(Text.of("§2Ender Pearl mode §4activate"), true);
                 }else{
                     player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);
                 }
             }
-            return true;
-        }
-        return false;
+            return EventResult.pass();
+        });
+        InteractionEvent.CLIENT_LEFT_CLICK_AIR.register((player, hand) -> {
+            if(player.getMainHandStack().getItem() instanceof VanadiumBow) {
+                if (ClientPlayNetworking.canSend(BOW_SWITCH_MODE_PACKET)) {
+                    ClientPlayNetworking.send(BOW_SWITCH_MODE_PACKET, PacketByteBufs.empty());
+                }
+            }
+        });
     }
 
     public static void registerAll() {

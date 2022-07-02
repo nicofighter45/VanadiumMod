@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.rei;
 
 import fr.vana_mod.nicofighter45.block.ModBlocks;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -33,7 +33,7 @@ public class ModifiersTableDisplay<R extends ModifiersDisplay> implements Displa
 
     @Override
     public CategoryIdentifier<R> getCategoryIdentifier() {
-        return CategoryIdentifier.of(new Identifier(VanadiumMod.MODID, "modifiers_table"));
+        return CategoryIdentifier.of(new Identifier(CommonInitializer.MODID, "modifiers_table"));
     }
 
     @Override
@@ -46,23 +46,23 @@ public class ModifiersTableDisplay<R extends ModifiersDisplay> implements Displa
         widgets.add(Widgets.createRecipeBase(bounds));
 
         // We create a result slot background AND disable the actual background of the slots, so the result slot can look bigger
-        widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x, startPoint.y - 20)));
-        widgets.add(Widgets.createSlot(new Point(startPoint.x, startPoint.y - 20))
+        widgets.add(Widgets.createResultSlotBackground(new Point(startPoint.x, startPoint.y)));
+        widgets.add(Widgets.createSlot(new Point(startPoint.x, startPoint.y))
                 .entries(display.getOutputEntries().get(0)) // Get the first output ingredient
                 .disableBackground() // Disable the background because we have our bigger background
                 .markOutput()); // Mark this as the output for REI to identify
 
         // We add the input slot
-        widgets.add(Widgets.createSlot(new Point(startPoint.x - 60, startPoint.y))
+        widgets.add(Widgets.createSlot(new Point(startPoint.x - 36, startPoint.y - 36))
                 .entries(display.getInputEntries().get(0)) // Get the first input ingredient
                 .markInput()); // Mark this as the input for REI to identify
-        widgets.add(Widgets.createSlot(new Point(startPoint.x - 20, startPoint.y))
+        widgets.add(Widgets.createSlot(new Point(startPoint.x - 36, startPoint.y + 36))
                 .entries(display.getInputEntries().get(1)) // Get the first input ingredient
                 .markInput()); // Mark this as the input for REI to identify
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 20, startPoint.y))
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 36, startPoint.y - 36))
                 .entries(display.getInputEntries().get(2)) // Get the first input ingredient
                 .markInput()); // Mark this as the input for REI to identify
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 60, startPoint.y))
+        widgets.add(Widgets.createSlot(new Point(startPoint.x + 36, startPoint.y + 36))
                 .entries(display.getInputEntries().get(3)) // Get the first input ingredient
                 .markInput()); // Mark this as the input for REI to identify
 

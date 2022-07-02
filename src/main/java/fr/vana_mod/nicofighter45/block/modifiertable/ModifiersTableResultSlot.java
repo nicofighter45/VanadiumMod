@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.block.modifiertable;
 
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.block.ModBlocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
@@ -56,7 +56,7 @@ public class ModifiersTableResultSlot extends Slot {
 
     public void onTakeItem(@NotNull PlayerEntity player, ItemStack stack) {
         this.onCrafted(stack);
-        DefaultedList<ItemStack> defaultedList = player.world.getRecipeManager().getRemainingStacks(VanadiumMod.MODIFIERS_RECIPE_TYPE, this.input, player.world);
+        DefaultedList<ItemStack> defaultedList = player.world.getRecipeManager().getRemainingStacks(ModBlocks.MODIFIERS_RECIPE_TYPE, this.input, player.world);
 
         for(int i = 0; i < defaultedList.size(); ++i) {
             ItemStack itemStack = this.input.getStack(i);

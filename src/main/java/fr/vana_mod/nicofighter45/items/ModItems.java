@@ -2,11 +2,8 @@ package fr.vana_mod.nicofighter45.items;
 
 import fr.vana_mod.nicofighter45.items.armor.ModArmorsMaterial;
 import fr.vana_mod.nicofighter45.items.custom.*;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
-import fr.vana_mod.nicofighter45.items.tool_material.CopperToolMaterial;
-import fr.vana_mod.nicofighter45.items.tool_material.TinToolMaterial;
-import fr.vana_mod.nicofighter45.items.tool_material.TungstenToolMaterial;
-import fr.vana_mod.nicofighter45.items.tool_material.VanadiumToolMaterial;
+import fr.vana_mod.nicofighter45.items.tool_material.ModToolMaterial;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -17,18 +14,18 @@ import net.minecraft.util.registry.Registry;
 public class ModItems {
 
     private static Item.Settings settings(){
-        return new Item.Settings().group(VanadiumMod.VANADIUM_GROUP);
+        return new Item.Settings().group(CommonInitializer.VANADIUM_GROUP);
     }
 
     //vanadium
     public static final Item VANADIUM_NUGGET = new Item(settings().fireproof());
     public static final Item VANADIUM_INGOT = new Item(settings().fireproof());
     public static final Item VANADIUM_PLATE = new Item(settings().fireproof());
-    public static final Item VANADIUM_SWORD = new SwordItem(VanadiumToolMaterial.INSTANCE, 5, -2, settings().fireproof());
-    public static final Item VANADIUM_HAMMER = new Hammer(VanadiumToolMaterial.INSTANCE, 4, settings().fireproof());
-    public static final Item VANADIUM_AXE = new MegaAxe(VanadiumToolMaterial.INSTANCE, settings().fireproof());
-    public static final Item VANADIUM_SHOVEL = new Excavator(VanadiumToolMaterial.INSTANCE, 1, 1, settings().fireproof());
-    public static final Item VANADIUM_HOE = new SuperHoe(VanadiumToolMaterial.INSTANCE, 1, -3F, settings().fireproof());
+    public static final Item VANADIUM_SWORD = new SwordItem(ModToolMaterial.VanadiumToolMaterial, 5, -2, settings().fireproof());
+    public static final Item VANADIUM_HAMMER = new Hammer(ModToolMaterial.VanadiumToolMaterial, 4, settings().fireproof());
+    public static final Item VANADIUM_AXE = new MegaAxe(ModToolMaterial.VanadiumToolMaterial, settings().fireproof());
+    public static final Item VANADIUM_SHOVEL = new Excavator(ModToolMaterial.VanadiumToolMaterial, 1, 1, settings().fireproof());
+    public static final Item VANADIUM_HOE = new SuperHoe(ModToolMaterial.VanadiumToolMaterial, 1, -3F, settings().fireproof());
     public static final Item VANADIUM_BOW = new VanadiumBow(settings().fireproof());
 
     //armure en vanadium
@@ -50,19 +47,19 @@ public class ModItems {
     public static final Item TUNGSTEN_INGOT = new Item(settings());
     public static final Item TUNGSTEN_PLATE = new Item(settings());
     public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(ModArmorsMaterial.TUNGSTEN_ARMOR_MATERIAL, EquipmentSlot.CHEST, settings().fireproof());
-    public static final Item TUNGSTEN_HAMMER = new Hammer(TungstenToolMaterial.INSTANCE, 3, settings().fireproof());
+    public static final Item TUNGSTEN_HAMMER = new Hammer(ModToolMaterial.TungstenToolMaterial, 3, settings().fireproof());
 
     //argent
     public static final Item SILVER_INGOT = new Item((settings()));
 
     //copper
-    public static final Item COPPER_HAMMER = new Hammer(CopperToolMaterial.INSTANCE, 1, settings());
+    public static final Item COPPER_HAMMER = new Hammer(ModToolMaterial.CopperToolMaterial, 1, settings());
     public static final Item COPPER_PLATE = new Item(settings());
 
     //tin
     public static final Item TIN_INGOT = new Item(settings());
     public static final Item TIN_PLATE = new Item(settings());
-    public static final Item TIN_HAMMER = new Hammer(TinToolMaterial.INSTANCE, 2, settings());
+    public static final Item TIN_HAMMER = new Hammer(ModToolMaterial.TinToolMaterial, 2, settings());
 
     //processeur
     public static final Item TRANSISTOR = new Item(settings().maxCount(16));
@@ -185,6 +182,6 @@ public class ModItems {
     }
 
     private static void registerNewItem(String name, Item item){
-        Registry.register(Registry.ITEM, new Identifier(VanadiumMod.MODID, name), item);
+        Registry.register(Registry.ITEM, new Identifier(CommonInitializer.MODID, name), item);
     }
 }

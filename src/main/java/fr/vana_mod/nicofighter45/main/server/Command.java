@@ -3,26 +3,18 @@ package fr.vana_mod.nicofighter45.main.server;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import fr.vana_mod.nicofighter45.gui.CustomCraftingScreenHandler;
-import fr.vana_mod.nicofighter45.items.custom.VanadiumBow;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.MiningToolItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.*;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -49,7 +41,7 @@ public class Command {
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                     if(player.getWorld() == Objects.requireNonNull(player.getServer()).getOverworld()){
-                        VanadiumModServer.players.get(player.getUuid()).setBase(player.getBlockPos());
+                        ServerInitializer.players.get(player.getUuid()).setBase(player.getBlockPos());
                         sendMsg(player, "§8[§6Server§8] §fYour base has been reposition to your position");
                     }else{
                         sendMsg(player, "§8[§6Server§8] §fYou need to be in the overworld");
@@ -60,7 +52,7 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("stat")
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    CustomPlayer customPlayer = VanadiumModServer.players.get(player.getUuid());
+                    CustomPlayer customPlayer = ServerInitializer.players.get(player.getUuid());
                     sendMsg(player, "§8[§6Server§8] §fHere is your stats :");
                     sendMsg(player, "    health  : " + customPlayer.getHeart());
                     sendMsg(player, "    regen  : " + customPlayer.getRegen());
@@ -95,7 +87,7 @@ public class Command {
                                     if(timer == 0){
                                         EnderChestInventory inventory = player.getEnderChestInventory();
                                         if(inventory.removeItem(Items.EMERALD_BLOCK, 1).getCount() == 1){
-                                            BlockPos base = VanadiumModServer.players.get(player.getUuid()).getBase();
+                                            BlockPos base = ServerInitializer.players.get(player.getUuid()).getBase();
                                             player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), base.getX(), base.getY(), base.getZ(), 180,0);
                                             sendMsg(player, "§8[§6Server§8] §fYou have been teleported to your base");
                                         }else{
@@ -168,8 +160,8 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("jump")
                 .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
-                    VanadiumModServer.jump = !VanadiumModServer.jump;
-                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fJump has been set top " + VanadiumModServer.jump), true);
+                    ServerInitializer.jump = !ServerInitializer.jump;
+                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fJump has been set top " + ServerInitializer.jump), true);
                     return 1;
                 })
         ));
@@ -209,7 +201,7 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("craft")
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
-                    if(VanadiumModServer.players.get(server_player.getUuid()).isCraft()){
+                    if(ServerInitializer.players.get(server_player.getUuid()).isCraft()){
                         server_player.openHandledScreen(new NamedScreenHandlerFactory() {
                             @Override
                             public Text getDisplayName() {
@@ -230,7 +222,7 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("ec")
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    if(VanadiumModServer.players.get(player.getUuid()).isEnder_chest()){
+                    if(ServerInitializer.players.get(player.getUuid()).isEnder_chest()){
                         player.openHandledScreen(new NamedScreenHandlerFactory() {
                             @Override
                             public Text getDisplayName() {
@@ -254,10 +246,6 @@ public class Command {
                 ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                 ItemStack hand = player.getMainHandStack();
                 if(hand.getItem() == Items.AIR){
-                    ZombieEntity zb = EntityType.ZOMBIE.create(player.getWorld());
-                    assert zb != null;
-                    zb.refreshPositionAndAngles(player.getBlockPos(), 0, 0);
-                    player.getWorld().spawnEntity(zb);
                     sendMsg(player, "§8[§6Server§8] §fYou have nothing in your hand");
                     return 1;
                 }
@@ -265,11 +253,12 @@ public class Command {
                     sendMsg(player, "§8[§6Server§8] §fYou can't put many items in your head");
                     return 1;
                 }
-                ItemStack helmet = player.getInventory().armor.get(3);
+                ItemStack helmet = player.getInventory().getArmorStack(3);
                 player.getInventory().removeOne(hand);
                 if(helmet.getItem() != Items.AIR){
                     player.getInventory().insertStack(helmet);
                 }
+                player.getInventory().removeStack(39);
                 player.getInventory().insertStack(39, hand);
                 sendMsg(player, "§8[§6Server§8] §fYour hand and your helmet have been exchange");
                 return 1;
@@ -283,29 +272,23 @@ public class Command {
             })
             .then(argument("number", IntegerArgumentType.integer(1, 5))
                     .executes(c -> {
-                        c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /boss <int> <x> <y> <z>"));
+                        ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
+                        BlockPos pos = player.getBlockPos();
+                        int number = IntegerArgumentType.getInteger(c, "number");
+                        for(ServerPlayerEntity pl : player.getWorld().getPlayers()){
+                            if(isNearTo(pos.getX(), pl.getX(), pos.getY(), pl.getY(), pos.getZ(), pl.getZ())){
+                                pl.setVelocity(calc(pl.getX()-pos.getX()), 0.5, calc(pl.getZ()-pos.getZ()));
+                                //actualize velocity changes
+                                pl.damage(DamageSource.MAGIC, 0.5f);
+                                pl.heal(0.5f);
+                            }
+                        }
+                        player.getWorld().spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 1);
+                        player.getWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(),
+                                SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.HOSTILE, 1f, 1f);
+                        BossSpawner.spawnBoss(number, player.getWorld(), pos);
                         return 1;
                     })
-                    .then(argument("pos", BlockPosArgumentType.blockPos())
-                            .executes(c -> {
-                                ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                                BlockPos pos = BlockPosArgumentType.getBlockPos(c, "pos");
-                                int number = IntegerArgumentType.getInteger(c, "number");
-                                for(ServerPlayerEntity pl : player.getWorld().getPlayers()){
-                                    if(isNearTo(pos.getX(), pl.getX(), pos.getY(), pl.getY(), pos.getZ(), pl.getZ())){
-                                        pl.setVelocity(calc(pl.getX()-pos.getX()), 0.5, calc(pl.getZ()-pos.getZ()));
-                                        //actualize velocity changes
-                                        pl.damage(DamageSource.MAGIC, 0.5f);
-                                        pl.heal(0.5f);
-                                    }
-                                }
-                                player.getWorld().spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 1);
-                                player.getWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(),
-                                        SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.HOSTILE, 1f, 1f);
-                                BossSpawner.spawnBoss(number, player.getWorld(), pos);
-                                return 1;
-                            })
-                    )
             )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("dim")
@@ -364,9 +347,9 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fThis is the list of all register players with their data :"), false);
-                    for (UUID uuid : VanadiumModServer.players.keySet()){
+                    for (UUID uuid : ServerInitializer.players.keySet()){
                         c.getSource().sendFeedback(Text.of("    " + uuid + " :"), false);
-                        CustomPlayer cp = VanadiumModServer.players.get(uuid);
+                        CustomPlayer cp = ServerInitializer.players.get(uuid);
                         c.getSource().sendFeedback(Text.of("        health : " + cp.getHeart()), false);
                         c.getSource().sendFeedback(Text.of("        regen  : " + cp.getRegen()), false);
                         c.getSource().sendFeedback(Text.of("        craft  : " + cp.isCraft()), false);
@@ -394,7 +377,7 @@ public class Command {
                                                 .executes(c -> {
                                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                                     int value = IntegerArgumentType.getInteger(c, "value");
-                                                    VanadiumModServer.players.get(uuid).setHeart(value);
+                                                    ServerInitializer.players.get(uuid).setHeart(value);
                                                     for(ServerPlayerEntity server_player : Objects.requireNonNull(c.getSource().getServer()).getPlayerManager().getPlayerList()){
                                                         if(server_player.getUuid() == uuid){
                                                             Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(value);
@@ -415,7 +398,7 @@ public class Command {
                                                 .executes(c -> {
                                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                                     int value = IntegerArgumentType.getInteger(c, "value");
-                                                    VanadiumModServer.players.get(uuid).setRegen(value);
+                                                    ServerInitializer.players.get(uuid).setRegen(value);
                                                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fThe number of regen heart of " + uuid + " is now " + value), false);
                                                     return 1;
                                                 })
@@ -430,7 +413,7 @@ public class Command {
                                                 .executes(c -> {
                                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                                     boolean value = BoolArgumentType.getBool(c, "value");
-                                                    VanadiumModServer.players.get(uuid).setCraft(value);
+                                                    ServerInitializer.players.get(uuid).setCraft(value);
                                                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §f" + uuid + " crafting table feature is now set to " + value), false);
                                                     return 1;
                                                 })
@@ -445,7 +428,7 @@ public class Command {
                                                 .executes(c -> {
                                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
                                                     boolean value = BoolArgumentType.getBool(c, "value");
-                                                    VanadiumModServer.players.get(uuid).setEnder_chest(value);
+                                                    ServerInitializer.players.get(uuid).setEnder_chest(value);
                                                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §f" + uuid + " crafting table feature is now set to " + value), true);
                                                     return 1;
                                                 })
@@ -461,7 +444,7 @@ public class Command {
                         .then(argument("player", EntityArgumentType.player())
                                 .executes(c -> {
                                     UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
-                                    CustomPlayer cp = VanadiumModServer.players.get(uuid);
+                                    CustomPlayer cp = ServerInitializer.players.get(uuid);
                                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §f" + uuid + " :"), false);
                                     c.getSource().sendFeedback(Text.of("   health : " + cp.getHeart()), false);
                                     c.getSource().sendFeedback(Text.of("   regen  : " + cp.getRegen()), false);

@@ -2,7 +2,6 @@ package fr.vana_mod.nicofighter45.block.modifiertable;
 
 import fr.vana_mod.nicofighter45.block.ModBlocks;
 import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipe;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingInventory;
@@ -39,7 +38,7 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
     }
 
     public ModifiersTableScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PlayerEntity player, ScreenHandlerContext context) {
-        super(VanadiumMod.MODIFIERS_TABLE_SCREEN_HANDLER, syncId);
+        super(ModBlocks.MODIFIERS_TABLE_SCREEN_HANDLER, syncId);
         this.context = context;
         this.player = player;
         this.input = new CraftingInventory(this, 2, 2);
@@ -71,7 +70,7 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         if (!world.isClient) {
             ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
             ItemStack itemStack = ItemStack.EMPTY;
-            Optional<ModifiersRecipe> optional = world.getRecipeManager().getFirstMatch(VanadiumMod.MODIFIERS_RECIPE_TYPE, craftingInventory, world);
+            Optional<ModifiersRecipe> optional = world.getRecipeManager().getFirstMatch(ModBlocks.MODIFIERS_RECIPE_TYPE, craftingInventory, world);
             if (optional.isPresent()) {
                 ModifiersRecipe craftingRecipe = optional.get();
                 if (resultInventory.shouldCraftRecipe(world, serverPlayerEntity, craftingRecipe)) {

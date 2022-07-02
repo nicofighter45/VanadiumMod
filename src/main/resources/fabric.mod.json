@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Fabric Vana Mod",
-  "description": "Mod for minecraft vanadium server!",
+  "description": "Mod for minecraft Vanadium server!",
   "authors": [
     "nicofighter45"
   ],
@@ -19,13 +19,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "fr.vana_mod.nicofighter45.main.VanadiumMod"
+      "fr.vana_mod.nicofighter45.main.CommonInitializer"
     ],
     "client": [
-      "fr.vana_mod.nicofighter45.main.client.VanadiumModClient"
+      "fr.vana_mod.nicofighter45.main.client.ClientInitializer"
     ],
     "server": [
-      "fr.vana_mod.nicofighter45.main.server.VanadiumModServer"
+      "fr.vana_mod.nicofighter45.main.server.ServerInitializer"
     ],
     "rei_client": [
       "fr.vana_mod.nicofighter45.rei.ReiPlugin"
@@ -42,6 +42,6 @@
     "java": ">=16"
   },
   "suggests": {
-    "another-mod": "*"
+    "REI": "Roughly Enough Items"
   }
 }

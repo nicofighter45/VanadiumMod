@@ -85,6 +85,9 @@
   "block.vana-mod.enchanter_block": "Enchanter",
   "item.vana-mod.enchanter_block_item": "Enchanter",
 
+  "block.vana-mod.mamadite_bock": "Mamadite Blcok",
+  "item.vana-mod.mamadite_block_item": "Mamadite Block",
+
   "item.vana-mod.power_cell": "Power Cell",
   "item.vana-mod.super_power_cell": "Super Power Cell",
   "item.vana-mod.mamad_chicken": "Mamad Chicken",
@@ -140,5 +143,5 @@
   "key.vana-mod.night_vision": "Night Vision",
   "key.vana-mod.ender_bow_switch": "Ender Bow Switch",
 
-  "rei_category.vana-mod.modifiers_table": "Modifiers Table Craft"
+  "rei_category.vana-mod.modifiers_table": "Modifiers Table Craft",
 }

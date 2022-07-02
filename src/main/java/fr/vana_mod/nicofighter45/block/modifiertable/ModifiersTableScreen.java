@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.block.modifiertable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import fr.vana_mod.nicofighter45.main.VanadiumMod;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class ModifiersTableScreen extends HandledScreen<ModifiersTableScreenHandler> {
 
-    private static final Identifier TEXTURE = new Identifier(VanadiumMod.MODID, "textures/gui/container/modifiers_table.png");
+    private static final Identifier TEXTURE = new Identifier(CommonInitializer.MODID, "textures/gui/container/modifiers_table.png");
 
     public ModifiersTableScreen(ModifiersTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

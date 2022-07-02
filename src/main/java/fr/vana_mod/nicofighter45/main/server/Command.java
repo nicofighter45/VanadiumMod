@@ -3,6 +3,7 @@ package fr.vana_mod.nicofighter45.main.server;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import fr.vana_mod.nicofighter45.gui.CustomCraftingScreenHandler;
+import fr.vana_mod.nicofighter45.gui.CustomPlayerManagementScreenHandler;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;
@@ -474,7 +475,7 @@ public class Command {
 
                                 @Override
                                 public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                                    return new GenericContainerScreenHandler(ScreenHandlerType.GENERIC_9X4, syncId, inv, player_to_see.getInventory(), 4);
+                                    return new CustomPlayerManagementScreenHandler(ScreenHandlerType.GENERIC_9X6, syncId, player.getInventory(), player_to_see.getInventory());
                                 }
                             });
                             return 1;

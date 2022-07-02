@@ -20,9 +20,20 @@ public class CustomPlayerManagementScreenHandler extends ScreenHandler {
         this.playerInventoryToManage = playerInventoryToManage;
         int j;
         int k;
-        for(j = 0; j < 8; j++){
+        for(k = 0; k < 5; k ++){
+            this.addSlot(new Slot(this.playerInventoryToManage, 36 + k, 8 + k * 18, 1));
+        }
+        for(j = 0; j < 4; j++){
             for(k = 0; k < 9; k ++){
-                this.addSlot(new Slot(playerInventoryToManage, j + k * 9 + 5, 8 + k * 18, 103 + j * 18));
+                this.addSlot(new Slot(this.playerInventoryToManage, j + k * 9 + 5, 8 + k * 18, 19 + j * 18));
+            }
+        }
+        for(k = 0; k < 5; k ++){
+            this.addSlot(new Slot(this.playerInventory, 36 + k, 8 + k * 18, 85));
+        }
+        for(j = 0; j < 4; j++){
+            for(k = 0; k < 9; k ++){
+                this.addSlot(new Slot(this.playerInventory, j + k * 9 + 5, 8 + k * 18, 103 + j * 18));
             }
         }
 
@@ -41,10 +52,10 @@ public class CustomPlayerManagementScreenHandler extends ScreenHandler {
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
             if (index < 41) {
-                if (!this.insertItem(itemStack2, 9, this.slots.size(), true)) {
+                if (!this.insertItem(itemStack2, 41, 62, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(itemStack2, 0, 9, false)) {
+            } else if (!this.insertItem(itemStack2, 0, 41, false)) {
                 return ItemStack.EMPTY;
             }
 

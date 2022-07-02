@@ -37,7 +37,7 @@ public class ModBlocksItem {
         registerNewItemBlock("tungsten_block_item", TUNGSTEN_BLOCK_ITEM);
         registerNewItemBlock("steel_block_item", STEEL_BLOCK_ITEM);
         registerNewItemBlock("silver_block_item", SILVER_BLOCK_ITEM);
-        registerNewItemBlock("mamadite_block_item", SILVER_BLOCK_ITEM);
+        registerNewItemBlock("mamadite_block_item", MAMADITE_BLOCK_ITEM);
 
         registerNewItemBlock("modifiers_table_block_item", MODIFIERS_TABLE_BLOCK_ITEM);
         registerNewItemBlock("enchanter_block_item", ENCHANTER_BLOCK_ITEM);

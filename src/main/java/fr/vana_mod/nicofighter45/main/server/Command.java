@@ -13,7 +13,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
@@ -39,6 +38,7 @@ public class Command {
 
     public static void registerAllCommands(){
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("setbase")
+                .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                     if(player.getWorld() == Objects.requireNonNull(player.getServer()).getOverworld()){
@@ -66,9 +66,10 @@ public class Command {
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("base")
+                .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    sendMsg(player, "§8[§6Server§8] §fYou will be teleported to your base in 10s against 1 emerald block");
+                    sendMsg(player, "§8[§6Server§8] §fYou will be teleported to your base in 10s");
                     new Timer().schedule(
                             new TimerTask() {
 
@@ -86,14 +87,9 @@ public class Command {
                                     lastPos = player.getBlockPos();
                                     lastHealth = player.getHealth();
                                     if(timer == 0){
-                                        EnderChestInventory inventory = player.getEnderChestInventory();
-                                        if(inventory.removeItem(Items.EMERALD_BLOCK, 1).getCount() == 1){
-                                            BlockPos base = ServerInitializer.players.get(player.getUuid()).getBase();
-                                            player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), base.getX(), base.getY(), base.getZ(), 180,0);
-                                            sendMsg(player, "§8[§6Server§8] §fYou have been teleported to your base");
-                                        }else{
-                                            sendMsg(player, "§8[§6Server§8] §fYou don't have any emerald block in your ender chest");
-                                        }
+                                        BlockPos base = ServerInitializer.players.get(player.getUuid()).getBase();
+                                        player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), base.getX(), base.getY(), base.getZ(), 180,0);
+                                        sendMsg(player, "§8[§6Server§8] §fYou have been teleported to your base");
                                         cancel();
                                     }else if(timer == 5){
                                         sendMsg(player, "§8[§6Server§8] §fTeleporting in 5s");
@@ -143,7 +139,7 @@ public class Command {
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("broadcast")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /broadcast <message>"));
                     return 1;
@@ -159,7 +155,7 @@ public class Command {
                 }))
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("jump")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     ServerInitializer.jump = !ServerInitializer.jump;
                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fJump has been set top " + ServerInitializer.jump), true);
@@ -167,7 +163,7 @@ public class Command {
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("pvp")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     Objects.requireNonNull(c.getSource().getServer()).setPvpEnabled(!c.getSource().getServer().isPvpEnabled());
                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fPvp is now " + c.getSource().getServer().isPvpEnabled()), true);
@@ -175,7 +171,7 @@ public class Command {
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("freeze")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /freeze <player>"));
                     return 1;
@@ -200,49 +196,44 @@ public class Command {
         ));
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("craft")
+                .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
-                    if(ServerInitializer.players.get(server_player.getUuid()).isCraft()){
-                        server_player.openHandledScreen(new NamedScreenHandlerFactory() {
-                            @Override
-                            public Text getDisplayName() {
-                                return Text.of("Crafting Table");
-                            }
-                            @Override
-                            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                                return new CustomCraftingScreenHandler(syncId, inv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos()));
-                            }
-                        });
-                        server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
-                    }else{
-                        sendMsg(server_player, "§8[§6Server§8] §fYou haven't unlock this feature");
-                    }
+                    server_player.openHandledScreen(new NamedScreenHandlerFactory() {
+                        @Override
+                        public Text getDisplayName() {
+                            return Text.of("Crafting Table");
+                        }
+                        @Override
+                        public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                            return new CustomCraftingScreenHandler(syncId, inv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos()));
+                        }
+                    });
+                    server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
                     return 1;
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("ec")
+                .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
-                    ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    if(ServerInitializer.players.get(player.getUuid()).isEnder_chest()){
-                        player.openHandledScreen(new NamedScreenHandlerFactory() {
-                            @Override
-                            public Text getDisplayName() {
-                                return Text.of("Ender Chest");
-                            }
+                    ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
+                    server_player.openHandledScreen(new NamedScreenHandlerFactory() {
+                        @Override
+                        public Text getDisplayName() {
+                            return Text.of("Ender Chest");
+                        }
 
-                            @Override
-                            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                                return GenericContainerScreenHandler.createGeneric9x3(syncId, inv, player.getEnderChestInventory());
-                            }
-                        });
-                        player.incrementStat(Stats.OPEN_ENDERCHEST);
-                    }else{
-                        sendMsg(player, "§8[§6Server§8] §fYou haven't unlock this feature");
-                    }
+                        @Override
+                        public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                            return GenericContainerScreenHandler.createGeneric9x3(syncId, inv, player.getEnderChestInventory());
+                        }
+                    });
+                    server_player.incrementStat(Stats.OPEN_ENDERCHEST);
                     return 1;
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("hat")
+            .requires(source -> source.hasPermissionLevel(1))
             .executes(c -> {
                 ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                 ItemStack hand = player.getMainHandStack();
@@ -266,7 +257,7 @@ public class Command {
             })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("boss")
-            .requires(source -> source.hasPermissionLevel(2))
+            .requires(source -> source.hasPermissionLevel(4))
             .executes(c -> {
                 c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /boss <int> <x> <y> <z>"));
                 return 1;
@@ -293,7 +284,7 @@ public class Command {
             )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("dim")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /dim <overworld|nether|end>"));
                     return 1;
@@ -345,7 +336,7 @@ public class Command {
                 )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("data")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fThis is the list of all register players with their data :"), false);
                     for (UUID uuid : ServerInitializer.players.keySet()){
@@ -457,7 +448,7 @@ public class Command {
                 )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("invsee")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /invsee <player>"));
                     return 1;
@@ -466,16 +457,16 @@ public class Command {
                         .executes(c -> {
                             ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                             ServerPlayerEntity player_to_see = EntityArgumentType.getPlayer(c, "player");
-                            sendMsg(player, "§8[§6Server§8] §fPrinting inventory of " + player_to_see.getEntityName());
+                            sendMsg(player, "§8[§6Server§8] §fPrinting ender chest of " + player_to_see.getEntityName());
                             player.openHandledScreen(new NamedScreenHandlerFactory() {
                                 @Override
                                 public Text getDisplayName() {
-                                    return Text.of("Inventory of " + player_to_see.getEntityName());
+                                    return Text.of(player_to_see.getEntityName());
                                 }
 
                                 @Override
                                 public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                                    return new CustomPlayerManagementScreenHandler(ScreenHandlerType.GENERIC_9X6, syncId, player.getInventory(), player_to_see.getInventory());
+                                    return new CustomPlayerManagementScreenHandler(syncId, player.getInventory(), player_to_see.getInventory());
                                 }
                             });
                             return 1;
@@ -483,7 +474,7 @@ public class Command {
                 )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("ecsee")
-                .requires(source -> source.hasPermissionLevel(2))
+                .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /ecsee <player>"));
                     return 1;

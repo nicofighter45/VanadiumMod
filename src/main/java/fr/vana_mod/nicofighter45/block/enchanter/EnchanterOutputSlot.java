@@ -37,9 +37,10 @@ public class EnchanterOutputSlot extends Slot {
             List<Enchantment> itemEnchant = this.handler.getItemEnchantments();
             Map<Enchantment, Integer> bookEnchant = EnchantmentHelper.get(stack);
             if(bookEnchant.size() > 1){
+            System.out.println(">1");
                 return false;
             }
-            for(Enchantment enchantment : itemEnchant){
+            for(Enchantment enchantment : bookEnchant.keySet()){
                 if(itemEnchant.contains(enchantment) || !enchantment.isAcceptableItem(this.handler.getFirstItem()) ||
                         !EnchantmentHelper.isCompatible(itemEnchant, enchantment)){
                     return false;

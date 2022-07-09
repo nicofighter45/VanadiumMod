@@ -1,10 +1,10 @@
 package fr.vana_mod.nicofighter45.gui;
 
+import fr.vana_mod.nicofighter45.block.ModBlocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,29 +12,40 @@ import java.util.Objects;
 
 public class CustomPlayerManagementScreenHandler extends ScreenHandler {
 
-    private final PlayerInventory playerInventory, playerInventoryToManage;
+    private final PlayerInventory playerInventory;
 
-    public CustomPlayerManagementScreenHandler(ScreenHandlerType<?> type, int syncId, @NotNull PlayerInventory playerInventory, PlayerInventory playerInventoryToManage) {
-        super(type, syncId);
+    public CustomPlayerManagementScreenHandler(int syncId, PlayerInventory playerInventory) {
+        this(syncId, playerInventory, playerInventory);
+    }
+
+    public CustomPlayerManagementScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PlayerInventory playerInventoryToManage) {
+        super(ModBlocks.CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER, syncId);
         this.playerInventory = playerInventory;
-        this.playerInventoryToManage = playerInventoryToManage;
-        int j;
-        int k;
-        for(k = 0; k < 5; k ++){
-            this.addSlot(new Slot(this.playerInventoryToManage, 36 + k, 8 + k * 18, 1));
+        int k, j;
+        for(k = 0; k < 4; k ++){
+            this.addSlot(new Slot(playerInventoryToManage, 39 - k, 8 + k * 18, -10));
         }
-        for(j = 0; j < 4; j++){
+        this.addSlot(new Slot(playerInventoryToManage, 40, 80, -10));
+        for(j = 1; j < 4; j++){
             for(k = 0; k < 9; k ++){
-                this.addSlot(new Slot(this.playerInventoryToManage, j + k * 9 + 5, 8 + k * 18, 19 + j * 18));
+                this.addSlot(new Slot(playerInventoryToManage, j * 9 + k, 8 + k * 18, -10 + j * 18));
             }
         }
-        for(k = 0; k < 5; k ++){
-            this.addSlot(new Slot(this.playerInventory, 36 + k, 8 + k * 18, 85));
+        for(k = 0; k < 9; k ++){
+            this.addSlot(new Slot(playerInventoryToManage, k, 8 + k * 18, 62));
         }
-        for(j = 0; j < 4; j++){
+
+        for(k = 0; k < 4; k ++){
+            this.addSlot(new Slot(playerInventoryToManage, 39 - k, 8 + k * 18, 84));
+        }
+        this.addSlot(new Slot(playerInventoryToManage, 40, 80, 84));
+        for(j = 1; j < 4; j++){
             for(k = 0; k < 9; k ++){
-                this.addSlot(new Slot(this.playerInventory, j + k * 9 + 5, 8 + k * 18, 103 + j * 18));
+                this.addSlot(new Slot(this.playerInventory, j * 9 + k, 8 + k * 18, 84 + j * 18));
             }
+        }
+        for(k = 0; k < 9; k ++){
+            this.addSlot(new Slot(this.playerInventory, k, 8 + k * 18, 160));
         }
 
     }
@@ -65,7 +76,6 @@ public class CustomPlayerManagementScreenHandler extends ScreenHandler {
                 slot.markDirty();
             }
         }
-
         return itemStack;
     }
 

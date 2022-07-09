@@ -9,6 +9,7 @@ import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableBlockEntity;
 import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableScreenHandler;
 import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipe;
 import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipeSerializer;
+import fr.vana_mod.nicofighter45.gui.CustomPlayerManagementScreenHandler;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
@@ -48,6 +49,8 @@ public class ModBlocks {
 
     public static ScreenHandlerType<EnchanterScreenHandler> ENCHANTER_SCREEN_HANDLER;
 
+    public static ScreenHandlerType<CustomPlayerManagementScreenHandler> CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER;
+
     public static void registerAll() {
         registerNewBlock("vanadium_ore", VANADIUM_ORE);
         registerNewBlock("tungsten_ore", TUNGSTEN_ORE);
@@ -75,9 +78,12 @@ public class ModBlocks {
 
         ENCHANTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(CommonInitializer.MODID, "enchanter_screen_handler"), EnchanterScreenHandler::new);
 
+        CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(CommonInitializer.MODID, "custom_player_manager_screen_handler"), CustomPlayerManagementScreenHandler::new);
+
     }
 
     private static void registerNewBlock(String name, Block block){
         Registry.register(Registry.BLOCK, new Identifier(CommonInitializer.MODID, name), block);
     }
+
 }

@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.block.modifiertable;
 
 import fr.vana_mod.nicofighter45.block.ModBlocks;
+import fr.vana_mod.nicofighter45.block.machine.ModMachines;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +21,7 @@ public class ModifiersTableBlockEntity extends BlockEntity implements NamedScree
 
     private final BlockPos pos;
     public ModifiersTableBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlocks.MODIFIERS_TABLE_BLOCK_ENTITY_TYPE, pos, state);
+        super(ModMachines.MODIFIERS_TABLE_BLOCK_ENTITY_TYPE, pos, state);
         this.pos = pos;
     }
 

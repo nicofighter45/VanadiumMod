@@ -12,11 +12,11 @@ import net.minecraft.util.Identifier;
 public class CustomPlayerManagementScreen extends HandledScreen<CustomPlayerManagementScreenHandler> {
 
     private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/player_manager.png");
-    private static final Identifier EMPTY_HELMET_SLOT_TEXTURE = new Identifier("textures/item/empty_armor_slot_helmet");
-    private static final Identifier EMPTY_CHESTPLATE_SLOT_TEXTURE = new Identifier("textures/item/empty_armor_slot_chestplate");
-    private static final Identifier EMPTY_LEGGINGS_SLOT_TEXTURE = new Identifier("textures/item/empty_armor_slot_leggings");
-    private static final Identifier EMPTY_BOOTS_SLOT_TEXTURE = new Identifier("textures/item/empty_armor_slot_boots");
-    private static final Identifier EMPTY_OFFHAND_ARMOR_SLOT = new Identifier("textures/item/empty_armor_slot_shield");
+    private static final Identifier EMPTY_HELMET_SLOT_TEXTURE = new Identifier("minecraft", "textures/item/empty_armor_slot_helmet");
+    private static final Identifier EMPTY_CHESTPLATE_SLOT_TEXTURE = new Identifier("minecraft", "textures/item/empty_armor_slot_chestplate");
+    private static final Identifier EMPTY_LEGGINGS_SLOT_TEXTURE = new Identifier("minecraft", "textures/item/empty_armor_slot_leggings");
+    private static final Identifier EMPTY_BOOTS_SLOT_TEXTURE = new Identifier("minecraft", "textures/item/empty_armor_slot_boots");
+    private static final Identifier EMPTY_OFFHAND_ARMOR_SLOT = new Identifier("minecraft", "textures/item/empty_armor_slot_shield");
 
     public CustomPlayerManagementScreen(CustomPlayerManagementScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

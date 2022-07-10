@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.block.enchanter;
 
 import fr.vana_mod.nicofighter45.block.ModBlocks;
+import fr.vana_mod.nicofighter45.block.machine.ModMachines;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -35,7 +36,7 @@ public class EnchanterScreenHandler  extends ScreenHandler {
     }
 
     public EnchanterScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PlayerEntity player, ScreenHandlerContext context) {
-        super(ModBlocks.ENCHANTER_SCREEN_HANDLER, syncId);
+        super(ModMachines.ENCHANTER_SCREEN_HANDLER, syncId);
         this.context = context;
         this.player = player;
         this.input = new SimpleInventory(3);
@@ -70,7 +71,7 @@ public class EnchanterScreenHandler  extends ScreenHandler {
     }
 
     public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, ModBlocks.ENCHANTER_BLOCK);
+        return canUse(this.context, player, ModMachines.ENCHANTER_BLOCK);
     }
 
     public ItemStack transferSlot(PlayerEntity player, int index) {

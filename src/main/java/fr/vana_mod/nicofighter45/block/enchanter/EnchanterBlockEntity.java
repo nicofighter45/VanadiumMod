@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.block.enchanter;
 
 import fr.vana_mod.nicofighter45.block.ModBlocks;
+import fr.vana_mod.nicofighter45.block.machine.ModMachines;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +18,7 @@ public class EnchanterBlockEntity extends BlockEntity implements NamedScreenHand
     private final BlockPos pos;
 
     public EnchanterBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlocks.ENCHANTER_BLOCK_ENTITY_TYPE, pos, state);
+        super(ModMachines.ENCHANTER_BLOCK_ENTITY_TYPE, pos, state);
         this.pos = pos;
     }
 

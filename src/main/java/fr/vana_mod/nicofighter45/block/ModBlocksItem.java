@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.block;
 
+import fr.vana_mod.nicofighter45.block.machine.ModMachines;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -22,9 +23,11 @@ public class ModBlocksItem {
     public static final BlockItem SILVER_BLOCK_ITEM = new BlockItem(ModBlocks.SILVER_BLOCK, settings);
     public static final BlockItem MAMADITE_BLOCK_ITEM = new BlockItem(ModBlocks.MAMADITE_BLOCK, settings);
 
-    public static final BlockItem MODIFIERS_TABLE_BLOCK_ITEM = new BlockItem(ModBlocks.MODIFIERS_TABLE_BLOCK, settings);
+    public static final BlockItem MODIFIERS_TABLE_BLOCK_ITEM = new BlockItem(ModMachines.MODIFIERS_TABLE_BLOCK, settings);
 
-    public static final BlockItem ENCHANTER_BLOCK_ITEM = new BlockItem(ModBlocks.ENCHANTER_BLOCK, settings);
+    public static final BlockItem ENCHANTER_BLOCK_ITEM = new BlockItem(ModMachines.ENCHANTER_BLOCK, settings);
+
+    public static final BlockItem HIGH_FURNACE_BLOCK_ITEM = new BlockItem(ModMachines.HIGH_FURNACE_BLOCK, settings);
 
     public static void registerAll() {
         registerNewItemBlock("vanadium_ore_item", VANADIUM_ORE_ITEM);
@@ -41,6 +44,7 @@ public class ModBlocksItem {
 
         registerNewItemBlock("modifiers_table_block_item", MODIFIERS_TABLE_BLOCK_ITEM);
         registerNewItemBlock("enchanter_block_item", ENCHANTER_BLOCK_ITEM);
+        registerNewItemBlock("high_furnace_block_item", HIGH_FURNACE_BLOCK_ITEM);
     }
 
     private static void registerNewItemBlock(String name, BlockItem block){

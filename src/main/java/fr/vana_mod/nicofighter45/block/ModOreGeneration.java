@@ -21,12 +21,9 @@ import java.util.Arrays;
 
 public class ModOreGeneration {
 
-    //command to delete stone block behind you to see the generation of ores
     //fill ~-8 0 ~-8 ~8 ~ ~8 minecraft:air replace minecraft:stone
 
     public static void generateOres(){
-
-        //génération du minearais de vanadium
         ConfiguredFeature<?, ?> VANADIUM_ORE_FEATURE = new ConfiguredFeature<>
                 (Feature.ORE, new OreFeatureConfig(new BlockMatchRuleTest(Blocks.END_STONE),
                         ModBlocks.VANADIUM_ORE.getDefaultState(), 4));
@@ -34,7 +31,7 @@ public class ModOreGeneration {
                 RegistryEntry.of(VANADIUM_ORE_FEATURE),
                 Arrays.asList(CountPlacementModifier.of(4), // number of veins per chunk
                         SquarePlacementModifier.of(), // spreading horizontally
-                        HeightRangePlacementModifier.uniform(YOffset.aboveBottom(50), YOffset.getTop()))); // height
+                        HeightRangePlacementModifier.uniform(YOffset.fixed(50), YOffset.fixed(70)))); // height
 
         Identifier VANADIUM_ORE_ID = new Identifier(CommonInitializer.MODID, "vanadium_ore_gen");
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, VANADIUM_ORE_ID, VANADIUM_ORE_FEATURE);
@@ -42,7 +39,6 @@ public class ModOreGeneration {
         BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(), GenerationStep.Feature.UNDERGROUND_ORES,
                 RegistryKey.of(Registry.PLACED_FEATURE_KEY, VANADIUM_ORE_ID));
 
-        //génération du minearai de tungsten
         ConfiguredFeature<?, ?> TUNGSTEN_ORE_FEATURE = new ConfiguredFeature<>
                 (Feature.ORE, new OreFeatureConfig(OreConfiguredFeatures.DEEPSLATE_ORE_REPLACEABLES,
                         ModBlocks.TUNGSTEN_ORE.getDefaultState(), 8));
@@ -58,7 +54,6 @@ public class ModOreGeneration {
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES,
                 RegistryKey.of(Registry.PLACED_FEATURE_KEY, TUNGSTEN_ORE_ID));
 
-        //génération du minerais d'argent
         ConfiguredFeature<?, ?> SILVER_ORE_FEATURE = new ConfiguredFeature<>
                 (Feature.ORE, new OreFeatureConfig(OreConfiguredFeatures.NETHERRACK,
                         ModBlocks.SILVER_ORE.getDefaultState(), 4));
@@ -74,7 +69,6 @@ public class ModOreGeneration {
         BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(), GenerationStep.Feature.UNDERGROUND_ORES,
                 RegistryKey.of(Registry.PLACED_FEATURE_KEY, SILVER_ORE_ID));
 
-        //génération minerais étain
         ConfiguredFeature<?, ?> TIN_ORE_FEATURE = new ConfiguredFeature<>
                 (Feature.ORE, new OreFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES,
                         ModBlocks.TIN_ORE.getDefaultState(), 8));

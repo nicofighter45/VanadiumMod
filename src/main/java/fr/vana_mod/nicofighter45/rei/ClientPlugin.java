@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.rei;
 
-import fr.vana_mod.nicofighter45.block.machine.ModMachines;
-import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipe;
+import fr.vana_mod.nicofighter45.machine.ModMachines;
+import fr.vana_mod.nicofighter45.machine.modifiertable.craft.ModifiersRecipe;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;

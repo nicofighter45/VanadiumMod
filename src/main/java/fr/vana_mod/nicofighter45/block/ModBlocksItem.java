@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.block;
 
-import fr.vana_mod.nicofighter45.block.machine.ModMachines;
+import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;

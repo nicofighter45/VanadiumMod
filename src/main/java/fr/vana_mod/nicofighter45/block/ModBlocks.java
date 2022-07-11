@@ -1,24 +1,11 @@
 package fr.vana_mod.nicofighter45.block;
 
 
-import fr.vana_mod.nicofighter45.block.enchanter.EnchanterBlock;
-import fr.vana_mod.nicofighter45.block.enchanter.EnchanterBlockEntity;
-import fr.vana_mod.nicofighter45.block.enchanter.EnchanterScreenHandler;
-import fr.vana_mod.nicofighter45.block.machine.ModMachines;
-import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableBlock;
-import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableBlockEntity;
-import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableScreenHandler;
-import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipe;
-import fr.vana_mod.nicofighter45.block.modifiertable.craft.ModifiersRecipeSerializer;
-import fr.vana_mod.nicofighter45.gui.CustomPlayerManagementScreenHandler;
+import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

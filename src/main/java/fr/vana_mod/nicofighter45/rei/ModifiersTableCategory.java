@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.rei;
 
-import fr.vana_mod.nicofighter45.block.machine.ModMachines;
+import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;

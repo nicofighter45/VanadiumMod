@@ -2,8 +2,8 @@ package fr.vana_mod.nicofighter45.main.server;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import fr.vana_mod.nicofighter45.gui.CustomCraftingScreenHandler;
-import fr.vana_mod.nicofighter45.gui.CustomPlayerManagementScreenHandler;
+import fr.vana_mod.nicofighter45.main.gui.CustomCraftingScreenHandler;
+import fr.vana_mod.nicofighter45.main.gui.CustomPlayerManagementScreenHandler;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;

@@ -1,77 +1,78 @@
-# Fabric Vanadium Mod
-
-## License
+# License
 
 This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
 To learn what you can and can't do check : https://choosealicense.com/licenses/mit/
 
-## Info
+# Info
 
-### Warning !
+## Warning !
 
 This projet is currently in developement. Feel free to send your message if you found a issue.
 
-### Video
+## Video
 
 Here is a video in french to learn how to install and play with this mod in vanadium server : https://www.youtube.com/watch?v=-hX_PsVFtgQ&t=17s
 
-## Setup
+# Setup
 
-### Java
+## Java
 
 If java isn't install in your computer, install it
 https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html
 
-### Minecraft
+## Minecraft
 
 You need to have a minecraft 1.19 instance and launch it once at least. Then you can leave minecraft
 
-### Fabric
+## Fabric
 
 Download the fabric launcher and install the last client version in 1.19
 https://fabricmc.net/use/
 This will create a new profile on your minecraft launcher
 
+## Obligatory Mods
 
-### Obligatory Mods
+Download all this mods and place them into a temporary folder
 
-#### REI
+### REI
 
 https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/3836158
 
-#### Architectury API
+### Architectury API
 
 https://www.curseforge.com/minecraft/mc-mods/architectury-api/download/3834396
 
-#### Cloth Config API
+### Cloth Config API
 
 https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3827486
 
-#### Fabric API
+### Fabric API
 
 https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3831112
 
-### Optimisation Mods
+## Optimisation Mods
 
-#### Client : Sodium
+If you want to optimize your game for performance you can also download this mods :
+
+### Client : Sodium
 
 https://www.curseforge.com/minecraft/mc-mods/sodium/download/3820973
 
-#### Server
+### Server
 
-##### Lithium
+#### Lithium
 
 https://www.curseforge.com/minecraft/mc-mods/lithium/download/3825272
 
-##### Phosphor
+#### Phosphor
 
 https://www.curseforge.com/minecraft/mc-mods/phosphor/download/3832074
 
-### VanaMod
+## VanaMod
 
-Download the latest version of VanaMod (pre release are beta version, take the one name latest release) : https://github.com/nicofighter45/FabricVanaMod/releases
+Download the latest version of VanaMod : https://github.com/nicofighter45/FabricVanaMod/releases
 
-### Installation
+## Installation
 
 Go into your mod folder of minecraft:
 windows + R

@@ -8,8 +8,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -21,27 +19,26 @@ import java.util.Optional;
 
 public class PurificatorScreenHandler extends ScreenHandler {
 
-    public boolean isCrafting = false;
     private PurificatorRecipe recipe;
     private final Inventory inventory;
     private final ScreenHandlerContext context;
-    private final PropertyDelegate propertyDelegate;
+    private final PurificatorProperties propertyDelegate;
     private final PlayerEntity player;
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new ArrayPropertyDelegate(2), ScreenHandlerContext.EMPTY,  DefaultedList.ofSize(3, ItemStack.EMPTY));
+        this(syncId, playerInventory, new PurificatorProperties(), ScreenHandlerContext.EMPTY,  DefaultedList.ofSize(3, ItemStack.EMPTY));
     }
 
-    public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PropertyDelegate propertyDelegate, ScreenHandlerContext context, @NotNull DefaultedList<ItemStack> itemStacks) {
+    public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PurificatorProperties propertyDelegate, ScreenHandlerContext context, @NotNull DefaultedList<ItemStack> itemStacks) {
         super(ModMachines.PURIFICATOR_SCREEN_HANDLER, syncId);
         this.context = context;
         this.propertyDelegate = propertyDelegate;
         this.player = playerInventory.player;
         inventory = new SimpleInventory(itemStacks.get(0), itemStacks.get(1), itemStacks.get(2));
 
-        this.addSlot(new Slot(inventory, 0, 44, 120));
-        this.addSlot(new WaterInputSlot(this, inventory, 1, 70, 102));
-        this.addSlot(new Slot(inventory, 2, 106,120));
+        this.addSlot(new WaterInputSlot(this, inventory, 0, 16, 12));
+        this.addSlot(new Slot(inventory, 1, 44, 39));
+        this.addSlot(new Slot(inventory, 2, 116,39));
 
         int m;
         int l;
@@ -69,7 +66,6 @@ public class PurificatorScreenHandler extends ScreenHandler {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot.hasStack()) {
-            System.out.println("Transfer non nul slot");
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
             if (index >= 0 && index < 3) {
@@ -111,39 +107,50 @@ public class PurificatorScreenHandler extends ScreenHandler {
         return itemStack;
     }
 
-    public PropertyDelegate getPropertyDelegate() {
-        return propertyDelegate;
+    public int getFluid(){
+        return this.propertyDelegate.get(0);
     }
 
-    public long getFluid(){
-        return this.getPropertyDelegate().get(0);
+    public boolean addFluid(){
+        if(this.propertyDelegate.isFilling){
+            return false;
+        }
+        this.propertyDelegate.isFilling = true;
+        this.propertyDelegate.resetFillTime();
+        return true;
+    }
+
+    public int getTime(){
+        return this.propertyDelegate.get(1);
+    }
+
+    public boolean isCrafting(){
+        return this.propertyDelegate.isCrafting;
     }
 
     public void onContentChanged(Inventory inventory) {
         this.context.run((world, pos) -> {
             if (!world.isClient) {
                 Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, inventory, world);
-                if(this.isCrafting && !this.recipe.getInput().getMatchingStacks()[0].equals(inventory.getStack(0))){
+                if(this.propertyDelegate.isCrafting && !this.recipe.getInput().getMatchingStacks()[0].equals(inventory.getStack(0))){
                     this.propertyDelegate.set(0, 0);
                     this.propertyDelegate.set(1, 0);
                 }
                 if (optional.isPresent()) {
                     if(inventory.getStack(2).getItem().equals(optional.get().getOutput().getItem())){
                         this.recipe = optional.get();
-                        this.isCrafting = true;
-                    }else{
-                        this.isCrafting = false;
                     }
+                    this.propertyDelegate.isCrafting = !this.propertyDelegate.isCrafting;
                 }
             }
         });
     }
 
     public void crafting() {
-        if(isCrafting){
+        if(this.propertyDelegate.isCrafting){
             this.context.run((world, pos) -> {
                 if (!world.isClient) {
-                    ItemStack input = this.inventory.getStack(0);
+                    ItemStack input = this.inventory.getStack(1);
                     if(input.getCount() > 1){
                         input.decrement(1);
                     }else{
@@ -155,7 +162,7 @@ public class PurificatorScreenHandler extends ScreenHandler {
                     }else{
                         result = this.recipe.getOutput().copy();
                     }
-                    ((ServerPlayerEntity) this.player).networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(syncId, nextRevision(), 0, input));
+                    ((ServerPlayerEntity) this.player).networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(syncId, nextRevision(), 1, input));
                     ((ServerPlayerEntity) this.player).networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(syncId, nextRevision(), 2, result));
                 }
             });

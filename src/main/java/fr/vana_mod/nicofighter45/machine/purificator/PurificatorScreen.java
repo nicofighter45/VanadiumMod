@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
 
-    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machine/enchanter.png");
+    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machine/purificator.png");
 
     public PurificatorScreen(PurificatorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -30,8 +30,20 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         textRenderer.draw(matrices, Long.toString(getScreenHandler().getFluid()), 0, 0, 65280);
-        textRenderer.draw(matrices, Integer.toString(getScreenHandler().getPropertyDelegate().get(1)), 0, 8, 65280);
+        textRenderer.draw(matrices, Integer.toString(getScreenHandler().getTime()), 0, 10, 65280);
         renderBackground(matrices);
+        if (getScreenHandler().isCrafting()) {
+            int time = getScreenHandler().getTime();
+            if(time < 11){
+                drawTexture(matrices, x + 38, y + 70, 1, 201, (int) (time*2.8), 1);
+            }else if(time < 21){
+                drawTexture(matrices, x + 65, y + 69, 1, 222, 1, -2*(time-10));
+            }else{
+                drawTexture(matrices, x + 65, y + 48, 1, 224, (int) (0.4*(time-20)), 15);
+            }
+        }
+        int fluid = getScreenHandler().getFluid() * 2/25;
+        drawTexture(matrices, x + 12, y + 74, 1, 199, 24, -fluid);
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);
     }

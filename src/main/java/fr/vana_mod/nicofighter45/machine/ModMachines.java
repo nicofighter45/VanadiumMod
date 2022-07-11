@@ -76,7 +76,7 @@ public class ModMachines {
         HIGH_FURNACE_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(CommonInitializer.MODID, "high_furnace_screen_handler"), HighFurnaceScreenHandler::new);
 
         PURIFICATOR_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(CommonInitializer.MODID, "purificator_screen_handler"), PurificatorScreenHandler::new);
-        FluidStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.fluidStorage, PURIFICATOR_BLOCK_ENTITY_TYPE);
+        FluidStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.getPropertyDelegate().fluidStorage, PURIFICATOR_BLOCK_ENTITY_TYPE);
         Registry.register(Registry.RECIPE_SERIALIZER, PurificatorRecipeSerializer.ID, PurificatorRecipeSerializer.INSTANCE);
         PURIFICATOR_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(CommonInitializer.MODID, PurificatorRecipe.Type.ID), PURIFICATOR_RECIPE_TYPE);
     }

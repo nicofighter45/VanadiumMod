@@ -1,6 +1,5 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,14 +17,15 @@ public class WaterInputSlot extends Slot {
 
     @Override
     public boolean canInsert(@NotNull ItemStack stack) {
-        return this.handler.getFluid() <= FluidConstants.BUCKET * 3;
+        return stack.getItem().equals(Items.WATER_BUCKET) || stack.getItem().equals(Items.BUCKET);
     }
 
     @Override
     public ItemStack insertStack(@NotNull ItemStack stack, int count) {
         if(!stack.isEmpty() && this.canInsert(stack)) {
-            handler.getPropertyDelegate().set(0, Integer.parseInt(Long.toString(this.handler.getFluid() + FluidConstants.BUCKET)));
-            return new ItemStack(Items.BUCKET);
+            if(stack.getItem() == Items.WATER_BUCKET && handler.addFluid()){
+                return new ItemStack(Items.BUCKET);
+            }
         }
         return stack;
     }

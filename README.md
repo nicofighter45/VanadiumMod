@@ -5,4 +5,12 @@ To learn what you can and can't do check <a href="https://choosealicense.com/lic
 
 # Warning !
 
-This project is currently in development. Feel free to send a message if you found a issue.
+This project is currently in development. Feel free to send a message if you found an issue.
+
+# Setup
+
+Here is how to <a href="https://github.com/nicofighter45/VanadiumMod/blob/master/SETUP.md">download </a>Vanadium
+
+# Update
+
+Here is how to <a href="https://github.com/nicofighter45/VanadiumMod/blob/master/UPDATE.md">update </a>to the newest version

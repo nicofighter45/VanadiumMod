@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.gui;
 
-import fr.vana_mod.nicofighter45.block.ModBlocks;
+import fr.vana_mod.nicofighter45.block.machine.ModMachines;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -19,7 +19,7 @@ public class CustomPlayerManagementScreenHandler extends ScreenHandler {
     }
 
     public CustomPlayerManagementScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PlayerInventory playerInventoryToManage) {
-        super(ModBlocks.CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER, syncId);
+        super(ModMachines.CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER, syncId);
         this.playerInventory = playerInventory;
         int k, j;
         for(k = 0; k < 4; k ++){

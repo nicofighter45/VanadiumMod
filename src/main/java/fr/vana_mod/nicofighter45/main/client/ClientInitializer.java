@@ -1,7 +1,8 @@
 package fr.vana_mod.nicofighter45.main.client;
 
-import fr.vana_mod.nicofighter45.block.ModBlocks;
 import fr.vana_mod.nicofighter45.block.enchanter.EnchanterScreen;
+import fr.vana_mod.nicofighter45.block.machine.ModMachines;
+import fr.vana_mod.nicofighter45.block.machine.high_furnace.HighFurnaceScreen;
 import fr.vana_mod.nicofighter45.block.modifiertable.ModifiersTableScreen;
 import fr.vana_mod.nicofighter45.gui.CustomPlayerManagementScreen;
 import fr.vana_mod.nicofighter45.items.ModItems;
@@ -21,9 +22,10 @@ public class ClientInitializer implements ClientModInitializer {
 
         //register client screens
 
-        HandledScreens.register(ModBlocks.MODIFIERS_TABLE_SCREEN_HANDLER, ModifiersTableScreen::new);
-        HandledScreens.register(ModBlocks.ENCHANTER_SCREEN_HANDLER, EnchanterScreen::new);
-        HandledScreens.register(ModBlocks.CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER, CustomPlayerManagementScreen::new);
+        HandledScreens.register(ModMachines.MODIFIERS_TABLE_SCREEN_HANDLER, ModifiersTableScreen::new);
+        HandledScreens.register(ModMachines.ENCHANTER_SCREEN_HANDLER, EnchanterScreen::new);
+        HandledScreens.register(ModMachines.CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER, CustomPlayerManagementScreen::new);
+        HandledScreens.register(ModMachines.HIGH_FURNACE_SCREEN_HANDLER, HighFurnaceScreen::new);
 
         //register vanadium bow
         ModelPredicateProviderRegistry.register(ModItems.VANADIUM_BOW, new Identifier("pull"), (stack, world, entity, seed) -> {

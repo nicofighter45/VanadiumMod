@@ -28,7 +28,7 @@
       "fr.vana_mod.nicofighter45.main.server.ServerInitializer"
     ],
     "rei_client": [
-      "fr.vana_mod.nicofighter45.rei.ReiPlugin"
+      "fr.vana_mod.nicofighter45.rei.ClientPlugin"
     ]
   },
   "mixins": [
@@ -39,7 +39,7 @@
     "fabricloader": ">=0.11.3",
     "fabric": "*",
     "minecraft": "1.19.x",
-    "java": ">=16"
+    "java": ">=17"
   },
   "suggests": {
     "REI": "Roughly Enough Items"

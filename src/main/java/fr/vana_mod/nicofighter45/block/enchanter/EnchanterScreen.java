@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class EnchanterScreen extends HandledScreen<EnchanterScreenHandler> {
 
-    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/container/enchanter.png");
+    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machine/enchanter.png");
     private static final Identifier TEXTURE_VANADIUM_NUGGET = new Identifier(CommonInitializer.MODID, "textures/item/vanadium_nugget.png");
     private static final Identifier TEXTURE_LAPIS_LAZULI = new Identifier("minecraft", "textures/item/lapis_lazuli.png");
 

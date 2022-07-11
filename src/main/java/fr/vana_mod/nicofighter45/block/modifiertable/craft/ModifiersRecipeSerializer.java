@@ -20,16 +20,13 @@ import java.util.Objects;
 
 public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersRecipe> {
 
-    // Define ModifiersRecipeSerializer as a singleton by making its constructor private and exposing an instance.
     private ModifiersRecipeSerializer() {}
 
     public static final ModifiersRecipeSerializer INSTANCE = new ModifiersRecipeSerializer();
 
-    // This will be the "type" field in the json
     public static final Identifier ID = new Identifier(CommonInitializer.MODID, "modifiers_recipe");
 
     @Override
-    // Turns json into Recipe
     public ModifiersRecipe read(Identifier id, JsonObject json) {
         ModifiersRecipeJsonFormat recipeJson = new Gson().fromJson(json, ModifiersRecipeJsonFormat.class);
 
@@ -38,7 +35,6 @@ public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersReci
             throw new JsonSyntaxException("A required attribute is missing!");
         }
 
-        // Ingredient easily turns JsonObjects of the correct format into Ingredients
         Ingredient input1 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input1))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input1))));
         Ingredient input2 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input2))
@@ -60,7 +56,6 @@ public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersReci
     }
 
     @Override
-    // Turns Recipe into PacketByteBuf
     public void write(PacketByteBuf packetData, @NotNull ModifiersRecipe recipe) {
         recipe.getInput1().write(packetData);
         recipe.getInput2().write(packetData);
@@ -70,9 +65,7 @@ public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersReci
     }
 
     @Override
-    // Turns PacketByteBuf into Recipe
     public ModifiersRecipe read(Identifier id, PacketByteBuf packetData) {
-        // Make sure the read in the same order you have written!
         Ingredient input1 = Ingredient.fromPacket(packetData);
         Ingredient input2 = Ingredient.fromPacket(packetData);
         Ingredient input3 = Ingredient.fromPacket(packetData);

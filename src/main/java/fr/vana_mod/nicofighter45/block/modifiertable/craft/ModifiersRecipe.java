@@ -7,6 +7,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,13 +45,11 @@ public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient i
     }
 
     public static class Type implements RecipeType<ModifiersRecipe> {
-        // Define ExampleRecipe.Type as a singleton by making its constructor private and exposing an instance.
         private Type() {
         }
 
         public static final Type INSTANCE = new Type();
 
-        // This will be needed in step 4
         public static final String ID = "modifiers_table_recipe_type";
     }
 
@@ -73,5 +72,15 @@ public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient i
 
     public Ingredient getInput4() {
         return input4;
+    }
+
+    @Override
+    public @NotNull DefaultedList<Ingredient> getIngredients() {
+        DefaultedList<Ingredient> list = DefaultedList.ofSize(4);
+        list.add(this.input1);
+        list.add(this.input2);
+        list.add(this.input3);
+        list.add(this.input4);
+        return list;
     }
 }

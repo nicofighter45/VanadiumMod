@@ -1,16 +1,16 @@
-You just notice a new version has been released and you don't know how to upgrade ? Don't worry I got you cover !
+Tu viens juste de remarquer qu'une nouvelle version a été publié et tu ne sais pas comment l'installer ? T'inquiètes pas je suis là !
 
-# Install new version
+# Installer la nouvelle version
 
-You first need to install the last Vanadium version, you can find it <a href="https://github.com/nicofighter45/VanadiumMod/releases/download/v1.5.3/Vanadium_Mod-1.5.3.jar">here </a> !
+Tu dois d'abord installer la nouvelle version de Vanadium, tu peux la trouver <a href="https://github.com/nicofighter45/VanadiumMod/releases/download/v1.5.3/Vanadium_Mod-1.5.3.jar">ici </a> !
 
-# Delete the old version
+# Supprimes l'ancienne version
 
-Go into your mod folder of minecraft:
-- press both key at the same time : windows + R
-- them type : %appdata% and then press enter
-- go into .minecraft folder
-- got into your "mods" folder
-- delete the file call "Vanadim_Mod" with some numbers at the end
-- put into this folder the file you download in the previous step
-- you can now relaunch your game with the last version installed !!
+Va dans ton fichier mod de minecraft :
+- appuies sur ces deux touches en même temps : windows + R
+- ensuite tapes : %appdata% puis appuies sur entrer
+- va dans le dossier ".minecraft"
+- va dans le dossier "mods"
+- supprimes le fichier nommer "Vanadium_Mod" avec des nombres à la fin
+- mets dans ce dossier le fichier que tu as téléchargé à l'étape précédente
+- tu peux maintenant relancer ton jeu avec la nouvelle version d'installer !

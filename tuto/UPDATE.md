@@ -9,7 +9,7 @@ You first need to install the last Vanadium version, you can find it <a href="ht
 Go into your mod folder of minecraft:
 - press both key at the same time : windows + R
 - them type : %appdata% and then press enter
-- go into .minecraft folder
+- go into ".minecraft" folder
 - got into your "mods" folder
 - delete the file call "Vanadim_Mod" with some numbers at the end
 - put into this folder the file you download in the previous step

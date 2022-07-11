@@ -38,9 +38,9 @@ Go into your mod folder of minecraft:
 - them type : %appdata% and then press enter
 - go into .minecraft folder
 - if the folder "mods" doesn't exist create it
-- put all the mods in the "mods" folder, if it
+- put all the mods in the "mods" folder
 
-Launch your minecraft client and run the new version that has been created called fabric-loader
+Launch your minecraft launcher and run the new version that has been created called "fabric-loader-1.19"
 
 Enter the given IP if you want to play multiplayer or create a new world in solo
 

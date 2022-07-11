@@ -1,0 +1,7 @@
+{
+  "type": "vana-mod:purificator_recipe",
+  "input": "minecraft:raw_iron",
+  "result": {
+    "item": "minecraft:iron_ingot"
+  }
+}

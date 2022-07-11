@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
 
-    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/container/enchanter.png");
+    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machine/enchanter.png");
 
     public PurificatorScreen(PurificatorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -29,6 +29,8 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        textRenderer.draw(matrices, Long.toString(getScreenHandler().getFluid()), 0, 0, 65280);
+        textRenderer.draw(matrices, Integer.toString(getScreenHandler().getPropertyDelegate().get(1)), 0, 8, 65280);
         renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);

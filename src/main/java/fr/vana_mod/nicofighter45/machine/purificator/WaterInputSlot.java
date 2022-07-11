@@ -16,19 +16,15 @@ public class WaterInputSlot extends Slot {
         this.handler = handler;
     }
 
-    private long getFluid(){
-        return this.handler.getPropertyDelegate().get(0);
-    }
-
     @Override
     public boolean canInsert(@NotNull ItemStack stack) {
-        return getFluid() <= FluidConstants.BUCKET * 3;
+        return this.handler.getFluid() <= FluidConstants.BUCKET * 3;
     }
 
     @Override
     public ItemStack insertStack(@NotNull ItemStack stack, int count) {
         if(!stack.isEmpty() && this.canInsert(stack)) {
-            handler.getPropertyDelegate().set(0, Integer.parseInt(Long.toString(getFluid() + FluidConstants.BUCKET)));
+            handler.getPropertyDelegate().set(0, Integer.parseInt(Long.toString(this.handler.getFluid() + FluidConstants.BUCKET)));
             return new ItemStack(Items.BUCKET);
         }
         return stack;

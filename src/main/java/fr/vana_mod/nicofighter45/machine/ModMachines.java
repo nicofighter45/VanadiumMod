@@ -11,8 +11,11 @@ import fr.vana_mod.nicofighter45.machine.modifiertable.ModifiersTableBlockEntity
 import fr.vana_mod.nicofighter45.machine.modifiertable.ModifiersTableScreenHandler;
 import fr.vana_mod.nicofighter45.machine.modifiertable.craft.ModifiersRecipe;
 import fr.vana_mod.nicofighter45.machine.modifiertable.craft.ModifiersRecipeSerializer;
+import fr.vana_mod.nicofighter45.machine.purificator.PurificatorBlock;
 import fr.vana_mod.nicofighter45.machine.purificator.PurificatorBlockEntity;
 import fr.vana_mod.nicofighter45.machine.purificator.PurificatorScreenHandler;
+import fr.vana_mod.nicofighter45.machine.purificator.craft.PurificatorRecipe;
+import fr.vana_mod.nicofighter45.machine.purificator.craft.PurificatorRecipeSerializer;
 import fr.vana_mod.nicofighter45.main.gui.CustomPlayerManagementScreenHandler;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
@@ -44,11 +47,12 @@ public class ModMachines {
             BlockEntityType.Builder.create(HighFurnaceBlockEntity::new, HIGH_FURNACE_BLOCK).build(null);
     public static ScreenHandlerType<HighFurnaceScreenHandler> HIGH_FURNACE_SCREEN_HANDLER;
 
-    public static Block PURIFICATOR_BLOCK = new HighFurnaceBlock();
+    public static Block PURIFICATOR_BLOCK = new PurificatorBlock();
     public static BlockEntityType<PurificatorBlockEntity> PURIFICATOR_BLOCK_ENTITY_TYPE =
             BlockEntityType.Builder.create(PurificatorBlockEntity::new, PURIFICATOR_BLOCK).build(null);
 
     public static ScreenHandlerType<PurificatorScreenHandler> PURIFICATOR_SCREEN_HANDLER;
+    public static RecipeType<PurificatorRecipe> PURIFICATOR_RECIPE_TYPE = PurificatorRecipe.Type.INSTANCE;
 
     public static void registerAll(){
         registerNewBlock("modifiers_table_block", MODIFIERS_TABLE_BLOCK);
@@ -57,7 +61,7 @@ public class ModMachines {
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "enchanter_block_entity_type"), ENCHANTER_BLOCK_ENTITY_TYPE);
         registerNewBlock("high_furnace_block", HIGH_FURNACE_BLOCK);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "high_furnace_block_entity_type"), HIGH_FURNACE_BLOCK_ENTITY_TYPE);
-        registerNewBlock("purificator", PURIFICATOR_BLOCK);
+        registerNewBlock("purificator_block", PURIFICATOR_BLOCK);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "purificator_block_entity_type"), PURIFICATOR_BLOCK_ENTITY_TYPE);
 
 
@@ -73,6 +77,8 @@ public class ModMachines {
 
         PURIFICATOR_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(new Identifier(CommonInitializer.MODID, "purificator_screen_handler"), PurificatorScreenHandler::new);
         FluidStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.fluidStorage, PURIFICATOR_BLOCK_ENTITY_TYPE);
+        Registry.register(Registry.RECIPE_SERIALIZER, PurificatorRecipeSerializer.ID, PurificatorRecipeSerializer.INSTANCE);
+        PURIFICATOR_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(CommonInitializer.MODID, PurificatorRecipe.Type.ID), PURIFICATOR_RECIPE_TYPE);
     }
 
     private static void registerNewBlock(String name, Block block){

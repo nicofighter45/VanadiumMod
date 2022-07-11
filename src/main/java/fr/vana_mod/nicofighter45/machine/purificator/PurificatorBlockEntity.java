@@ -20,13 +20,16 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ClientPlayerTickable, MachineInventory {
 
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
     private int waterStored, time;
+
+    private PurificatorScreenHandler handler;
 
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
@@ -75,9 +78,10 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
     }
 
     @Override
-    public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new PurificatorScreenHandler(syncId, playerInventory, this.propertyDelegate, player,
-                ScreenHandlerContext.create(player.getEntityWorld(), pos));
+    public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+        handler = new PurificatorScreenHandler(syncId, playerInventory, this.propertyDelegate,
+                ScreenHandlerContext.create(player.getEntityWorld(), pos), this.inventory);
+        return handler;
     }
 
     @Override
@@ -87,8 +91,18 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
 
     @Override
     public void tick() {
-        assert world != null;
-        if(!world.isClient) this.time++;
+        assert world != null && handler != null;
+        if(!world.isClient){
+            if(handler.isCrafting){
+                if(this.fluidStorage.getAmount() > FluidConstants.BUCKET/100){
+                    this.fluidStorage.amount -= FluidConstants.BUCKET/100;
+                    this.time++;
+                    if(time == 100){
+                        handler.crafting();
+                    }
+                }
+            }
+        }
     }
 
     @Override

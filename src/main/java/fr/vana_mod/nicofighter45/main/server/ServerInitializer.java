@@ -8,7 +8,6 @@ public class ServerInitializer implements DedicatedServerModInitializer {
 
     //custom player
     public static Map<UUID, CustomPlayer> players = new HashMap<>();
-    public static BossSpawner bossesManagement;
     public static boolean isOn = true;
 
     public static boolean jump = false;

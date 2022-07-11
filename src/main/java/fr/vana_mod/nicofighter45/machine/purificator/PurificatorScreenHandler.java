@@ -29,11 +29,11 @@ public class PurificatorScreenHandler extends ScreenHandler {
     private final PlayerEntity player;
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new ArrayPropertyDelegate(2), ScreenHandlerContext.EMPTY,  DefaultedList.ofSize(3));
+        this(syncId, playerInventory, new ArrayPropertyDelegate(2), ScreenHandlerContext.EMPTY,  DefaultedList.ofSize(3, ItemStack.EMPTY));
     }
 
     public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PropertyDelegate propertyDelegate, ScreenHandlerContext context, @NotNull DefaultedList<ItemStack> itemStacks) {
-        super(ModMachines.HIGH_FURNACE_SCREEN_HANDLER, syncId);
+        super(ModMachines.PURIFICATOR_SCREEN_HANDLER, syncId);
         this.context = context;
         this.propertyDelegate = propertyDelegate;
         this.player = playerInventory.player;
@@ -69,10 +69,11 @@ public class PurificatorScreenHandler extends ScreenHandler {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot.hasStack()) {
+            System.out.println("Transfer non nul slot");
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
-            if (index >= 0 && index < 2) {
-                if (!this.insertItem(itemStack2, 10, 46, true)) {
+            if (index >= 0 && index < 3) {
+                if (!this.insertItem(itemStack2, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
 
@@ -80,7 +81,7 @@ public class PurificatorScreenHandler extends ScreenHandler {
             } else if (index >= 3 && index < 39) {
                 if (!this.insertItem(itemStack2, 0, 3, false)) {
                     if (index < 30) {
-                        if (!this.insertItem(itemStack2, 30, 49, false)) {
+                        if (!this.insertItem(itemStack2, 30, 39, false)) {
                             return ItemStack.EMPTY;
                         }
                     } else if (!this.insertItem(itemStack2, 3, 30, false)) {

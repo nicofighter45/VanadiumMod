@@ -23,7 +23,6 @@ public class ModifiersTableCategory implements DisplayCategory<ModifiersTableDis
 
     @Override
     public List<Widget> setupDisplay(@NotNull ModifiersTableDisplay display, @NotNull Rectangle bounds) {
-        bounds.x += 13;
         List<Widget> widgets = new ArrayList<>();
         widgets.add(Widgets.createRecipeBase(bounds));
         Point startPoint = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 8);

@@ -11,7 +11,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -20,31 +19,25 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, MachineInventory {
+import java.util.Optional;
+
+public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
 
     public int water, filling, crafting;
 
-    public final Inventory inventory = new SimpleInventory(3);
-
-    public PurificatorScreenHandler handler;
-
-    private PurificatorRecipe recipe;
+    public final MachineInventory inventory = MachineInventory.ofSize(3);
 
     public PurificatorBlockEntity(BlockPos pos, BlockState state) {
         super(ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, pos, state);
     }
 
     public static void tick(@NotNull World world, BlockPos pos, BlockState state, PurificatorBlockEntity blockEntity) {
-        System.out.println("tick");
-        assert world != null;
         if(!world.isClient){
-            System.out.println("tick server");
             int water = blockEntity.propertyDelegate.get(Properties.WATER.value);
             int crafting = blockEntity.propertyDelegate.get(Properties.CRAFTING.value);
             if(water > 0 && crafting > 0){
@@ -59,10 +52,14 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
                         blockEntity.inventory.setStack(1, ItemStack.EMPTY);
                     }
                     ItemStack result = blockEntity.inventory.getStack(2);
-                    if(result.getItem().equals(blockEntity.recipe.getOutput().getItem())){
-                        result.increment(1);
-                    }else{
-                        blockEntity.inventory.setStack(2, blockEntity.recipe.getOutput().copy());
+                    Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(input), world);
+                    if (optional.isPresent()) {
+                        PurificatorRecipe recipe = optional.get();
+                        if(!result.isEmpty()){
+                            result.increment(1);
+                        }else{
+                            blockEntity.inventory.setStack(2, recipe.getOutput().copy().copy());
+                        }
                     }
                 }
             }
@@ -76,8 +73,7 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, @NotNull PlayerEntity player) {
-        handler = new PurificatorScreenHandler(syncId, playerInventory, ScreenHandlerContext.create(player.getEntityWorld(), pos), this);
-        return handler;
+        return new PurificatorScreenHandler(syncId, playerInventory, ScreenHandlerContext.create(player.getEntityWorld(), pos), inventory, propertyDelegate);
     }
 
     @Override
@@ -86,32 +82,23 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
     }
 
     @Override
-    public DefaultedList<ItemStack> getItems() {
-        DefaultedList<ItemStack> list = DefaultedList.ofSize(this.inventory.size());
-        for(int i = 0; i < this.inventory.size(); i++){
-            list.add(i, this.inventory.getStack(i));
-        }
-        return list;
-    }
-
-    @Override
     public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
         System.out.println("reading nbt");
-        Inventories.readNbt(nbt, getItems());
+        Inventories.readNbt(nbt, inventory.getItems());
         propertyDelegate.set(Properties.WATER.value, nbt.getInt("water"));
         propertyDelegate.set(Properties.FILLING.value, nbt.getInt("filling"));
         propertyDelegate.set(Properties.CRAFTING.value, nbt.getInt("crafting"));
-        super.readNbt(nbt);
     }
 
     @Override
     public void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
         System.out.println("writing nbt");
-        Inventories.writeNbt(nbt, getItems());
+        Inventories.writeNbt(nbt, inventory.getItems());
         nbt.putInt("water", propertyDelegate.get(Properties.WATER.value));
         nbt.putInt("filling", propertyDelegate.get(Properties.FILLING.value));
         nbt.putInt("crafting", propertyDelegate.get(Properties.CRAFTING.value));
-        super.writeNbt(nbt);
     }
 
     public enum Properties{

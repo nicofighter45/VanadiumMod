@@ -1,31 +1,48 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
+import fr.vana_mod.nicofighter45.machine.MachineInventory;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
+import fr.vana_mod.nicofighter45.machine.purificator.craft.PurificatorRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeMatcher;
+import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.screen.AbstractRecipeScreenHandler;
+import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
-public class PurificatorScreenHandler extends ScreenHandler {
+import java.util.Optional;
+
+public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<MachineInventory> {
 
     private final ScreenHandlerContext context;
-    private final PurificatorBlockEntity blockEntity;
+    private final MachineInventory inventory;
+    private final PropertyDelegate propertyDelegate;
+    private final PlayerEntity player;
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, null);
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(3), new ArrayPropertyDelegate(1));
+        System.out.println("Basic constructor");
     }
 
-    public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, PurificatorBlockEntity blockEntity) {
+    public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, MachineInventory inventory, PropertyDelegate propertyDelegate) {
         super(ModMachines.PURIFICATOR_SCREEN_HANDLER, syncId);
         this.context = context;
-        this.blockEntity = blockEntity;
+        this.inventory = inventory;
+        this.propertyDelegate = propertyDelegate;
+        this.player = playerInventory.player;
 
-        this.addSlot(new WaterInputSlot(blockEntity.propertyDelegate, blockEntity.inventory, 0, 16, 12));
-        this.addSlot(new Slot(blockEntity.inventory, 1, 44, 39));
-        this.addSlot(new Slot(blockEntity.inventory, 2, 116,39));
+        this.addSlot(new WaterInputSlot(propertyDelegate, inventory, 0, 16, 12));
+        this.addSlot(new Slot(inventory, 1, 44, 39));
+        this.addSlot(new Slot(inventory, 2, 116,39));
 
         int m;
         int l;
@@ -40,10 +57,30 @@ public class PurificatorScreenHandler extends ScreenHandler {
         }
     }
 
+    protected void updateResult(@NotNull World world, MachineInventory machineInventory, Inventory inventory) {
+        if (!world.isClient) {
+            Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(inventory.getStack(1)), world);
+            if (optional.isPresent()) {
+                if(machineInventory.getStack(1).getItem() != inventory.getStack(1).getItem()){
+                    propertyDelegate.set(PurificatorBlockEntity.Properties.CRAFTING.value, 0);
+                }
+            }else if(propertyDelegate.get(PurificatorBlockEntity.Properties.CRAFTING.value) > 0){
+                propertyDelegate.set(PurificatorBlockEntity.Properties.CRAFTING.value, 0);
+            }
+        }
+    }
+
+    public void onContentChanged(Inventory inventory) {
+        this.context.run((world, pos) -> updateResult(this.player.getWorld(), this.inventory, inventory));
+    }
+
     @Override
     public void close(PlayerEntity player) {
-        this.blockEntity.handler = null;
         super.close(player);
+    }
+
+    public PropertyDelegate getProperty(){
+        return this.propertyDelegate;
     }
 
     public boolean canUse(PlayerEntity player) {
@@ -95,8 +132,49 @@ public class PurificatorScreenHandler extends ScreenHandler {
         return itemStack;
     }
 
-    public PropertyDelegate getProperty(){
-        return this.blockEntity.propertyDelegate;
+    @Override
+    public void populateRecipeFinder(RecipeMatcher finder) {
+        this.inventory.provideRecipeInputs(finder);
     }
 
+    @Override
+    public void clearCraftingSlots() {
+        this.inventory.setStack(1, ItemStack.EMPTY);
+        this.inventory.setStack(2, ItemStack.EMPTY);
+    }
+
+    @Override
+    public boolean matches(@NotNull Recipe<? super MachineInventory> recipe) {
+        return recipe.matches(this.inventory, this.player.getWorld());
+    }
+
+    @Override
+    public int getCraftingResultSlotIndex() {
+        return 2;
+    }
+
+    @Override
+    public int getCraftingWidth() {
+        return 1;
+    }
+
+    @Override
+    public int getCraftingHeight() {
+        return 1;
+    }
+
+    @Override
+    public int getCraftingSlotCount() {
+        return 2;
+    }
+
+    @Override
+    public RecipeBookCategory getCategory() {
+        return RecipeBookCategory.CRAFTING;
+    }
+
+    @Override
+    public boolean canInsertIntoSlot(int index) {
+        return index != 2;
+    }
 }

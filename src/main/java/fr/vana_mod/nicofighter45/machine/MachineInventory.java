@@ -4,28 +4,47 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeInputProvider;
+import net.minecraft.recipe.RecipeMatcher;
+import net.minecraft.recipe.RecipeUnlocker;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public interface MachineInventory extends Inventory {
+public class MachineInventory implements Inventory, RecipeInputProvider, RecipeUnlocker {
 
-    DefaultedList<ItemStack> getItems();
+    private final DefaultedList<ItemStack> stacks;
 
-    static @NotNull MachineInventory of(DefaultedList<ItemStack> items) {
-        return () -> items;
+    private MachineInventory(DefaultedList<ItemStack> items) {
+        this.stacks = items;
     }
 
-    static @NotNull MachineInventory ofSize(int size) {
+    public DefaultedList<ItemStack> getItems() {
+        return stacks;
+    }
+
+    public void provideRecipeInputs(RecipeMatcher finder) {
+        for (ItemStack itemStack : this.stacks) {
+            finder.addUnenchantedInput(itemStack);
+        }
+    }
+
+    public static @NotNull MachineInventory of(DefaultedList<ItemStack> items) {
+        return new MachineInventory(items);
+    }
+
+    public static @NotNull MachineInventory ofSize(int size) {
         return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
 
     @Override
-    default int size() {
+    public int size() {
         return getItems().size();
     }
 
     @Override
-    default boolean isEmpty() {
+    public boolean isEmpty() {
         for (int i = 0; i < size(); i++) {
             ItemStack stack = getStack(i);
             if (!stack.isEmpty()) {
@@ -36,12 +55,12 @@ public interface MachineInventory extends Inventory {
     }
 
     @Override
-    default ItemStack getStack(int slot) {
+    public ItemStack getStack(int slot) {
         return getItems().get(slot);
     }
 
     @Override
-    default ItemStack removeStack(int slot, int count) {
+    public ItemStack removeStack(int slot, int count) {
         ItemStack result = Inventories.splitStack(getItems(), slot, count);
         if (!result.isEmpty()) {
             markDirty();
@@ -50,12 +69,12 @@ public interface MachineInventory extends Inventory {
     }
 
     @Override
-    default ItemStack removeStack(int slot) {
+    public ItemStack removeStack(int slot) {
         return Inventories.removeStack(getItems(), slot);
     }
 
     @Override
-    default void setStack(int slot, ItemStack stack) {
+    public void setStack(int slot, ItemStack stack) {
         getItems().set(slot, stack);
         if (stack.getCount() > getMaxCountPerStack()) {
             stack.setCount(getMaxCountPerStack());
@@ -63,16 +82,27 @@ public interface MachineInventory extends Inventory {
     }
 
     @Override
-    default void clear() {
+    public void clear() {
         getItems().clear();
     }
 
     @Override
-    default void markDirty() {
+    public void markDirty() {
     }
 
     @Override
-    default boolean canPlayerUse(PlayerEntity player) {
+    public boolean canPlayerUse(PlayerEntity player) {
         return true;
+    }
+
+    @Override
+    public void setLastRecipe(@Nullable Recipe<?> recipe) {
+
+    }
+
+    @Nullable
+    @Override
+    public Recipe<?> getLastRecipe() {
+        return null;
     }
 }

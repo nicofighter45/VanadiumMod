@@ -32,12 +32,7 @@ public class ItemOutputSlot extends Slot {
                 this.setStack(itemStack);
             }
 
-            Optional<PurificatorRecipe> optional = handler.getWorld().getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, inventory, handler.getWorld());
-            if (optional.isPresent()) {
-                if(!inventory.getStack(2).getItem().equals(optional.get().getOutput().getItem())){
-                    handler.getProperty().set(PurificatorBlockEntity.Properties.CRAFTING.value, 0);
-                }
-            }
+
         }
         return stack;
     }

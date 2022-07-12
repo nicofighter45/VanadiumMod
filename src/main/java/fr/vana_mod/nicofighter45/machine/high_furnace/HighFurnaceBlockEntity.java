@@ -19,7 +19,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class HighFurnaceBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ClientPlayerTickable, MachineInventory {
+public class HighFurnaceBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ClientPlayerTickable {
 
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
 
@@ -61,11 +61,6 @@ public class HighFurnaceBlockEntity extends BlockEntity implements NamedScreenHa
         assert world != null;
         if(!world.isClient)
             syncedInt++;
-    }
-
-    @Override
-    public DefaultedList<ItemStack> getItems() {
-        return this.inventory;
     }
 
     @Override

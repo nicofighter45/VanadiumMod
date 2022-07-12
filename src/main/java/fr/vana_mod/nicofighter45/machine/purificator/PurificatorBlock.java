@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
 import fr.vana_mod.nicofighter45.machine.ModMachines;
+import jdk.jfr.Experimental;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -9,6 +10,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -36,17 +38,18 @@ public class PurificatorBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(world.isClient) {
-            return ActionResult.SUCCESS;
-        }else{
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            return ActionResult.CONSUME;
+        if (!world.isClient) {
+            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+            if (screenHandlerFactory != null) {
+                player.openHandledScreen(screenHandlerFactory);
+            }
         }
+        return ActionResult.SUCCESS;
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, (world1, pos, state1, be) -> PurificatorBlockEntity.tick(world1, pos, state1, be));
+        return checkType(type, ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, PurificatorBlockEntity::tick);
     }
 
 }

@@ -31,6 +31,7 @@ public class WaterInputSlot extends Slot {
                     propertyDelegate.get(PurificatorBlockEntity.Properties.FILLING.value) == 0){
                 this.setStack(new ItemStack(Items.BUCKET));
                 propertyDelegate.set(PurificatorBlockEntity.Properties.FILLING.value, 100);
+                return ItemStack.EMPTY;
             }
             if (itemStack.isEmpty()) {
                 this.setStack(stack.split(i));

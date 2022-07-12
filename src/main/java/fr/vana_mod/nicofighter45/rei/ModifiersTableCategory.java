@@ -23,8 +23,6 @@ public class ModifiersTableCategory implements DisplayCategory<ModifiersTableDis
 
     @Override
     public List<Widget> setupDisplay(@NotNull ModifiersTableDisplay display, @NotNull Rectangle bounds) {
-        bounds.height = 122;
-        bounds.width = 122;
         bounds.x += 13;
         List<Widget> widgets = new ArrayList<>();
         widgets.add(Widgets.createRecipeBase(bounds));
@@ -35,8 +33,17 @@ public class ModifiersTableCategory implements DisplayCategory<ModifiersTableDis
         widgets.add(newWidgetEntry(startPoint, -36, 36, 2, display));
         widgets.add(newWidgetEntry(startPoint, 36, 36, 3, display));
         widgets.add(Widgets.createSlot(new Point(startPoint.getX(), startPoint.getY())).entries(display.getOutputEntries().get(0)).markOutput());
-
         return widgets;
+    }
+
+    @Override
+    public int getDisplayWidth(ModifiersTableDisplay display) {
+        return 122;
+    }
+
+    @Override
+    public int getDisplayHeight() {
+        return 122;
     }
 
     private @NotNull Widget newWidgetEntry(@NotNull Point startPoint, int x, int y, int entry, @NotNull ModifiersTableDisplay display){

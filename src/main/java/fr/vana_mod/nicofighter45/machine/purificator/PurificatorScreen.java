@@ -29,11 +29,11 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        textRenderer.draw(matrices, "water : " + getScreenHandler().getProperty().get(0), 0, 0, 65280);
-        textRenderer.draw(matrices, "filling : " + getScreenHandler().getProperty().get(1), 0, 10, 65280);
-        textRenderer.draw(matrices, "crafting : " + getScreenHandler().getProperty().get(2), 0, 20, 65280);
+        textRenderer.draw(matrices, "water : " + getScreenHandler().getProperty(PurificatorBlockEntity.Properties.WATER), 0, 0, 65280);
+        textRenderer.draw(matrices, "filling : " + getScreenHandler().getProperty(PurificatorBlockEntity.Properties.FILLING), 0, 10, 65280);
+        textRenderer.draw(matrices, "crafting : " + getScreenHandler().getProperty(PurificatorBlockEntity.Properties.CRAFTING), 0, 20, 65280);
         renderBackground(matrices);
-        int crafting = getScreenHandler().getProperty().get(PurificatorBlockEntity.Properties.CRAFTING.value);
+        int crafting = getScreenHandler().getProperty(PurificatorBlockEntity.Properties.CRAFTING);
         if (crafting > 0) {
             if(crafting > 89){
                 drawTexture(matrices, x + 38, y + 70, 1, 201, (int) ((crafting-100)*-2.8), 1);
@@ -43,7 +43,7 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
                 drawTexture(matrices, x + 65, y + 48, 1, 224, (int) (-0.4*(crafting-80)), 15);
             }
         }
-        int fluid = getScreenHandler().getProperty().get(PurificatorBlockEntity.Properties.WATER.value) * 2/25;
+        int fluid = getScreenHandler().getProperty(PurificatorBlockEntity.Properties.WATER) * 2/25;
         drawTexture(matrices, x + 12, y + 74, 1, 199, 24, -fluid);
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);

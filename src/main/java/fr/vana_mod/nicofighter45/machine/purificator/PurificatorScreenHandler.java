@@ -30,7 +30,6 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(3), new ArrayPropertyDelegate(1));
-        System.out.println("Basic constructor");
     }
 
     public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, MachineInventory inventory, PropertyDelegate propertyDelegate) {
@@ -79,8 +78,8 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
         super.close(player);
     }
 
-    public PropertyDelegate getProperty(){
-        return this.propertyDelegate;
+    public int getProperty(PurificatorBlockEntity.@NotNull Properties prop){
+        return this.propertyDelegate.get(prop.value);
     }
 
     public boolean canUse(PlayerEntity player) {
@@ -177,4 +176,5 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
     public boolean canInsertIntoSlot(int index) {
         return index != 2;
     }
+
 }

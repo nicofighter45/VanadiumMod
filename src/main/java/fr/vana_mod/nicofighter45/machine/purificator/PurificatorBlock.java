@@ -1,10 +1,13 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
+import fr.vana_mod.nicofighter45.machine.ModMachines;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -39,6 +42,11 @@ public class PurificatorBlock extends BlockWithEntity {
             player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
             return ActionResult.CONSUME;
         }
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, (world1, pos, state1, be) -> PurificatorBlockEntity.tick(world1, pos, state1, be));
     }
 
 }

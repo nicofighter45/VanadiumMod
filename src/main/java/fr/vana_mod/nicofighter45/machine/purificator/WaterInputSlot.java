@@ -3,16 +3,17 @@ package fr.vana_mod.nicofighter45.machine.purificator;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
 
 public class WaterInputSlot extends Slot {
 
-    private final PurificatorScreenHandler handler;
+    private final PropertyDelegate propertyDelegate;
 
-    public WaterInputSlot(PurificatorScreenHandler handler, Inventory inventory, int index, int x, int y) {
+    public WaterInputSlot(PropertyDelegate propertyDelegate, Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
-        this.handler = handler;
+        this.propertyDelegate = propertyDelegate;
     }
 
     @Override
@@ -23,11 +24,22 @@ public class WaterInputSlot extends Slot {
     @Override
     public ItemStack insertStack(@NotNull ItemStack stack, int count) {
         if(!stack.isEmpty() && this.canInsert(stack)) {
-            if(stack.getItem() == Items.WATER_BUCKET && handler.addFluid()){
-                return new ItemStack(Items.BUCKET);
+            ItemStack itemStack = this.getStack();
+            int i = Math.min(Math.min(count, stack.getCount()), this.getMaxItemCount(stack) - itemStack.getCount());
+            if(stack.getItem() == Items.WATER_BUCKET &&
+                    propertyDelegate.get(PurificatorBlockEntity.Properties.WATER.value) < 300 &&
+                    propertyDelegate.get(PurificatorBlockEntity.Properties.FILLING.value) == 0){
+                this.setStack(new ItemStack(Items.BUCKET));
+                propertyDelegate.set(PurificatorBlockEntity.Properties.FILLING.value, 100);
+            }
+            if (itemStack.isEmpty()) {
+                this.setStack(stack.split(i));
+            } else if (ItemStack.canCombine(itemStack, stack)) {
+                stack.decrement(i);
+                itemStack.increment(i);
+                this.setStack(itemStack);
             }
         }
         return stack;
     }
-
 }

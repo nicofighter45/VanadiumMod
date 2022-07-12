@@ -29,20 +29,21 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        textRenderer.draw(matrices, Long.toString(getScreenHandler().getFluid()), 0, 0, 65280);
-        textRenderer.draw(matrices, Integer.toString(getScreenHandler().getTime()), 0, 10, 65280);
+        textRenderer.draw(matrices, "water : " + getScreenHandler().getProperty().get(0), 0, 0, 65280);
+        textRenderer.draw(matrices, "filling : " + getScreenHandler().getProperty().get(1), 0, 10, 65280);
+        textRenderer.draw(matrices, "crafting : " + getScreenHandler().getProperty().get(2), 0, 20, 65280);
         renderBackground(matrices);
-        if (getScreenHandler().isCrafting()) {
-            int time = getScreenHandler().getTime();
-            if(time < 11){
-                drawTexture(matrices, x + 38, y + 70, 1, 201, (int) (time*2.8), 1);
-            }else if(time < 21){
-                drawTexture(matrices, x + 65, y + 69, 1, 222, 1, -2*(time-10));
+        int crafting = getScreenHandler().getProperty().get(PurificatorBlockEntity.Properties.CRAFTING.value);
+        if (crafting > 0) {
+            if(crafting > 89){
+                drawTexture(matrices, x + 38, y + 70, 1, 201, (int) ((crafting-100)*-2.8), 1);
+            }else if(crafting > 79){
+                drawTexture(matrices, x + 65, y + 69, 1, 222, 1, 2*(crafting-90));
             }else{
-                drawTexture(matrices, x + 65, y + 48, 1, 224, (int) (0.4*(time-20)), 15);
+                drawTexture(matrices, x + 65, y + 48, 1, 224, (int) (-0.4*(crafting-80)), 15);
             }
         }
-        int fluid = getScreenHandler().getFluid() * 2/25;
+        int fluid = getScreenHandler().getProperty().get(PurificatorBlockEntity.Properties.WATER.value) * 2/25;
         drawTexture(matrices, x + 12, y + 74, 1, 199, 24, -fluid);
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);

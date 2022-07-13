@@ -72,7 +72,7 @@ public class ModItems {
     public static final Item SUPER_POWER_CELL = new Item(settings().food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(10).hunger(6).statusEffect(
                     new StatusEffectInstance(StatusEffects.REGENERATION, 300, 1, true, true, true), 100).build()));
-    public static final Item MAMAD_CHICKEN = new Item(settings().food(new FoodComponent.Builder()
+    public static final Item MAMADE_CHICKEN = new Item(settings().food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(20).hunger(20).statusEffect(
             new StatusEffectInstance(StatusEffects.SATURATION, 216000, 0, false, false, true), 100).build()));
     public static final Item VANADIUM_APPLE = new Item(settings().food(new FoodComponent.Builder()
@@ -151,7 +151,7 @@ public class ModItems {
 
         registerNewItem("power_cell", POWER_CELL);
         registerNewItem("super_power_cell", SUPER_POWER_CELL);
-        registerNewItem("mamad_chicken", MAMAD_CHICKEN);
+        registerNewItem("mamade_chicken", MAMADE_CHICKEN);
         registerNewItem("vanadium_apple", VANADIUM_APPLE);
 
         registerNewItem("simple_health_booster", SIMPLE_HEALTH_BOOSTER);

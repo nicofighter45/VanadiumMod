@@ -21,7 +21,7 @@ public class ModBlocksItem {
     public static final BlockItem TUNGSTEN_BLOCK_ITEM = new BlockItem(ModBlocks.TUNGSTEN_BLOCK, settings);
     public static final BlockItem STEEL_BLOCK_ITEM = new BlockItem(ModBlocks.STEEL_BLOCK, settings);
     public static final BlockItem SILVER_BLOCK_ITEM = new BlockItem(ModBlocks.SILVER_BLOCK, settings);
-    public static final BlockItem MAMADITE_BLOCK_ITEM = new BlockItem(ModBlocks.MAMADITE_BLOCK, settings);
+    public static final BlockItem MAMADE_BLOCK_ITEM = new BlockItem(ModBlocks.MAMADE_BLOCK, settings);
 
     public static final BlockItem MODIFIERS_TABLE_BLOCK_ITEM = new BlockItem(ModMachines.MODIFIERS_TABLE_BLOCK, settings);
     public static final BlockItem ENCHANTER_BLOCK_ITEM = new BlockItem(ModMachines.ENCHANTER_BLOCK, settings);
@@ -39,7 +39,7 @@ public class ModBlocksItem {
         registerNewItemBlock("tungsten_block_item", TUNGSTEN_BLOCK_ITEM);
         registerNewItemBlock("steel_block_item", STEEL_BLOCK_ITEM);
         registerNewItemBlock("silver_block_item", SILVER_BLOCK_ITEM);
-        registerNewItemBlock("mamadite_block_item", MAMADITE_BLOCK_ITEM);
+        registerNewItemBlock("mamade_block_item", MAMADE_BLOCK_ITEM);
 
         registerNewItemBlock("modifiers_table_block_item", MODIFIERS_TABLE_BLOCK_ITEM);
         registerNewItemBlock("enchanter_block_item", ENCHANTER_BLOCK_ITEM);

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "vana-mod:block/high_furnace_block" }
+  }
+}

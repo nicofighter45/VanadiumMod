@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "TCT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "item": "vana-mod:tungsten_ingot"
+    },
+    "C": {
+      "item": "minecraft:chicken"
+    }
+  },
+  "result": {
+    "item": "vana-mod:mamade_chicken",
+    "count": 1
+  }
+}

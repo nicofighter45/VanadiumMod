@@ -1,6 +1,5 @@
 package fr.vana_mod.nicofighter45.main.server;
 
-import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import fr.vana_mod.nicofighter45.main.gui.CustomCraftingScreenHandler;
 import fr.vana_mod.nicofighter45.main.gui.CustomPlayerManagementScreenHandler;
@@ -57,8 +56,6 @@ public class Command {
                     sendMsg(player, "§8[§6Server§8] §fHere is your stats :");
                     sendMsg(player, "    health  : " + customPlayer.getHeart());
                     sendMsg(player, "    regen  : " + customPlayer.getRegen());
-                    sendMsg(player, "    craft   : " + customPlayer.isCraft());
-                    sendMsg(player, "    ec      : " + customPlayer.isEnder_chest());
                     sendMsg(player, "    baseX   : " + customPlayer.getBase().getX());
                     sendMsg(player, "    baseY   : " + customPlayer.getBase().getY());
                     sendMsg(player, "    baseZ   : " + customPlayer.getBase().getZ());
@@ -199,17 +196,21 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
-                    server_player.openHandledScreen(new NamedScreenHandlerFactory() {
-                        @Override
-                        public Text getDisplayName() {
-                            return Text.of("Crafting Table");
-                        }
-                        @Override
-                        public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                            return new CustomCraftingScreenHandler(syncId, inv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos()));
-                        }
-                    });
-                    server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
+                    if(Objects.requireNonNull(server_player.getServer()).getPermissionLevel(server_player.getGameProfile()) != 0){
+                        server_player.openHandledScreen(new NamedScreenHandlerFactory() {
+                            @Override
+                            public Text getDisplayName() {
+                                return Text.of("Crafting Table");
+                            }
+                            @Override
+                            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                                return new CustomCraftingScreenHandler(syncId, inv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos()));
+                            }
+                        });
+                        server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
+                    }else{
+                        sendMsg(server_player, "§8[§6Server§8] §fYou need to purshace a §eVanadeur §fgrade to do this command");
+                    }
                     return 1;
                 })
         ));
@@ -217,18 +218,22 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
-                    server_player.openHandledScreen(new NamedScreenHandlerFactory() {
-                        @Override
-                        public Text getDisplayName() {
-                            return Text.of("Ender Chest");
-                        }
+                    if(Objects.requireNonNull(server_player.getServer()).getPermissionLevel(server_player.getGameProfile()) != 0){
+                        server_player.openHandledScreen(new NamedScreenHandlerFactory() {
+                            @Override
+                            public Text getDisplayName() {
+                                return Text.of("Ender Chest");
+                            }
 
-                        @Override
-                        public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                            return GenericContainerScreenHandler.createGeneric9x3(syncId, inv, player.getEnderChestInventory());
-                        }
-                    });
-                    server_player.incrementStat(Stats.OPEN_ENDERCHEST);
+                            @Override
+                            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                                return GenericContainerScreenHandler.createGeneric9x3(syncId, inv, player.getEnderChestInventory());
+                            }
+                        });
+                        server_player.incrementStat(Stats.OPEN_ENDERCHEST);
+                    }else{
+                        sendMsg(server_player, "§8[§6Server§8] §fYou need to purshace a §eVanadeur §fgrade to do this command");
+                    }
                     return 1;
                 })
         ));
@@ -344,8 +349,6 @@ public class Command {
                         CustomPlayer cp = ServerInitializer.players.get(uuid);
                         c.getSource().sendFeedback(Text.of("        health : " + cp.getHeart()), false);
                         c.getSource().sendFeedback(Text.of("        regen  : " + cp.getRegen()), false);
-                        c.getSource().sendFeedback(Text.of("        craft  : " + cp.isCraft()), false);
-                        c.getSource().sendFeedback(Text.of("        ec     : " + cp.isEnder_chest()), false);
                     }
                     c.getSource().sendFeedback(Text.of("\nCorrect usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"), false);
                     return 1;
@@ -396,36 +399,6 @@ public class Command {
                                                 })
                                         )
                                 )
-                                .then(literal("craft")
-                                        .executes(c -> {
-                                            c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
-                                            return 1;
-                                        })
-                                        .then(argument("value", BoolArgumentType.bool())
-                                                .executes(c -> {
-                                                    UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
-                                                    boolean value = BoolArgumentType.getBool(c, "value");
-                                                    ServerInitializer.players.get(uuid).setCraft(value);
-                                                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §f" + uuid + " crafting table feature is now set to " + value), false);
-                                                    return 1;
-                                                })
-                                        )
-                                )
-                                .then(literal("ender_chest")
-                                        .executes(c -> {
-                                            c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>"));
-                                            return 1;
-                                        })
-                                        .then(argument("value", BoolArgumentType.bool())
-                                                .executes(c -> {
-                                                    UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
-                                                    boolean value = BoolArgumentType.getBool(c, "value");
-                                                    ServerInitializer.players.get(uuid).setEnder_chest(value);
-                                                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §f" + uuid + " crafting table feature is now set to " + value), true);
-                                                    return 1;
-                                                })
-                                        )
-                                )
                         )
                 )
                 .then(literal("get")
@@ -440,8 +413,6 @@ public class Command {
                                     c.getSource().sendFeedback(Text.of("§8[§6Server§8] §f" + uuid + " :"), false);
                                     c.getSource().sendFeedback(Text.of("   health : " + cp.getHeart()), false);
                                     c.getSource().sendFeedback(Text.of("   regen  : " + cp.getRegen()), false);
-                                    c.getSource().sendFeedback(Text.of("   craft  : " + cp.isCraft()), false);
-                                    c.getSource().sendFeedback(Text.of("   ec     : " + cp.isEnder_chest()), false);
                                     return 1;
                                 })
                         )

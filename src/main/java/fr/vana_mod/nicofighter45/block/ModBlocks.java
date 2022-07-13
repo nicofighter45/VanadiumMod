@@ -22,7 +22,7 @@ public class ModBlocks {
     public static final Block TIN_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(9, 0.4f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block STEEL_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(10, 0.6f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block SILVER_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(10, 0.5f).sounds(BlockSoundGroup.METAL).requiresTool());
-    public static final Block MAMADITE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(18, 0.8f).sounds(BlockSoundGroup.METAL).requiresTool());
+    public static final Block MAMADE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(18, 0.8f).sounds(BlockSoundGroup.METAL).requiresTool());
 
     public static void registerAll() {
         registerNewBlock("vanadium_ore", VANADIUM_ORE);
@@ -35,7 +35,7 @@ public class ModBlocks {
         registerNewBlock("tin_block", TIN_BLOCK);
         registerNewBlock("steel_block", STEEL_BLOCK);
         registerNewBlock("silver_block", SILVER_BLOCK);
-        registerNewBlock("mamadite_bock", MAMADITE_BLOCK);
+        registerNewBlock("mamade_bock", MAMADE_BLOCK);
 
         ModMachines.registerAll();
         ModOreGeneration.generateOres();

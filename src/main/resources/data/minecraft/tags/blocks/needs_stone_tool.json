@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "vana-mod:tin_ore",
-    "vana-mod:tin_block"
+    "vana-mod:tin_block",
+    "vana-mod:purificator_block"
   ]
 }

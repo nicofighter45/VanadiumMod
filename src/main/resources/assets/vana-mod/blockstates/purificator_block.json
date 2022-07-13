@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "vana-mod:block/purificator_block" }
+  }
+}

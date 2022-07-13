@@ -2,7 +2,7 @@ package fr.vana_mod.nicofighter45.machine.purificator;
 
 import fr.vana_mod.nicofighter45.machine.MachineInventory;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.purificator.craft.PurificatorRecipe;
+import fr.vana_mod.nicofighter45.machine.purificator.recipe.PurificatorRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -39,6 +39,8 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
         this.propertyDelegate = propertyDelegate;
         this.player = playerInventory.player;
 
+        System.out.println("Purificator creation :\nInventory :\n" + inventory.getItems().toString() + "\n\nPropertyDelegate :\n" + propertyDelegate.get(0) + propertyDelegate.get(1) + propertyDelegate.get(2));
+
         this.addSlot(new WaterInputSlot(propertyDelegate, inventory, 0, 16, 12));
         this.addSlot(new Slot(inventory, 1, 44, 39));
         this.addSlot(new Slot(inventory, 2, 116,39));
@@ -61,10 +63,10 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
             Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(inventory.getStack(1)), world);
             if (optional.isPresent()) {
                 if(machineInventory.getStack(1).getItem() != itemStack.getItem()){
-                    propertyDelegate.set(PurificatorBlockEntity.Properties.CRAFTING.value, 0);
+                    propertyDelegate.set(2, 0); // 2 -> crafting
                 }
-            }else if(propertyDelegate.get(PurificatorBlockEntity.Properties.CRAFTING.value) > 0){
-                propertyDelegate.set(PurificatorBlockEntity.Properties.CRAFTING.value, 0);
+            }else if(propertyDelegate.get(2) > 0){
+                propertyDelegate.set(2, 0);
             }
         }
     }
@@ -78,8 +80,8 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
         super.close(player);
     }
 
-    public int getProperty(PurificatorBlockEntity.@NotNull Properties prop){
-        return this.propertyDelegate.get(prop.value);
+    public PropertyDelegate getProperty(){
+        return this.propertyDelegate;
     }
 
     public boolean canUse(PlayerEntity player) {

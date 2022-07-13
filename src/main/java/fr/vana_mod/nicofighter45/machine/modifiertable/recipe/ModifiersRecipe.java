@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.machine.purificator.craft;
+package fr.vana_mod.nicofighter45.machine.modifiertable.recipe;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -11,12 +11,12 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier id) implements Recipe<Inventory> {
+public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient input3, Ingredient input4, ItemStack result, Identifier id) implements Recipe<Inventory> {
 
     @Override
     public boolean matches(@NotNull Inventory inventory, World world) {
-        if (inventory.size() != 1) return false;
-        return input.test(inventory.getStack(0));
+        if (inventory.size() != 4) return false;
+        return input1.test(inventory.getStack(0)) && input2.test(inventory.getStack(1)) && input3.test(inventory.getStack(2)) && input4.test(inventory.getStack(3));
     }
 
     @Override
@@ -31,7 +31,7 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
 
     @Override
     public ItemStack getOutput() {
-        return this.result;
+        return result;
     }
 
     @Override
@@ -41,16 +41,16 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return PurificatorRecipeSerializer.INSTANCE;
+        return ModifiersRecipeSerializer.INSTANCE;
     }
 
-    public static class Type implements RecipeType<PurificatorRecipe> {
+    public static class Type implements RecipeType<ModifiersRecipe> {
         private Type() {
         }
 
         public static final Type INSTANCE = new Type();
 
-        public static final String ID = "purificator_recipe_type";
+        public static final String ID = "modifiers_table_recipe_type";
     }
 
     @Override
@@ -58,13 +58,29 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
         return Type.INSTANCE;
     }
 
-    public Ingredient getInput() {
-        return input;
+    public Ingredient getInput1() {
+        return input1;
     }
+
+    public Ingredient getInput2() {
+        return input2;
+    }
+
+    public Ingredient getInput3() {
+        return input3;
+    }
+
+    public Ingredient getInput4() {
+        return input4;
+    }
+
     @Override
     public @NotNull DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> list = DefaultedList.ofSize(1);
-        list.add(this.input);
+        DefaultedList<Ingredient> list = DefaultedList.ofSize(4);
+        list.add(this.input1);
+        list.add(this.input2);
+        list.add(this.input3);
+        list.add(this.input4);
         return list;
     }
 }

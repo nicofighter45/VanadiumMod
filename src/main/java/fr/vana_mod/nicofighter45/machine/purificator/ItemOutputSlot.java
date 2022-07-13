@@ -1,13 +1,9 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
-import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.purificator.craft.PurificatorRecipe;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 public class ItemOutputSlot extends Slot {
 

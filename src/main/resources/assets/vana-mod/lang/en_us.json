@@ -140,9 +140,9 @@
   "advancements.vana-mod.vanasword.title": "The Sword",
   "advancements.vana-mod.vanasword.description": "Craft a vanadium sword",
 
-  "category.vana-mod.vanadium": "Vanadium",
+  "key.category.vana-mod.vanadium": "Vanadium",
   "key.vana-mod.night_vision": "Night Vision",
-  "key.vana-mod.ender_bow_switch": "Ender Bow Switch",
 
-  "rei.category.vana-mod.modifiers_table": "Modifiers"
+  "rei.category.vana-mod.modifiers_table": "Modifiers",
+  "rei.category.vana-mod.purificator": "Purificator"
 }

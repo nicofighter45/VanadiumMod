@@ -13,7 +13,7 @@ import org.lwjgl.glfw.GLFW;
 public class KeyBinds {
 
     public static void registerAll(){
-        String category = "category." + CommonInitializer.MODID + ".vanadium";
+        String category = "key.category." + CommonInitializer.MODID + ".vanadium";
 
         KeyBinding keybinding_night_vision = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + CommonInitializer.MODID + ".night_vision", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, category));
 

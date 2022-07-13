@@ -196,21 +196,17 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
-                    if(Objects.requireNonNull(server_player.getServer()).getPermissionLevel(server_player.getGameProfile()) != 0){
-                        server_player.openHandledScreen(new NamedScreenHandlerFactory() {
-                            @Override
-                            public Text getDisplayName() {
-                                return Text.of("Crafting Table");
-                            }
-                            @Override
-                            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                                return new CustomCraftingScreenHandler(syncId, inv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos()));
-                            }
-                        });
-                        server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
-                    }else{
-                        sendMsg(server_player, "§8[§6Server§8] §fYou need to purshace a §eVanadeur §fgrade to do this command");
-                    }
+                    server_player.openHandledScreen(new NamedScreenHandlerFactory() {
+                        @Override
+                        public Text getDisplayName() {
+                            return Text.of("Crafting Table");
+                        }
+                        @Override
+                        public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                            return new CustomCraftingScreenHandler(syncId, inv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos()));
+                        }
+                    });
+                    server_player.incrementStat(Stats.INTERACT_WITH_CRAFTING_TABLE);
                     return 1;
                 })
         ));
@@ -218,22 +214,18 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
                     ServerPlayerEntity server_player = c.getSource().getPlayerOrThrow();
-                    if(Objects.requireNonNull(server_player.getServer()).getPermissionLevel(server_player.getGameProfile()) != 0){
-                        server_player.openHandledScreen(new NamedScreenHandlerFactory() {
-                            @Override
-                            public Text getDisplayName() {
-                                return Text.of("Ender Chest");
-                            }
+                    server_player.openHandledScreen(new NamedScreenHandlerFactory() {
+                        @Override
+                        public Text getDisplayName() {
+                            return Text.of("Ender Chest");
+                        }
 
-                            @Override
-                            public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                                return GenericContainerScreenHandler.createGeneric9x3(syncId, inv, player.getEnderChestInventory());
-                            }
-                        });
-                        server_player.incrementStat(Stats.OPEN_ENDERCHEST);
-                    }else{
-                        sendMsg(server_player, "§8[§6Server§8] §fYou need to purshace a §eVanadeur §fgrade to do this command");
-                    }
+                        @Override
+                        public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+                            return GenericContainerScreenHandler.createGeneric9x3(syncId, inv, player.getEnderChestInventory());
+                        }
+                    });
+                    server_player.incrementStat(Stats.OPEN_ENDERCHEST);
                     return 1;
                 })
         ));

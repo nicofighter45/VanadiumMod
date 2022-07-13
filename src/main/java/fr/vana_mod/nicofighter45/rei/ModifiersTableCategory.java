@@ -51,7 +51,7 @@ public class ModifiersTableCategory implements DisplayCategory<ModifiersTableDis
 
     @Override
     public CategoryIdentifier<? extends ModifiersTableDisplay> getCategoryIdentifier() {
-        return ClientPlugin.MODIFIERS_TABLE;
+        return REIClientPlugin.MODIFIERS_TABLE;
     }
 
     @Override

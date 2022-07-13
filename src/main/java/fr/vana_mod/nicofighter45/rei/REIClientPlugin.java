@@ -1,10 +1,9 @@
 package fr.vana_mod.nicofighter45.rei;
 
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.modifiertable.craft.ModifiersRecipe;
-import fr.vana_mod.nicofighter45.machine.purificator.craft.PurificatorRecipe;
+import fr.vana_mod.nicofighter45.machine.modifiertable.recipe.ModifiersRecipe;
+import fr.vana_mod.nicofighter45.machine.purificator.recipe.PurificatorRecipe;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
-import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.Objects;
 
-public class ClientPlugin implements REIClientPlugin {
+public class REIClientPlugin implements me.shedaniel.rei.api.client.plugins.REIClientPlugin {
 
     public static final CategoryIdentifier<ModifiersTableDisplay> MODIFIERS_TABLE = CategoryIdentifier
             .of(Objects.requireNonNull(Identifier.of(CommonInitializer.MODID, "modifiers_table_category")));

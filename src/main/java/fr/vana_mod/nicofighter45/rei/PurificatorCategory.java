@@ -19,32 +19,33 @@ import java.util.List;
 
 public class PurificatorCategory implements DisplayCategory<PurificatorDisplay> {
 
-    private static final Identifier TEXTURE = new Identifier(CommonInitializer.MODID, "textures/gui/machines/purificator.png");
+    private static final Identifier TEXTURE = new Identifier(CommonInitializer.MODID, "textures/gui/rei/purificator.png");
 
     @Override
     public List<Widget> setupDisplay(@NotNull PurificatorDisplay display, @NotNull Rectangle bounds) {
         List<Widget> widgets = new ArrayList<>();
         widgets.add(Widgets.createRecipeBase(bounds));
-        Point startPoint = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 8);
+        Point startPoint = new Point(bounds.getCenterX(), bounds.getCenterY() - 1);
         widgets.add(Widgets.createTexturedWidget(TEXTURE, bounds));
-        widgets.add(Widgets.createSlot(new Point(startPoint.getX() - 18, startPoint.getY())).entries(display.getInputEntries().get(0)).markInput());
-        widgets.add(Widgets.createSlot(new Point(startPoint.getX() + 18, startPoint.getY())).entries(display.getOutputEntries().get(0)).markOutput());
+        widgets.add(Widgets.createTexturedWidget(TEXTURE, startPoint.getX() + 10, startPoint.getX() + 10, 2, 83, 24, 32));
+        widgets.add(Widgets.createSlot(new Point(startPoint.getX() - 26, startPoint.getY())).entries(display.getInputEntries().get(0)).markInput());
+        widgets.add(Widgets.createSlot(new Point(startPoint.getX() + 46, startPoint.getY())).entries(display.getOutputEntries().get(0)).markOutput());
         return widgets;
     }
 
     @Override
     public int getDisplayWidth(PurificatorDisplay display) {
-        return 122;
+        return 140;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 122;
+        return 81;
     }
 
     @Override
     public CategoryIdentifier<? extends PurificatorDisplay> getCategoryIdentifier() {
-        return ClientPlugin.PURIFICATOR;
+        return REIClientPlugin.PURIFICATOR;
     }
 
     @Override

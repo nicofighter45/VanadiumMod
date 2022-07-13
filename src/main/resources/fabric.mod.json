@@ -28,7 +28,7 @@
       "fr.vana_mod.nicofighter45.main.server.ServerInitializer"
     ],
     "rei_client": [
-      "fr.vana_mod.nicofighter45.rei.ClientPlugin"
+      "fr.vana_mod.nicofighter45.rei.REIClientPlugin"
     ]
   },
   "mixins": [

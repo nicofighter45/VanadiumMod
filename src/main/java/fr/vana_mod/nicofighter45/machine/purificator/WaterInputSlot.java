@@ -26,11 +26,9 @@ public class WaterInputSlot extends Slot {
         if(!stack.isEmpty() && this.canInsert(stack)) {
             ItemStack itemStack = this.getStack();
             int i = Math.min(Math.min(count, stack.getCount()), this.getMaxItemCount(stack) - itemStack.getCount());
-            if(stack.getItem() == Items.WATER_BUCKET &&
-                    propertyDelegate.get(PurificatorBlockEntity.Properties.WATER.value) < 300 &&
-                    propertyDelegate.get(PurificatorBlockEntity.Properties.FILLING.value) == 0){
+            if(stack.getItem() == Items.WATER_BUCKET && propertyDelegate.get(0) < 300 && propertyDelegate.get(1) == 0){
                 this.setStack(new ItemStack(Items.BUCKET));
-                propertyDelegate.set(PurificatorBlockEntity.Properties.FILLING.value, 100);
+                propertyDelegate.set(1, 100);
                 return ItemStack.EMPTY;
             }
             if (itemStack.isEmpty()) {

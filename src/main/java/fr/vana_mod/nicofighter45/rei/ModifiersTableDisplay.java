@@ -33,7 +33,7 @@ public class ModifiersTableDisplay implements Display {
 
     @Override
     public CategoryIdentifier<ModifiersTableDisplay> getCategoryIdentifier() {
-        return ClientPlugin.MODIFIERS_TABLE;
+        return REIClientPlugin.MODIFIERS_TABLE;
     }
 
     @Override

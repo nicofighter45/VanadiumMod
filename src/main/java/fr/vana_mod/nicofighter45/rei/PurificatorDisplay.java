@@ -33,7 +33,7 @@ public class PurificatorDisplay implements Display {
 
     @Override
     public CategoryIdentifier<PurificatorDisplay> getCategoryIdentifier() {
-        return ClientPlugin.PURIFICATOR;
+        return REIClientPlugin.PURIFICATOR;
     }
 
     @Override

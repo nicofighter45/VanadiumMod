@@ -2,7 +2,7 @@ package fr.vana_mod.nicofighter45.machine.purificator;
 
 import fr.vana_mod.nicofighter45.machine.MachineInventory;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.purificator.craft.PurificatorRecipe;
+import fr.vana_mod.nicofighter45.machine.purificator.recipe.PurificatorRecipe;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
@@ -40,10 +40,11 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
         if(!world.isClient){
             int water = blockEntity.water;
             int crafting = blockEntity.crafting;
+            int filling = blockEntity.filling;
             if(water > 0 && crafting > 0){
-                blockEntity.water -= 1;
                 water -= 1;
-                blockEntity.crafting -= 1;
+                water -= 1;
+                crafting -= 1;
                 if(crafting == 1){
                     ItemStack input = blockEntity.inventory.getStack(1);
                     if(input.getCount() > 1){
@@ -63,12 +64,14 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
                     }
                 }
             }
-            int filling = blockEntity.filling;
             if(filling > 0 && water < 400){
-                blockEntity.water += 1;
-                blockEntity.filling -= 1;
+                System.out.println("Filling : " + filling + "  Water : ");
+                water += 1;
+                filling -= 1;
             }
-            //System.out.println("\nwater : " + water + "\ncrafting : " + crafting + "\nfilling : " + filling);
+            blockEntity.water = water;
+            blockEntity.filling = filling;
+            blockEntity.crafting = crafting;
         }
     }
 
@@ -86,28 +89,18 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory.getItems());
-        propertyDelegate.set(Properties.WATER.value, nbt.getInt("water"));
-        propertyDelegate.set(Properties.FILLING.value, nbt.getInt("filling"));
-        propertyDelegate.set(Properties.CRAFTING.value, nbt.getInt("crafting"));
+        water = nbt.getInt("water");
+        filling = nbt.getInt("filling");
+        crafting = nbt.getInt("crafting");
     }
 
     @Override
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory.getItems());
-        nbt.putInt("water", propertyDelegate.get(Properties.WATER.value));
-        nbt.putInt("filling", propertyDelegate.get(Properties.FILLING.value));
-        nbt.putInt("crafting", propertyDelegate.get(Properties.CRAFTING.value));
-    }
-
-    public enum Properties{
-        WATER(0), FILLING(1), CRAFTING(2);
-
-        public final int value;
-
-        Properties(int value){
-            this.value = value;
-        }
+        nbt.putInt("water", water);
+        nbt.putInt("filling", filling);
+        nbt.putInt("crafting", crafting);
     }
 
     public final PropertyDelegate propertyDelegate = new PropertyDelegate() {

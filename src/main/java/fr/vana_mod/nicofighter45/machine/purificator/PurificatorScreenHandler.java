@@ -56,11 +56,11 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
         }
     }
 
-    protected void updateResult(@NotNull World world, MachineInventory machineInventory, Inventory inventory) {
+    protected void updateResult(@NotNull World world, MachineInventory machineInventory, ItemStack itemStack) {
         if (!world.isClient) {
             Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(inventory.getStack(1)), world);
             if (optional.isPresent()) {
-                if(machineInventory.getStack(1).getItem() != inventory.getStack(1).getItem()){
+                if(machineInventory.getStack(1).getItem() != itemStack.getItem()){
                     propertyDelegate.set(PurificatorBlockEntity.Properties.CRAFTING.value, 0);
                 }
             }else if(propertyDelegate.get(PurificatorBlockEntity.Properties.CRAFTING.value) > 0){
@@ -70,7 +70,7 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
     }
 
     public void onContentChanged(Inventory inventory) {
-        this.context.run((world, pos) -> updateResult(this.player.getWorld(), this.inventory, inventory));
+        this.context.run((world, pos) -> updateResult(this.player.getWorld(), this.inventory, inventory.getStack(1)));
     }
 
     @Override
@@ -84,6 +84,15 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
 
     public boolean canUse(PlayerEntity player) {
         return canUse(this.context, player, ModMachines.PURIFICATOR_BLOCK);
+    }
+
+    @Override
+    protected boolean insertItem(@NotNull ItemStack stack, int startIndex, int endIndex, boolean fromLast) {
+        System.out.println("inserting item " + stack.getItem().toString() + startIndex + endIndex);
+       if(endIndex == 1){
+           this.context.run((world, pos) -> updateResult(this.player.getWorld(), this.inventory, stack));
+       }
+        return super.insertItem(stack, startIndex, endIndex, fromLast);
     }
 
     public ItemStack transferSlot(PlayerEntity player, int index) {
@@ -127,7 +136,6 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
                 player.dropItem(itemStack2, false);
             }
         }
-
         return itemStack;
     }
 

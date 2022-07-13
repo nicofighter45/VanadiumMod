@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class EnchanterScreen extends HandledScreen<EnchanterScreenHandler> {
 
-    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machine/enchanter.png");
+    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machines/enchanter.png");
 
     public EnchanterScreen(EnchanterScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

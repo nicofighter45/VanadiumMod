@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
 
-    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machine/purificator.png");
+    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machines/purificator.png");
 
     public PurificatorScreen(PurificatorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -52,7 +52,9 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
     @Override
     protected void init() {
         super.init();
+        titleY += 8;
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
+        playerInventoryTitleX = backgroundWidth - textRenderer.getWidth(playerInventoryTitle) - 6;
     }
 
 }

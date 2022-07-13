@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class ModifiersTableScreen extends HandledScreen<ModifiersTableScreenHandler> {
 
-    private static final Identifier TEXTURE = new Identifier(CommonInitializer.MODID, "textures/gui/machine/modifiers_table.png");
+    private static final Identifier TEXTURE = new Identifier(CommonInitializer.MODID, "textures/gui/machines/modifiers_table.png");
 
     public ModifiersTableScreen(ModifiersTableScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

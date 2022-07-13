@@ -42,6 +42,6 @@
     "java": ">=17"
   },
   "suggests": {
-    "REI": "Roughly Enough Items"
+    "Roughly Enough Items": ">=9.0"
   }
 }

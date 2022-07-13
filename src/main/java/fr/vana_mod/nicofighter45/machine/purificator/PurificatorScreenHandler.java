@@ -29,17 +29,18 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
     private final PlayerEntity player;
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(3), new ArrayPropertyDelegate(3));
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(3), new ArrayPropertyDelegate(4));
+        System.out.println("From null constructor");
     }
 
-    public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, MachineInventory inventory, PropertyDelegate propertyDelegate) {
+    public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, @NotNull MachineInventory inventory, @NotNull PropertyDelegate propertyDelegate) {
         super(ModMachines.PURIFICATOR_SCREEN_HANDLER, syncId);
         this.context = context;
         this.inventory = inventory;
         this.propertyDelegate = propertyDelegate;
         this.player = playerInventory.player;
 
-        System.out.println("Purificator creation :\nInventory :\n" + inventory.getItems().toString() + "\n\nPropertyDelegate :\n" + propertyDelegate.get(0) + propertyDelegate.get(1) + propertyDelegate.get(2));
+        System.out.println("Purificator creation :\nInventory :\n" + inventory.getItems().toString() + "\n\nPropertyDelegate :\n" + propertyDelegate.get(0) + propertyDelegate.get(1) + propertyDelegate.get(2) + propertyDelegate.get(3));
 
         this.addSlot(new WaterInputSlot(propertyDelegate, inventory, 0, 16, 12));
         this.addSlot(new Slot(inventory, 1, 44, 39));

@@ -29,9 +29,10 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        textRenderer.draw(matrices, "water : " + getScreenHandler().getProperty().get(0), 0, 0, 65280);
-        textRenderer.draw(matrices, "filling : " + getScreenHandler().getProperty().get(1), 0, 10, 65280);
-        textRenderer.draw(matrices, "crafting : " + getScreenHandler().getProperty().get(2), 0, 20, 65280);
+        textRenderer.draw(matrices, "water : " + getScreenHandler().getProperty().get(0), x - 70, y, 0);
+        textRenderer.draw(matrices, "filling : " + getScreenHandler().getProperty().get(1), x - 70, y + 10, 0);
+        textRenderer.draw(matrices, "crafting : " + getScreenHandler().getProperty().get(2), x - 70, y + 20, 0);
+        textRenderer.draw(matrices, "tick : " + getScreenHandler().getProperty().get(3), x - 70, y + 30, 0);
         renderBackground(matrices);
         int crafting = getScreenHandler().getProperty().get(2);
         if (crafting > 0) {
@@ -54,7 +55,7 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
         super.init();
         titleY += 8;
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
-        playerInventoryTitleX = backgroundWidth - textRenderer.getWidth(playerInventoryTitle) - 6;
+        playerInventoryTitleX = backgroundWidth - textRenderer.getWidth(playerInventoryTitle) - 7;
     }
 
 }

@@ -28,7 +28,7 @@ import java.util.Optional;
 
 public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
 
-    public int water, filling, crafting;
+    public int water, filling, crafting, tick = 0;
 
     public final MachineInventory inventory = MachineInventory.ofSize(3);
 
@@ -36,43 +36,44 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
         super(ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, pos, state);
     }
 
-    public static void tick(@NotNull World world, PurificatorBlockEntity blockEntity) {
-        if(!world.isClient){
-            int water = blockEntity.water;
-            int crafting = blockEntity.crafting;
-            int filling = blockEntity.filling;
-            if(water > 0 && crafting > 0){
-                water -= 1;
-                water -= 1;
-                crafting -= 1;
-                if(crafting == 1){
-                    ItemStack input = blockEntity.inventory.getStack(1);
-                    if(input.getCount() > 1){
-                        input.decrement(1);
+    public static void tick(@NotNull World world, @NotNull PurificatorBlockEntity blockEntity) {
+        int water = blockEntity.water;
+        int crafting = blockEntity.crafting;
+        int filling = blockEntity.filling;
+        blockEntity.tick += 1;
+        if(blockEntity.tick%20 == 0){
+            System.out.println("Time = " + blockEntity.tick/20 + "\nWater : " + water + "\nFilling : " + filling + "\nCrafting : " + crafting);
+        }
+        if(water > 0 && crafting > 0){
+            water -= 1;
+            water -= 1;
+            crafting -= 1;
+            if(crafting == 0){
+                ItemStack input = blockEntity.inventory.getStack(1);
+                if(input.getCount() > 1){
+                    input.decrement(1);
+                }else{
+                    blockEntity.inventory.setStack(1, ItemStack.EMPTY);
+                }
+                ItemStack result = blockEntity.inventory.getStack(2);
+                Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(input), world);
+                if (optional.isPresent()) {
+                    PurificatorRecipe recipe = optional.get();
+                    if(!result.isEmpty()){
+                        result.increment(1);
                     }else{
-                        blockEntity.inventory.setStack(1, ItemStack.EMPTY);
-                    }
-                    ItemStack result = blockEntity.inventory.getStack(2);
-                    Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(input), world);
-                    if (optional.isPresent()) {
-                        PurificatorRecipe recipe = optional.get();
-                        if(!result.isEmpty()){
-                            result.increment(1);
-                        }else{
-                            blockEntity.inventory.setStack(2, recipe.getOutput().copy().copy());
-                        }
+                        blockEntity.inventory.setStack(2, recipe.getOutput().copy().copy());
                     }
                 }
             }
-            if(filling > 0 && water < 400){
-                System.out.println("Filling : " + filling + "  Water : ");
-                water += 1;
-                filling -= 1;
-            }
-            blockEntity.water = water;
-            blockEntity.filling = filling;
-            blockEntity.crafting = crafting;
         }
+        if(filling > 0 && water < 400){
+            water += 1;
+            filling -= 1;
+        }
+        blockEntity.propertyDelegate.set(0, water);
+        blockEntity.propertyDelegate.set(1, filling);
+        blockEntity.propertyDelegate.set(2, crafting);
     }
 
     @Override
@@ -115,6 +116,7 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
                 case 0 -> water;
                 case 1 -> filling;
                 case 2 -> crafting;
+                case 3 -> tick;
                 default -> throw new IllegalStateException("Unexpected value: " + index);
             };
         }
@@ -129,6 +131,8 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
                     filling = value;
                 case 2:
                     crafting = value;
+                case 3:
+                    tick = value;
             }
         }
 

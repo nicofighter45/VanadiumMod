@@ -30,8 +30,13 @@ public class PlayerManagerMixin {
                     String name = (message.getString()).split(" ")[0];
                     String color = "§9";
                     for (ServerPlayerEntity player : Objects.requireNonNull(manager.getServer()).getPlayerManager().getPlayerList()) {
-                        if (Objects.equals(player.getEntityName(), name) && Objects.requireNonNull(manager.getServer()).getPlayerManager().isOperator(player.getGameProfile())) {
-                            color = "§4";
+                        if (player.getEntityName().equals(name)) {
+                            int permission = Objects.requireNonNull(player.getServer()).getPermissionLevel(player.getGameProfile());
+                            if(permission == 4) {
+                                color = "§4";
+                            }else if(permission == 1){
+                                color = "§e";
+                            }
                         }
                     }
                     Text finalMessage = Text.of("§8[§6Server§8] " + color + name + " §fleft the game");

@@ -24,10 +24,9 @@ public class ModBlocksItem {
     public static final BlockItem MAMADITE_BLOCK_ITEM = new BlockItem(ModBlocks.MAMADITE_BLOCK, settings);
 
     public static final BlockItem MODIFIERS_TABLE_BLOCK_ITEM = new BlockItem(ModMachines.MODIFIERS_TABLE_BLOCK, settings);
-
     public static final BlockItem ENCHANTER_BLOCK_ITEM = new BlockItem(ModMachines.ENCHANTER_BLOCK, settings);
-
     public static final BlockItem HIGH_FURNACE_BLOCK_ITEM = new BlockItem(ModMachines.HIGH_FURNACE_BLOCK, settings);
+    public static final BlockItem PURIFICATOR_BLOCK_ITEM = new BlockItem(ModMachines.PURIFICATOR_BLOCK, settings);
 
     public static void registerAll() {
         registerNewItemBlock("vanadium_ore_item", VANADIUM_ORE_ITEM);
@@ -45,6 +44,7 @@ public class ModBlocksItem {
         registerNewItemBlock("modifiers_table_block_item", MODIFIERS_TABLE_BLOCK_ITEM);
         registerNewItemBlock("enchanter_block_item", ENCHANTER_BLOCK_ITEM);
         registerNewItemBlock("high_furnace_block_item", HIGH_FURNACE_BLOCK_ITEM);
+        registerNewItemBlock("purificator_block_item", PURIFICATOR_BLOCK_ITEM);
     }
 
     private static void registerNewItemBlock(String name, BlockItem block){

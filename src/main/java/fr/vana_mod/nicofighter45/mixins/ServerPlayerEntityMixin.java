@@ -85,12 +85,9 @@ public abstract class ServerPlayerEntityMixin {
             CustomPlayer pl = ServerInitializer.players.get(player.getUuid());
             pl.setHeart(nbt.getInt("heart"));
             pl.setRegen(nbt.getInt("regen"));
-            pl.setCraft(nbt.getBoolean("craft"));
-            pl.setEnder_chest(nbt.getBoolean("ender_chest"));
             pl.setBase(new BlockPos( nbt.getInt("baseX"),  nbt.getInt("baseY"),  nbt.getInt("baseZ")));
         }else{
-            ServerInitializer.players.put(player.getUuid(), new CustomPlayer(nbt.getInt("heart"),
-                    nbt.getInt("regen"), nbt.getBoolean("craft"), nbt.getBoolean("ender_chest"),
+            ServerInitializer.players.put(player.getUuid(), new CustomPlayer(nbt.getInt("heart"), nbt.getInt("regen"),
                     new BlockPos( nbt.getInt("baseX"),  nbt.getInt("baseY"),  nbt.getInt("baseZ"))));
         }
     }
@@ -100,8 +97,6 @@ public abstract class ServerPlayerEntityMixin {
         CustomPlayer pl = ServerInitializer.players.get(player.getUuid());
         nbt.putInt("heart", pl.getHeart());
         nbt.putInt("regen", pl.getRegen());
-        nbt.putBoolean("craft", pl.isCraft());
-        nbt.putBoolean("ender_chest", pl.isEnder_chest());
         nbt.putInt("baseX", pl.getBase().getX());
         nbt.putInt("baseY", pl.getBase().getX());
         nbt.putInt("baseZ", pl.getBase().getX());
@@ -110,12 +105,19 @@ public abstract class ServerPlayerEntityMixin {
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     public void sendChatMessage(SignedMessage message, MessageSender sender, RegistryKey<MessageType> typeKey, CallbackInfo ci) {
         if (acceptsMessage(typeKey)) {
-            String pre_msg = "§8[§9Player§8] §9" + sender.name().getString() + " §8: §f";
+            System.out.println(typeKey.toString());
+            String prefix = "§8[§9Player§8] §9";
             for(ServerPlayerEntity pl : Objects.requireNonNull(player.getServer()).getPlayerManager().getPlayerList()){
-                if(pl.getUuid().equals(sender.uuid()) && Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(pl.getGameProfile())){
-                    pre_msg = "§8[§4Admin§8] §4" + sender.name().getString() + " §8: §f";
+                if (pl.getUuid().equals(sender.uuid())) {
+                    int permission = Objects.requireNonNull(pl.getServer()).getPermissionLevel(pl.getGameProfile());
+                    if(permission == 4) {
+                        prefix = "§8[§4Admin§8] §4";
+                    }else if(permission == 1){
+                        prefix = "§8[§eVanadeur§8] §e";
+                    }
                 }
             }
+            String pre_msg = prefix + sender.name().getString() + " §8: §f";
             Text msg = Text.of(pre_msg + message.getContent().getString());
             player.sendMessage(msg);
             ci.cancel();

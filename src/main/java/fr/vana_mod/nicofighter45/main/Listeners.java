@@ -177,12 +177,6 @@ public class Listeners {
                 } else if (item_server == ModItems.ADVANCE_REGEN_BOOSTER && regen >= 16 && regen < 24 && (regen + 2) <= heart) {
                     data_player.setRegen(regen + 2);
                     sendMsg(server_player, "§8[§6Server§8] §fYou got " + (regen + 2)/2 + " regen");
-                } else if (item_server == ModItems.CRAFTING_STONE && !data_player.isCraft()) {
-                    data_player.setCraft(true);
-                    sendMsg(server_player, "§8[§6Server§8] §fYou now can do /craft to access crafting table");
-                } else if (item_server == ModItems.ENDER_CHEST_STONE && !data_player.isEnder_chest()) {
-                    data_player.setEnder_chest(true);
-                    sendMsg(server_player, "§8[§6Server§8] §fYou now can do /ec to access your ender chest");
                 } else {
                     if(it.getItem() instanceof Hammer){
                         if(((Hammer) it.getItem()).changeActivity()){

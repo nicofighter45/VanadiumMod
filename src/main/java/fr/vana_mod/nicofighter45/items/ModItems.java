@@ -91,10 +91,6 @@ public class ModItems {
     public static final Item BASE_REGEN_BOOSTER = new Item(settings().maxCount(8));
     public static final Item ADVANCE_REGEN_BOOSTER = new Item(settings().maxCount(8));
 
-    //craft and ec features
-    public static final Item CRAFTING_STONE = new Item(settings().maxCount(1));
-    public static final Item ENDER_CHEST_STONE = new Item(settings().maxCount(1));
-
     //hat
     public static final Item HAT = new Item(settings());
 
@@ -165,9 +161,6 @@ public class ModItems {
         registerNewItem("simple_regen_booster", SIMPLE_REGEN_BOOSTER);
         registerNewItem("base_regen_booster", BASE_REGEN_BOOSTER);
         registerNewItem("advance_regen_booster", ADVANCE_REGEN_BOOSTER);
-
-        registerNewItem("crafting_stone", CRAFTING_STONE);
-        registerNewItem("ender_chest_stone", ENDER_CHEST_STONE);
 
         registerNewItem("hat", HAT);
 

@@ -1,7 +1,6 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import jdk.jfr.Experimental;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -49,7 +48,7 @@ public class PurificatorBlock extends BlockWithEntity {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, PurificatorBlockEntity::tick);
+        return checkType(type, ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, (world1, pos, state1, blockEntity) -> PurificatorBlockEntity.tick(world1, blockEntity));
     }
 
 }

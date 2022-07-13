@@ -36,7 +36,7 @@ public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHa
         super(ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, pos, state);
     }
 
-    public static void tick(@NotNull World world, BlockPos pos, BlockState state, PurificatorBlockEntity blockEntity) {
+    public static void tick(@NotNull World world, PurificatorBlockEntity blockEntity) {
         if(!world.isClient){
             int water = blockEntity.propertyDelegate.get(Properties.WATER.value);
             int crafting = blockEntity.propertyDelegate.get(Properties.CRAFTING.value);

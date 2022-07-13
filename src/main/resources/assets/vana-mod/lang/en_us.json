@@ -84,8 +84,12 @@
   "item.vana-mod.modifiers_table_block_item": "Modifiers Table",
   "block.vana-mod.enchanter_block": "Enchanter",
   "item.vana-mod.enchanter_block_item": "Enchanter",
+  "block.vana-mod.high_furnace_block": "High Furnace",
+  "item.vana-mod.high_furnace_item": "High Furnace",
+  "block.vana-mod.purificator_block": "Purificator",
+  "item.vana-mod.purificator_item": "Purificator",
 
-  "block.vana-mod.mamadite_bock": "Mamadite Blcok",
+  "block.vana-mod.mamadite_bock": "Mamadite Block",
   "item.vana-mod.mamadite_block_item": "Mamadite Block",
 
   "item.vana-mod.power_cell": "Power Cell",
@@ -102,9 +106,6 @@
   "item.vana-mod.advance_regen_booster": "Advance Regen Booster",
 
   "item.vana-mod.hat": "Hat",
-
-  "item.vana-mod.crafting_stone": "Crafting Stone",
-  "item.vana-mod.ender_chest_stone": "Ender Chest Stone",
 
   "itemGroup.vana-mod.vanadium": "VanaMod",
 

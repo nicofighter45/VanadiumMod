@@ -24,19 +24,21 @@ public class ServerWorldMixin {
 
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
     public void onPlayerConnected(@NotNull ServerPlayerEntity player, CallbackInfo info) {
-        boolean op = Objects.requireNonNull(player.getServer()).getPlayerManager().isOperator(player.getGameProfile());
-        if(!ServerInitializer.isOn && !op){
+        int permission = Objects.requireNonNull(player.getServer()).getPermissionLevel(player.getGameProfile());
+        if(!ServerInitializer.isOn && permission != 4){
             Objects.requireNonNull(player.getServer()).getPlayerManager().disconnectAllPlayers();
         }
         if(!ServerInitializer.players.containsKey(player.getUuid())){
-            ServerInitializer.players.put(player.getUuid(), new CustomPlayer(10, 0, false, false, player.getServer().getOverworld().getSpawnPos()));
+            ServerInitializer.players.put(player.getUuid(), new CustomPlayer(10, 0, player.getServer().getOverworld().getSpawnPos()));
             player.setHealth(10);
         }
         CustomPlayer customPlayer = ServerInitializer.players.get(player.getUuid());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
         String color = "§9";
-        if(op){
+        if(permission == 4){
             color = "§4";
+        }else if(permission == 3){
+            color = "§e";
         }
         for (ServerPlayerEntity pl : player.getServer().getPlayerManager().getPlayerList()){
             pl.sendMessage(Text.of("§8[§6Server§8] " + color + player.getEntityName() + " §fjoined the game"));

@@ -1,23 +1,19 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
+import fr.vana_mod.nicofighter45.machine.basic.slot.ItemOutputSlot;
 import fr.vana_mod.nicofighter45.machine.basic.MachineInventory;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.purificator.recipe.PurificatorRecipe;
+import fr.vana_mod.nicofighter45.machine.basic.slot.WaterInputSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 public class PurificatorScreenHandler extends ScreenHandler {
 
     private final ScreenHandlerContext context;
-    private final MachineInventory inventory;
     private final PropertyDelegate propertyDelegate;
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
@@ -27,13 +23,12 @@ public class PurificatorScreenHandler extends ScreenHandler {
     public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, @NotNull MachineInventory inventory, @NotNull PropertyDelegate propertyDelegate) {
         super(ModMachines.PURIFICATOR_SCREEN_HANDLER, syncId);
         this.context = context;
-        this.inventory = inventory;
         this.propertyDelegate = propertyDelegate;
         this.addProperties(propertyDelegate);
 
-        this.addSlot(new WaterInputSlot(this, inventory, 0, 16, 12));
+        this.addSlot(new WaterInputSlot(inventory, 0, 16, 12));
         this.addSlot(new Slot(inventory, 1, 44, 39));
-        this.addSlot(new Slot(inventory, 2, 116,39));
+        this.addSlot(new ItemOutputSlot(inventory, 2, 116,39));
 
         int m;
         int l;
@@ -45,21 +40,6 @@ public class PurificatorScreenHandler extends ScreenHandler {
 
         for (m = 0; m < 9; ++m) {
             this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
-        }
-    }
-
-    protected void updateResult(@NotNull World world, MachineInventory machineInventory, ItemStack itemStack) {
-        System.out.println("updateResult");
-        if (!world.isClient) {
-            System.out.println("Updating result " + itemStack.getItem().toString() + " " + machineInventory.getStack(1).getItem().toString());
-            Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(inventory.getStack(1)), world);
-            if (optional.isPresent()) {
-                if(machineInventory.getStack(1).getItem() != itemStack.getItem()){
-                    propertyDelegate.set(2, 100);
-                }
-            }else if(propertyDelegate.get(2) > 0){
-                propertyDelegate.set(2, 0);
-            }
         }
     }
 
@@ -121,10 +101,6 @@ public class PurificatorScreenHandler extends ScreenHandler {
 
     public int getCraftingTime(){
         return this.propertyDelegate.get(2);
-    }
-
-    public void fill(){
-        this.propertyDelegate.set(1, this.propertyDelegate.get(1) + 100);
     }
 
 }

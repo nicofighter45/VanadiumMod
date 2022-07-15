@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.machine.purificator.recipe;
 
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
@@ -66,5 +67,9 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
         DefaultedList<Ingredient> list = DefaultedList.ofSize(1);
         list.add(this.input);
         return list;
+    }
+
+    public Item getInputItem(){
+        return getInput().getMatchingStacks()[0].getItem();
     }
 }

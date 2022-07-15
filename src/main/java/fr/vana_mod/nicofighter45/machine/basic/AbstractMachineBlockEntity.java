@@ -29,6 +29,7 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     private final MachinePropertyDelegate propertyDelegate;
 
     public final SingleVariantStorage<FluidVariant> fluidStorage;
+    protected boolean changingInventory = false;
 
     protected AbstractMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize, int propertiesSize) {
         this(type, pos, state, inventorySize, propertiesSize, -1);

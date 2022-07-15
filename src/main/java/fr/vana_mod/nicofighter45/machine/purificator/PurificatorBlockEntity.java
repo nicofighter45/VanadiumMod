@@ -30,7 +30,7 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
         if(blockEntity.getPropertyDelegate().get(0) > 0 && blockEntity.getPropertyDelegate().get(2) > 0){
             blockEntity.getPropertyDelegate().add(0, -1);
             blockEntity.getPropertyDelegate().add(2, -1);
-            if(blockEntity.getPropertyDelegate().get(2) == 0){
+            if(blockEntity.getPropertyDelegate().get(2) == 0){ //todo re-set craft
                 blockEntity.changingInventory = true;
                 ItemStack input = blockEntity.getInventory().getStack(1);
                 if(input.getCount() > 1){
@@ -43,7 +43,9 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
                 if(!result.isEmpty()){
                     result.increment(1);
                 }else{
-                    blockEntity.getInventory().setStack(2, blockEntity.currentRecipe.getOutput());
+                    if(blockEntity.currentRecipe != null){
+                        blockEntity.getInventory().setStack(2, blockEntity.currentRecipe.getOutput());
+                    }
                 }
                 markDirty(world, pos, state);
                 blockEntity.changingInventory = false;

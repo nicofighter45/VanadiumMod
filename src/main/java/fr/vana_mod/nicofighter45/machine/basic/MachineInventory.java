@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.machine;
+package fr.vana_mod.nicofighter45.machine.basic;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
@@ -15,9 +15,13 @@ import org.jetbrains.annotations.Nullable;
 public class MachineInventory implements Inventory, RecipeInputProvider, RecipeUnlocker {
 
     private final DefaultedList<ItemStack> stacks;
+    private final AbstractMachineBlockEntity blockEntity;
+    private final boolean isClient;
 
-    private MachineInventory(DefaultedList<ItemStack> items) {
+    protected MachineInventory(AbstractMachineBlockEntity blockEntity, DefaultedList<ItemStack> items) {
         this.stacks = items;
+        this.blockEntity = blockEntity;
+        this.isClient = blockEntity == null;
     }
 
     public DefaultedList<ItemStack> getItems() {
@@ -28,14 +32,6 @@ public class MachineInventory implements Inventory, RecipeInputProvider, RecipeU
         for (ItemStack itemStack : this.stacks) {
             finder.addUnenchantedInput(itemStack);
         }
-    }
-
-    public static @NotNull MachineInventory of(DefaultedList<ItemStack> items) {
-        return new MachineInventory(items);
-    }
-
-    public static @NotNull MachineInventory ofSize(int size) {
-        return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
 
     @Override
@@ -65,12 +61,22 @@ public class MachineInventory implements Inventory, RecipeInputProvider, RecipeU
         if (!result.isEmpty()) {
             markDirty();
         }
+        if(!this.isClient){
+            this.blockEntity.slotUpdate(slot);
+        }
         return result;
     }
 
     @Override
     public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(getItems(), slot);
+        if (slot >= 0 && slot < stacks.size()) {
+            ItemStack result = stacks.set(slot, ItemStack.EMPTY);
+            if(!this.isClient){
+                this.blockEntity.slotUpdate(slot);
+            }
+            return result;
+        }
+        return null;
     }
 
     @Override
@@ -78,6 +84,9 @@ public class MachineInventory implements Inventory, RecipeInputProvider, RecipeU
         getItems().set(slot, stack);
         if (stack.getCount() > getMaxCountPerStack()) {
             stack.setCount(getMaxCountPerStack());
+        }
+        if(!this.isClient){
+            this.blockEntity.slotUpdate(slot);
         }
     }
 
@@ -105,4 +114,17 @@ public class MachineInventory implements Inventory, RecipeInputProvider, RecipeU
     public Recipe<?> getLastRecipe() {
         return null;
     }
+
+    public static @NotNull MachineInventory of(AbstractMachineBlockEntity blockEntity, DefaultedList<ItemStack> items) {
+        return new MachineInventory(blockEntity, items);
+    }
+
+    public static @NotNull MachineInventory ofSize(AbstractMachineBlockEntity blockEntity, int size) {
+        return of(blockEntity, DefaultedList.ofSize(size, ItemStack.EMPTY));
+    }
+
+    public static @NotNull MachineInventory ofClientSize(int size) {
+        return of(null, DefaultedList.ofSize(size, ItemStack.EMPTY));
+    }
+
 }

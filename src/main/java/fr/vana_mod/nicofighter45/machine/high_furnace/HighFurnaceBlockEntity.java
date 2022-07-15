@@ -1,6 +1,5 @@
 package fr.vana_mod.nicofighter45.machine.high_furnace;
 
-import fr.vana_mod.nicofighter45.machine.MachineInventory;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

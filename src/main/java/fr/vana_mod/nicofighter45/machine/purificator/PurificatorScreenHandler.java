@@ -1,36 +1,27 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
-import fr.vana_mod.nicofighter45.machine.MachineInventory;
+import fr.vana_mod.nicofighter45.machine.basic.MachineInventory;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.machine.purificator.recipe.PurificatorRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeMatcher;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.screen.AbstractRecipeScreenHandler;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<MachineInventory> {
+public class PurificatorScreenHandler extends ScreenHandler {
 
     private final ScreenHandlerContext context;
     private final MachineInventory inventory;
     private final PropertyDelegate propertyDelegate;
-    private final PlayerEntity player;
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(3), new ArrayPropertyDelegate(4));
-        System.out.println("From null constructor");
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofClientSize(3), new ArrayPropertyDelegate(3));
     }
 
     public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, @NotNull MachineInventory inventory, @NotNull PropertyDelegate propertyDelegate) {
@@ -38,11 +29,9 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
         this.context = context;
         this.inventory = inventory;
         this.propertyDelegate = propertyDelegate;
-        this.player = playerInventory.player;
+        this.addProperties(propertyDelegate);
 
-        System.out.println("Purificator creation :\nInventory :\n" + inventory.getItems().toString() + "\n\nPropertyDelegate :\n" + propertyDelegate.get(0) + propertyDelegate.get(1) + propertyDelegate.get(2) + propertyDelegate.get(3));
-
-        this.addSlot(new WaterInputSlot(propertyDelegate, inventory, 0, 16, 12));
+        this.addSlot(new WaterInputSlot(this, inventory, 0, 16, 12));
         this.addSlot(new Slot(inventory, 1, 44, 39));
         this.addSlot(new Slot(inventory, 2, 116,39));
 
@@ -60,11 +49,13 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
     }
 
     protected void updateResult(@NotNull World world, MachineInventory machineInventory, ItemStack itemStack) {
+        System.out.println("updateResult");
         if (!world.isClient) {
+            System.out.println("Updating result " + itemStack.getItem().toString() + " " + machineInventory.getStack(1).getItem().toString());
             Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(inventory.getStack(1)), world);
             if (optional.isPresent()) {
                 if(machineInventory.getStack(1).getItem() != itemStack.getItem()){
-                    propertyDelegate.set(2, 0); // 2 -> crafting
+                    propertyDelegate.set(2, 100);
                 }
             }else if(propertyDelegate.get(2) > 0){
                 propertyDelegate.set(2, 0);
@@ -72,30 +63,8 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
         }
     }
 
-    public void onContentChanged(Inventory inventory) {
-        this.context.run((world, pos) -> updateResult(this.player.getWorld(), this.inventory, inventory.getStack(1)));
-    }
-
-    @Override
-    public void close(PlayerEntity player) {
-        super.close(player);
-    }
-
-    public PropertyDelegate getProperty(){
-        return this.propertyDelegate;
-    }
-
     public boolean canUse(PlayerEntity player) {
         return canUse(this.context, player, ModMachines.PURIFICATOR_BLOCK);
-    }
-
-    @Override
-    protected boolean insertItem(@NotNull ItemStack stack, int startIndex, int endIndex, boolean fromLast) {
-        System.out.println("inserting item " + stack.getItem().toString() + startIndex + endIndex);
-       if(endIndex == 1){
-           this.context.run((world, pos) -> updateResult(this.player.getWorld(), this.inventory, stack));
-       }
-        return super.insertItem(stack, startIndex, endIndex, fromLast);
     }
 
     public ItemStack transferSlot(PlayerEntity player, int index) {
@@ -142,50 +111,20 @@ public class PurificatorScreenHandler extends AbstractRecipeScreenHandler<Machin
         return itemStack;
     }
 
-    @Override
-    public void populateRecipeFinder(RecipeMatcher finder) {
-        this.inventory.provideRecipeInputs(finder);
+    public int getWater(){
+        return this.propertyDelegate.get(0);
     }
 
-    @Override
-    public void clearCraftingSlots() {
-        this.inventory.setStack(1, ItemStack.EMPTY);
-        this.inventory.setStack(2, ItemStack.EMPTY);
+    public int getFillingTime(){
+        return this.propertyDelegate.get(1);
     }
 
-    @Override
-    public boolean matches(@NotNull Recipe<? super MachineInventory> recipe) {
-        return recipe.matches(this.inventory, this.player.getWorld());
+    public int getCraftingTime(){
+        return this.propertyDelegate.get(2);
     }
 
-    @Override
-    public int getCraftingResultSlotIndex() {
-        return 2;
-    }
-
-    @Override
-    public int getCraftingWidth() {
-        return 1;
-    }
-
-    @Override
-    public int getCraftingHeight() {
-        return 1;
-    }
-
-    @Override
-    public int getCraftingSlotCount() {
-        return 2;
-    }
-
-    @Override
-    public RecipeBookCategory getCategory() {
-        return RecipeBookCategory.CRAFTING;
-    }
-
-    @Override
-    public boolean canInsertIntoSlot(int index) {
-        return index != 2;
+    public void fill(){
+        this.propertyDelegate.set(1, this.propertyDelegate.get(1) + 100);
     }
 
 }

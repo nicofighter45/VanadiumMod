@@ -82,7 +82,9 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         }
     }
 
+    @Override
     public void onContentChanged(Inventory inventory) {
+        System.out.println("Content changed :\nPrevious Inventory : " + this.input + this.result + "\nNew Inventory : " + inventory);
         this.context.run((world, pos) -> updateResult(this, world, this.player, this.input, this.result));
     }
 

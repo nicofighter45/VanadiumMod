@@ -5,10 +5,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.ActionResult;
@@ -16,7 +13,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,15 +44,9 @@ public class PurificatorBlock extends BlockWithEntity {
         return ActionResult.SUCCESS;
     }
 
+    @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(world, type, ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE);
+        return checkType(type, ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, PurificatorBlockEntity::tick);
     }
-
-    @Contract(pure = true)
-    @Nullable
-    protected static <T extends BlockEntity> BlockEntityTicker<T> checkType(@NotNull World world, BlockEntityType<T> givenType, BlockEntityType<BlockEN> expectedType) {
-        return world.isClient ? null : checkType(givenType, expectedType, PurificatorBlockEntity::tick);
-    }
-
 }

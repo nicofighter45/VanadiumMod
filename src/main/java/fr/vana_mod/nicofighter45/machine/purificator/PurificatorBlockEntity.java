@@ -1,24 +1,15 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
-import fr.vana_mod.nicofighter45.machine.MachineInventory;
+import fr.vana_mod.nicofighter45.machine.basic.AbstractMachineBlockEntity;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.machine.purificator.recipe.PurificatorRecipe;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -26,133 +17,50 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class PurificatorBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
-
-    public int water, filling, crafting, tick = 0;
-
-    public final MachineInventory inventory = MachineInventory.ofSize(3);
+public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
 
     public PurificatorBlockEntity(BlockPos pos, BlockState state) {
-        super(ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, pos, state);
+        super(ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, pos, state, 3, 3, 0);
     }
 
-    public static void tick(@NotNull World world, @NotNull PurificatorBlockEntity blockEntity) {
-        int water = blockEntity.water;
-        int crafting = blockEntity.crafting;
-        int filling = blockEntity.filling;
-        blockEntity.tick += 1;
-        if(blockEntity.tick%20 == 0){
-            System.out.println("Time = " + blockEntity.tick/20 + "\nWater : " + water + "\nFilling : " + filling + "\nCrafting : " + crafting);
-        }
-        if(water > 0 && crafting > 0){
-            water -= 1;
-            water -= 1;
-            crafting -= 1;
-            if(crafting == 0){
-                ItemStack input = blockEntity.inventory.getStack(1);
+    public static void tick(World world, BlockPos pos, BlockState state, @NotNull PurificatorBlockEntity blockEntity) {
+        if(blockEntity.getPropertyDelegate().get(0) > 0 && blockEntity.getPropertyDelegate().get(2) > 0){
+            blockEntity.getPropertyDelegate().add(0, -1);
+            blockEntity.getPropertyDelegate().add(2, -1);
+            if(blockEntity.getPropertyDelegate().get(2) == 0){
+                ItemStack input = blockEntity.getInventory().getStack(1);
                 if(input.getCount() > 1){
                     input.decrement(1);
                 }else{
-                    blockEntity.inventory.setStack(1, ItemStack.EMPTY);
+                    blockEntity.getInventory().setStack(1, ItemStack.EMPTY);
                 }
-                ItemStack result = blockEntity.inventory.getStack(2);
+                ItemStack result = blockEntity.getInventory().getStack(2);
                 Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(input), world);
                 if (optional.isPresent()) {
                     PurificatorRecipe recipe = optional.get();
                     if(!result.isEmpty()){
                         result.increment(1);
                     }else{
-                        blockEntity.inventory.setStack(2, recipe.getOutput().copy().copy());
+                        blockEntity.getInventory().setStack(2, recipe.getOutput().copy());
                     }
+                    markDirty(world, pos, state);
                 }
             }
         }
-        if(filling > 0 && water < 400){
-            water += 1;
-            filling -= 1;
+        if(blockEntity.getPropertyDelegate().get(1) > 0 && blockEntity.getPropertyDelegate().get(0) < 400){
+            blockEntity.getPropertyDelegate().add(0, 1);
+            blockEntity.getPropertyDelegate().add(1, -1);
         }
-        blockEntity.propertyDelegate.set(0, water);
-        blockEntity.propertyDelegate.set(1, filling);
-        blockEntity.propertyDelegate.set(2, crafting);
+    }
+
+    @Override
+    public void slotUpdate(int slot) {
+        System.out.println("Slot update on machineInventory " + slot);
     }
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, @NotNull PlayerEntity player) {
-        return new PurificatorScreenHandler(syncId, playerInventory, ScreenHandlerContext.create(player.getEntityWorld(), pos), inventory, propertyDelegate);
+        return new PurificatorScreenHandler(syncId, playerInventory, ScreenHandlerContext.create(player.getEntityWorld(), pos), getInventory(), getPropertyDelegate());
     }
-
-    @Override
-    public Text getDisplayName() {
-        return Text.translatable(getCachedState().getBlock().getTranslationKey());
-    }
-
-    @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        Inventories.readNbt(nbt, inventory.getItems());
-        water = nbt.getInt("water");
-        filling = nbt.getInt("filling");
-        crafting = nbt.getInt("crafting");
-    }
-
-    @Override
-    public void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, inventory.getItems());
-        nbt.putInt("water", water);
-        nbt.putInt("filling", filling);
-        nbt.putInt("crafting", crafting);
-    }
-
-    public final PropertyDelegate propertyDelegate = new PropertyDelegate() {
-
-        private void updateAPI(){
-            fluidStorage.amount = water * 810L;
-        }
-
-        @Override
-        public int get(int index) {
-            return switch (index) {
-                case 0 -> water;
-                case 1 -> filling;
-                case 2 -> crafting;
-                case 3 -> tick;
-                default -> throw new IllegalStateException("Unexpected value: " + index);
-            };
-        }
-
-        @Override
-        public void set(int index, int value) {
-            switch (index){
-                case 0:
-                    water = value;
-                    updateAPI();
-                case 1:
-                    filling = value;
-                case 2:
-                    crafting = value;
-                case 3:
-                    tick = value;
-            }
-        }
-
-        @Override
-        public int size() {
-            return 3;
-        }
-
-    };
-
-    public final SingleVariantStorage<FluidVariant> fluidStorage = new SingleVariantStorage<>() {
-        @Override
-        protected FluidVariant getBlankVariant() {
-            return FluidVariant.blank();
-        }
-
-        @Override
-        protected long getCapacity(FluidVariant variant) {
-            return 4 * FluidConstants.BUCKET;
-        }
-    };
 
 }

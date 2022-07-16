@@ -1,5 +1,8 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
+import fr.vana_mod.nicofighter45.machine.basic.AbstractMachineScreenHandler;
+import fr.vana_mod.nicofighter45.machine.basic.ArrayMachinePropertyDelegate;
+import fr.vana_mod.nicofighter45.machine.basic.MachinePropertyDelegate;
 import fr.vana_mod.nicofighter45.machine.basic.slot.ItemOutputSlot;
 import fr.vana_mod.nicofighter45.machine.basic.MachineInventory;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
@@ -11,36 +14,19 @@ import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
 
-public class PurificatorScreenHandler extends ScreenHandler {
-
-    private final ScreenHandlerContext context;
-    private final PropertyDelegate propertyDelegate;
+public class PurificatorScreenHandler extends AbstractMachineScreenHandler {
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(3), new ArrayPropertyDelegate(3));
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(3), new ArrayMachinePropertyDelegate(3));
     }
 
-    public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, @NotNull MachineInventory inventory, @NotNull PropertyDelegate propertyDelegate) {
-        super(ModMachines.PURIFICATOR_SCREEN_HANDLER, syncId);
-        this.context = context;
-        this.propertyDelegate = propertyDelegate;
-        this.addProperties(propertyDelegate);
+    public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context,
+                                    @NotNull MachineInventory inventory, @NotNull MachinePropertyDelegate propertyDelegate) {
+        super(ModMachines.PURIFICATOR_SCREEN_HANDLER, syncId, playerInventory, context, inventory, propertyDelegate);
 
         this.addSlot(new WaterInputSlot(inventory, 0, 16, 12));
         this.addSlot(new Slot(inventory, 1, 44, 39));
         this.addSlot(new ItemOutputSlot(inventory, 2, 116,39));
-
-        int m;
-        int l;
-        for (m = 0; m < 3; ++m) {
-            for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
-            }
-        }
-
-        for (m = 0; m < 9; ++m) {
-            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
-        }
     }
 
     public boolean canUse(PlayerEntity player) {

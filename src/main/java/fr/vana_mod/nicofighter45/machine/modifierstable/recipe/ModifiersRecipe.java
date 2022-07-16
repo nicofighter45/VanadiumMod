@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.machine.modifiertable.recipe;
+package fr.vana_mod.nicofighter45.machine.modifierstable.recipe;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;

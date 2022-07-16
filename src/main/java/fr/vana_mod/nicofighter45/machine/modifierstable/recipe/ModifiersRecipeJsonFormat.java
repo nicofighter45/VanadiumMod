@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.machine.modifiertable.recipe;
+package fr.vana_mod.nicofighter45.machine.modifierstable.recipe;
 
 import com.google.gson.JsonObject;
 

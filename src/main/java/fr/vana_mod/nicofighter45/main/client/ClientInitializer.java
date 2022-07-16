@@ -3,7 +3,7 @@ package fr.vana_mod.nicofighter45.main.client;
 import fr.vana_mod.nicofighter45.machine.enchanter.EnchanterScreen;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.machine.high_furnace.HighFurnaceScreen;
-import fr.vana_mod.nicofighter45.machine.modifiertable.ModifiersTableScreen;
+import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableScreen;
 import fr.vana_mod.nicofighter45.machine.purificator.PurificatorScreen;
 import fr.vana_mod.nicofighter45.main.gui.CustomPlayerManagementScreen;
 import fr.vana_mod.nicofighter45.items.ModItems;

@@ -19,14 +19,11 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public abstract class AbstractMachineBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, MachineInventory {
 
     private final DefaultedList<ItemStack> inventory;
 
-    private final Map<Integer, Integer> properties = new HashMap<>();
+    private final int properties[];
 
     private final MachinePropertyDelegate propertyDelegate;
 
@@ -39,9 +36,10 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
 
     protected AbstractMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize, int propertiesSize, int fluidIndexProperties ) {
         super(type, pos, state);
-        this.inventory = DefaultedList.ofSize(inventorySize);
+        this.inventory = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
+        this.properties = new int[propertiesSize];
         for(int i = 0; i < propertiesSize; i ++){
-            this.properties.put(i, 0);
+            this.properties[i] = 0;
         }
         if(fluidIndexProperties > -1){
              this.fluidStorage = new SingleVariantStorage<>() {
@@ -58,12 +56,12 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
             this.propertyDelegate = new MachinePropertyDelegate() {
                 @Override
                 public int get(int index) {
-                    return properties.get(index);
+                    return properties[index];
                 }
 
                 @Override
                 public void set(int index, int value) {
-                    properties.put(index, value);
+                    properties[index] = value;
                     if(index == fluidIndexProperties){
                         fluidStorage.amount = value * 810; // in my API, one water bucket equal 100, in fabric it's 81000
                     }
@@ -71,7 +69,7 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
 
                 @Override
                 public int size() {
-                    return properties.size();
+                    return properties.length;
                 }
             };
         }else{
@@ -79,17 +77,17 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
             this.propertyDelegate = new MachinePropertyDelegate() {
                 @Override
                 public int get(int index) {
-                    return properties.get(index);
+                    return properties[index];
                 }
 
                 @Override
                 public void set(int index, int value) {
-                    properties.put(index, value);
+                    properties[index] = value;
                 }
 
                 @Override
                 public int size() {
-                    return properties.size();
+                    return properties.length;
                 }
             };
         }
@@ -104,8 +102,8 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
-        for(int i = 0; i < properties.size(); i ++){
-            properties.put(i, nbt.getInt("PropertiesNb" + i));
+        for(int i = 0; i < properties.length; i ++){
+            properties[i] = nbt.getInt("PropertiesNb" + i);
         }
     }
 
@@ -113,8 +111,8 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
-        for(int i = 0; i < properties.size(); i ++){
-            nbt.putInt("PropertiesNb" + i, properties.get(i));
+        for(int i = 0; i < properties.length; i ++){
+            nbt.putInt("PropertiesNb" + i, properties[i]);
         }
     }
 

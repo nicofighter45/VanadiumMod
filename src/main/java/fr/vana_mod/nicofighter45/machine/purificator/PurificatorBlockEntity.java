@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -105,4 +106,30 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
         return new PurificatorScreenHandler(syncId, playerInventory, ScreenHandlerContext.create(player.getEntityWorld(), pos), getInventory(), getPropertyDelegate());
     }
 
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        if(side == Direction.UP){
+            return new int[]{0};
+        }else if(side == Direction.DOWN){
+            return new int[]{0, 2};
+        }else{
+            return new int[]{1};
+        }
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+        if(slot == 0){
+            return stack.getItem().equals(Items.WATER_BUCKET);
+        }
+        return slot == 1 && !stack.getItem().equals(Items.WATER_BUCKET);
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+        if(slot == 0){
+            return stack.getItem().equals(Items.BUCKET);
+        }
+        return slot == 2;
+    }
 }

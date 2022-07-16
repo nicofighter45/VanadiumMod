@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.machine.modifiertable;
+package fr.vana_mod.nicofighter45.machine.modifierstable;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;

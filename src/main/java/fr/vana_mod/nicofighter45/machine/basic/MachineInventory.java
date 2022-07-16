@@ -2,12 +2,14 @@ package fr.vana_mod.nicofighter45.machine.basic;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public interface MachineInventory extends Inventory {
+public interface MachineInventory extends SidedInventory {
     DefaultedList<ItemStack> getStacks();
 
     @Override
@@ -77,6 +79,21 @@ public interface MachineInventory extends Inventory {
 
     static @NotNull MachineInventory of(DefaultedList<ItemStack> items) {
         return new MachineInventory() {
+            @Override
+            public int[] getAvailableSlots(Direction side) {
+                return new int[0];
+            }
+
+            @Override
+            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+                return false;
+            }
+
+            @Override
+            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+                return false;
+            }
+
             @Override
             public DefaultedList<ItemStack> getStacks() {
                 return items;

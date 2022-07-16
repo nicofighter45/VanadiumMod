@@ -30,7 +30,9 @@ public class PurificatorRecipeSerializer implements RecipeSerializer<Purificator
 
         Ingredient input = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input))));
-        ItemStack output = Ingredient.fromJson(recipeJson.result).getMatchingStacks()[0];
+        int count = recipeJson.result.get("count").getAsInt();
+        ItemStack output = new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.result.get("item").getAsString()))
+                .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.result)), count);
         return new PurificatorRecipe(input, output, id);
     }
 

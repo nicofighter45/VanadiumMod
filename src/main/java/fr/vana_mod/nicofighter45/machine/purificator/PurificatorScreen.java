@@ -38,11 +38,11 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
             }else if(crafting > 78){
                 crafting_pixel = 2 * (89-crafting);
                 drawTexture(matrices, x + 37, y + 69, 1, 200, 28, 1);
-                drawTexture(matrices, x + 64, y + 69 - crafting_pixel, 1, 203, 1, crafting_pixel);
+                drawTexture(matrices, x + 64, y + 68 - crafting_pixel, 1, 202, 1, crafting_pixel);
             }else{
-                crafting_pixel = (int) (4.8 * (78 - crafting));
+                crafting_pixel = (78 - crafting) * 24/39;
                 drawTexture(matrices, x + 37, y + 69, 1, 200, 28, 1);
-                drawTexture(matrices, x + 64, y + 50, 1, 203, 1, 20);
+                drawTexture(matrices, x + 64, y + 49, 1, 202, 1, 20);
                 drawTexture(matrices, x + 64, y + 39, 1, 223, crafting_pixel, 15);
             }
         }
@@ -65,9 +65,6 @@ public class PurificatorScreen extends HandledScreen<PurificatorScreenHandler> {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         renderBackground(matrices);
         drawBackground(matrices, delta, mouseX, mouseY);
-        textRenderer.draw(matrices, Integer.toString(handler.getWater()), x - 12, y + 5, 0);
-        textRenderer.draw(matrices, Integer.toString(handler.getFillingTime()), x - 12, y + 15, 0);
-        textRenderer.draw(matrices, Integer.toString(handler.getCraftingTime()), x - 12, y + 25, 0);
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);
     }

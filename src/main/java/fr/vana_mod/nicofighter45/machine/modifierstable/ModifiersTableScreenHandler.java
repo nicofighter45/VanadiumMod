@@ -1,7 +1,7 @@
-package fr.vana_mod.nicofighter45.machine.modifiertable;
+package fr.vana_mod.nicofighter45.machine.modifierstable;
 
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.modifiertable.recipe.ModifiersRecipe;
+import fr.vana_mod.nicofighter45.machine.modifierstable.recipe.ModifiersRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingInventory;

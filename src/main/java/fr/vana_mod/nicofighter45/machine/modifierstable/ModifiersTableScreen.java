@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.machine.modifiertable;
+package fr.vana_mod.nicofighter45.machine.modifierstable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;

@@ -10,13 +10,22 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractMachineScreenHandler extends ScreenHandler {
 
-    private final ScreenHandlerContext context;
-    private final MachinePropertyDelegate propertyDelegate;
-    private final MachineInventory inventory;
+    private static final int BASE_WEIGHT = 128, BASE_HEIGHT = 128;
+
+    protected final ScreenHandlerContext context;
+    protected final MachinePropertyDelegate propertyDelegate;
+    protected final MachineInventory inventory;
 
     protected AbstractMachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId,
                                            @NotNull PlayerInventory playerInventory, ScreenHandlerContext context,
                                            @NotNull MachineInventory inventory, @NotNull MachinePropertyDelegate propertyDelegate) {
+        this(type, syncId, playerInventory, context, inventory, propertyDelegate, BASE_WEIGHT, BASE_HEIGHT);
+    }
+
+    protected AbstractMachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId,
+                                           @NotNull PlayerInventory playerInventory, ScreenHandlerContext context,
+                                           @NotNull MachineInventory inventory, @NotNull MachinePropertyDelegate propertyDelegate,
+                                           int weight, int height) {
         super(type, syncId);
 
         this.context = context;

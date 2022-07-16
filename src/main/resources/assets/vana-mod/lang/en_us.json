@@ -140,6 +140,43 @@
   "advancements.vana-mod.vanasword.title": "The Sword",
   "advancements.vana-mod.vanasword.description": "Craft a vanadium sword",
 
+  "commands.vana-mod.setbase_error":  "You need to be in the overworld",
+  "commands.vana-mod.setbase_done": "Your base has been reposition to your position",
+
+  "commands.vana-mod.stat_title": "Here is your stats :",
+  "commands.vana-mod.stat_health": "health: {value}",
+  "commands.vana-mod.stat_regen": "regen: {value}",
+  "commands.vana-mod.stat_baseX": "baseX: {value}",
+  "commands.vana-mod.stat_baseY": "baseY: {value}",
+  "commands.vana-mod.stat_baseZ": "baseZ: {value}",
+
+  "commands.vana-mod.teleportation_cancel": "Teleportation cancel: you moved or loosed health",
+  "commands.vana-mod.teleportation_pre_msg": "Teleporting in {value}s",
+
+  "commands.vana-mod.base_pretp_msg": "You will be teleported to your base in 10s",
+  "commands.vana-mod.base_tp_done": "You have been teleported to your base",
+
+  "commands.vana-mod.spawn_pretp_msg": "You will be teleported to the spawn in 10s",
+  "commands.vana-mod.spawn_tp_done": "You have been teleported to the spawn",
+
+  "commands.vana-mod.broadcast_correct_usage": "Correct usage /broadcast <message>",
+  "commands.vana-mod.broadcast_done_msg": "Message was broadcast {value}",
+
+  "commands.vana-mod.jump_done_msg": "Jump has been set to {value}",
+  "commands.vana-mod.pvp_done_msg": "Pvp is now set to {value}",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+  "commands.vana-mod.": "",
+
   "key.category.vana-mod.vanadium": "Vanadium",
   "key.vana-mod.night_vision": "Night Vision",
 

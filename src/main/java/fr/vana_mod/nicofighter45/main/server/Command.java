@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.main.server;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.context.CommandContext;
 import fr.vana_mod.nicofighter45.main.gui.CustomCraftingScreenHandler;
 import fr.vana_mod.nicofighter45.main.gui.CustomPlayerManagementScreenHandler;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -16,14 +17,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.*;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -35,6 +35,8 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class Command {
 
+    private static final String LANG_COMMAND_PREFIX = "commands.vana-mod.";
+
     public static void registerAllCommands(){
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("setbase")
                 .requires(source -> source.hasPermissionLevel(1))
@@ -42,9 +44,9 @@ public class Command {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                     if(player.getWorld() == Objects.requireNonNull(player.getServer()).getOverworld()){
                         ServerInitializer.players.get(player.getUuid()).setBase(player.getBlockPos());
-                        sendMsg(player, "§8[§6Server§8] §fYour base has been reposition to your position");
+                        sendMsg(player, "setbase_done");
                     }else{
-                        sendMsg(player, "§8[§6Server§8] §fYou need to be in the overworld");
+                        sendMsg(player, "setbase_error");
                     }
                     return 1;
                 })
@@ -53,20 +55,20 @@ public class Command {
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                     CustomPlayer customPlayer = ServerInitializer.players.get(player.getUuid());
-                    sendMsg(player, "§8[§6Server§8] §fHere is your stats :");
-                    sendMsg(player, "    health  : " + customPlayer.getHeart());
-                    sendMsg(player, "    regen  : " + customPlayer.getRegen());
-                    sendMsg(player, "    baseX   : " + customPlayer.getBase().getX());
-                    sendMsg(player, "    baseY   : " + customPlayer.getBase().getY());
-                    sendMsg(player, "    baseZ   : " + customPlayer.getBase().getZ());
+                    sendMsg(player, "stat_title");
+                    sendMsg(player, "stat_health", Integer.toString(customPlayer.getHeart()), false);
+                    sendMsg(player, "stat_regen", Integer.toString(customPlayer.getRegen()), false);
+                    sendMsg(player, "stat_baseX" + customPlayer.getBase().getX(), false);
+                    sendMsg(player, "stat_baseY" + customPlayer.getBase().getY(), false);
+                    sendMsg(player, "stat_baseZ" + customPlayer.getBase().getZ(), false);
                     return 1;
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("base")
-                .requires(source -> source.hasPermissionLevel(1))
+                //todo add proper permission check system
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    sendMsg(player, "§8[§6Server§8] §fYou will be teleported to your base in 10s");
+                    sendMsg(player, "base_pretp_msg");
                     new Timer().schedule(
                             new TimerTask() {
 
@@ -78,7 +80,7 @@ public class Command {
                                 public void run() {
                                     timer --;
                                     if(player.getBlockPos() != lastPos || player.getHealth() < lastHealth){
-                                        sendMsg(player, "§8[§6Server§8] §fTeleportation cancel : you moved or loosed health");
+                                        sendMsg(player, "teleportation_cancel");
                                         cancel();
                                     }
                                     lastPos = player.getBlockPos();
@@ -86,12 +88,10 @@ public class Command {
                                     if(timer == 0){
                                         BlockPos base = ServerInitializer.players.get(player.getUuid()).getBase();
                                         player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), base.getX(), base.getY(), base.getZ(), 180,0);
-                                        sendMsg(player, "§8[§6Server§8] §fYou have been teleported to your base");
+                                        sendMsg(player, "base_tp_done");
                                         cancel();
-                                    }else if(timer == 5){
-                                        sendMsg(player, "§8[§6Server§8] §fTeleporting in 5s");
-                                    }else if(timer < 4){
-                                        sendMsg(player, "§8[§6Server§8] §fTeleporting in " + timer + "s");
+                                    }else if(timer == 5 || timer < 4){
+                                        sendMsg(player, "teleportation_pre_msg", Integer.toString(timer));
                                     }
                                 }
                             }
@@ -102,7 +102,7 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("spawn")
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    sendMsg(player, "§8[§6Server§8] §fYou will be teleported to the spawn in 10s");
+                    sendMsg(player, "spawn_pretp_msg");
                     new Timer().schedule(
                             new TimerTask() {
 
@@ -114,7 +114,7 @@ public class Command {
                                 public void run() {
                                     timer --;
                                     if(player.getBlockPos() != lastPos || player.getHealth() < lastHealth){
-                                        sendMsg(player, "§8[§6Server§8] §fTeleportation cancel : you moved or loosed health");
+                                        sendMsg(player, "teleportation_cancel");
                                         cancel();
                                     }
                                     lastPos = player.getBlockPos();
@@ -122,12 +122,10 @@ public class Command {
                                     if(timer == 0){
                                         BlockPos spawn = Objects.requireNonNull(player.getServer()).getOverworld().getSpawnPos();
                                         player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), spawn.getX(), spawn.getY(), spawn.getZ(), 180,0);
-                                        sendMsg(player, "§8[§6Server§8] §fYou have been teleported to the spawn");
+                                        sendMsg(player, "spawn_tp_done");
                                         cancel();
-                                    }else if(timer == 5){
-                                        sendMsg(player, "§8[§6Server§8] §fTeleporting in 5s");
-                                    }else if(timer < 4){
-                                        sendMsg(player, "§8[§6Server§8] §fTeleporting in " + timer + "s");
+                                    }else if(timer == 5 || timer < 4){
+                                        sendMsg(player, "teleporting_pre_msg", Integer.toString(timer));
                                     }
                                 }
                             }
@@ -138,16 +136,16 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("broadcast")
                 .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
-                    c.getSource().sendError(Text.of("§8[§6Server§8] §fCorrect usage /broadcast <message>"));
+                    c.getSource().sendError(getMsgFrom("broadcast_correct_usage"));
                     return 1;
                 })
                 .then(argument("message", MessageArgumentType.message()).executes(c -> {
                     String msg = MessageArgumentType.getMessage(c, "message").getString();
                     for(ServerPlayerEntity player : c.getSource().getServer().getPlayerManager().getPlayerList()){
-                        sendMsg(player, "§8[§4BROADCAST§8] §f" + msg);
-                        player.sendMessage(MutableText.of(new TranslatableTextContent(msg)), true);
+                        player.sendMessage(Text.literal(ServerInitializer.BROADCAST_MSG_PREFIX + msg));
+                        player.sendMessage(Text.literal(ServerInitializer.BROADCAST_MSG_PREFIX + msg), true);
                     }
-                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fMessage was broadcast " + msg), true);
+                    sendOpFeedbackMsg(c, "broadcast_done_msg");
                     return 1;
                 }))
         ));
@@ -155,7 +153,7 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     ServerInitializer.jump = !ServerInitializer.jump;
-                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fJump has been set top " + ServerInitializer.jump), true);
+                    sendOpFeedbackMsg(c, "jump_done_msg", Boolean.toString(ServerInitializer.jump));
                     return 1;
                 })
         ));
@@ -163,7 +161,7 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     Objects.requireNonNull(c.getSource().getServer()).setPvpEnabled(!c.getSource().getServer().isPvpEnabled());
-                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fPvp is now " + c.getSource().getServer().isPvpEnabled()), true);
+                    sendOpFeedbackMsg(c, "pvp_done_msg", Boolean.toString(c.getSource().getServer().isPvpEnabled()));
                     return 1;
                 })
         ));
@@ -478,7 +476,43 @@ public class Command {
         return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2) + Math.pow(z1-z2, 2)) <= 10; }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text){
-        player.sendMessage(MutableText.of(new TranslatableTextContent(text)), false);
+        player.sendMessage(getMsgFrom(text), false);
+    }
+
+    private static Text getMsgFrom(String text){
+        return Text.of(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text));
+    }
+
+    private static void sendMsg(@NotNull ServerPlayerEntity player, String text, boolean prefix){
+        if(prefix){
+            sendMsg(player, text);
+        }else{
+            player.sendMessage(Text.translatable(LANG_COMMAND_PREFIX + text), false);
+        }
+    }
+
+    private static void sendMsg(@NotNull ServerPlayerEntity player, String text, String replace){
+        player.sendMessage(Text.of(ServerInitializer.SERVER_MSG_PREFIX +
+                Text.translatable(LANG_COMMAND_PREFIX + text).toString().replace("{value}", replace))
+                , false);
+    }
+
+    private static void sendMsg(@NotNull ServerPlayerEntity player, String text, String replace, boolean prefix){
+        if(prefix){
+            sendMsg(player, text, replace);
+        }else{
+            player.sendMessage(Text.of(Text.translatable(LANG_COMMAND_PREFIX + text).toString().replace("{value}", replace))
+                    , false);
+        }
+    }
+
+    private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text){
+        c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX +Text.translatable(LANG_COMMAND_PREFIX + text)), true);
+    }
+
+    private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace){
+        c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
+                .toString().replace("{value}", replace)), true);
     }
 
 }

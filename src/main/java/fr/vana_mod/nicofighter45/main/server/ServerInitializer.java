@@ -6,7 +6,9 @@ import java.util.*;
 
 public class ServerInitializer implements DedicatedServerModInitializer {
 
-    //custom player
+    public static final String SERVER_MSG_PREFIX = "§8[§6Server§8] §f";
+    public static final String BROADCAST_MSG_PREFIX = "§8[§4BROADCAST§8] §f";
+
     public static Map<UUID, CustomPlayer> players = new HashMap<>();
     public static boolean isOn = true;
 

@@ -37,11 +37,12 @@ public class ServerWorldMixin {
         String color = "§9";
         if(permission == 4){
             color = "§4";
-        }else if(permission == 3){
+        }else if(permission == 1){
             color = "§e";
         }
         for (ServerPlayerEntity pl : player.getServer().getPlayerManager().getPlayerList()){
-            pl.sendMessage(Text.of("§8[§6Server§8] " + color + player.getEntityName() + " §fjoined the game"));
+            pl.sendMessage(Text.of(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable("").toString()
+                    .replace("{value}", color + player.getEntityName() + "§f")));
         }
     }
 

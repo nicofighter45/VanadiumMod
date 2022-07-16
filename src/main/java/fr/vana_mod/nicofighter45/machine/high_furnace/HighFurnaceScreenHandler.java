@@ -1,118 +1,47 @@
 package fr.vana_mod.nicofighter45.machine.high_furnace;
 
 import fr.vana_mod.nicofighter45.machine.ModMachines;
+import fr.vana_mod.nicofighter45.machine.basic.AbstractMachineScreenHandler;
+import fr.vana_mod.nicofighter45.machine.basic.ArrayMachinePropertyDelegate;
+import fr.vana_mod.nicofighter45.machine.basic.MachineInventory;
+import fr.vana_mod.nicofighter45.machine.basic.MachinePropertyDelegate;
+import fr.vana_mod.nicofighter45.machine.basic.slot.ItemOutputSlot;
+import fr.vana_mod.nicofighter45.machine.basic.slot.LavaInputSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
 
-public class HighFurnaceScreenHandler extends ScreenHandler {
-
-    private final Inventory input, output;
-    private final ScreenHandlerContext context;
-    private final PropertyDelegate propertyDelegate;
+public class HighFurnaceScreenHandler extends AbstractMachineScreenHandler {
 
     public HighFurnaceScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new ArrayPropertyDelegate(1));
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(4), new ArrayMachinePropertyDelegate(3));
+    }
+    public HighFurnaceScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, @NotNull MachineInventory inventory, @NotNull MachinePropertyDelegate propertyDelegate) {
+        super(ModMachines.HIGH_FURNACE_SCREEN_HANDLER, syncId, playerInventory, context, inventory, propertyDelegate);
+
+        this.addSlot(new LavaInputSlot(inventory, 0, 16, 12));
+        this.addSlot(new Slot(inventory, 1, 44, 30));
+        this.addSlot(new Slot(inventory, 2, 44, 48));
+        this.addSlot(new ItemOutputSlot(inventory, 3, 116,39));
     }
 
-    public HighFurnaceScreenHandler(int syncId, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
-        this(syncId, playerInventory, propertyDelegate, playerInventory.player);
-    }
-
-    public HighFurnaceScreenHandler(int syncId, PlayerInventory inv, PropertyDelegate propertyDelegate, PlayerEntity player){
-        this(syncId, inv, propertyDelegate, player, ScreenHandlerContext.EMPTY);
-    }
-
-    public HighFurnaceScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, PropertyDelegate propertyDelegate,
-                                    PlayerEntity player, ScreenHandlerContext context) {
-        super(ModMachines.HIGH_FURNACE_SCREEN_HANDLER, syncId);
-        this.context = context;
-        this.propertyDelegate = propertyDelegate;
-        this.input = new SimpleInventory(1);
-        this.output = new SimpleInventory(1);
-
-
-
-        int m;
-        int l;
-
-        for (m = 0; m < 3; ++m) {
-            for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
-            }
-        }
-
-        for (m = 0; m < 9; ++m) {
-            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
-        }
-    }
-
-    public void close(PlayerEntity player) {
-        super.close(player);
-        this.context.run((world, pos) -> this.dropInventory(player, this.input));
-    }
-
+    @Override
     public boolean canUse(PlayerEntity player) {
         return canUse(this.context, player, ModMachines.HIGH_FURNACE_BLOCK);
     }
 
-    public ItemStack transferSlot(PlayerEntity player, int index) {
-        ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(index);
-        if (slot.hasStack()) {
-            ItemStack itemStack2 = slot.getStack();
-            itemStack = itemStack2.copy();
-            if (index >= 3 && index < 10) {
-                if (!this.insertItem(itemStack2, 10, 46, true)) {
-                    return ItemStack.EMPTY;
-                }
-
-                slot.onQuickTransfer(itemStack2, itemStack);
-            } else if (index >= 10 && index < 46) {
-                if (!this.insertItem(itemStack2, 0, 3, false)) {
-                    if (!this.insertItem(itemStack2, 3, 10, false)) {
-                        if (index < 37) {
-                            if (!this.insertItem(itemStack2, 37, 46, false)) {
-                                return ItemStack.EMPTY;
-                            }
-                        } else if (!this.insertItem(itemStack2, 10, 37, false)) {
-                            return ItemStack.EMPTY;
-                        }
-                    }
-                }
-            } else if (!this.insertItem(itemStack2, 10, 46, false)) {
-                return ItemStack.EMPTY;
-            }
-
-            if (itemStack2.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
-            } else {
-                slot.markDirty();
-            }
-
-            if (itemStack2.getCount() == itemStack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            slot.onTakeItem(player, itemStack2);
-            if (index >= 3 && index < 10) {
-                player.dropItem(itemStack2, false);
-            }
-        }
-
-        return itemStack;
+    public int getLava(){
+        return this.propertyDelegate.get(0);
     }
 
-    public int getSyncedNumber(){
-        return propertyDelegate.get(0);
+    public int getFillingTime(){
+        return this.propertyDelegate.get(1);
+    }
+
+    public int getCraftingTime(){
+        return this.propertyDelegate.get(2);
     }
 
 }

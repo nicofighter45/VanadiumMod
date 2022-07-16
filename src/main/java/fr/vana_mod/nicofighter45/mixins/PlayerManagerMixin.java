@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.mixins;
 
 
+import fr.vana_mod.nicofighter45.main.server.ServerInitializer;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -39,7 +40,9 @@ public class PlayerManagerMixin {
                             }
                         }
                     }
-                    Text finalMessage = Text.of("§8[§6Server§8] " + color + name + " §fleft the game");
+                    Text finalMessage = Text.of(ServerInitializer.SERVER_MSG_PREFIX +
+                            Text.translatable("mixins.vana-mod.player_leave").toString().replace("{value}",
+                                    color + name + "§f"));
                     manager.broadcast(message, (player) -> finalMessage, typeKey);
                     ci.cancel();
                 }

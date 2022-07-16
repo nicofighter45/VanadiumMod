@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.main;
 
-import fr.vana_mod.nicofighter45.main.server.Command;
+import fr.vana_mod.nicofighter45.main.server.commands.Command;
 import net.minecraft.item.*;
 import fr.vana_mod.nicofighter45.block.ModBlocks;
 import fr.vana_mod.nicofighter45.items.ModItems;

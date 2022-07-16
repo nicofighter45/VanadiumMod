@@ -33,50 +33,6 @@ public class PurificatorScreenHandler extends AbstractMachineScreenHandler {
         return canUse(this.context, player, ModMachines.PURIFICATOR_BLOCK);
     }
 
-    public ItemStack transferSlot(PlayerEntity player, int index) {
-        ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(index);
-        if (slot.hasStack()) {
-            ItemStack itemStack2 = slot.getStack();
-            itemStack = itemStack2.copy();
-            if (index >= 0 && index < 3) {
-                if (!this.insertItem(itemStack2, 3, 39, true)) {
-                    return ItemStack.EMPTY;
-                }
-
-                slot.onQuickTransfer(itemStack2, itemStack);
-            } else if (index >= 3 && index < 39) {
-                if (!this.insertItem(itemStack2, 0, 3, false)) {
-                    if (index < 30) {
-                        if (!this.insertItem(itemStack2, 30, 39, false)) {
-                            return ItemStack.EMPTY;
-                        }
-                    } else if (!this.insertItem(itemStack2, 3, 30, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                }
-            } else if (!this.insertItem(itemStack2, 3, 39, false)) {
-                return ItemStack.EMPTY;
-            }
-
-            if (itemStack2.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
-            } else {
-                slot.markDirty();
-            }
-
-            if (itemStack2.getCount() == itemStack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            slot.onTakeItem(player, itemStack2);
-            if (index >= 0 && index < 3) {
-                player.dropItem(itemStack2, false);
-            }
-        }
-        return itemStack;
-    }
-
     public int getWater(){
         return this.propertyDelegate.get(0);
     }

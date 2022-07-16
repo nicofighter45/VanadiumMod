@@ -140,42 +140,81 @@
   "advancements.vana-mod.vanasword.title": "The Sword",
   "advancements.vana-mod.vanasword.description": "Craft a vanadium sword",
 
-  "commands.vana-mod.setbase_error":  "You need to be in the overworld",
-  "commands.vana-mod.setbase_done": "Your base has been reposition to your position",
+  "commands.vana-mod.setbase.error":  "You need to be in the overworld",
+  "commands.vana-mod.setbase.done": "Your base has been reposition to your position",
 
-  "commands.vana-mod.stat_title": "Here is your stats :",
-  "commands.vana-mod.stat_health": "health: {value}",
-  "commands.vana-mod.stat_regen": "regen: {value}",
-  "commands.vana-mod.stat_baseX": "baseX: {value}",
-  "commands.vana-mod.stat_baseY": "baseY: {value}",
-  "commands.vana-mod.stat_baseZ": "baseZ: {value}",
+  "commands.vana-mod.stat.title": "Here is your stats :",
+  "commands.vana-mod.stat.health": "health: {value}",
+  "commands.vana-mod.stat.regen": "regen: {value}",
+  "commands.vana-mod.stat.baseX": "baseX: {value}",
+  "commands.vana-mod.stat.baseY": "baseY: {value}",
+  "commands.vana-mod.stat.baseZ": "baseZ: {value}",
 
-  "commands.vana-mod.teleportation_cancel": "Teleportation cancel: you moved or loosed health",
-  "commands.vana-mod.teleportation_pre_msg": "Teleporting in {value}s",
+  "commands.vana-mod.teleportation.cancel": "Teleportation cancel: you moved or loosed health",
+  "commands.vana-mod.teleportation.pre_msg": "Teleporting in {value}s",
 
-  "commands.vana-mod.base_pretp_msg": "You will be teleported to your base in 10s",
-  "commands.vana-mod.base_tp_done": "You have been teleported to your base",
+  "commands.vana-mod.base.pretp_msg": "You will be teleported to your base in 10s",
+  "commands.vana-mod.base.tp_done": "You have been teleported to your base",
 
-  "commands.vana-mod.spawn_pretp_msg": "You will be teleported to the spawn in 10s",
-  "commands.vana-mod.spawn_tp_done": "You have been teleported to the spawn",
+  "commands.vana-mod.spawn.pretp_msg": "You will be teleported to the spawn in 10s",
+  "commands.vana-mod.spawn.tp_done": "You have been teleported to the spawn",
 
-  "commands.vana-mod.broadcast_correct_usage": "Correct usage /broadcast <message>",
-  "commands.vana-mod.broadcast_done_msg": "Message was broadcast {value}",
+  "commands.vana-mod.broadcast.error": "Correct usage /broadcast <message>",
+  "commands.vana-mod.broadcast.done": "Message was broadcast {value}",
 
-  "commands.vana-mod.jump_done_msg": "Jump has been set to {value}",
-  "commands.vana-mod.pvp_done_msg": "Pvp is now set to {value}",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
-  "commands.vana-mod.": "",
+  "commands.vana-mod.jump.done": "Jump has been set to {value}",
+
+  "commands.vana-mod.pvp.done": "Pvp is now set to {value}",
+
+  "commands.vana-mod.freeze.error": "Correct usage /freeze <player>",
+  "commands.vana-mod.freeze.deactivate_op_msg": "{value} is un-freeze",
+  "commands.vana-mod.freeze.activate_op_msg": "{value} is freeze",
+  "commands.vana-mod.freeze.deactivate": "Your are now un-freeze",
+  "commands.vana-mod.freeze.activate": "Your are now freeze",
+
+  "commands.vana-mod.hat.empty_hand_error": "You have nothing in your hand",
+  "commands.vana-mod.hat.more_than_1_item_error": "You can't put many items in your head",
+  "commands.vana-mod.hat.done": "Your hand and your helmet have been exchange",
+
+  "commands.vana-mod.boss.error": "Correct usage /boss <int>",
+
+  "commands.vana-mod.dim.error": "Correct usage /dim <overworld|nether|end>",
+  "commands.vana-mod.dim.error_overworld": "You are already in the overworld",
+  "commands.vana-mod.dim.error_nether": "You are already in the nether",
+  "commands.vana-mod.dim.error_end": "You are already in the end",
+  "commands.vana-mod.done_overworld": "You are now in the overworld",
+  "commands.vana-mod.done_nether": "You are now in the nether",
+  "commands.vana-mod.done_end": "You are now in the end",
+
+  "commands.vana-mod.data.title": "This is the list of all register players with their data:",
+  "commands.vana-mod.data.uuid": "uuid: {value}",
+  "commands.vana-mod.data.health": "health: {value}",
+  "commands.vana-mod.data.regen": "regen: {value}",
+  "commands.vana-mod.data.error": "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>",
+  "commands.vana-mod.data.health_change": "You now have {value} hearts",
+  "commands.vana-mod.data.health_change_op": "The number of regen heart of {value1} is now {value2}",
+
+  "commands.vana-mod.invsee.error": "Correct usage /invsee <player>",
+  "commands.vana-mod.invsee.done": "Printing inventory of {value}",
+
+  "commands.vana-mod.ecsee.error": "Correct usage /ecsee <player>",
+  "commands.vana-mod.ecsee.done": "Printing inventory of {value}",
+  "commands.vana-mod.ecsee.name": "Ender chest of {value}",
+
+  "listeners.vana-mod.ender_pearl_switch_activate": "§2Ender Pearl mode §4activate",
+  "listeners.vana-mod.ender_pearl_switch_deactivate": "§2Ender Pearl mode §4deactivate",
+
+  "listeners.vana-mod.hammer_switch_activate": "§6Hammer mode §4activate",
+  "listeners.vana-mod.hammer_switch_deactivate": "§6Hammer mode §4deactivate",
+
+  "listeners.vana-mod.excavator_switch_activate": "§6Excavator mode §4activate",
+  "listeners.vana-mod.excavator_switch_deactivate": "§6Excavator mode §4deactivate",
+
+  "listeners.vana-mod.mega_axe_switch_activate": "§6MegaAxe mode §4activate",
+  "listeners.vana-mod.mega_axe_switch_deactivate": "§6MegaAxe mode §4deactivate",
+
+  "mixins.vana-mod.player_join": "{value} joined the game",
+  "mixins.vana-mod.player_leave": "{value} left the game",
 
   "key.category.vana-mod.vanadium": "Vanadium",
   "key.vana-mod.night_vision": "Night Vision",

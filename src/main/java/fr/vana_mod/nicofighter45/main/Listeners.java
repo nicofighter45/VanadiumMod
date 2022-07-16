@@ -180,21 +180,21 @@ public class Listeners {
                 } else {
                     if(it.getItem() instanceof Hammer){
                         if(((Hammer) it.getItem()).changeActivity()){
-                            server_player.sendMessage(Text.of("§6Hammer mode §4activate"), true);
+                            server_player.sendMessage(Text.translatable("listeners.vana-mod.hammer_switch_activate"), true);
                         }else{
-                            server_player.sendMessage(Text.of("§6Hammer mode §4deactivate"), true);
+                            server_player.sendMessage(Text.translatable("listeners.vana-mod.hammer_switch_deactivate"), true);
                         }
                     } else if(it.getItem() instanceof Excavator){
                         if(((Excavator) it.getItem()).changeActivity()){
-                            server_player.sendMessage(Text.of("§6Excavator mode §4activate"), true);
+                            server_player.sendMessage(Text.translatable("listeners.vana-mod.excavator_switch_activate"), true);
                         }else{
-                            server_player.sendMessage(Text.of("§6Excavator mode §4deactivate"), true);
+                            server_player.sendMessage(Text.translatable("listeners.vana-mod.excavator_switch_deactivate"), true);
                         }
                     } else if(it.getItem() instanceof MegaAxe){
                         if(((MegaAxe) it.getItem()).changeActivity()){
-                            server_player.sendMessage(Text.of("§6MegaAxe mode §4activate"), true);
+                            server_player.sendMessage(Text.translatable("listeners.vana-mod.mega_axe_switch_activate"), true);
                         }else{
-                            server_player.sendMessage(Text.of("§6MegaAxe mode §4deactivate"), true);
+                            server_player.sendMessage(Text.translatable("listeners.vana-mod.mega_axe_switch_deactivate"), true);
                         }
                     }
                     return TypedActionResult.pass(player.getMainHandStack());
@@ -221,22 +221,29 @@ public class Listeners {
 
     private final static Identifier BOW_SWITCH_MODE_PACKET = new Identifier(CommonInitializer.MODID, "bow_switch_mode_packet");
 
+    private static @NotNull Text enderPearlSwitchText(boolean activate){
+        if(activate){
+            return Text.translatable("listeners.vana-mod.ender_pearl_switch_activate");
+        }else{
+            return Text.translatable("listeners.vana-mod.ender_pearl_switch_deactivate");
+        }
+    }
 
-    // #TODO need to work both client and server side, working server side but no refresh about bow situation on client
+    // #todo need to work both client and server side, working server side but no refresh about bow situation on client
     private static void onLeftClick() {
         ServerPlayNetworking.registerGlobalReceiver(BOW_SWITCH_MODE_PACKET, (server, player, handler, buf, responseSender) -> {
             if(((VanadiumBow) player.getMainHandStack().getItem()).changeEnderPearl()){
-                player.sendMessage(Text.of("§2Ender Pearl mode §4activate"), true);
+                player.sendMessage(enderPearlSwitchText(true), true);
             }else{
-                player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);
+                player.sendMessage(enderPearlSwitchText(false), true);
             }
         });
         InteractionEvent.LEFT_CLICK_BLOCK.register((player, hand, pos, face) -> {
             if(!player.getWorld().isClient() && player.getMainHandStack().getItem() instanceof VanadiumBow vanadiumBow){
                 if(vanadiumBow.changeEnderPearl()){
-                    player.sendMessage(Text.of("§2Ender Pearl mode §4activate"), true);
+                    player.sendMessage(enderPearlSwitchText(true), true);
                 }else{
-                    player.sendMessage(Text.of("§2Ender Pearl mode §4deactivate"), true);
+                    player.sendMessage(enderPearlSwitchText(false), true);
                 }
             }
             return EventResult.pass();

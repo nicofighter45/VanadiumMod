@@ -6,6 +6,8 @@ import fr.vana_mod.nicofighter45.machine.enchanter.EnchanterScreenHandler;
 import fr.vana_mod.nicofighter45.machine.high_furnace.HighFurnaceBlock;
 import fr.vana_mod.nicofighter45.machine.high_furnace.HighFurnaceBlockEntity;
 import fr.vana_mod.nicofighter45.machine.high_furnace.HighFurnaceScreenHandler;
+import fr.vana_mod.nicofighter45.machine.high_furnace.recipe.HighFurnaceRecipe;
+import fr.vana_mod.nicofighter45.machine.high_furnace.recipe.HighFurnaceRecipeSerializer;
 import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableBlock;
 import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableBlockEntity;
 import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableScreenHandler;
@@ -43,9 +45,9 @@ public class ModMachines {
     public static ScreenHandlerType<CustomPlayerManagementScreenHandler> CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER;
 
     public static Block HIGH_FURNACE_BLOCK = new HighFurnaceBlock();
-    public static BlockEntityType<HighFurnaceBlockEntity> HIGH_FURNACE_BLOCK_ENTITY_TYPE =
-            BlockEntityType.Builder.create(HighFurnaceBlockEntity::new, HIGH_FURNACE_BLOCK).build(null);
+    public static BlockEntityType<HighFurnaceBlockEntity> HIGH_FURNACE_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(HighFurnaceBlockEntity::new, HIGH_FURNACE_BLOCK).build(null);
     public static ScreenHandlerType<HighFurnaceScreenHandler> HIGH_FURNACE_SCREEN_HANDLER;
+    public static RecipeType<HighFurnaceRecipe> HIGH_FURNACE_RECIPE_TYPE = HighFurnaceRecipe.Type.INSTANCE;
 
     public static Block PURIFICATOR_BLOCK = new PurificatorBlock();
     public static BlockEntityType<PurificatorBlockEntity> PURIFICATOR_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(PurificatorBlockEntity::new, PURIFICATOR_BLOCK).build(null);
@@ -73,6 +75,9 @@ public class ModMachines {
         CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER = registerNewScreenHandler("custom_player_manager_screen_handler", CustomPlayerManagementScreenHandler::new);
 
         HIGH_FURNACE_SCREEN_HANDLER = registerNewScreenHandler("high_furnace_screen_handler", HighFurnaceScreenHandler::new);
+        FluidStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.fluidStorage, HIGH_FURNACE_BLOCK_ENTITY_TYPE);
+        Registry.register(Registry.RECIPE_SERIALIZER, HighFurnaceRecipeSerializer.ID, HighFurnaceRecipeSerializer.INSTANCE);
+        HIGH_FURNACE_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE, new Identifier(CommonInitializer.MODID, HighFurnaceRecipe.Type.ID), HIGH_FURNACE_RECIPE_TYPE);
 
         PURIFICATOR_SCREEN_HANDLER = registerNewScreenHandler("purificator_screen_handler", PurificatorScreenHandler::new);
         FluidStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.fluidStorage, PURIFICATOR_BLOCK_ENTITY_TYPE);

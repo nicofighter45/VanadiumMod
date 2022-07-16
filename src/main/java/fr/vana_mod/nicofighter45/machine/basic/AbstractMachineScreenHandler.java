@@ -1,6 +1,8 @@
 package fr.vana_mod.nicofighter45.machine.basic;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
@@ -45,6 +47,51 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
             this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
         }
 
+    }
+
+    public ItemStack transferSlot(PlayerEntity player, int index) {
+        ItemStack itemStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+        int size = inventory.size();
+        if (slot.hasStack()) {
+            ItemStack itemStack2 = slot.getStack();
+            itemStack = itemStack2.copy();
+            if (index >= 0 && index < size) {
+                if (!this.insertItem(itemStack2, size, 36 + size, true)) {
+                    return ItemStack.EMPTY;
+                }
+
+                slot.onQuickTransfer(itemStack2, itemStack);
+            } else if (index >= size && index < 36 + size) {
+                if (!this.insertItem(itemStack2, 0, size, false)) {
+                    if (index < 27 + size) {
+                        if (!this.insertItem(itemStack2, 27 + size, 36 + size, false)) {
+                            return ItemStack.EMPTY;
+                        }
+                    } else if (!this.insertItem(itemStack2, size, 27 + size, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            } else if (!this.insertItem(itemStack2, size, 36 + size, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemStack2.isEmpty()) {
+                slot.setStack(ItemStack.EMPTY);
+            } else {
+                slot.markDirty();
+            }
+
+            if (itemStack2.getCount() == itemStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTakeItem(player, itemStack2);
+            if (index >= 0 && index < size) {
+                player.dropItem(itemStack2, false);
+            }
+        }
+        return itemStack;
     }
 
 }

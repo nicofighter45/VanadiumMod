@@ -9,10 +9,12 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,9 +22,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractMachineBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
+public abstract class AbstractMachineBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, MachineInventory {
 
-    private final MachineInventory inventory;
+    private final DefaultedList<ItemStack> inventory;
 
     private final Map<Integer, Integer> properties = new HashMap<>();
 
@@ -37,7 +39,7 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
 
     protected AbstractMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize, int propertiesSize, int fluidIndexProperties ) {
         super(type, pos, state);
-        this.inventory = MachineInventory.ofSize(this, inventorySize);
+        this.inventory = DefaultedList.ofSize(inventorySize);
         for(int i = 0; i < propertiesSize; i ++){
             this.properties.put(i, 0);
         }
@@ -101,7 +103,7 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        Inventories.readNbt(nbt, inventory.getItems());
+        Inventories.readNbt(nbt, inventory);
         for(int i = 0; i < properties.size(); i ++){
             properties.put(i, nbt.getInt("PropertiesNb" + i));
         }
@@ -110,14 +112,10 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     @Override
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, inventory.getItems());
+        Inventories.writeNbt(nbt, inventory);
         for(int i = 0; i < properties.size(); i ++){
             nbt.putInt("PropertiesNb" + i, properties.get(i));
         }
-    }
-
-    public MachineInventory getInventory(){
-        return this.inventory;
     }
 
     public MachinePropertyDelegate getPropertyDelegate(){
@@ -127,6 +125,19 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     @Override
     public abstract @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, @NotNull PlayerEntity player);
 
-    protected abstract void slotUpdate(int slot);
+    @Override
+    public DefaultedList<ItemStack> getStacks() {
+        return this.inventory;
+    }
+
+    @Override
+    public boolean canPlayerUse(PlayerEntity player) {
+        assert this.world != null;
+        if (this.world.getBlockEntity(this.pos) != this) {
+            return false;
+        } else {
+            return player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) <= 64.0;
+        }
+    }
 
 }

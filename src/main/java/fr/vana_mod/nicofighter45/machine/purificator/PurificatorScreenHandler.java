@@ -17,7 +17,7 @@ public class PurificatorScreenHandler extends ScreenHandler {
     private final PropertyDelegate propertyDelegate;
 
     public PurificatorScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofClientSize(3), new ArrayPropertyDelegate(3));
+        this(syncId, playerInventory, ScreenHandlerContext.EMPTY, MachineInventory.ofSize(3), new ArrayPropertyDelegate(3));
     }
 
     public PurificatorScreenHandler(int syncId, @NotNull PlayerInventory playerInventory, ScreenHandlerContext context, @NotNull MachineInventory inventory, @NotNull PropertyDelegate propertyDelegate) {

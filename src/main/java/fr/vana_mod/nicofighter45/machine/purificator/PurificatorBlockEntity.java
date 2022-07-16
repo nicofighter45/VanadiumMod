@@ -30,25 +30,27 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
         if(blockEntity.getPropertyDelegate().get(0) > 0 && blockEntity.getPropertyDelegate().get(2) > 0){
             blockEntity.getPropertyDelegate().add(0, -1);
             blockEntity.getPropertyDelegate().add(2, -1);
-            if(blockEntity.getPropertyDelegate().get(2) == 0){ //todo re-set craft
-                blockEntity.changingInventory = true;
+            if(blockEntity.getPropertyDelegate().get(2) == 0){
                 ItemStack input = blockEntity.getInventory().getStack(1);
-                if(input.getCount() > 1){
-                    input.decrement(1);
-                    blockEntity.getPropertyDelegate().set(2, 100);
-                }else{
-                    blockEntity.getInventory().setStack(1, ItemStack.EMPTY);
-                }
-                ItemStack result = blockEntity.getInventory().getStack(2);
-                if(!result.isEmpty()){
-                    result.increment(1);
-                }else{
-                    if(blockEntity.currentRecipe != null){
-                        blockEntity.getInventory().setStack(2, blockEntity.currentRecipe.getOutput());
+                Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(input), world);
+                if(optional.isPresent()){
+                    blockEntity.changingInventory = true;
+                    if(input.getCount() > 1){
+                        input.decrement(1);
+                        blockEntity.getPropertyDelegate().set(2, 100);
+                    }else{
+                        blockEntity.getInventory().setStack(1, ItemStack.EMPTY);
                     }
+                    ItemStack result = blockEntity.getInventory().getStack(2);
+                    ItemStack output = optional.get().getOutput();
+                    if(!result.isEmpty()){
+                        result.increment(output.getCount());
+                    }else{
+                        blockEntity.getInventory().setStack(2, output.copy());
+                    }
+                    markDirty(world, pos, state);
+                    blockEntity.changingInventory = false;
                 }
-                markDirty(world, pos, state);
-                blockEntity.changingInventory = false;
             }
         }
         if(blockEntity.getPropertyDelegate().get(1) > 0 && blockEntity.getPropertyDelegate().get(0) < 400){

@@ -44,25 +44,25 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         this.input = new CraftingInventory(this, 2, 2);
         this.result = new CraftingResultInventory();
 
-        this.addSlot(new ModifiersTableResultSlot(player, this.input, this.result, 0, 80, 38));
+        this.addSlot(new ModifiersTableResultSlot(player, this.input, this.result, 0, 80, 59));
 
         int m;
         int l;
         for (m = 0; m < 2; ++m) {
             for (l = 0; l < 2; ++l) {
-                this.addSlot(new Slot(this.input, l + m * 2, 44 + l * 72, 2 + m * 72));
+                this.addSlot(new Slot(this.input, l + m * 2, 44 + l * 72, 23 + m * 72));
             }
         }
 
         //The player inventory
         for (m = 0; m < 3; ++m) {
             for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 105 + m * 18));
+                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 126 + m * 18));
             }
         }
         //The player hot bar
         for (m = 0; m < 9; ++m) {
-            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 163));
+            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 184));
         }
     }
 
@@ -84,7 +84,6 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
 
     @Override
     public void onContentChanged(Inventory inventory) {
-        System.out.println("Content changed :\nPrevious Inventory : " + this.input + this.result + "\nNew Inventory : " + inventory);
         this.context.run((world, pos) -> updateResult(this, world, this.player, this.input, this.result));
     }
 

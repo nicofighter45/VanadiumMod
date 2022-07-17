@@ -1,11 +1,14 @@
 package fr.vana_mod.nicofighter45.machine.enchanter;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -25,6 +28,8 @@ public class EnchanterScreen extends HandledScreen<EnchanterScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        this.itemRenderer.renderInGuiWithOverrides(new ItemStack(ModItems.VANADIUM_NUGGET), x + 50, y + 10);
+        this.itemRenderer.renderInGuiWithOverrides(new ItemStack(Items.LAPIS_LAZULI), x + -50, y + 10);
     }
 
     @Override

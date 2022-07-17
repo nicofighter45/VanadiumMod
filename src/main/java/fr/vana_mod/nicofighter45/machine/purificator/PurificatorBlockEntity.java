@@ -28,9 +28,11 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, @NotNull PurificatorBlockEntity blockEntity) {
+        boolean updateWater = false;
         if(blockEntity.getPropertyDelegate().get(0) > 0 && blockEntity.getPropertyDelegate().get(2) > 0){
             blockEntity.getPropertyDelegate().add(0, -1);
             blockEntity.getPropertyDelegate().add(2, -1);
+            updateWater = true;
             if(blockEntity.getPropertyDelegate().get(2) == 0){
                 ItemStack input = blockEntity.getInventory().getStack(1);
                 Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(input), world);
@@ -57,6 +59,9 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
         if(blockEntity.getPropertyDelegate().get(1) > 0 && blockEntity.getPropertyDelegate().get(0) < 400){
             blockEntity.getPropertyDelegate().add(0, 1);
             blockEntity.getPropertyDelegate().add(1, -1);
+            updateWater = true;
+        }
+        if(updateWater){
             if(updateWater(blockEntity)){
                 markDirty(world, pos, state);
             }

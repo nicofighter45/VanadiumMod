@@ -34,9 +34,11 @@ public class HighFurnaceBlockEntity extends AbstractMachineBlockEntity {
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, @NotNull HighFurnaceBlockEntity blockEntity) {
+        boolean updateLava = false;
         if(blockEntity.getPropertyDelegate().get(0) > 0 && blockEntity.getPropertyDelegate().get(2) > 0){
             blockEntity.getPropertyDelegate().add(0, -1);
             blockEntity.getPropertyDelegate().add(2, -1);
+            updateLava = true;
             if(blockEntity.getPropertyDelegate().get(2) == 0){
                 ItemStack input1 = blockEntity.getInventory().getStack(1);
                 ItemStack input2 = blockEntity.getInventory().getStack(2);
@@ -71,6 +73,9 @@ public class HighFurnaceBlockEntity extends AbstractMachineBlockEntity {
         if(blockEntity.getPropertyDelegate().get(1) > 0 && blockEntity.getPropertyDelegate().get(0) < 400){
             blockEntity.getPropertyDelegate().add(0, 1);
             blockEntity.getPropertyDelegate().add(1, -1);
+            updateLava = true;
+        }
+        if(updateLava){
             if(updateLava(blockEntity)){
                 markDirty(world, pos, state);
             }

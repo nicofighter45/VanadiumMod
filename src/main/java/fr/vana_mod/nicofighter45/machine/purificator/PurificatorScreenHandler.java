@@ -27,6 +27,8 @@ public class PurificatorScreenHandler extends AbstractMachineScreenHandler {
         this.addSlot(new WaterInputSlot(inventory, 0, 16, 12));
         this.addSlot(new Slot(inventory, 1, 44, 39));
         this.addSlot(new ItemOutputSlot(inventory, 2, 116,39));
+
+        this.registerPlayerInventory();
     }
 
     public boolean canUse(PlayerEntity player) {

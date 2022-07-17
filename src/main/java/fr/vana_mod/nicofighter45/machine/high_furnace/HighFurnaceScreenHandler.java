@@ -25,6 +25,8 @@ public class HighFurnaceScreenHandler extends AbstractMachineScreenHandler {
         this.addSlot(new Slot(inventory, 1, 44, 30));
         this.addSlot(new Slot(inventory, 2, 44, 48));
         this.addSlot(new ItemOutputSlot(inventory, 3, 116,39));
+
+        this.registerPlayerInventory();
     }
 
     @Override

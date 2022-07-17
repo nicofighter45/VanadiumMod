@@ -41,7 +41,7 @@ public class ServerWorldMixin {
             color = "§e";
         }
         for (ServerPlayerEntity pl : player.getServer().getPlayerManager().getPlayerList()){
-            pl.sendMessage(Text.of(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable("").toString()
+            pl.sendMessage(Text.of(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable("mixins.vana-mod.player_join").getString()
                     .replace("{value}", color + player.getEntityName() + "§f")));
         }
     }

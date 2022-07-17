@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "minecraft:raw_copper",
+  "input2": "minecraft:raw_iron",
+  "result": {
+    "item": "vana-mod:steel_ingot",
+    "count": 1
+  }
+}

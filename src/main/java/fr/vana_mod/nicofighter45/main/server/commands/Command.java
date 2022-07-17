@@ -140,7 +140,7 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("broadcast")
                 .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
-                    c.getSource().sendError(getMsgFrom("broadcast.error"));
+                    sendOpErrorMsg(c, "broadcast.error");
                     return 1;
                 })
                 .then(argument("message", MessageArgumentType.message()).executes(c -> {
@@ -483,7 +483,7 @@ public class Command {
     }
 
     private static Text getMsgFrom(String text){
-        return Text.of(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text));
+        return Text.of(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text).getString());
     }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text, boolean prefix){
@@ -496,7 +496,7 @@ public class Command {
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text, String replace){
         player.sendMessage(Text.of(ServerInitializer.SERVER_MSG_PREFIX +
-                Text.translatable(LANG_COMMAND_PREFIX + text).toString().replace("{value}", replace))
+                Text.translatable(LANG_COMMAND_PREFIX + text).getString().replace("{value}", replace))
                 , false);
     }
 
@@ -504,7 +504,7 @@ public class Command {
         if(prefix){
             sendMsg(player, text, replace);
         }else{
-            player.sendMessage(Text.of(Text.translatable(LANG_COMMAND_PREFIX + text).toString().replace("{value}", replace))
+            player.sendMessage(Text.of(Text.translatable(LANG_COMMAND_PREFIX + text).getString().replace("{value}", replace))
                     , false);
         }
     }
@@ -514,7 +514,7 @@ public class Command {
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, boolean broadcast){
-        c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX +Text.translatable(LANG_COMMAND_PREFIX + text)), broadcast);
+        c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX +Text.translatable(LANG_COMMAND_PREFIX + text).getString()), broadcast);
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace){
@@ -523,21 +523,21 @@ public class Command {
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace1, String replace2){
         c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
-                .toString().replace("{value1}", replace1).replace("{value2}", replace2)), true);
+                .getString().replace("{value1}", replace1).replace("{value2}", replace2)), true);
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace, boolean broadcast, boolean prefix){
         if(prefix){
-            c.getSource().sendFeedback(Text.literal(LANG_COMMAND_PREFIX + Text.translatable(text)
-                    .toString().replace("{value}", replace)), broadcast);
+            c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
+                    .getString().replace("{value}", replace)), broadcast);
         }else{
-            c.getSource().sendFeedback(Text.literal(Text.translatable(text)
-                    .toString().replace("{value}", replace)), broadcast);
+            c.getSource().sendFeedback(Text.literal(Text.translatable(LANG_COMMAND_PREFIX + text)
+                    .getString().replace("{value}", replace)), broadcast);
         }
     }
 
     private static void sendOpErrorMsg(@NotNull CommandContext<ServerCommandSource> c, String text){
-        c.getSource().sendError(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)));
+        c.getSource().sendError(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text).getString()));
     }
 
 }

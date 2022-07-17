@@ -22,6 +22,12 @@ Cliques <a href="https://github.com/nicofighter45/VanadiumMod/tree/master/tuto/S
 
 Cliques <a href="https://github.com/nicofighter45/VanadiumMod/tree/master/tuto/UPDATE_fr.md">ici </a>pour mettre à jour Vanadium !
 
+## Traduction
+
+Viens m'aider à traduire le mod sur <a href="https://crwd.in/vanadium-mod">Crowdin</a> !
+
+[![Crowdin](https://badges.crowdin.net/vanadium-mod/localized.svg)](https://crowdin.com/project/vanadium-mod)
+
 # English
 
 ## Discord
@@ -45,3 +51,8 @@ Here is how to <a href="https://github.com/nicofighter45/VanadiumMod/tree/master
 
 Here is how to <a href="https://github.com/nicofighter45/VanadiumMod/tree/master/tuto/UPDATE.md">update </a>to the newest version
 
+## Translate
+
+Help me translate on <a href="https://crwd.in/vanadium-mod">Crowdin</a> !
+
+[![Crowdin](https://badges.crowdin.net/vanadium-mod/localized.svg)](https://crowdin.com/project/vanadium-mod)

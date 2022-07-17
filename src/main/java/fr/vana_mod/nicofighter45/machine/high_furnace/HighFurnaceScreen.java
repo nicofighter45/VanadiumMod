@@ -38,12 +38,12 @@ public class HighFurnaceScreen extends HandledScreen<HighFurnaceScreenHandler> {
             }else if(crafting > 78){
                 crafting_pixel = (int) (2.9 * (89-crafting));
                 drawTexture(matrices, x + 37, y + 69, 1, 210, 38, 1);
-                drawTexture(matrices, x + 74, y + 67 - crafting_pixel, 49, 196 - crafting_pixel, 1, crafting_pixel);
+                drawTexture(matrices, x + 74, y + 69 - crafting_pixel, 49, 196 - crafting_pixel, 1, crafting_pixel);
             }else{
                 crafting_pixel = (78 - crafting) * 50/78;
                 drawTexture(matrices, x + 37, y + 69, 1, 210, 38, 1);
-                drawTexture(matrices, x + 74, y + 38, 49, 167, 1, 29);
-                drawTexture(matrices, x + 63, y + 37, 51, 196, crafting_pixel, 20);
+                drawTexture(matrices, x + 74, y + 40, 49, 167, 1, 29);
+                drawTexture(matrices, x + 63, y + 37, 51, 167, crafting_pixel, 20);
             }
         }
         if(filling > 0){

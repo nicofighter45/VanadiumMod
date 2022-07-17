@@ -28,8 +28,8 @@ public class EnchanterScreen extends HandledScreen<EnchanterScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
         drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
-        this.itemRenderer.renderInGuiWithOverrides(new ItemStack(ModItems.VANADIUM_NUGGET), x + 50, y + 10);
-        this.itemRenderer.renderInGuiWithOverrides(new ItemStack(Items.LAPIS_LAZULI), x + -50, y + 10);
+        this.itemRenderer.renderInGuiWithOverrides(new ItemStack(ModItems.VANADIUM_NUGGET), x + 22, y + 50);
+        this.itemRenderer.renderInGuiWithOverrides(new ItemStack(Items.LAPIS_LAZULI), x + 134, y + 50);
     }
 
     @Override

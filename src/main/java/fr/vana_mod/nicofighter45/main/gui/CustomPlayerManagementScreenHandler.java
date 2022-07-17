@@ -23,29 +23,29 @@ public class CustomPlayerManagementScreenHandler extends ScreenHandler {
         this.playerInventory = playerInventory;
         int k, j;
         for(k = 0; k < 4; k ++){
-            this.addSlot(new Slot(playerInventoryToManage, 39 - k, 8 + k * 18, -10));
+            this.addSlot(new Slot(playerInventoryToManage, 39 - k, 8 + k * 18, 8));
         }
-        this.addSlot(new Slot(playerInventoryToManage, 40, 80, -10));
+        this.addSlot(new Slot(playerInventoryToManage, 40, 80, 8));
         for(j = 1; j < 4; j++){
             for(k = 0; k < 9; k ++){
-                this.addSlot(new Slot(playerInventoryToManage, j * 9 + k, 8 + k * 18, -10 + j * 18));
+                this.addSlot(new Slot(playerInventoryToManage, j * 9 + k, 8 + k * 18, 8 + j * 18));
             }
         }
         for(k = 0; k < 9; k ++){
-            this.addSlot(new Slot(playerInventoryToManage, k, 8 + k * 18, 62));
+            this.addSlot(new Slot(playerInventoryToManage, k, 8 + k * 18, 80));
         }
 
         for(k = 0; k < 4; k ++){
-            this.addSlot(new Slot(playerInventoryToManage, 39 - k, 8 + k * 18, 84));
+            this.addSlot(new Slot(playerInventoryToManage, 39 - k, 8 + k * 18, 102));
         }
-        this.addSlot(new Slot(playerInventoryToManage, 40, 80, 84));
+        this.addSlot(new Slot(playerInventoryToManage, 40, 80, 102));
         for(j = 1; j < 4; j++){
             for(k = 0; k < 9; k ++){
-                this.addSlot(new Slot(this.playerInventory, j * 9 + k, 8 + k * 18, 84 + j * 18));
+                this.addSlot(new Slot(this.playerInventory, j * 9 + k, 8 + k * 18, 102 + j * 18));
             }
         }
         for(k = 0; k < 9; k ++){
-            this.addSlot(new Slot(this.playerInventory, k, 8 + k * 18, 160));
+            this.addSlot(new Slot(this.playerInventory, k, 8 + k * 18, 178));
         }
 
     }

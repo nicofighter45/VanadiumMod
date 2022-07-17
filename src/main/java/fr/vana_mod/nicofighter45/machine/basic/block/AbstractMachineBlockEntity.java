@@ -102,7 +102,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
 
     @Override
     public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
         for(int i = 0; i < properties.length; i ++){
             properties[i] = nbt.getInt("PropertiesNb" + i);
@@ -111,7 +110,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
 
     @Override
     public void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
         for(int i = 0; i < properties.length; i ++){
             nbt.putInt("PropertiesNb" + i, properties[i]);

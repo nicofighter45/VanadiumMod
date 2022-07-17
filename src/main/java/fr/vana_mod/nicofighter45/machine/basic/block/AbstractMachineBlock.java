@@ -41,4 +41,11 @@ public abstract class AbstractMachineBlock extends BlockWithEntity {
     @Override
     public abstract BlockEntity createBlockEntity(BlockPos pos, BlockState state);
 
+    @Override
+    public void onBlockAdded(@NotNull BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        if (!state.isOf(state.getBlock())) {
+            world.updateNeighbor(state, pos, Blocks.AIR, pos, false);
+        }
+    }
+
 }

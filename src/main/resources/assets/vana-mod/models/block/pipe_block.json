@@ -1,0 +1,6 @@
+{
+    "parent": "vana-mod:block/cuboid_center_pipe",
+    "textures": {
+        "border": "block/center_pipe"
+    }
+}

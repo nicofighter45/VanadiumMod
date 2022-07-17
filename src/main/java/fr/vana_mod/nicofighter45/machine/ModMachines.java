@@ -13,6 +13,8 @@ import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableBlockEntit
 import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableScreenHandler;
 import fr.vana_mod.nicofighter45.machine.modifierstable.recipe.ModifiersRecipe;
 import fr.vana_mod.nicofighter45.machine.modifierstable.recipe.ModifiersRecipeSerializer;
+import fr.vana_mod.nicofighter45.machine.pipe.PipeBlock;
+import fr.vana_mod.nicofighter45.machine.pipe.PipeBlockEntity;
 import fr.vana_mod.nicofighter45.machine.purificator.PurificatorBlock;
 import fr.vana_mod.nicofighter45.machine.purificator.PurificatorBlockEntity;
 import fr.vana_mod.nicofighter45.machine.purificator.PurificatorScreenHandler;
@@ -51,9 +53,12 @@ public class ModMachines {
 
     public static Block PURIFICATOR_BLOCK = new PurificatorBlock();
     public static BlockEntityType<PurificatorBlockEntity> PURIFICATOR_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(PurificatorBlockEntity::new, PURIFICATOR_BLOCK).build(null);
-
     public static ScreenHandlerType<PurificatorScreenHandler> PURIFICATOR_SCREEN_HANDLER;
     public static RecipeType<PurificatorRecipe> PURIFICATOR_RECIPE_TYPE = PurificatorRecipe.Type.INSTANCE;
+
+    public static Block PIPE_BLOCK = new PipeBlock();
+    public static BlockEntityType<PipeBlockEntity> PIPE_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(PipeBlockEntity::new, PIPE_BLOCK).build(null);
+
 
     public static void registerAll(){
         registerNewBlock("modifiers_table_block", MODIFIERS_TABLE_BLOCK);
@@ -64,6 +69,8 @@ public class ModMachines {
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "high_furnace_block_entity_type"), HIGH_FURNACE_BLOCK_ENTITY_TYPE);
         registerNewBlock("purificator_block", PURIFICATOR_BLOCK);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "purificator_block_entity_type"), PURIFICATOR_BLOCK_ENTITY_TYPE);
+        registerNewBlock("pipe_block.json", PIPE_BLOCK);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "pipe_block_entity_type"), PIPE_BLOCK_ENTITY_TYPE);
 
 
         MODIFIERS_TABLE_SCREEN_HANDLER = Registry.register(Registry.SCREEN_HANDLER, new Identifier(CommonInitializer.MODID, "modifiers_table_screen_handler"), new ScreenHandlerType<>(ModifiersTableScreenHandler::new));

@@ -229,7 +229,7 @@ public class Listeners {
         }
     }
 
-    // #todo need to work both client and server side, working server side but no refresh about bow situation on client
+    //todo need to work both client and server side, working server side but no refresh about bow situation on client
     private static void onLeftClick() {
         ServerPlayNetworking.registerGlobalReceiver(BOW_SWITCH_MODE_PACKET, (server, player, handler, buf, responseSender) -> {
             if(((VanadiumBow) player.getMainHandStack().getItem()).changeEnderPearl()){

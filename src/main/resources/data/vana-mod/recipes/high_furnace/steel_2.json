@@ -1,7 +1,7 @@
 {
   "type": "vana-mod:high_furnace_recipe",
-  "input1": "minecraft:iron_ingot",
-  "input2": "minecraft:copper_ingot",
+  "input1": "vana-mod:tin_dust",
+  "input2": "vana-mod:copper_dust",
   "result": {
     "item": "vana-mod:steel_ingot",
     "count": 1

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "configuration=0": {
+      "model": "vana-mod:block/pipe_block"
+    },
+    "configuration=1": {
+      "model": "vana-mod:block/straight_pipe_block"
+    },
+    "configuration=2":  {
+      "model": "vana-mod:block/straight_pipe_block", "x":  90
+    },
+    "configuration=3":  {
+      "model": "vana-mod:block/straight_pipe_block", "x": 180
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "vana-mod:purificator_recipe",
+  "input": "vana-mod:raw_emerald",
+  "result": {
+    "item": "vana-mod:emerald_dust",
+    "count": 2
+  }
+}

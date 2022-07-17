@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.machine.high_furnace;
 
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.basic.AbstractMachineBlockEntity;
+import fr.vana_mod.nicofighter45.machine.basic.block.AbstractMachineBlockEntity;
 import fr.vana_mod.nicofighter45.machine.high_furnace.recipe.HighFurnaceRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

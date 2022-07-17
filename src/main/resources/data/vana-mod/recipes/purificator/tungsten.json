@@ -1,0 +1,8 @@
+{
+  "type": "vana-mod:purificator_recipe",
+  "input": "vana-mod:raw_tungsten",
+  "result": {
+    "item": "vana-mod:tungsten_dust",
+    "count": 2
+  }
+}

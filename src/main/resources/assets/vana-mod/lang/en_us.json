@@ -1,6 +1,8 @@
 {
   "block.vana-mod.vanadium_ore": "Vanadium Ore",
   "item.vana-mod.vanadium_ore": "Vanadium Ore",
+  "item.vana-mod.raw_vanadium": "Raw Vanadium",
+  "item.vana-mod.vanadium_dust": "Vanadium Dust",
   "item.vana-mod.vanadium_nugget": "Vanadium Nugget",
   "item.vana-mod.vanadium_ingot": "Vanadium Ingot",
   "block.vana-mod.vanadium_block": "Vanadium Block",
@@ -21,6 +23,8 @@
 
   "item.vana-mod.vanadium_elytra": "Vanadium Elytra",
 
+  "item.vana-mod.raw_emerald": "Raw Emerald",
+  "item.vana-mod.emerald_dust": "Emerald Dust",
   "item.vana-mod.emerald_plate": "Emerald Plate",
 
   "item.vana-mod.emerald_helmet": "Emerald Helmet",
@@ -38,6 +42,8 @@
 
   "block.vana-mod.tungsten_ore": "Tungsten Ore",
   "item.vana-mod.tungsten_ore": "Tungsten Ore",
+  "item.vana-mod.raw_tungsten": "Raw Tungsten",
+  "item.vana-mod.tungsten_dust": "Tungsten Dust",
   "item.vana-mod.tungsten_ingot": "Tungsten Ingot",
   "item.vana-mod.tungsten_plate": "Tungsten Plate",
   "item.vana-mod.tungsten_hammer": "Tungsten Hammer",
@@ -47,12 +53,15 @@
 
   "block.vana-mod.silver_ore": "Silver Ore",
   "item.vana-mod.silver_ore": "Silver Ore",
+  "item.vana-mod.raw_silver": "Raw Silver",
+  "item.vana-mod.silver_dust": "Silver Dust",
   "item.vana-mod.silver_ingot": "Silver Ingot",
   "item.vana-mod.silver_block": "Silver Block",
   "item.vana-mod.silver_block_item": "Silver Block",
 
   "block.vana-mod.copper_ore": "Copper Ore",
   "item.vana-mod.copper_ore": "Copper Ore",
+  "item.vana-mod.copper_dust": "Copper Dust",
   "item.vana-mod.copper_ingot": "Copper Ingot",
   "item.vana-mod.copper_plate": "Copper Plate",
   "item.vana-mod.copper_hammer": "Copper Hammer",
@@ -61,6 +70,8 @@
 
   "block.vana-mod.tin_ore": "Tin Ore",
   "item.vana-mod.tin_ore": "Tin Ore",
+  "item.vana-mod.raw_tin": "Raw Tin",
+  "item.vana-mod.tin_dust": "Tin Dust",
   "item.vana-mod.tin_ingot": "Tin Ingot",
   "item.vana-mod.tin_plate": "Tin Plate",
   "item.vana-mod.tin_hammer": "Tin Hammer",
@@ -76,7 +87,13 @@
   "block.vana-mod.steel_block": "Steel Block",
   "item.vana-mod.steel_block_item": "Steel Block",
 
+  "item.vana-mod.raw_diamond": "Raw Diamond",
+  "item.vana-mod.diamond_dust": "Diamond Dust",
   "item.vana-mod.diamond_plate": "Diamond Plate",
+
+  "item.vana-mod.gold_dust": "Gold Dust",
+
+  "item.vana-mod.iron_dust": "Iron Dust",
 
   "item.vana-mod.transistor": "Transistor",
   "item.vana-mod.processor": "Processor",

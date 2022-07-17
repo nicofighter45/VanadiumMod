@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.basic.AbstractMachineBlock;
+import fr.vana_mod.nicofighter45.machine.basic.block.AbstractMachineBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.*;
 import net.minecraft.util.math.BlockPos;

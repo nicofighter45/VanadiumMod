@@ -1,10 +1,10 @@
 package fr.vana_mod.nicofighter45.machine.high_furnace;
 
 import fr.vana_mod.nicofighter45.machine.ModMachines;
-import fr.vana_mod.nicofighter45.machine.basic.AbstractMachineScreenHandler;
-import fr.vana_mod.nicofighter45.machine.basic.ArrayMachinePropertyDelegate;
-import fr.vana_mod.nicofighter45.machine.basic.MachineInventory;
-import fr.vana_mod.nicofighter45.machine.basic.MachinePropertyDelegate;
+import fr.vana_mod.nicofighter45.machine.basic.screen.AbstractMachineScreenHandler;
+import fr.vana_mod.nicofighter45.machine.basic.properties.ArrayMachinePropertyDelegate;
+import fr.vana_mod.nicofighter45.machine.basic.properties.MachineInventory;
+import fr.vana_mod.nicofighter45.machine.basic.properties.MachinePropertyDelegate;
 import fr.vana_mod.nicofighter45.machine.basic.slot.ItemOutputSlot;
 import fr.vana_mod.nicofighter45.machine.basic.slot.LavaInputSlot;
 import net.minecraft.entity.player.PlayerEntity;

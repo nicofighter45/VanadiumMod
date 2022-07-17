@@ -2,7 +2,7 @@
   "type": "vana-mod:purificator_recipe",
   "input": "minecraft:raw_gold",
   "result": {
-    "item": "minecraft:gold_ingot",
+    "item": "vana-mod:gold_dust",
     "count": 2
   }
 }

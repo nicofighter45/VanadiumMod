@@ -1,32 +1,19 @@
 package fr.vana_mod.nicofighter45.machine.high_furnace;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import fr.vana_mod.nicofighter45.main.CommonInitializer;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.GameRenderer;
+import fr.vana_mod.nicofighter45.machine.basic.screen.AbstractMachineScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
-public class HighFurnaceScreen extends HandledScreen<HighFurnaceScreenHandler> {
-
-    private static final Identifier TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machines/high_furnace.png");
-    private final HighFurnaceScreenHandler handler;
+public class HighFurnaceScreen extends AbstractMachineScreen<HighFurnaceScreenHandler> {
 
     public HighFurnaceScreen(HighFurnaceScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
-        this.handler = handler;
+        super(handler, inventory, title, "high_furnace");
     }
 
     @Override
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE_BACKGROUND);
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
-        drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        super.drawBackground(matrices, delta, mouseX, mouseY);
         int crafting = handler.getCraftingTime();
         int filling = handler.getFillingTime();
         int lava_pixel = handler.getLava() * 2/25;
@@ -62,18 +49,9 @@ public class HighFurnaceScreen extends HandledScreen<HighFurnaceScreenHandler> {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        renderBackground(matrices);
-        drawBackground(matrices, delta, mouseX, mouseY);
-        super.render(matrices, mouseX, mouseY, delta);
-        drawMouseoverTooltip(matrices, mouseX, mouseY);
-    }
-
-    @Override
     protected void init() {
         super.init();
         titleY += 8;
-        titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         playerInventoryTitleX = backgroundWidth - textRenderer.getWidth(playerInventoryTitle) - 7;
     }
 

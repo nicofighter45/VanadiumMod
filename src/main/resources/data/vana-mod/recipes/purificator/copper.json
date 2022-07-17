@@ -2,7 +2,7 @@
   "type": "vana-mod:purificator_recipe",
   "input": "minecraft:raw_copper",
   "result": {
-    "item": "minecraft:copper_ingot",
+    "item": "vana-mod:copper_dust",
     "count": 2
   }
 }

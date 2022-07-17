@@ -18,6 +18,8 @@ public class ModItems {
     }
 
     //vanadium
+    public static final Item RAW_VANADIUM = new Item(settings().fireproof());
+    public static final Item VANADIUM_DUST = new Item(settings().fireproof());
     public static final Item VANADIUM_NUGGET = new Item(settings().fireproof());
     public static final Item VANADIUM_INGOT = new Item(settings().fireproof());
     public static final Item VANADIUM_PLATE = new Item(settings().fireproof());
@@ -36,7 +38,9 @@ public class ModItems {
     public static final Item VANADIUM_ELYTRA = new ElytraItem(settings().maxCount(1).fireproof().maxDamage(500));
 
 
-    //armure en emeraude
+    //armure en emeraude*
+    public static final Item RAW_EMERALD = new Item(settings());
+    public static final Item EMERALD_DUST = new Item(settings());
     public static final Item EMERALD_PLATE = new Item(settings());
     public static final Item EMERALD_HELMET = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.HEAD, settings().fireproof());
     public static final Item EMERALD_CHESTPLATE = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.CHEST, settings().fireproof());
@@ -44,19 +48,26 @@ public class ModItems {
     public static final Item EMERALD_BOOTS = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.FEET, settings().fireproof());
 
     //tungsten
+    public static final Item TUNGSTEN_DUST = new Item(settings());
+    public static final Item RAW_TUNGSTEN = new Item(settings());
     public static final Item TUNGSTEN_INGOT = new Item(settings());
     public static final Item TUNGSTEN_PLATE = new Item(settings());
     public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(ModArmorsMaterial.TUNGSTEN_ARMOR_MATERIAL, EquipmentSlot.CHEST, settings().fireproof());
     public static final Item TUNGSTEN_HAMMER = new Hammer(ModToolMaterial.TungstenToolMaterial, 3, settings().fireproof());
 
     //argent
+    public static final Item SILVER_DUST = new Item(settings());
+    public static final Item RAW_SILVER = new Item(settings());
     public static final Item SILVER_INGOT = new Item((settings()));
 
     //copper
+    public static final Item COPPER_DUST = new Item(settings());
     public static final Item COPPER_HAMMER = new Hammer(ModToolMaterial.CopperToolMaterial, 1, settings());
     public static final Item COPPER_PLATE = new Item(settings());
 
     //tin
+    public static final Item TIN_DUST = new Item(settings());
+    public static final Item RAW_TIN = new Item(settings());
     public static final Item TIN_INGOT = new Item(settings());
     public static final Item TIN_PLATE = new Item(settings());
     public static final Item TIN_HAMMER = new Hammer(ModToolMaterial.TinToolMaterial, 2, settings());
@@ -101,12 +112,19 @@ public class ModItems {
     public static final Item STEEL_CHESTPLATE = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.CHEST, settings());
     public static final Item STEEL_LEGGINGS = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.LEGS, settings());
     public static final Item STEEL_BOOTS = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.FEET, settings());
-
-    //plate
+    
+    public static final Item RAW_DIAMOND = new Item(settings());
+    public static final Item DIAMOND_DUST = new Item(settings());
     public static final Item DIAMOND_PLATE = new Item(settings());
+
+    public static final Item IRON_DUST = new Item(settings());
+
+    public static final Item GOLD_DUST = new Item(settings());
 
     public static void registerAll() {
 
+        registerNewItem("raw_vanadium", RAW_VANADIUM);
+        registerNewItem("vanadium_dust", VANADIUM_DUST);
         registerNewItem("vanadium_nugget", VANADIUM_NUGGET);
         registerNewItem("vanadium_ingot", VANADIUM_INGOT);
 
@@ -127,21 +145,30 @@ public class ModItems {
         registerNewItem("vanadium_elytra", VANADIUM_ELYTRA);
 
 
+        registerNewItem("raw_emerald", RAW_EMERALD);
+        registerNewItem("emerald_dust", EMERALD_DUST);
         registerNewItem("emerald_helmet", EMERALD_HELMET);
         registerNewItem("emerald_chestplate", EMERALD_CHESTPLATE);
         registerNewItem("emerald_leggings", EMERALD_LEGGINGS);
         registerNewItem("emerald_boots", EMERALD_BOOTS);
 
+        registerNewItem("raw_tungsten", RAW_TUNGSTEN);
+        registerNewItem("tungsten_dust", TUNGSTEN_DUST);
         registerNewItem("tungsten_ingot", TUNGSTEN_INGOT);
         registerNewItem("tungsten_plate", TUNGSTEN_PLATE);
         registerNewItem("tungsten_chestplate", TUNGSTEN_CHESTPLATE);
         registerNewItem("tungsten_hammer", TUNGSTEN_HAMMER);
 
+        registerNewItem("raw_silver", RAW_SILVER);
+        registerNewItem("silver_dust", SILVER_DUST);
         registerNewItem("silver_ingot", SILVER_INGOT);
-
+        
+        registerNewItem("copper_dust", COPPER_DUST);
         registerNewItem("copper_hammer", COPPER_HAMMER);
         registerNewItem("copper_plate", COPPER_PLATE);
 
+        registerNewItem("raw_tin", RAW_TIN);
+        registerNewItem("tin_dust", TIN_DUST);
         registerNewItem("tin_ingot", TIN_INGOT);
         registerNewItem("tin_plate", TIN_PLATE);
         registerNewItem("tin_hammer", TIN_HAMMER);
@@ -163,7 +190,7 @@ public class ModItems {
         registerNewItem("advance_regen_booster", ADVANCE_REGEN_BOOSTER);
 
         registerNewItem("hat", HAT);
-
+        
         registerNewItem("steel_ingot", STEEL_INGOT);
         registerNewItem("steel_plate", STEEL_PLATE);
         registerNewItem("steel_helmet", STEEL_HELMET);
@@ -172,6 +199,12 @@ public class ModItems {
         registerNewItem("steel_boots", STEEL_BOOTS);
 
         registerNewItem("diamond_plate", DIAMOND_PLATE);
+        registerNewItem("raw_diamond", RAW_DIAMOND);
+        registerNewItem("diamond_dust", DIAMOND_DUST);
+        
+        registerNewItem("iron_dust", IRON_DUST);
+
+        registerNewItem("gold_dust", GOLD_DUST);
     }
 
     private static void registerNewItem(String name, Item item){

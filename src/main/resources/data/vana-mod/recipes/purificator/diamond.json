@@ -1,0 +1,8 @@
+{
+  "type": "vana-mod:purificator_recipe",
+  "input": "vana-mod:raw_diamond",
+  "result": {
+    "item": "vana-mod:diamond_dust",
+    "count": 2
+  }
+}

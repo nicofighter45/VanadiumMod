@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.machine.purificator;
 
-import fr.vana_mod.nicofighter45.machine.basic.AbstractMachineBlockEntity;
+import fr.vana_mod.nicofighter45.machine.basic.block.AbstractMachineBlockEntity;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.machine.purificator.recipe.PurificatorRecipe;
 import net.minecraft.block.BlockState;

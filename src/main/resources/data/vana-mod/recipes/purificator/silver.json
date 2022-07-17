@@ -1,0 +1,8 @@
+{
+  "type": "vana-mod:purificator_recipe",
+  "input": "vana-mod:raw_silver",
+  "result": {
+    "item": "vana-mod:silver_dust",
+    "count": 2
+  }
+}

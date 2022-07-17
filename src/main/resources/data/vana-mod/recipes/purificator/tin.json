@@ -1,0 +1,8 @@
+{
+  "type": "vana-mod:purificator_recipe",
+  "input": "vana-mod:raw_tin",
+  "result": {
+    "item": "vana-mod:tin_dust",
+    "count": 2
+  }
+}

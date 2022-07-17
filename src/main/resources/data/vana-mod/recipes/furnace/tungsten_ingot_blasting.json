@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "vana-mod:tungsten_ore_item"
-  },
-  "result": "vana-mod:tungsten_ingot",
-  "experience": 3,
-  "cookingtime": 100
-}

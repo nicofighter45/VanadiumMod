@@ -7,11 +7,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class PipeBlockEntity extends BlockEntity {
 
-    private int fluidAmount;
-    public BlockPos inputBlock;
-    public BlockPos outputBlock;
+    public PipeNetwork network;
 
     public PipeBlockEntity(BlockPos pos, BlockState state) {
         super(ModMachines.PIPE_BLOCK_ENTITY_TYPE, pos, state);
@@ -19,12 +19,14 @@ public class PipeBlockEntity extends BlockEntity {
 
     @Override
     public void readNbt(@NotNull NbtCompound nbt) {
-        fluidAmount = nbt.getInt("fluidAmount");
     }
 
     @Override
     protected void writeNbt(@NotNull NbtCompound nbt) {
-        nbt.putInt("fluidAmount", fluidAmount);
-
     }
+
+    public void setTextureConfiguration(int value){
+        Objects.requireNonNull(getWorld()).getBlockState(getPos()).with(PipeBlock.configuration, value);
+    }
+
 }

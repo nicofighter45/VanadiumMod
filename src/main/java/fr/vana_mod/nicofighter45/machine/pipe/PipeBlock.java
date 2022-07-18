@@ -1,18 +1,14 @@
 package fr.vana_mod.nicofighter45.machine.pipe;
 
-import fr.vana_mod.nicofighter45.machine.basic.block.AbstractMachineBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,86 +51,10 @@ public class PipeBlock extends BlockWithEntity {
         };
     }
 
-    public BlockState getStateForNeighborUpdate(@NotNull BlockState state, @NotNull Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if(blockEntity != null){
-            BlockEntity neighborEntity = world.getBlockEntity(neighborPos);
-            if(neighborEntity instanceof AbstractMachineBlockEntity || neighborEntity instanceof PipeBlockEntity){
-                if(blockEntity.inputBlock == null){
-                    blockEntity.inputBlock = neighborPos;
-                }else if(blockEntity.outputBlock == null){
-                    blockEntity.outputBlock = neighborPos;
-                }
-            }else{
-                if (blockEntity.inputBlock == neighborPos){
-                    if(blockEntity.outputBlock != null){
-                        blockEntity.inputBlock = blockEntity.outputBlock;
-                        blockEntity.outputBlock = null;
-                    }else{
-                        blockEntity.inputBlock = null;
-                    }
-                }else if (blockEntity.outputBlock == neighborPos){
-                    blockEntity.outputBlock = null;
-                }
-            }
-            if(blockEntity.inputBlock == null){
-                return state.with(configuration, 0);
-            }else if(blockEntity.outputBlock == null){
-                return switch(getFacing(pos, blockEntity.inputBlock)){
-                    case UP, DOWN -> state.with(configuration, 1);
-                    case NORTH, SOUTH -> state.with(configuration, 2);
-                    case EAST, WEST -> state.with(configuration, 3);
-                };
-            }
-        }
-        return state.with(configuration, 0);
-    }
-
-    private Direction getFacing(@NotNull BlockPos firstBlock, @NotNull BlockPos secondBlock){
-        if(firstBlock.getY() == secondBlock.getY() - 1){
-            return Direction.UP;
-        }else if(firstBlock.getY() == secondBlock.getY() + 1){
-            return Direction.DOWN;
-        }else if(firstBlock.getZ() == secondBlock.getX() - 1){
-            return Direction.SOUTH;
-        }else if(firstBlock.getZ() == secondBlock.getX() + 1){
-            return Direction.NORTH;
-        }else if(firstBlock.getX() == secondBlock.getX() - 1){
-            return Direction.EAST;
-        }else if(firstBlock.getX() == secondBlock.getX() + 1){
-            return Direction.WEST;
-        }
-        return Direction.NORTH;
-    }
-
-    @Contract(pure = true)
-    private Direction getOppositeFacing(@NotNull Direction direction){
-        switch (direction){
-            case DOWN -> {
-                return Direction.UP;
-            }
-            case UP -> {
-                return Direction.DOWN;
-            }
-            case NORTH -> {
-                return Direction.SOUTH;
-            }
-            case SOUTH -> {
-                return Direction.NORTH;
-            }
-            case WEST -> {
-                return Direction.EAST;
-            }
-            case EAST -> {
-                return Direction.WEST;
-            }
-        }
-        return direction;
-    }
-
     @Override
     public void onBlockAdded(@NotNull BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         if (!state.isOf(state.getBlock())) {
-            world.updateNeighbor(state, pos, Blocks.AIR, pos, false);
+            new PipeNetwork(this.blockEntity);
         }
     }
 

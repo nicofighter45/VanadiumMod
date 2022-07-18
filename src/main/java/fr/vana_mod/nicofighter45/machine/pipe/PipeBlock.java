@@ -77,7 +77,6 @@ public class PipeBlock extends BlockWithEntity {
                 }
             }
             if(blockEntity.inputBlock == null){
-                System.out.println("State 0");
                 return state.with(configuration, 0);
             }else if(blockEntity.outputBlock == null){
                 return switch(getFacing(pos, blockEntity.inputBlock)){

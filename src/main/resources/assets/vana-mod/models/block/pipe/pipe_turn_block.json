@@ -1,0 +1,9 @@
+{
+    "parent": "vana-mod:block/pipe/pipe_turn",
+    "textures": {
+        "border": "vana-mod:block/pipe_border",
+        "side": "vana-mod:block/pipe_side",
+        "end": "vana-mod:block/pipe_end",
+        "turn": "vana-mod:block/pipe_turn"
+    }
+}

@@ -47,10 +47,10 @@ public class PipeBlock extends BlockWithEntity {
     public VoxelShape getOutlineShape(@NotNull BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         int config = state.get(configuration);
         return switch (config) {
-            case 0 -> VoxelShapes.cuboid(7/16, 7/16, 7/16, 10 / 16, 10 / 16, 10 / 16);
-            case 1 -> VoxelShapes.cuboid(7/16, 0f, 7/16, 10 / 16, 1, 10 / 16);
-            case 2 -> VoxelShapes.cuboid(7/16, 7/16, 0.0f, 10 / 16, 10 / 16, 1.0f);
-            case 3 -> VoxelShapes.cuboid(0f, 7/16, 7/16, 1, 10 / 16, 10 / 16);
+            case 0 -> VoxelShapes.cuboid(0.375, 0.375, 0.375, 0.625, 0.625, 0.625);
+            case 1 -> VoxelShapes.cuboid(0.375, 0f, 0.375, 0.625, 1, 0.625);
+            case 2 -> VoxelShapes.cuboid(0.375, 0.375, 0.0f, 0.625, 0.625, 1.0f);
+            case 3 -> VoxelShapes.cuboid(0f, 0.375, 0.375, 1, 0.625, 0.625);
             default -> VoxelShapes.fullCube();//todo add other facings
         };
     }
@@ -77,6 +77,7 @@ public class PipeBlock extends BlockWithEntity {
                 }
             }
             if(blockEntity.inputBlock == null){
+                System.out.println("State 0");
                 return state.with(configuration, 0);
             }else if(blockEntity.outputBlock == null){
                 return switch(getFacing(pos, blockEntity.inputBlock)){

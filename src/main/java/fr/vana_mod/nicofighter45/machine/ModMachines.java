@@ -69,7 +69,7 @@ public class ModMachines {
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "high_furnace_block_entity_type"), HIGH_FURNACE_BLOCK_ENTITY_TYPE);
         registerNewBlock("purificator_block", PURIFICATOR_BLOCK);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "purificator_block_entity_type"), PURIFICATOR_BLOCK_ENTITY_TYPE);
-        registerNewBlock("pipe_block.json", PIPE_BLOCK);
+        registerNewBlock("pipe_block", PIPE_BLOCK);
         Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "pipe_block_entity_type"), PIPE_BLOCK_ENTITY_TYPE);
 
 

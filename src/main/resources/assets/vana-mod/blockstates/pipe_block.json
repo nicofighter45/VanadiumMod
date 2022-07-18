@@ -1,16 +1,68 @@
 {
   "variants": {
-    "configuration=0": {
-      "model": "vana-mod:block/pipe_block"
+    configuration=0": {
+      "model": "vana-mod:block/pipe_block",
+      "uvlock": true
     },
     "configuration=1": {
-      "model": "vana-mod:block/straight_pipe_block"
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
     },
     "configuration=2":  {
-      "model": "vana-mod:block/straight_pipe_block", "x":  90
+      "model": "vana-mod:block/straight_pipe_block", "x":  90,
+      "uvlock": true
     },
     "configuration=3":  {
-      "model": "vana-mod:block/straight_pipe_block", "x": 180
+      "model": "vana-mod:block/straight_pipe_block", "x": 180,
+      "uvlock": true
+    },
+    "configuration=4": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=5": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=6": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=7": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=8": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=9": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=10": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=11": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=12": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=13": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=14": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
+    },
+    "configuration=15": {
+      "model": "vana-mod:block/straight_pipe_block",
+      "uvlock": true
     }
   }
 }

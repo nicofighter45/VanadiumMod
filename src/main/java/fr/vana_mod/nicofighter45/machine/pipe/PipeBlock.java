@@ -2,6 +2,9 @@ package fr.vana_mod.nicofighter45.machine.pipe;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
@@ -44,10 +47,13 @@ public class PipeBlock extends BlockWithEntity {
         int config = state.get(configuration);
         return switch (config) {
             case 0 -> VoxelShapes.cuboid(0.375, 0.375, 0.375, 0.625, 0.625, 0.625);
-            case 1 -> VoxelShapes.cuboid(0.375, 0f, 0.375, 0.625, 1, 0.625);
-            case 2 -> VoxelShapes.cuboid(0.375, 0.375, 0.0f, 0.625, 0.625, 1.0f);
-            case 3 -> VoxelShapes.cuboid(0f, 0.375, 0.375, 1, 0.625, 0.625);
-            default -> VoxelShapes.fullCube();//todo add other facings
+            case 1 -> VoxelShapes.cuboid(0.375, 0, 0.375, 0.625, 1, 0.625);
+            case 2 -> VoxelShapes.cuboid(0.375, 0.375, 0, 0.625, 0.625, 1);
+            case 3 -> VoxelShapes.cuboid(0, 0.375, 0.375, 1, 0.625, 0.625);
+            default -> VoxelShapes.combineAndSimplify(
+                    VoxelShapes.cuboid(0.375, 0, 0.375, 0.625, 0.625, 0.625),
+                    VoxelShapes.cuboid(0.625, 0.625, 0.625, 0.375, 0, 0),
+                    (a, b) -> a);
         };
     }
 
@@ -56,6 +62,17 @@ public class PipeBlock extends BlockWithEntity {
         if (!state.isOf(state.getBlock())) {
             new PipeNetwork(this.blockEntity);
         }
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        new PipeNetwork(this.blockEntity);
+    }
+
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBreak(world, pos, state, player);
+        this.blockEntity.network.removePipe(this.blockEntity);
     }
 
     //todo implement rotate and mirror method

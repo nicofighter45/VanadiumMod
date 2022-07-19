@@ -13,7 +13,7 @@
       "uvlock": true
     },
     "configuration=3":  {
-      "model": "vana-mod:block/pipe/pipe_straight_block", "y": 90,
+      "model": "vana-mod:block/pipe/pipe_straight_block", "x": 90, "y": 90,
       "uvlock": true
     },
     "configuration=4": {

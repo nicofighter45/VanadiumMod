@@ -36,7 +36,7 @@ public class PipeBlockEntity extends BlockEntity {
     protected void writeNbt(@NotNull NbtCompound nbt) {
         if(network.pipes.get(0) == getPos()){
             List<Integer> pipeTag = new ArrayList<>();
-            for(BlockPos pos : network.pipes){
+            for(BlockPos pos : network.pipes.values()){
                 pipeTag.add(pos.getX());
                 pipeTag.add(pos.getY());
                 pipeTag.add(pos.getZ());

@@ -8,13 +8,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class PipeNetwork {
 
-    public List<BlockPos> pipes = new ArrayList<>();
+    public Map<Integer, BlockPos> pipes = new HashMap<>();
     //todo check for network input and output isn't create
     public List<BlockPos> inputs = new ArrayList<>();
     public List<BlockPos> outputs = new ArrayList<>();
@@ -34,7 +32,6 @@ public class PipeNetwork {
         this.inputs = pipes;
     }
 
-    //todo this pipe version include more than 2 nodes network but texture do not
     public PipeNetwork(@NotNull PipeBlockEntity blockEntity){
         checkBlock(blockEntity, 1, 0, 0);
         checkBlock(blockEntity, -1, 0, 0);
@@ -43,7 +40,7 @@ public class PipeNetwork {
         checkBlock(blockEntity, 0, 0, 1);
         checkBlock(blockEntity, 0, 0, -1);
         this.world = blockEntity.getWorld();
-        if(pipes.size() > 0){
+        if(pipes.size() == 1) {
             PipeNetwork newNetwork = ((PipeBlockEntity) Objects.requireNonNull(Objects.requireNonNull(blockEntity.getWorld())
                     .getBlockEntity(pipes.get(0)))).network;
             newNetwork.outputs.addAll(this.outputs);
@@ -52,24 +49,52 @@ public class PipeNetwork {
         }
         this.fluidAmount = 0;
         this.fluid = Fluids.WATER;
+        this.inputs.clear();
+        this.inputs.add(0, blockEntity.getPos());
+    }
+
+    public void addLastPipe(BlockPos pipe){
+        this.pipes.put(this.pipes.size(), pipe);
+    }
+
+    public void addFirstPipe(BlockPos pipe) {
+        Map<Integer, BlockPos> pipes = new HashMap<>();
+        pipes.put(0, pipe);
+        int i = 0;
+        for(BlockPos pip : this.pipes.values()){
+            pipes.put(i + 1, pip);
+            i++;
+        }
+        this.pipes = pipes;
+    }
+
+    public void removePipe(BlockPos pos) {
+        boolean replace = false;
+        for(int i : this.pipes.keySet()){
+            if(pipes.get(i) == pos){
+                pipes.remove(i, pos);
+                replace = true;
+            }else if(replace){
+                pipes.put(i - 1, pipes.get(i));
+            }
+        }
     }
 
     private void checkBlock(@NotNull PipeBlockEntity blockEntity, int x, int y, int z){
         BlockPos pos = new BlockPos(blockEntity.getPos().getX() + x, blockEntity.getPos().getX() + y,
                 blockEntity.getPos().getZ() + z);
-        if(world.getBlockEntity(pos) instanceof PipeBlockEntity networkBlockEntity){
-            pipes.add(networkBlockEntity.getPos());
-        }else if(world.getBlockEntity(pos) instanceof AbstractMachineBlockEntity machineBlockEntity){
-            this.outputs.add(machineBlockEntity.getPos());
+        if(world.getBlockEntity(pos) instanceof PipeBlockEntity){
+            addLastPipe(pos);
+        }else if(world.getBlockEntity(pos) instanceof AbstractMachineBlockEntity){
+            this.outputs.add(pos);
         }
     }
     public void removePipe(@NotNull PipeBlockEntity blockEntity){
         List<BlockPos> clothPipes = getClothPipes(blockEntity.getPos());
         if(clothPipes.size() > 1){
-            //todo network separation is only compatible with 2 new network creation for now, needs to be 6
             checkForNetworkSeparation(clothPipes);
         }else if(clothPipes.size() == 1){
-            ((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(clothPipes.get(0)))).network.pipes.remove(blockEntity.getPos());
+            ((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(clothPipes.get(0)))).network.removePipe(blockEntity.getPos());
         }
     }
 
@@ -83,11 +108,11 @@ public class PipeNetwork {
             newNetwork2.inputs.addAll(getNewPipesBlock(clothPipes.get(1)));
             newNetwork.fluidAmount = fluidAmount/2;
             newNetwork2.fluidAmount = fluidAmount - newNetwork.fluidAmount;
-            for(BlockPos pipes : newNetwork2.pipes){
+            for(BlockPos pipes : newNetwork2.pipes.values()){
                 ((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(pipes))).network = newNetwork2;
             }
         }
-        for(BlockPos pipes : newNetwork.pipes){
+        for(BlockPos pipes : newNetwork.pipes.values()){
             ((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(pipes))).network = newNetwork;
         }
     }
@@ -109,20 +134,23 @@ public class PipeNetwork {
 
     private void addPipe(@NotNull PipeBlockEntity blockEntity) {
         blockEntity.network = this;
-        pipes.add(blockEntity.getPos());
         BlockPos newPipe = blockEntity.getPos();
         List<BlockPos> clothPipes = getClothPipes(newPipe);
-        if(clothPipes.size() == 0){
-            blockEntity.setTextureConfiguration(0);
-        }else if(clothPipes.size() == 1){
+        if(this.pipes.get(0).equals(clothPipes.get(0))){
+            Map<Integer, BlockPos> newPipes = new HashMap<>();
+            newPipes.put(0, newPipe);
+            for(int i : this.pipes.keySet()){
+                newPipes.put(i + 1, this.pipes.get(i));
+            }
+            this.pipes = newPipes;
+        }else{
+            addLastPipe(newPipe);
+        }
+        if(clothPipes.size() == 1){
             setSimpleTextureConfiguration(blockEntity, clothPipes.get(0));
             setNextPipesTextures(blockEntity, getClothPipes(clothPipes.get(0)));
-        }else if(clothPipes.size() == 2){
-            setComplexTextureConfiguration(blockEntity, clothPipes.get(0), clothPipes.get(1));
-            setNextPipesTextures(blockEntity, getClothPipes(clothPipes.get(0)));
-            setNextPipesTextures(blockEntity, getClothPipes(clothPipes.get(1)));
         }else{
-            System.out.println("More than 2 pipes detected on blockPos : " + blockEntity.getPos());
+            System.out.println("More than 1 pipe detected on blockPos : " + blockEntity.getPos());
         }
     }
 
@@ -200,7 +228,7 @@ public class PipeNetwork {
 
     private @NotNull List<BlockPos> getClothPipes(BlockPos newPipe){
         List<BlockPos> pipes = new ArrayList<>();
-        for(BlockPos pipe : this.pipes){
+        for(BlockPos pipe : this.pipes.values()){
             if(pipe == newPipe){
                 continue;
             }

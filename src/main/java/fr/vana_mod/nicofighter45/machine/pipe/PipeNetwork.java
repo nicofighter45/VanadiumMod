@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.machine.pipe;
 
 import fr.vana_mod.nicofighter45.machine.basic.block.AbstractMachineBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.math.BlockPos;
@@ -33,20 +34,23 @@ public class PipeNetwork {
     }
 
     public PipeNetwork(@NotNull PipeBlockEntity blockEntity){
+        this.world = blockEntity.getWorld();
+        assert this.world != null;
         checkBlock(blockEntity, 1, 0, 0);
         checkBlock(blockEntity, -1, 0, 0);
         checkBlock(blockEntity, 0, 1, 0);
         checkBlock(blockEntity, 0, -1, 0);
         checkBlock(blockEntity, 0, 0, 1);
         checkBlock(blockEntity, 0, 0, -1);
-        this.world = blockEntity.getWorld();
         if(pipes.size() == 1) {
-            PipeNetwork newNetwork = ((PipeBlockEntity) Objects.requireNonNull(Objects.requireNonNull(blockEntity.getWorld())
+            PipeNetwork newNetwork = ((PipeBlockEntity) Objects.requireNonNull(this.world
                     .getBlockEntity(pipes.get(0)))).network;
             newNetwork.outputs.addAll(this.outputs);
             newNetwork.addPipe(blockEntity);
             return;
         }
+        blockEntity.network = this;
+        this.pipes.put(0, blockEntity.getPos());
         this.fluidAmount = 0;
         this.fluid = Fluids.WATER;
         this.inputs.clear();
@@ -81,8 +85,11 @@ public class PipeNetwork {
     }
 
     private void checkBlock(@NotNull PipeBlockEntity blockEntity, int x, int y, int z){
-        BlockPos pos = new BlockPos(blockEntity.getPos().getX() + x, blockEntity.getPos().getX() + y,
-                blockEntity.getPos().getZ() + z);
+        BlockPos pos = blockEntity.getPos().add(x, y, z);
+        BlockEntity bl = world.getBlockEntity(pos);
+        if(bl == null){
+            return;
+        }
         if(world.getBlockEntity(pos) instanceof PipeBlockEntity){
             addLastPipe(pos);
         }else if(world.getBlockEntity(pos) instanceof AbstractMachineBlockEntity){

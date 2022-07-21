@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class PipeBlock extends BlockWithEntity {
 
     public static final IntProperty configuration = IntProperty.of("configuration", 0, 15);
@@ -53,20 +55,20 @@ public class PipeBlock extends BlockWithEntity {
             case 3 -> VoxelShapes.cuboid(0, 0.375, 0.375, 1, 0.625, 0.625);
             default -> VoxelShapes.combineAndSimplify(
                     VoxelShapes.cuboid(0.375, 0, 0.375, 0.625, 0.625, 0.625),
-                    VoxelShapes.cuboid(0.625, 0.625, 0.625, 0.375, 0, 0),
+                    VoxelShapes.cuboid(0.375, 0, 0, 0.625, 0.625,0.625),
                     (a, b) -> a);
         };
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        new PipeNetwork(this.blockEntity);
+    public void onPlaced(@NotNull World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        new PipeNetwork((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos)));
     }
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
-        this.blockEntity.network.removePipe(this.blockEntity);
+        //this.blockEntity.network.removePipe(this.blockEntity);
     }
 
     @Override

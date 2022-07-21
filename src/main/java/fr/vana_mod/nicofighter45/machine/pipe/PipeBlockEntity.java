@@ -27,13 +27,16 @@ public class PipeBlockEntity extends BlockEntity {
             for(int i = 0; i < pipeTag.length; i += 3){
                 pipes.add(new BlockPos(pipeTag[i], pipeTag[i + 1], pipeTag[i + 2]));
             }
-            network = new PipeNetwork(getWorld(), pipes);
+            network = new PipeNetwork(world, pipes);
             network.fluidAmount = nbt.getInt("fluidAmount");
         }
     }
 
     @Override
     protected void writeNbt(@NotNull NbtCompound nbt) {
+        if(network == null){
+            return;
+        }
         if(network.pipes.get(0) == getPos()){
             List<Integer> pipeTag = new ArrayList<>();
             for(BlockPos pos : network.pipes.values()){

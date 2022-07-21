@@ -163,11 +163,11 @@ public class PipeNetwork {
 
     private void setNextPipesTextures(@NotNull PipeBlockEntity blockEntity, @NotNull List<BlockPos> clothPipes){
         if(clothPipes.size() == 1){
-            setSimpleTextureConfiguration((PipeBlockEntity) Objects.requireNonNull(Objects.requireNonNull(blockEntity
-                    .getWorld()).getBlockEntity(clothPipes.get(0))), clothPipes.get(0));
+            setSimpleTextureConfiguration((PipeBlockEntity) Objects.requireNonNull(world
+                    .getBlockEntity(clothPipes.get(0))), clothPipes.get(0));
         }else{
-            setComplexTextureConfiguration((PipeBlockEntity) Objects.requireNonNull(Objects.requireNonNull(blockEntity
-                    .getWorld()).getBlockEntity(clothPipes.get(0))), clothPipes.get(0), clothPipes.get(1));
+            setComplexTextureConfiguration((PipeBlockEntity) Objects.requireNonNull(world
+                    .getBlockEntity(clothPipes.get(0))), clothPipes.get(0), clothPipes.get(1));
         }
     }
 

@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -50,7 +51,8 @@ public class PipeBlockEntity extends BlockEntity {
     }
 
     public void setTextureConfiguration(int value){
-        Objects.requireNonNull(getWorld()).getBlockState(getPos()).with(PipeBlock.configuration, value);
+        World world = Objects.requireNonNull(getWorld());
+        world.setBlockState(getPos(), world.getBlockState(getPos()).getBlock().getDefaultState().with(PipeBlock.configuration, value));
     }
 
 }

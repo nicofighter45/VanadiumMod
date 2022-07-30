@@ -53,6 +53,10 @@ public class PipeBlock extends BlockWithEntity {
             case 1 -> VoxelShapes.cuboid(0.375, 0, 0.375, 0.625, 1, 0.625);
             case 2 -> VoxelShapes.cuboid(0.375, 0.375, 0, 0.625, 0.625, 1);
             case 3 -> VoxelShapes.cuboid(0, 0.375, 0.375, 1, 0.625, 0.625);
+            case 4 -> VoxelShapes.combineAndSimplify(
+                    VoxelShapes.cuboid(0.375, 0.375, 0.375, 0.625, 1, 0.625),
+                    VoxelShapes.cuboid(0, 0.375, 0.375, 0.375, 0.625,0.625),
+                    (a, b) -> a);
             default -> VoxelShapes.combineAndSimplify(
                     VoxelShapes.cuboid(0.375, 0, 0.375, 0.625, 0.625, 0.625),
                     VoxelShapes.cuboid(0.375, 0, 0, 0.625, 0.625,0.625),
@@ -68,7 +72,7 @@ public class PipeBlock extends BlockWithEntity {
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
-        //this.blockEntity.network.removePipe(this.blockEntity);
+        this.blockEntity.network.removePipe(this.blockEntity);
     }
 
     @Override

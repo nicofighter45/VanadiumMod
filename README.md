@@ -1,3 +1,7 @@
+![Release](https://img.shields.io/github/v/release/nicofighter45/VanadiumMod?include_prereleases)
+![Downloads](https://img.shields.io/github/downloads/nicofighter45/VanadiumMod/total)
+![Licence](https://img.shields.io/github/license/nicofighter45/VanadiumMod)
+
 # Français
 
 ## Discord

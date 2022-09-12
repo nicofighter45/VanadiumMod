@@ -1,6 +1,7 @@
 ![Release](https://img.shields.io/github/v/release/nicofighter45/VanadiumMod?include_prereleases)
 ![Downloads](https://img.shields.io/github/downloads/nicofighter45/VanadiumMod/total)
 ![Licence](https://img.shields.io/github/license/nicofighter45/VanadiumMod)
+[![Crowdin](https://badges.crowdin.net/vanadium-mod/localized.svg)](https://crowdin.com/project/vanadium-mod)
 
 # Français
 
@@ -30,8 +31,6 @@ Cliques <a href="https://github.com/nicofighter45/VanadiumMod/tree/master/tuto/U
 
 Viens m'aider à traduire le mod sur <a href="https://crwd.in/vanadium-mod">Crowdin</a> !
 
-[![Crowdin](https://badges.crowdin.net/vanadium-mod/localized.svg)](https://crowdin.com/project/vanadium-mod)
-
 # English
 
 ## Discord
@@ -58,5 +57,3 @@ Here is how to <a href="https://github.com/nicofighter45/VanadiumMod/tree/master
 ## Translate
 
 Help me translate on <a href="https://crwd.in/vanadium-mod">Crowdin</a> !
-
-[![Crowdin](https://badges.crowdin.net/vanadium-mod/localized.svg)](https://crowdin.com/project/vanadium-mod)

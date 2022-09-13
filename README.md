@@ -1,6 +1,7 @@
-![Release](https://img.shields.io/github/v/release/nicofighter45/VanadiumMod?include_prereleases)
-![Downloads](https://img.shields.io/github/downloads/nicofighter45/VanadiumMod/total)
-![Licence](https://img.shields.io/github/license/nicofighter45/VanadiumMod)
+[![Release](https://img.shields.io/github/v/release/nicofighter45/VanadiumMod?include_prereleases)](https://github.com/nicofighter45/VanadiumMod/releases)
+[![Downloads](https://img.shields.io/github/downloads/nicofighter45/VanadiumMod/total)](https://github.com/nicofighter45/VanadiumMod/releases)
+
+[![Licence](https://img.shields.io/github/license/nicofighter45/VanadiumMod)](https://choosealicense.com/licenses/mit/)
 [![Crowdin](https://badges.crowdin.net/vanadium-mod/localized.svg)](https://crowdin.com/project/vanadium-mod)
 
 # Français

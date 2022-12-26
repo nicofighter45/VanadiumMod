@@ -1,14 +1,15 @@
 package fr.vana_mod.nicofighter45.block;
 
 
-import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.item.BlockItem;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class ModBlocks {
 
@@ -25,25 +26,33 @@ public class ModBlocks {
     public static final Block MAMADE_BLOCK = new Block(FabricBlockSettings.of(Material.METAL).strength(18, 0.8f).sounds(BlockSoundGroup.METAL).requiresTool());
 
     public static void registerAll() {
-        registerNewBlock("vanadium_ore", VANADIUM_ORE);
+        registerNewBlock("vanadium_ore", VANADIUM_ORE, true);
         registerNewBlock("tungsten_ore", TUNGSTEN_ORE);
         registerNewBlock("silver_ore", SILVER_ORE);
         registerNewBlock("tin_ore", TIN_ORE);
 
-        registerNewBlock("vanadium_block", VANADIUM_BLOCK);
+        registerNewBlock("vanadium_block", VANADIUM_BLOCK, true);
         registerNewBlock("tungsten_block", TUNGSTEN_BLOCK);
         registerNewBlock("tin_block", TIN_BLOCK);
         registerNewBlock("steel_block", STEEL_BLOCK);
         registerNewBlock("silver_block", SILVER_BLOCK);
-        registerNewBlock("mamade_bock", MAMADE_BLOCK);
+        registerNewBlock("mamade_block", MAMADE_BLOCK);
 
-        ModMachines.registerAll();
-        ModOreGeneration.generateOres();
-        ModBlocksItem.registerAll();
     }
 
-    private static void registerNewBlock(String name, Block block){
-        Registry.register(Registry.BLOCK, new Identifier(CommonInitializer.MODID, name), block);
+    private static void registerNewBlock(String name, Block block) {
+        registerNewBlock(name, block, false);
+    }
+
+    private static void registerNewBlock(String name, Block block, boolean fireproof) {
+        Registry.register(Registries.BLOCK, new Identifier(CommonInitializer.MODID, name), block);
+        if (fireproof){
+            Registry.register(Registries.ITEM, new Identifier(CommonInitializer.MODID, name),
+                    new BlockItem(block, CommonInitializer.settings().fireproof()));
+        }else {
+            Registry.register(Registries.ITEM, new Identifier(CommonInitializer.MODID, name),
+                    new BlockItem(block, CommonInitializer.settings()));
+        }
     }
 
 }

@@ -10,11 +10,11 @@ public class Excavator extends ShovelItem {
         super(material, attackDamage, attackSpeed, settings);
     }
 
-    public boolean isActive(){
+    public boolean isActive() {
         return this.isActive;
     }
 
-    public boolean changeActivity(){
+    public boolean changeActivity() {
         this.isActive = !this.isActive;
         return this.isActive;
     }

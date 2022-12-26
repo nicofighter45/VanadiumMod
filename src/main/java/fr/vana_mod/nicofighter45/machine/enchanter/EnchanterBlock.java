@@ -33,9 +33,9 @@ public class EnchanterBlock extends BlockWithEntity {
 
     @Override
     public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(world.isClient) {
+        if (world.isClient) {
             return ActionResult.SUCCESS;
-        }else{
+        } else {
             player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
             return ActionResult.CONSUME;
         }

@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "vana-mod:tin_ore_item"
+              "name": "vana-mod:tin_ore"
             },
             {
               "type": "minecraft:item",

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "vana-mod:tungsten_block_item"
+          "name": "vana-mod:tungsten_block"
         }
       ],
       "conditions": [

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "vana-mod:steel_block_item"
+          "name": "vana-mod:steel_block"
         }
       ],
       "conditions": [

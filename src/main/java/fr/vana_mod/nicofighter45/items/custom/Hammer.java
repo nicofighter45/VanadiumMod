@@ -2,7 +2,7 @@ package fr.vana_mod.nicofighter45.items.custom;
 
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.tag.BlockTags;
+import net.minecraft.registry.tag.BlockTags;
 
 public class Hammer extends MiningToolItem {
 
@@ -14,15 +14,15 @@ public class Hammer extends MiningToolItem {
         this.mining_range = mining_range;
     }
 
-    public int getMiningRange(){
+    public int getMiningRange() {
         return mining_range;
     }
 
-    public boolean isActive(){
+    public boolean isActive() {
         return this.isActive;
     }
 
-    public boolean changeActivity(){
+    public boolean changeActivity() {
         this.isActive = !this.isActive;
         return this.isActive;
     }

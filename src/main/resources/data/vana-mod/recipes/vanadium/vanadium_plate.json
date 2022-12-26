@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "vana-mod:vanadium_block_item"
+    "item": "vana-mod:vanadium_block"
   },
   "result": "vana-mod:vanadium_plate",
   "experience": 1,

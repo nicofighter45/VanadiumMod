@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "vana-mod:high_furnace_block_item"
+          "name": "vana-mod:high_furnace_block"
         }
       ],
       "conditions": [

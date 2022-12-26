@@ -55,11 +55,11 @@ public class PipeBlock extends BlockWithEntity {
             case 3 -> VoxelShapes.cuboid(0, 0.375, 0.375, 1, 0.625, 0.625);
             case 4 -> VoxelShapes.combineAndSimplify(
                     VoxelShapes.cuboid(0.375, 0.375, 0.375, 0.625, 1, 0.625),
-                    VoxelShapes.cuboid(0, 0.375, 0.375, 0.375, 0.625,0.625),
+                    VoxelShapes.cuboid(0, 0.375, 0.375, 0.375, 0.625, 0.625),
                     (a, b) -> a);
             default -> VoxelShapes.combineAndSimplify(
                     VoxelShapes.cuboid(0.375, 0, 0.375, 0.625, 0.625, 0.625),
-                    VoxelShapes.cuboid(0.375, 0, 0, 0.625, 0.625,0.625),
+                    VoxelShapes.cuboid(0.375, 0, 0, 0.625, 0.625, 0.625),
                     (a, b) -> a);
         };
     }
@@ -79,68 +79,68 @@ public class PipeBlock extends BlockWithEntity {
     public BlockState rotate(@NotNull BlockState state, @NotNull BlockRotation rotation) {
         int config = state.get(configuration);
         int value = 0;
-        switch (rotation){
+        switch (rotation) {
             case NONE:
                 break;
             case CLOCKWISE_90:
-                if(config == 2){
+                if (config == 2) {
                     value = 3;
-                }else if(config == 3){
+                } else if (config == 3) {
                     value = 2;
-                }else if(config > 3){
-                    if(config == 7){
+                } else if (config > 3) {
+                    if (config == 7) {
                         value = 4;
-                    }else if(config == 11){
+                    } else if (config == 11) {
                         value = 8;
-                    }else if(config == 12){
+                    } else if (config == 12) {
                         value = 14;
-                    }else if(config == 14){
+                    } else if (config == 14) {
                         value = 15;
-                    }else if(config == 15){
+                    } else if (config == 15) {
                         value = 13;
-                    }else if(config == 13){
+                    } else if (config == 13) {
                         value = 12;
-                    }else{
+                    } else {
                         value = config + 1;
                     }
                 }
                 break;
             case CLOCKWISE_180:
-                if(config > 3){
-                    if(config < 6 || (config > 7 && config < 10)){
+                if (config > 3) {
+                    if (config < 6 || (config > 7 && config < 10)) {
                         value = config + 2;
-                    }else if(config < 12){
+                    } else if (config < 12) {
                         value = config - 2;
-                    }else if(config == 12){
+                    } else if (config == 12) {
                         value = 15;
-                    }else if(config == 14){
+                    } else if (config == 14) {
                         value = 13;
-                    }else if(config == 15){
+                    } else if (config == 15) {
                         value = 12;
-                    }else if(config == 13){
+                    } else if (config == 13) {
                         value = 14;
                     }
                 }
                 break;
             case COUNTERCLOCKWISE_90:
-                if(config == 2){
+                if (config == 2) {
                     value = 3;
-                }else if(config == 3){
+                } else if (config == 3) {
                     value = 2;
-                }else if(config > 3){
-                    if(config == 4){
+                } else if (config > 3) {
+                    if (config == 4) {
                         value = 7;
-                    }else if(config == 8){
+                    } else if (config == 8) {
                         value = 11;
-                    }else if(config == 12){
+                    } else if (config == 12) {
                         value = 13;
-                    }else if(config == 13){
+                    } else if (config == 13) {
                         value = 15;
-                    }else if(config == 15){
+                    } else if (config == 15) {
                         value = 14;
-                    }else if(config == 14){
+                    } else if (config == 14) {
                         value = 12;
-                    }else{
+                    } else {
                         value = config - 1;
                     }
                 }

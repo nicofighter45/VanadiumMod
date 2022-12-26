@@ -34,10 +34,10 @@ public class PlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void tick(CallbackInfo info) {
-        if(timer > 0){
-            timer --;
-        }else if(timer == 0){
-            timer --;
+        if (timer > 0) {
+            timer--;
+        } else if (timer == 0) {
+            timer--;
             ItemStack helmet = getEquippedStack(EquipmentSlot.HEAD);
             ItemStack chestplate = getEquippedStack(EquipmentSlot.CHEST);
             ItemStack leggings = getEquippedStack(EquipmentSlot.LEGS);
@@ -48,10 +48,10 @@ public class PlayerEntityMixin {
             enchantments.putAll(EnchantmentHelper.get(leggings));
             enchantments.putAll(EnchantmentHelper.get(boots));
 
-            for(Enchantment enchantment : enchantments.keySet()){
-                if(enchantment instanceof BasicEffectEnchantment basicEffectEnchantment){
-                   player.addStatusEffect(new StatusEffectInstance(basicEffectEnchantment.getEffect(), 140,
-                           enchantments.get(enchantment), false, false, true));
+            for (Enchantment enchantment : enchantments.keySet()) {
+                if (enchantment instanceof BasicEffectEnchantment basicEffectEnchantment) {
+                    player.addStatusEffect(new StatusEffectInstance(basicEffectEnchantment.getEffect(), 140,
+                            enchantments.get(enchantment), false, false, true));
                 }
             }
 
@@ -63,7 +63,7 @@ public class PlayerEntityMixin {
             //check chesplate
             if (chestplate.getItem() == ModItems.EMERALD_CHESTPLATE) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 140, 0, false, false, true));
-            }else if(chestplate.getItem() == ModItems.TUNGSTEN_CHESTPLATE){
+            } else if (chestplate.getItem() == ModItems.TUNGSTEN_CHESTPLATE) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 140, 0, false, false, true));
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 140, 1, false, false, true));
             }

@@ -5,6 +5,6 @@
   "input3": "vana-mod:vanadium_ingot",
   "input4": "vana-mod:vanadium_ingot",
   "result": {
-    "item": "vana-mod:vanadium_block_item"
+    "item": "vana-mod:vanadium_block"
   }
 }

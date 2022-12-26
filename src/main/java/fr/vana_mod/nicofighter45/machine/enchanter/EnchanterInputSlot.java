@@ -22,9 +22,9 @@ public class EnchanterInputSlot extends Slot {
         this.handler = handler;
     }
 
-    private boolean areInputsFull(){
-        for (int i = 0; i < this.handler.getInput().size(); i++){
-            if(this.handler.getInput().getStack(i).isEmpty()){
+    private boolean areInputsFull() {
+        for (int i = 0; i < this.handler.getInput().size(); i++) {
+            if (this.handler.getInput().getStack(i).isEmpty()) {
                 return false;
             }
         }
@@ -41,7 +41,7 @@ public class EnchanterInputSlot extends Slot {
 
     @Override
     public ItemStack insertStack(@NotNull ItemStack stack, int count) {
-        if(!stack.isEmpty() && this.canInsert(stack)) {
+        if (!stack.isEmpty() && this.canInsert(stack)) {
             ItemStack itemStack = this.getStack();
             int i = Math.min(Math.min(count, stack.getCount()), this.getMaxItemCount(stack) - itemStack.getCount());
             if (itemStack.isEmpty()) {
@@ -56,17 +56,17 @@ public class EnchanterInputSlot extends Slot {
         return stack;
     }
 
-    public void checkingWithInsertion(){
-        if(this.getIndex() == 0){
+    public void checkingWithInsertion() {
+        if (this.getIndex() == 0) {
             this.handler.setFirstItem();
         }
-        if(this.areInputsFull()){
+        if (this.areInputsFull()) {
             ItemStack itemStack = handler.getInput().getStack(0);
-            if(!itemStack.isEmpty() && handler.getInput().getStack(1).getCount() != 0 && handler.getInput().getStack(2).getCount() != 0){
+            if (!itemStack.isEmpty() && handler.getInput().getStack(1).getCount() != 0 && handler.getInput().getStack(2).getCount() != 0) {
                 Map<Enchantment, Integer> enchant = EnchantmentHelper.get(itemStack);
                 int slot = 0;
-                for(Enchantment enchantment : enchant.keySet()){
-                    if(slot == 7){
+                for (Enchantment enchantment : enchant.keySet()) {
+                    if (slot == 7) {
                         break;
                     }
                     ItemStack enchanted_book = new ItemStack(Items.ENCHANTED_BOOK);
@@ -80,27 +80,27 @@ public class EnchanterInputSlot extends Slot {
 
     @Override
     public void onTakeItem(@NotNull PlayerEntity player, @NotNull ItemStack stack) {
-        if(this.getStack().isEmpty()){
+        if (this.getStack().isEmpty()) {
             ItemStack item = stack.copy();
-            if(this.getIndex() != 0){
+            if (this.getIndex() != 0) {
                 item = this.handler.getInput().getStack(0);
             }
-            if(!haveTheSameEnchant(item, this.handler.getFirstItem())){
-                if(this.getIndex() == 0){
+            if (!haveTheSameEnchant(item, this.handler.getFirstItem())) {
+                if (this.getIndex() == 0) {
                     removeOneInSlot(1);
                     removeOneInSlot(2);
-                }else if(this.getIndex() == 1){
+                } else if (this.getIndex() == 1) {
                     stack.setCount(stack.getCount() - 1);
                     removeOneInSlot(2);
-                }else if(this.getIndex() == 2){
+                } else if (this.getIndex() == 2) {
                     stack.setCount(stack.getCount() - 1);
                     removeOneInSlot(1);
                 }
-                if(this.getIndex() != 0){
+                if (this.getIndex() != 0) {
                     this.handler.setFirstItem();
                 }
             }
-            for(int slot = 0; slot < this.handler.getOutput().size(); slot ++){
+            for (int slot = 0; slot < this.handler.getOutput().size(); slot++) {
                 this.handler.getOutput().setStack(slot, ItemStack.EMPTY);
             }
         }
@@ -109,16 +109,16 @@ public class EnchanterInputSlot extends Slot {
     private boolean haveTheSameEnchant(ItemStack item1, ItemStack item2) {
         Map<Enchantment, Integer> stackEnchant = EnchantmentHelper.get(item1);
         Map<Enchantment, Integer> inputEnchant = EnchantmentHelper.get(item2);
-        if(stackEnchant.size() != inputEnchant.size()){
+        if (stackEnchant.size() != inputEnchant.size()) {
             return false;
         }
-        for(Enchantment enchant : stackEnchant.keySet()){
-            if(!inputEnchant.containsKey(enchant) || !inputEnchant.containsValue(stackEnchant.get(enchant))){
+        for (Enchantment enchant : stackEnchant.keySet()) {
+            if (!inputEnchant.containsKey(enchant) || !inputEnchant.containsValue(stackEnchant.get(enchant))) {
                 return false;
             }
         }
-        for(Enchantment enchant : inputEnchant.keySet()){
-            if(!stackEnchant.containsKey(enchant) || !stackEnchant.containsValue(inputEnchant.get(enchant))){
+        for (Enchantment enchant : inputEnchant.keySet()) {
+            if (!stackEnchant.containsKey(enchant) || !stackEnchant.containsValue(inputEnchant.get(enchant))) {
                 return false;
             }
         }
@@ -126,7 +126,7 @@ public class EnchanterInputSlot extends Slot {
         return true;
     }
 
-    private void removeOneInSlot(int slot){
+    private void removeOneInSlot(int slot) {
         handler.getInput().removeStack(slot, 1);
     }
 

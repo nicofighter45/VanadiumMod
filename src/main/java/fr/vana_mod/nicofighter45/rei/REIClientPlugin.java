@@ -1,6 +1,5 @@
 package fr.vana_mod.nicofighter45.rei;
 
-import com.ibm.icu.impl.coll.CollationTailoring;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.machine.high_furnace.recipe.HighFurnaceRecipe;
 import fr.vana_mod.nicofighter45.machine.modifierstable.recipe.ModifiersRecipe;

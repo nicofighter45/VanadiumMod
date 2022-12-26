@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "vana-mod:tin_block_item"
+    "item": "vana-mod:tin_block"
   },
   "result": "vana-mod:tin_plate",
   "experience": 1,

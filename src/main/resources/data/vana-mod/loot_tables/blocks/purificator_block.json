@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "vana-mod:purificator_block_item"
+          "name": "vana-mod:purificator_block"
         }
       ],
       "conditions": [

@@ -22,10 +22,10 @@ public class PipeBlockEntity extends BlockEntity {
 
     @Override
     public void readNbt(@NotNull NbtCompound nbt) {
-        if(!nbt.isEmpty()){
+        if (!nbt.isEmpty()) {
             List<BlockPos> pipes = new ArrayList<>();
             int[] pipeTag = nbt.getIntArray("pipes");
-            for(int i = 0; i < pipeTag.length; i += 3){
+            for (int i = 0; i < pipeTag.length; i += 3) {
                 pipes.add(new BlockPos(pipeTag[i], pipeTag[i + 1], pipeTag[i + 2]));
             }
             network = new PipeNetwork(world, pipes);
@@ -35,12 +35,12 @@ public class PipeBlockEntity extends BlockEntity {
 
     @Override
     protected void writeNbt(@NotNull NbtCompound nbt) {
-        if(network == null){
+        if (network == null) {
             return;
         }
-        if(network.pipes.get(0) == getPos()){
+        if (network.pipes.get(0) == getPos()) {
             List<Integer> pipeTag = new ArrayList<>();
-            for(BlockPos pos : network.pipes.values()){
+            for (BlockPos pos : network.pipes.values()) {
                 pipeTag.add(pos.getX());
                 pipeTag.add(pos.getY());
                 pipeTag.add(pos.getZ());
@@ -50,7 +50,7 @@ public class PipeBlockEntity extends BlockEntity {
         }
     }
 
-    public void setTextureConfiguration(int value){
+    public void setTextureConfiguration(int value) {
         World world = Objects.requireNonNull(getWorld());
         world.setBlockState(getPos(), world.getBlockState(getPos()).getBlock().getDefaultState().with(PipeBlock.configuration, value));
     }

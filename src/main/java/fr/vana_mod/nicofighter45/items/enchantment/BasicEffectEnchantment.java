@@ -18,8 +18,8 @@ public class BasicEffectEnchantment extends Enchantment {
     private final int maxLevel;
 
     public BasicEffectEnchantment(Rarity weight, EquipmentSlot slot, boolean randomSelection,
-              boolean enchantedBook, StatusEffect effect, ArmorMaterial armor, int maxLevel) {
-        super(weight, EnchantmentTarget.ARMOR, new EquipmentSlot[] {slot});
+                                  boolean enchantedBook, StatusEffect effect, ArmorMaterial armor, int maxLevel) {
+        super(weight, EnchantmentTarget.ARMOR, new EquipmentSlot[]{slot});
         this.slot = slot;
         this.randomSelection = randomSelection;
         this.enchantedBook = enchantedBook;
@@ -49,7 +49,7 @@ public class BasicEffectEnchantment extends Enchantment {
         return this.randomSelection;
     }
 
-    public StatusEffect getEffect(){
+    public StatusEffect getEffect() {
         return this.effect;
     }
 

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "vana-mod:mamade_block_item"
+          "name": "vana-mod:mamade_block"
         }
       ],
       "conditions": [

@@ -20,12 +20,12 @@ public class MegaAxe extends AxeItem {
     private boolean isActive = true;
 
     public MegaAxe(ToolMaterial material, Settings settings) {
-        super(material, 7,2, settings);
+        super(material, 7, 2, settings);
     }
 
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
-        if(miner instanceof PlayerEntity && this.isActive) {
+        if (miner instanceof PlayerEntity && this.isActive) {
             Block block = state.getBlock();
             if (block instanceof PillarBlock) {
 
@@ -35,18 +35,18 @@ public class MegaAxe extends AxeItem {
                 ArrayList<BlockPos> addBlocks = new ArrayList<>();
                 woodBlocks.add(pos);
 
-                while(previous < checkBlocks.size()){
+                while (previous < checkBlocks.size()) {
                     previous = checkBlocks.size();
-                    for(BlockPos posWood : woodBlocks){
-                        if(!checkBlocks.contains(posWood)){
+                    for (BlockPos posWood : woodBlocks) {
+                        if (!checkBlocks.contains(posWood)) {
 
                             //check in a 3 by 3 grid
-                            for(int x = -1; x < 2; x++){
-                                for(int y = -1; y < 2; y++){
-                                    for(int z = -1; z < 2; z++){
-                                        BlockPos newPos = posWood.add(x,y,z);
-                                        if(world.getBlockState(newPos).getBlock() == block){
-                                            if(!woodBlocks.contains(newPos) && !addBlocks.contains(newPos)){
+                            for (int x = -1; x < 2; x++) {
+                                for (int y = -1; y < 2; y++) {
+                                    for (int z = -1; z < 2; z++) {
+                                        BlockPos newPos = posWood.add(x, y, z);
+                                        if (world.getBlockState(newPos).getBlock() == block) {
+                                            if (!woodBlocks.contains(newPos) && !addBlocks.contains(newPos)) {
                                                 addBlocks.add(newPos);
                                             }
                                         }
@@ -61,13 +61,13 @@ public class MegaAxe extends AxeItem {
                 }
                 final int max_block_break = 50;
                 int blockbroken = 0;
-                for(BlockPos posWood : woodBlocks){
-                    if(stack.getDamage() > 0){
-                        if(blockbroken <= max_block_break){
+                for (BlockPos posWood : woodBlocks) {
+                    if (stack.getDamage() > 0) {
+                        if (blockbroken <= max_block_break) {
                             world.breakBlock(posWood, true, miner);
                             stack.damage(1, Random.create(), (ServerPlayerEntity) miner);
                             blockbroken++;
-                        }else{
+                        } else {
                             break;
                         }
                     }
@@ -77,7 +77,7 @@ public class MegaAxe extends AxeItem {
         return super.postMine(stack, world, state, pos, miner);
     }
 
-    public boolean changeActivity(){
+    public boolean changeActivity() {
         this.isActive = !this.isActive;
         return this.isActive;
     }

@@ -11,7 +11,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient input3, Ingredient input4, ItemStack result, Identifier id) implements Recipe<Inventory> {
+public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient input3, Ingredient input4,
+                              ItemStack result, Identifier id) implements Recipe<Inventory> {
 
     @Override
     public boolean matches(@NotNull Inventory inventory, World world) {
@@ -44,15 +45,6 @@ public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient i
         return ModifiersRecipeSerializer.INSTANCE;
     }
 
-    public static class Type implements RecipeType<ModifiersRecipe> {
-        private Type() {
-        }
-
-        public static final Type INSTANCE = new Type();
-
-        public static final String ID = "modifiers_table_recipe_type";
-    }
-
     @Override
     public RecipeType<?> getType() {
         return Type.INSTANCE;
@@ -82,5 +74,13 @@ public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient i
         list.add(this.input3);
         list.add(this.input4);
         return list;
+    }
+
+    public static class Type implements RecipeType<ModifiersRecipe> {
+        public static final Type INSTANCE = new Type();
+        public static final String ID = "modifiers_table_recipe_type";
+
+        private Type() {
+        }
     }
 }

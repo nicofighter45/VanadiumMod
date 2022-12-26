@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractMachineBlock extends BlockWithEntity {
 
-    public AbstractMachineBlock(){
+    public AbstractMachineBlock() {
         super(Settings.copy(Blocks.CRAFTING_TABLE));
     }
 

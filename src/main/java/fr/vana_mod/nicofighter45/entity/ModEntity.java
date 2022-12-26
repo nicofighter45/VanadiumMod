@@ -8,7 +8,7 @@ public class ModEntity {
 //            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, VanadiumGolemEntity::create>).dimensions(EntityDimensions.fixed(2f, 2f)).build()
 //    );
 
-    public static void registerAll(){
+    public static void registerAll() {
 //        FabricDefaultAttributeRegistry.register(VANADIUM_GOLEM, VanadiumGolemEntity.createMobAttributes());
 //        EntityRendererRegistry.INSTANCE.register(VANADIUM_GOLEM, (dispatcher, context) -> new VanadiumGolemEntityRender(dispatcher.get));
     }

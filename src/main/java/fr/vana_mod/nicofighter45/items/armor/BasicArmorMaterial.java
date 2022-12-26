@@ -18,7 +18,7 @@ public class BasicArmorMaterial implements ArmorMaterial {
 
 
     public BasicArmorMaterial(int[] baseDurability, int durabilityMuliplier, int[] protection, int enchantability,
-                              SoundEvent equipSound, Item repairItem, String name, float toughness, float knockbackResistance){
+                              SoundEvent equipSound, Item repairItem, String name, float toughness, float knockbackResistance) {
         this.baseDurability = baseDurability;
         this.durabilityMuliplier = durabilityMuliplier;
         this.protection = protection;

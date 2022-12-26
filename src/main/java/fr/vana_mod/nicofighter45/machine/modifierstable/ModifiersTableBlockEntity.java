@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 public class ModifiersTableBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
 
     private final BlockPos pos;
+
     public ModifiersTableBlockEntity(BlockPos pos, BlockState state) {
         super(ModMachines.MODIFIERS_TABLE_BLOCK_ENTITY_TYPE, pos, state);
         this.pos = pos;

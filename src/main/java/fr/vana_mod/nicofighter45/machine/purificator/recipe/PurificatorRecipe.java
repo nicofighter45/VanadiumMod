@@ -45,15 +45,6 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
         return PurificatorRecipeSerializer.INSTANCE;
     }
 
-    public static class Type implements RecipeType<PurificatorRecipe> {
-        private Type() {
-        }
-
-        public static final Type INSTANCE = new Type();
-
-        public static final String ID = "purificator_recipe_type";
-    }
-
     @Override
     public RecipeType<?> getType() {
         return Type.INSTANCE;
@@ -62,6 +53,7 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
     public Ingredient getInput() {
         return input;
     }
+
     @Override
     public @NotNull DefaultedList<Ingredient> getIngredients() {
         DefaultedList<Ingredient> list = DefaultedList.ofSize(1);
@@ -69,7 +61,15 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
         return list;
     }
 
-    public Item getInputItem(){
+    public Item getInputItem() {
         return getInput().getMatchingStacks()[0].getItem();
+    }
+
+    public static class Type implements RecipeType<PurificatorRecipe> {
+        public static final Type INSTANCE = new Type();
+        public static final String ID = "purificator_recipe_type";
+
+        private Type() {
+        }
     }
 }

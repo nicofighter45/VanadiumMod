@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class ExperienceEnchantment extends Enchantment {
 
     public ExperienceEnchantment() {
-        super(Enchantment.Rarity.RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+        super(Rarity.RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override
@@ -38,8 +38,8 @@ public class ExperienceEnchantment extends Enchantment {
 
     @Override
     public void onTargetDamaged(LivingEntity user, @NotNull Entity attacker, int level) {
-        if(!attacker.isAlive() && user instanceof PlayerEntity){
-            ((PlayerEntity) user).addExperience(level*3);
+        if (!attacker.isAlive() && user instanceof PlayerEntity) {
+            ((PlayerEntity) user).addExperience(level * 3);
         }
     }
 }

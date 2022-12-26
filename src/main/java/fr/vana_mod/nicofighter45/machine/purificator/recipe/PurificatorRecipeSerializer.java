@@ -8,17 +8,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 
 public class PurificatorRecipeSerializer implements RecipeSerializer<PurificatorRecipe> {
 
-    private PurificatorRecipeSerializer() {}
-
     public static final PurificatorRecipeSerializer INSTANCE = new PurificatorRecipeSerializer();
-
     public static final Identifier ID = new Identifier(CommonInitializer.MODID, "purificator_recipe");
+
+    private PurificatorRecipeSerializer() {
+    }
 
     @Override
     public PurificatorRecipe read(Identifier id, JsonObject json) {
@@ -28,10 +28,10 @@ public class PurificatorRecipeSerializer implements RecipeSerializer<Purificator
             throw new JsonSyntaxException("A required attribute is missing!");
         }
 
-        Ingredient input = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input))
+        Ingredient input = Ingredient.ofStacks(new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.input))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input))));
         int count = recipeJson.result.get("count").getAsInt();
-        ItemStack output = new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.result.get("item").getAsString()))
+        ItemStack output = new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.result.get("item").getAsString()))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.result)), count);
         return new PurificatorRecipe(input, output, id);
     }

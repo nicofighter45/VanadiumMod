@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class NoFallEnchantment extends Enchantment {
 
     public NoFallEnchantment() {
-        super(Enchantment.Rarity.RARE, EnchantmentTarget.ARMOR, new EquipmentSlot[]{EquipmentSlot.FEET});
+        super(Rarity.RARE, EnchantmentTarget.ARMOR, new EquipmentSlot[]{EquipmentSlot.FEET});
     }
 
     @Override

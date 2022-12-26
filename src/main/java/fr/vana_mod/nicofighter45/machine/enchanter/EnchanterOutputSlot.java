@@ -23,9 +23,46 @@ public class EnchanterOutputSlot extends Slot {
         this.handler = handler;
     }
 
-    private boolean areInputsFull(){
-        for (int i = 0; i < this.handler.getInput().size(); i++){
-            if(this.handler.getInput().getStack(i).isEmpty()){
+    public static void reloadEnchant(@NotNull EnchanterScreenHandler handler) {
+        ItemStack itemStack = handler.getInput().getStack(0).copy();
+        boolean rename = itemStack.hasCustomName();
+        Text name = itemStack.getName();
+        itemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
+        if (rename) {
+            itemStack.setCustomName(name);
+        }
+        List<Integer> slot_empty = new ArrayList<>();
+        for (int slot = 0; slot < 7; slot++) {
+            if (handler.getOutput().getStack(slot).equals(ItemStack.EMPTY)) {
+                slot_empty.add(slot);
+            } else {
+                if (!slot_empty.isEmpty()) {
+                    if (slot > slot_empty.get(0)) {
+                        handler.getOutput().setStack(slot_empty.get(0), handler.getOutput().getStack(slot).copy());
+                        handler.getOutput().setStack(slot, ItemStack.EMPTY);
+                        slot_empty.remove(slot_empty.get(0));
+                        slot_empty.add(slot);
+                    }
+                }
+            }
+        }
+        for (int slot = 0; slot < 7; slot++) {
+            if (!slot_empty.contains(slot)) {
+                NbtCompound nbt = handler.getOutput().getStack(slot).getNbt();
+                assert nbt != null;
+                Map<Enchantment, Integer> enchantmentMap = EnchantmentHelper.get(handler.getOutput().getStack(slot));
+                for (Enchantment enchant : enchantmentMap.keySet()) {
+                    itemStack.addEnchantment(enchant, enchantmentMap.get(enchant));
+                }
+            }
+        }
+        handler.getInput().setStack(0, itemStack);
+        handler.resetEnchantments();
+    }
+
+    private boolean areInputsFull() {
+        for (int i = 0; i < this.handler.getInput().size(); i++) {
+            if (this.handler.getInput().getStack(i).isEmpty()) {
                 return false;
             }
         }
@@ -33,16 +70,16 @@ public class EnchanterOutputSlot extends Slot {
     }
 
     public boolean canInsert(@NotNull ItemStack stack) {
-        if(stack.getItem() instanceof EnchantedBookItem && areInputsFull()){
+        if (stack.getItem() instanceof EnchantedBookItem && areInputsFull()) {
             List<Enchantment> itemEnchant = this.handler.getItemEnchantments();
             Map<Enchantment, Integer> bookEnchant = EnchantmentHelper.get(stack);
-            if(bookEnchant.size() > 1){
-            System.out.println(">1");
+            if (bookEnchant.size() > 1) {
+                System.out.println(">1");
                 return false;
             }
-            for(Enchantment enchantment : bookEnchant.keySet()){
-                if(itemEnchant.contains(enchantment) || !enchantment.isAcceptableItem(this.handler.getFirstItem()) ||
-                        !EnchantmentHelper.isCompatible(itemEnchant, enchantment)){
+            for (Enchantment enchantment : bookEnchant.keySet()) {
+                if (itemEnchant.contains(enchantment) || !enchantment.isAcceptableItem(this.handler.getFirstItem()) ||
+                        !EnchantmentHelper.isCompatible(itemEnchant, enchantment)) {
                     return false;
                 }
             }
@@ -53,7 +90,7 @@ public class EnchanterOutputSlot extends Slot {
 
     @Override
     public ItemStack insertStack(@NotNull ItemStack stack, int count) {
-        if(!stack.isEmpty() && this.canInsert(stack)) {
+        if (!stack.isEmpty() && this.canInsert(stack)) {
             ItemStack itemStack = this.getStack();
             int i = Math.min(Math.min(count, stack.getCount()), this.getMaxItemCount(stack) - itemStack.getCount());
             if (itemStack.isEmpty()) {
@@ -64,7 +101,7 @@ public class EnchanterOutputSlot extends Slot {
                 this.setStack(itemStack);
             }
         }
-        if(this.areInputsFull()){
+        if (this.areInputsFull()) {
             reloadEnchant(this.handler);
         }
         return stack;
@@ -72,46 +109,9 @@ public class EnchanterOutputSlot extends Slot {
 
     @Override
     public void onTakeItem(@NotNull PlayerEntity player, @NotNull ItemStack stack) {
-        if(this.getStack().isEmpty()){
+        if (this.getStack().isEmpty()) {
             reloadEnchant(this.handler);
         }
-    }
-
-    public static void reloadEnchant(@NotNull EnchanterScreenHandler handler) {
-        ItemStack itemStack = handler.getInput().getStack(0).copy();
-        boolean rename = itemStack.hasCustomName();
-        Text name = itemStack.getName();
-        itemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
-        if(rename){
-            itemStack.setCustomName(name);
-        }
-        List<Integer> slot_empty = new ArrayList<>();
-        for(int slot = 0; slot < 7; slot ++){
-            if(handler.getOutput().getStack(slot).equals(ItemStack.EMPTY)){
-                slot_empty.add(slot);
-            }else{
-                if(!slot_empty.isEmpty()){
-                    if(slot > slot_empty.get(0)){
-                        handler.getOutput().setStack(slot_empty.get(0), handler.getOutput().getStack(slot).copy());
-                        handler.getOutput().setStack(slot, ItemStack.EMPTY);
-                        slot_empty.remove(slot_empty.get(0));
-                        slot_empty.add(slot);
-                    }
-                }
-            }
-        }
-        for(int slot = 0; slot < 7; slot ++){
-            if(!slot_empty.contains(slot)){
-                NbtCompound nbt = handler.getOutput().getStack(slot).getNbt();
-                assert nbt != null;
-                Map<Enchantment, Integer> enchantmentMap = EnchantmentHelper.get(handler.getOutput().getStack(slot));
-                for(Enchantment enchant : enchantmentMap.keySet()){
-                    itemStack.addEnchantment(enchant, enchantmentMap.get(enchant));
-                }
-            }
-        }
-        handler.getInput().setStack(0, itemStack);
-        handler.resetEnchantments();
     }
 
 }

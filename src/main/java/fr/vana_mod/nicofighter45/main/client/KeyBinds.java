@@ -12,18 +12,18 @@ import org.lwjgl.glfw.GLFW;
 
 public class KeyBinds {
 
-    public static void registerAll(){
+    public static void registerAll() {
         String category = "key.category." + CommonInitializer.MODID + ".vanadium";
 
         KeyBinding keybinding_night_vision = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + CommonInitializer.MODID + ".night_vision", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, category));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(keybinding_night_vision.isPressed()){
+            if (keybinding_night_vision.isPressed()) {
                 ClientPlayerEntity player = client.player;
                 assert player != null;
-                if(player.hasStatusEffect(StatusEffects.NIGHT_VISION)){
+                if (player.hasStatusEffect(StatusEffects.NIGHT_VISION)) {
                     player.removeStatusEffect(StatusEffects.NIGHT_VISION);
-                }else{
+                } else {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false, false));
                 }
             }

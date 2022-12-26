@@ -1,10 +1,10 @@
 package fr.vana_mod.nicofighter45.machine.basic.properties;
 
-public class ArrayMachinePropertyDelegate implements MachinePropertyDelegate{
+public class ArrayMachinePropertyDelegate implements MachinePropertyDelegate {
 
     private final int[] data;
 
-    public ArrayMachinePropertyDelegate(int size){
+    public ArrayMachinePropertyDelegate(int size) {
         this.data = new int[size];
     }
 

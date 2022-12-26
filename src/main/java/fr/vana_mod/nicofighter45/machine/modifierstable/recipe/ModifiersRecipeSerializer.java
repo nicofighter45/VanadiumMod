@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
@@ -11,20 +12,19 @@ import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersRecipe> {
 
-    private ModifiersRecipeSerializer() {}
-
     public static final ModifiersRecipeSerializer INSTANCE = new ModifiersRecipeSerializer();
-
     public static final Identifier ID = new Identifier(CommonInitializer.MODID, "modifiers_recipe");
+
+    private ModifiersRecipeSerializer() {
+    }
 
     @Override
     public ModifiersRecipe read(Identifier id, JsonObject json) {
@@ -35,18 +35,18 @@ public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersReci
             throw new JsonSyntaxException("A required attribute is missing!");
         }
 
-        Ingredient input1 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input1))
+        Ingredient input1 = Ingredient.ofStacks(new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.input1))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input1))));
-        Ingredient input2 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input2))
+        Ingredient input2 = Ingredient.ofStacks(new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.input2))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input2))));
-        Ingredient input3 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input3))
+        Ingredient input3 = Ingredient.ofStacks(new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.input3))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input3))));
-        Ingredient input4 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input4))
+        Ingredient input4 = Ingredient.ofStacks(new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.input4))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input4))));
         ItemStack output = Ingredient.fromJson(recipeJson.result).getMatchingStacks()[0];
-        if(output.getItem() == Items.ENCHANTED_BOOK){
+        if (output.getItem() == Items.ENCHANTED_BOOK) {
             JsonObject storedEnchantments = recipeJson.result.getAsJsonObject().get("nbt").getAsJsonObject().get("StoredEnchantments").getAsJsonArray().get(0).getAsJsonObject();
-            if(storedEnchantments == null){
+            if (storedEnchantments == null) {
                 throw new JsonSyntaxException("Enchantment Not Detected");
             }
             EnchantedBookItem.addEnchantment(output, new EnchantmentLevelEntry(Objects.requireNonNull(ModEnchants.getEnchant("enchantment." + storedEnchantments.get("id").getAsString()

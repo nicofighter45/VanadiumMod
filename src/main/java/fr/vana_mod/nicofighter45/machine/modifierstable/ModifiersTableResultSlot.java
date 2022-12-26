@@ -48,7 +48,7 @@ public class ModifiersTableResultSlot extends Slot {
         }
 
         if (this.inventory instanceof RecipeUnlocker) {
-            ((RecipeUnlocker)this.inventory).unlockLastRecipe(this.player);
+            ((RecipeUnlocker) this.inventory).unlockLastRecipe(this.player);
         }
 
         this.amount = 0;
@@ -58,7 +58,7 @@ public class ModifiersTableResultSlot extends Slot {
         this.onCrafted(stack);
         DefaultedList<ItemStack> defaultedList = player.world.getRecipeManager().getRemainingStacks(ModMachines.MODIFIERS_RECIPE_TYPE, this.input, player.world);
 
-        for(int i = 0; i < defaultedList.size(); ++i) {
+        for (int i = 0; i < defaultedList.size(); ++i) {
             ItemStack itemStack = this.input.getStack(i);
             ItemStack itemStack2 = defaultedList.get(i);
             if (!itemStack.isEmpty()) {
@@ -69,7 +69,7 @@ public class ModifiersTableResultSlot extends Slot {
             if (!itemStack2.isEmpty()) {
                 if (itemStack.isEmpty()) {
                     this.input.setStack(i, itemStack2);
-                } else if (ItemStack.areItemsEqualIgnoreDamage(itemStack, itemStack2) && ItemStack.areNbtEqual(itemStack, itemStack2)) {
+                } else if (ItemStack.areItemsEqual(itemStack, itemStack2) && ItemStack.areNbtEqual(itemStack, itemStack2)) {
                     itemStack2.increment(itemStack.getCount());
                     this.input.setStack(i, itemStack2);
                 } else if (!this.player.getInventory().insertStack(itemStack2)) {

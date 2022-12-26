@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "vana-mod:tungsten_block_item"
+    "item": "vana-mod:tungsten_block"
   },
   "result": "vana-mod:tungsten_plate",
   "experience": 1,

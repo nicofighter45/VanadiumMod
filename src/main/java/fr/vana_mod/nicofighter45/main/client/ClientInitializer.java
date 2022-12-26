@@ -1,15 +1,15 @@
 package fr.vana_mod.nicofighter45.main.client;
 
-import fr.vana_mod.nicofighter45.machine.enchanter.EnchanterScreen;
+import fr.vana_mod.nicofighter45.entity.ModEntity;
+import fr.vana_mod.nicofighter45.items.ModItems;
+import fr.vana_mod.nicofighter45.items.custom.VanadiumBow;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
+import fr.vana_mod.nicofighter45.machine.enchanter.EnchanterScreen;
 import fr.vana_mod.nicofighter45.machine.high_furnace.HighFurnaceScreen;
 import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableScreen;
 import fr.vana_mod.nicofighter45.machine.purificator.PurificatorScreen;
 import fr.vana_mod.nicofighter45.main.gui.CustomPlayerManagementScreen;
-import fr.vana_mod.nicofighter45.items.ModItems;
-import fr.vana_mod.nicofighter45.items.custom.VanadiumBow;
 import net.fabricmc.api.ClientModInitializer;
-import fr.vana_mod.nicofighter45.entity.ModEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.entity.EquipmentSlot;
@@ -48,7 +48,7 @@ public class ClientInitializer implements ClientModInitializer {
             if (entity == null) {
                 return 0;
             }
-            if(entity.isUsingItem() && entity.getActiveItem() == stack && ((VanadiumBow) stack.getItem()).isEnderPearl()){
+            if (entity.isUsingItem() && entity.getActiveItem() == stack && ((VanadiumBow) stack.getItem()).isEnderPearl()) {
                 return 1;
             }
             return 0;
@@ -56,13 +56,13 @@ public class ClientInitializer implements ClientModInitializer {
 
         //register vanadium elytra
         ModelPredicateProviderRegistry.register(ModItems.VANADIUM_ELYTRA, new Identifier("broken"), (stack, world, entity, seed) -> {
-            if(entity == null){
+            if (entity == null) {
                 return 0;
             }
 
-            if(entity.isUsingItem() && entity instanceof PlayerEntity){
-                if(((PlayerEntity) entity).getInventory().getArmorStack(EquipmentSlot.CHEST.getEntitySlotId()) == stack){
-                    if(stack.getDamage() == stack.getMaxDamage()){
+            if (entity.isUsingItem() && entity instanceof PlayerEntity) {
+                if (((PlayerEntity) entity).getInventory().getArmorStack(EquipmentSlot.CHEST.getEntitySlotId()) == stack) {
+                    if (stack.getDamage() == stack.getMaxDamage()) {
                         return 1;
                     }
                 }

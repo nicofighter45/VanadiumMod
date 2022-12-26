@@ -4,7 +4,7 @@ import net.minecraft.screen.PropertyDelegate;
 
 public interface MachinePropertyDelegate extends PropertyDelegate {
 
-    default void add(int index, int value){
+    default void add(int index, int value) {
         set(index, get(index) + value);
     }
 

@@ -2,7 +2,9 @@ package fr.vana_mod.nicofighter45.main.server;
 
 import net.fabricmc.api.DedicatedServerModInitializer;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class ServerInitializer implements DedicatedServerModInitializer {
 

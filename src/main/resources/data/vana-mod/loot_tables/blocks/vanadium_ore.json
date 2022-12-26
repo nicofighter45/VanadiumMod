@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "vana-mod:vanadium_ore_item"
+              "name": "vana-mod:vanadium_ore"
             },
             {
               "type": "minecraft:item",

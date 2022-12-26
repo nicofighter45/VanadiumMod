@@ -45,7 +45,7 @@ public class ModifiersTableCategory implements DisplayCategory<ModifiersTableDis
         return 122;
     }
 
-    private @NotNull Widget newWidgetEntry(@NotNull Point startPoint, int x, int y, int entry, @NotNull ModifiersTableDisplay display){
+    private @NotNull Widget newWidgetEntry(@NotNull Point startPoint, int x, int y, int entry, @NotNull ModifiersTableDisplay display) {
         return Widgets.createSlot(new Point(startPoint.getX() + x, startPoint.getY() + y)).entries(display.getInputEntries().get(entry)).markInput();
     }
 

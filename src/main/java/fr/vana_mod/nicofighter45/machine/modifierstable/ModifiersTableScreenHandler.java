@@ -33,7 +33,7 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         this(syncId, playerInventory, playerInventory.player);
     }
 
-    public ModifiersTableScreenHandler(int syncId, PlayerInventory inv, PlayerEntity player){
+    public ModifiersTableScreenHandler(int syncId, PlayerInventory inv, PlayerEntity player) {
         this(syncId, inv, player, ScreenHandlerContext.EMPTY);
     }
 
@@ -68,7 +68,7 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
 
     protected void updateResult(ScreenHandler handler, @NotNull World world, PlayerEntity player, CraftingInventory craftingInventory, CraftingResultInventory resultInventory) {
         if (!world.isClient) {
-            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
             ItemStack itemStack = ItemStack.EMPTY;
             Optional<ModifiersRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.MODIFIERS_RECIPE_TYPE, craftingInventory, world);
             if (optional.isPresent()) {
@@ -109,7 +109,7 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         return canUse(this.context, player, ModMachines.MODIFIERS_TABLE_BLOCK);
     }
 
-    public ItemStack transferSlot(PlayerEntity player, int index) {
+    public ItemStack quickMove(PlayerEntity player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot.hasStack()) {

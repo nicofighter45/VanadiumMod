@@ -23,28 +23,25 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractMachineBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, MachineInventory {
 
-    private final DefaultedList<ItemStack> inventory;
-
-    private final int properties[];
-
-    private final MachinePropertyDelegate propertyDelegate;
-
     public final SingleVariantStorage<FluidVariant> fluidStorage;
+    private final DefaultedList<ItemStack> inventory;
+    private final int[] properties;
+    private final MachinePropertyDelegate propertyDelegate;
     protected boolean changingInventory = false;
 
     protected AbstractMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize, int propertiesSize) {
         this(type, pos, state, inventorySize, propertiesSize, -1);
     }
 
-    protected AbstractMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize, int propertiesSize, int fluidIndexProperties ) {
+    protected AbstractMachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int inventorySize, int propertiesSize, int fluidIndexProperties) {
         super(type, pos, state);
         this.inventory = DefaultedList.ofSize(inventorySize, ItemStack.EMPTY);
         this.properties = new int[propertiesSize];
-        for(int i = 0; i < propertiesSize; i ++){
+        for (int i = 0; i < propertiesSize; i++) {
             this.properties[i] = 0;
         }
-        if(fluidIndexProperties > -1){
-             this.fluidStorage = new SingleVariantStorage<>() {
+        if (fluidIndexProperties > -1) {
+            this.fluidStorage = new SingleVariantStorage<>() {
                 @Override
                 protected FluidVariant getBlankVariant() {
                     return FluidVariant.blank();
@@ -64,8 +61,8 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
                 @Override
                 public void set(int index, int value) {
                     properties[index] = value;
-                    if(index == fluidIndexProperties){
-                        fluidStorage.amount = value * 810; // in my API, one water bucket equal 100, in fabric it's 81000
+                    if (index == fluidIndexProperties) {
+                        fluidStorage.amount = value * 810L; // in my API, one water bucket equal 100, in fabric it's 81000
                     }
                 }
 
@@ -74,7 +71,7 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
                     return properties.length;
                 }
             };
-        }else{
+        } else {
             this.fluidStorage = null;
             this.propertyDelegate = new MachinePropertyDelegate() {
                 @Override
@@ -103,7 +100,7 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     @Override
     public void readNbt(NbtCompound nbt) {
         Inventories.readNbt(nbt, inventory);
-        for(int i = 0; i < properties.length; i ++){
+        for (int i = 0; i < properties.length; i++) {
             properties[i] = nbt.getInt("PropertiesNb" + i);
         }
     }
@@ -111,12 +108,12 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     @Override
     public void writeNbt(NbtCompound nbt) {
         Inventories.writeNbt(nbt, inventory);
-        for(int i = 0; i < properties.length; i ++){
+        for (int i = 0; i < properties.length; i++) {
             nbt.putInt("PropertiesNb" + i, properties[i]);
         }
     }
 
-    public MachinePropertyDelegate getPropertyDelegate(){
+    public MachinePropertyDelegate getPropertyDelegate() {
         return this.propertyDelegate;
     }
 
@@ -134,7 +131,7 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         if (this.world.getBlockEntity(this.pos) != this) {
             return false;
         } else {
-            return player.squaredDistanceTo((double)this.pos.getX() + 0.5, (double)this.pos.getY() + 0.5, (double)this.pos.getZ() + 0.5) <= 64.0;
+            return player.squaredDistanceTo((double) this.pos.getX() + 0.5, (double) this.pos.getY() + 0.5, (double) this.pos.getZ() + 0.5) <= 64.0;
         }
     }
 

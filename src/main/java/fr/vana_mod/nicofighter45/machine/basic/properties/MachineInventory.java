@@ -10,6 +10,43 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface MachineInventory extends SidedInventory {
+    static @NotNull MachineInventory of(DefaultedList<ItemStack> items) {
+        return new MachineInventory() {
+            @Override
+            public int[] getAvailableSlots(Direction side) {
+                return new int[0];
+            }
+
+            @Override
+            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
+                return false;
+            }
+
+            @Override
+            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
+                return false;
+            }
+
+            @Override
+            public DefaultedList<ItemStack> getStacks() {
+                return items;
+            }
+
+            @Override
+            public void slotUpdate(int slot) {
+            }
+
+            @Override
+            public boolean canPlayerUse(PlayerEntity player) {
+                return true;
+            }
+        };
+    }
+
+    static @NotNull MachineInventory ofSize(int size) {
+        return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
+    }
+
     DefaultedList<ItemStack> getStacks();
 
     @Override
@@ -55,7 +92,7 @@ public interface MachineInventory extends SidedInventory {
         return null;
     }
 
-    default MachineInventory getInventory(){
+    default MachineInventory getInventory() {
         return this;
     }
 
@@ -75,43 +112,6 @@ public interface MachineInventory extends SidedInventory {
 
     @Override
     default void markDirty() {
-    }
-
-    static @NotNull MachineInventory of(DefaultedList<ItemStack> items) {
-        return new MachineInventory() {
-            @Override
-            public int[] getAvailableSlots(Direction side) {
-                return new int[0];
-            }
-
-            @Override
-            public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-                return false;
-            }
-
-            @Override
-            public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-                return false;
-            }
-
-            @Override
-            public DefaultedList<ItemStack> getStacks() {
-                return items;
-            }
-
-            @Override
-            public void slotUpdate(int slot) {
-            }
-
-            @Override
-            public boolean canPlayerUse(PlayerEntity player) {
-                return true;
-            }
-        };
-    }
-
-    static @NotNull MachineInventory ofSize(int size) {
-        return of(DefaultedList.ofSize(size, ItemStack.EMPTY));
     }
 
 }

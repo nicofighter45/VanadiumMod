@@ -7,7 +7,7 @@ public class CustomPlayer {
     private int heart, regen;
     private BlockPos base;
 
-    public CustomPlayer(int heart, int regen, BlockPos base){
+    public CustomPlayer(int heart, int regen, BlockPos base) {
         this.heart = heart;
         this.regen = regen;
         this.base = base;
@@ -29,11 +29,11 @@ public class CustomPlayer {
         this.regen = regen;
     }
 
-    public BlockPos getBase(){
+    public BlockPos getBase() {
         return this.base;
     }
 
-    public void setBase(BlockPos base){
+    public void setBase(BlockPos base) {
         this.base = base;
     }
 

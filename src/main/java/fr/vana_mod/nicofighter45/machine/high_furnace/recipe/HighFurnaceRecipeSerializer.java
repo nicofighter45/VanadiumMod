@@ -8,17 +8,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 
 public class HighFurnaceRecipeSerializer implements RecipeSerializer<HighFurnaceRecipe> {
 
-    private HighFurnaceRecipeSerializer() {}
-
     public static final HighFurnaceRecipeSerializer INSTANCE = new HighFurnaceRecipeSerializer();
-
     public static final Identifier ID = new Identifier(CommonInitializer.MODID, "high_furnace_recipe");
+
+    private HighFurnaceRecipeSerializer() {
+    }
 
     @Override
     public HighFurnaceRecipe read(Identifier id, JsonObject json) {
@@ -28,12 +28,12 @@ public class HighFurnaceRecipeSerializer implements RecipeSerializer<HighFurnace
             throw new JsonSyntaxException("A required attribute is missing!");
         }
 
-        Ingredient input1 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input1))
+        Ingredient input1 = Ingredient.ofStacks(new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.input1))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input1))));
-        Ingredient input2 = Ingredient.ofStacks(new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.input2))
+        Ingredient input2 = Ingredient.ofStacks(new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.input2))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.input2))));
         int count = recipeJson.result.get("count").getAsInt();
-        ItemStack output = new ItemStack(Registry.ITEM.getOrEmpty(new Identifier(recipeJson.result.get("item").getAsString()))
+        ItemStack output = new ItemStack(Registries.ITEM.getOrEmpty(new Identifier(recipeJson.result.get("item").getAsString()))
                 .orElseThrow(() -> new JsonSyntaxException("No such item " + recipeJson.result)), count);
         return new HighFurnaceRecipe(input1, input2, output, id);
     }

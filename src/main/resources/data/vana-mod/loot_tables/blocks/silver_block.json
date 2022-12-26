@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "vana-mod:silver_block_item"
+          "name": "vana-mod:silver_block"
         }
       ],
       "conditions": [

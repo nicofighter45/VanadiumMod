@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.main.server;
 
+import fr.vana_mod.nicofighter45.items.ModItems;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -16,7 +17,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.Hand;
-import fr.vana_mod.nicofighter45.items.ModItems;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,32 +26,32 @@ import java.util.Objects;
 
 public class BossSpawner {
 
-    public static void spawnBoss(int number, ServerWorld world, BlockPos pos){
-        if(number == 1){
+    public static void spawnBoss(int number, ServerWorld world, BlockPos pos) {
+        if (number == 1) {
             spawn1(world, pos);
-        }else if(number == 2){
+        } else if (number == 2) {
             spawn2(world, pos);
-        }else if(number == 3){
+        } else if (number == 3) {
             spawn3(world, pos);
-        }else if(number == 4){
+        } else if (number == 4) {
             spawn4(world, pos);
-        }else if(number == 5){
+        } else if (number == 5) {
             spawn5(world, pos);
         }
     }
 
-    private static void spawnEn(@NotNull List<Entity> boss, ServerWorld world){
-        for(Entity hs : boss){
+    private static void spawnEn(@NotNull List<Entity> boss, ServerWorld world) {
+        for (Entity hs : boss) {
             world.spawnEntity(hs);
         }
     }
 
-    private static void spawn1(@NotNull ServerWorld world, @NotNull BlockPos pos){
+    private static void spawn1(@NotNull ServerWorld world, @NotNull BlockPos pos) {
         List<Entity> entities = new ArrayList<>();
         ZombieEntity zb = EntityType.ZOMBIE.create(world);
         entities.add(zb);
         assert zb != null;
-        zb.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
+        zb.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
         ItemStack main_hand = new ItemStack(Items.DIAMOND_SWORD);
         main_hand.addEnchantment(Enchantments.SHARPNESS, 3);
         ItemStack helmet = new ItemStack(Items.DIAMOND_HELMET);
@@ -69,26 +69,26 @@ public class BossSpawner {
         bow.addEnchantment(Enchantments.POWER, 2);
         SkeletonEntity sk1 = EntityType.SKELETON.create(world);
         assert sk1 != null;
-        sk1.refreshPositionAndAngles(pos.getX() + 2, pos.getY(), pos.getZ(), 0,0);
+        sk1.refreshPositionAndAngles(pos.getX() + 2, pos.getY(), pos.getZ(), 0, 0);
         sk1.setStackInHand(Hand.MAIN_HAND, bow);
         entities.add(sk1);
         SkeletonEntity sk2 = EntityType.SKELETON.create(world);
         assert sk2 != null;
-        sk2.refreshPositionAndAngles(pos.getX() - 2, pos.getY(), pos.getZ(), 0,0);
+        sk2.refreshPositionAndAngles(pos.getX() - 2, pos.getY(), pos.getZ(), 0, 0);
         sk2.setStackInHand(Hand.MAIN_HAND, bow);
         entities.add(sk2);
-        for(int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             ZombieEntity zbm = EntityType.ZOMBIE.create(world);
             assert zbm != null;
             zbm.setBaby(true);
             int x = 1;
             int z = 1;
-            if(i==1){
+            if (i == 1) {
                 z = -1;
-            }else if(i==2){
+            } else if (i == 2) {
                 x = -1;
             }
-            zbm.refreshPositionAndAngles(pos.getX() + x, pos.getY() + 1, pos.getZ() + z, 0,0);
+            zbm.refreshPositionAndAngles(pos.getX() + x, pos.getY() + 1, pos.getZ() + z, 0, 0);
             zbm.setCustomName(MutableText.of(new LiteralTextContent("§6Mini-Boss 1")));
             Objects.requireNonNull(zb.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(15);
             Objects.requireNonNull(zb.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(2);
@@ -98,12 +98,12 @@ public class BossSpawner {
         spawnEn(entities, world);
     }
 
-    private static void spawn2(@NotNull ServerWorld world, @NotNull BlockPos pos){
+    private static void spawn2(@NotNull ServerWorld world, @NotNull BlockPos pos) {
         List<Entity> entities = new ArrayList<>();
         SkeletonEntity sk = EntityType.SKELETON.create(world);
         entities.add(sk);
         assert sk != null;
-        sk.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
+        sk.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
         ItemStack main_hand = new ItemStack(Items.BOW);
         main_hand.addEnchantment(Enchantments.POWER, 4);
         ItemStack helmet = new ItemStack(ModItems.EMERALD_HELMET);
@@ -133,16 +133,16 @@ public class BossSpawner {
         assert tnt != null;
         tnt.setFuse(40);
         tnt.setInvisible(false);
-        tnt.refreshPositionAndAngles(pos.getX() + 5, pos.getY(), pos.getZ() + 5, 0,0);
+        tnt.refreshPositionAndAngles(pos.getX() + 5, pos.getY(), pos.getZ() + 5, 0, 0);
         spawnEn(entities, world);
     }
 
-    private static void spawn3(@NotNull ServerWorld world, @NotNull BlockPos pos){
+    private static void spawn3(@NotNull ServerWorld world, @NotNull BlockPos pos) {
         List<Entity> entities = new ArrayList<>();
         ZombieEntity zb = EntityType.ZOMBIE.create(world);
         entities.add(zb);
         assert zb != null;
-        zb.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
+        zb.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
         ItemStack main_hand = new ItemStack(Items.BOW);
         main_hand.addEnchantment(Enchantments.POWER, 5);
         ItemStack helmet = new ItemStack(ModItems.VANADIUM_HELMET);
@@ -174,16 +174,16 @@ public class BossSpawner {
         assert tnt != null;
         tnt.setFuse(40);
         tnt.setInvisible(false);
-        tnt.refreshPositionAndAngles(pos.getX() + 5, pos.getY(), pos.getZ() + 5, 0,0);
+        tnt.refreshPositionAndAngles(pos.getX() + 5, pos.getY(), pos.getZ() + 5, 0, 0);
         spawnEn(entities, world);
     }
 
-    private static void spawn4(@NotNull ServerWorld world, @NotNull BlockPos pos){
+    private static void spawn4(@NotNull ServerWorld world, @NotNull BlockPos pos) {
         List<Entity> entities = new ArrayList<>();
         WitherEntity wither = EntityType.WITHER.create(world);
         entities.add(wither);
         assert wither != null;
-        wither.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
+        wither.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
         wither.setCustomName(MutableText.of(new LiteralTextContent("§6Boss 4")));
         wither.setGlowing(true);
         Objects.requireNonNull(wither.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(400);
@@ -191,12 +191,12 @@ public class BossSpawner {
         spawnEn(entities, world);
     }
 
-    private static void spawn5(@NotNull ServerWorld world, @NotNull BlockPos pos){
+    private static void spawn5(@NotNull ServerWorld world, @NotNull BlockPos pos) {
         List<Entity> entities = new ArrayList<>();
         EnderDragonEntity dragon = EntityType.ENDER_DRAGON.create(world);
         entities.add(dragon);
         assert dragon != null;
-        dragon.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0,0);
+        dragon.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), 0, 0);
         dragon.setCustomName(MutableText.of(new LiteralTextContent("§6Boss 5")));
         dragon.setGlowing(true);
         Objects.requireNonNull(dragon.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(100);

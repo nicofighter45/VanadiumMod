@@ -11,7 +11,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public record HighFurnaceRecipe(Ingredient input1, Ingredient input2, ItemStack result, Identifier id) implements Recipe<Inventory> {
+public record HighFurnaceRecipe(Ingredient input1, Ingredient input2, ItemStack result,
+                                Identifier id) implements Recipe<Inventory> {
 
     @Override
     public boolean matches(@NotNull Inventory inventory, World world) {
@@ -44,15 +45,6 @@ public record HighFurnaceRecipe(Ingredient input1, Ingredient input2, ItemStack 
         return HighFurnaceRecipeSerializer.INSTANCE;
     }
 
-    public static class Type implements RecipeType<HighFurnaceRecipe> {
-        private Type() {
-        }
-
-        public static final Type INSTANCE = new Type();
-
-        public static final String ID = "high_furnace_recipe_type";
-    }
-
     @Override
     public RecipeType<?> getType() {
         return Type.INSTANCE;
@@ -66,12 +58,20 @@ public record HighFurnaceRecipe(Ingredient input1, Ingredient input2, ItemStack 
         return list;
     }
 
-    public Ingredient getInput1(){
+    public Ingredient getInput1() {
         return this.input1;
     }
 
-    public Ingredient getInput2(){
+    public Ingredient getInput2() {
         return this.input2;
+    }
+
+    public static class Type implements RecipeType<HighFurnaceRecipe> {
+        public static final Type INSTANCE = new Type();
+        public static final String ID = "high_furnace_recipe_type";
+
+        private Type() {
+        }
     }
 
 }

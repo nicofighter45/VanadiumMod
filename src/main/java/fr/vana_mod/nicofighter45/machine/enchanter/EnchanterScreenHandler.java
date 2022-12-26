@@ -16,20 +16,20 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnchanterScreenHandler  extends ScreenHandler {
+public class EnchanterScreenHandler extends ScreenHandler {
 
     private final Inventory input;
     private final Inventory output;
     private final ScreenHandlerContext context;
     private final PlayerEntity player;
-    private ItemStack firstItem = ItemStack.EMPTY;
     private final List<Enchantment> itemEnchantments = new ArrayList<>();
+    private ItemStack firstItem = ItemStack.EMPTY;
 
     public EnchanterScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, playerInventory.player);
     }
 
-    public EnchanterScreenHandler(int syncId, PlayerInventory inv, PlayerEntity player){
+    public EnchanterScreenHandler(int syncId, PlayerInventory inv, PlayerEntity player) {
         this(syncId, inv, player, ScreenHandlerContext.EMPTY);
     }
 
@@ -40,8 +40,8 @@ public class EnchanterScreenHandler  extends ScreenHandler {
         this.input = new SimpleInventory(3);
         this.output = new SimpleInventory(7);
 
-        this.addSlot(new EnchanterInputSlot(this,0, 80, 50));
-        this.addSlot(new EnchanterInputSlot(this,1, 8, 50));
+        this.addSlot(new EnchanterInputSlot(this, 0, 80, 50));
+        this.addSlot(new EnchanterInputSlot(this, 1, 8, 50));
         this.addSlot(new EnchanterInputSlot(this, 2, 152, 50));
 
 
@@ -72,7 +72,7 @@ public class EnchanterScreenHandler  extends ScreenHandler {
         return canUse(this.context, player, ModMachines.ENCHANTER_BLOCK);
     }
 
-    public ItemStack transferSlot(PlayerEntity player, int index) {
+    public ItemStack quickMove(PlayerEntity player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot.hasStack()) {
@@ -95,10 +95,10 @@ public class EnchanterScreenHandler  extends ScreenHandler {
                         } else if (!this.insertItem(itemStack2, 10, 37, false)) {
                             return ItemStack.EMPTY;
                         }
-                    }else{
+                    } else {
                         EnchanterOutputSlot.reloadEnchant(this);
                     }
-                }else{
+                } else {
                     ((EnchanterInputSlot) this.getSlot(0)).checkingWithInsertion();
                 }
             } else if (!this.insertItem(itemStack2, 10, 46, false)) {
@@ -124,33 +124,33 @@ public class EnchanterScreenHandler  extends ScreenHandler {
         return itemStack;
     }
 
-    public Inventory getInput(){
+    public Inventory getInput() {
         return this.input;
     }
 
-    public Inventory getOutput(){
+    public Inventory getOutput() {
         return this.output;
     }
 
-    public PlayerEntity getPlayer(){
+    public PlayerEntity getPlayer() {
         return this.player;
     }
 
-    public ItemStack getFirstItem(){
+    public ItemStack getFirstItem() {
         return this.firstItem;
     }
 
-    public void setFirstItem(){
+    public void setFirstItem() {
         this.firstItem = this.getInput().getStack(0).copy();
         resetEnchantments();
     }
 
-    public void resetEnchantments(){
+    public void resetEnchantments() {
         this.itemEnchantments.clear();
         this.itemEnchantments.addAll(EnchantmentHelper.get(this.firstItem).keySet());
     }
 
-    public List<Enchantment> getItemEnchantments(){
+    public List<Enchantment> getItemEnchantments() {
         return this.itemEnchantments;
     }
 

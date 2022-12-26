@@ -23,12 +23,12 @@ Execute it and then click on install, this will create a new profile on your min
 Download all those mods and place them into a temporary folder
 
 - <a href="https://github.com/nicofighter45/VanadiumMod/releases/download/v.1.6.0/FabricVanaMod-1.6.0.jar">Vanadium Mod</a>
-- <a href="https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/3866977/file">REI</a>
-- <a href="https://www.curseforge.com/minecraft/mc-mods/architectury-api/download/3864162/file">Architectury API</a>
-- <a href="https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/3827486/file">Cloth Config API</a>
-- <a href="https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/3851965/file">Fabric API</a>
-- <a href="https://www.curseforge.com/minecraft/mc-mods/sodium/download/3820973/file">Sodium</a>
-- <a href="https://www.curseforge.com/minecraft/mc-mods/lithium/download/3865696/file">Lithium</a>
+- <a href="https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/4167518/file">REI</a>
+- <a href="https://www.curseforge.com/minecraft/mc-mods/architectury-api/download/4162334/file">Architecture API</a>
+- <a href="https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/4147098/file">Cloth Config API</a>
+- <a href="https://www.curseforge.com/minecraft/mc-mods/fabric-api/download/4170872/file">Fabric API</a>
+- <a href="https://www.curseforge.com/minecraft/mc-mods/sodium/download/4145281/file">Sodium</a>
+- <a href="https://www.curseforge.com/minecraft/mc-mods/lithium/download/4151763/file">Lithium</a>
 - <a href="https://www.curseforge.com/minecraft/mc-mods/phosphor/download/3832074/file">Phosphor</a>
 
 # Installation

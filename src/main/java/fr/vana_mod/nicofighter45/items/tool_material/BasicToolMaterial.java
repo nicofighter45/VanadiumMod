@@ -11,7 +11,7 @@ public class BasicToolMaterial implements ToolMaterial {
     private final Ingredient repairIngrdient;
 
     public BasicToolMaterial(int durability, float miningSpeed, float attackDamage, int miningLevel,
-                                  int enchantability, Item repairItem){
+                             int enchantability, Item repairItem) {
         this.durability = durability;
         this.miningSpeed = miningSpeed;
         this.attackDamage = attackDamage;

@@ -11,8 +11,8 @@ import net.minecraft.util.Identifier;
 
 public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandler> extends HandledScreen<T> {
 
-    private final Identifier TEXTURE_BACKGROUND;
     protected final T handler;
+    private final Identifier TEXTURE_BACKGROUND;
 
     protected AbstractMachineScreen(T handler, PlayerInventory inventory, Text title, String name) {
         super(handler, inventory, title);
@@ -22,7 +22,7 @@ public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandl
 
     @Override
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexColorProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE_BACKGROUND);
         int x = (width - backgroundWidth) / 2;

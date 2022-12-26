@@ -1,7 +1,7 @@
 {
   "type": "minecraft:blasting",
   "ingredient": {
-    "item": "vana-mod:steel_block_item"
+    "item": "vana-mod:steel_block"
   },
   "result": "vana-mod:steel_plate",
   "experience": 1,

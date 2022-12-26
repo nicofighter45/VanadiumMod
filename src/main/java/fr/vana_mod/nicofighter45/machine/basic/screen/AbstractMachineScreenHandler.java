@@ -43,7 +43,7 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
         this.playerInventory = playerInventory;
     }
 
-    protected void registerPlayerInventory(){
+    protected void registerPlayerInventory() {
         int m;
         int l;
         for (m = 0; m < 3; ++m) {
@@ -57,7 +57,7 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
         }
     }
 
-    public ItemStack transferSlot(PlayerEntity player, int index) {
+    public ItemStack quickMove(PlayerEntity player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         int size = inventory.size();

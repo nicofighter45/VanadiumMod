@@ -21,6 +21,11 @@ public record HighFurnaceRecipe(Ingredient input1, Ingredient input2, ItemStack 
     }
 
     @Override
+    public boolean isIgnoredInRecipeBook() {
+        return true;
+    }
+
+    @Override
     public ItemStack craft(Inventory inventory) {
         return ItemStack.EMPTY;
     }

@@ -35,19 +35,19 @@ public class PipeBlockEntity extends BlockEntity {
 
     @Override
     protected void writeNbt(@NotNull NbtCompound nbt) {
-        if (network == null) {
-            return;
-        }
-        if (network.pipes.get(0) == getPos()) {
-            List<Integer> pipeTag = new ArrayList<>();
-            for (BlockPos pos : network.pipes.values()) {
-                pipeTag.add(pos.getX());
-                pipeTag.add(pos.getY());
-                pipeTag.add(pos.getZ());
-            }
-            nbt.putIntArray("pipes", pipeTag);
-            nbt.putInt("fluidAmount", network.fluidAmount);
-        }
+//        if (network == null) {
+//            return;
+//        }
+//        if (network.pipes.get(0) == getPos()) {
+//            List<Integer> pipeTag = new ArrayList<>();
+//            for (BlockPos pos : network.pipes.values()) {
+//                pipeTag.add(pos.getX());
+//                pipeTag.add(pos.getY());
+//                pipeTag.add(pos.getZ());
+//            }
+//            nbt.putIntArray("pipes", pipeTag);
+//            nbt.putInt("fluidAmount", network.fluidAmount);
+//        }
     }
 
     public void setTextureConfiguration(int value) {

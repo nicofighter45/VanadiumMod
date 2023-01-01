@@ -124,6 +124,7 @@ public class ModItems {
 
 
         registerNewItem("steel_ingot", STEEL_INGOT);
+        CommonInitializer.addBlockInGroup(ModBlocks.STEEL_BLOCK);
         registerNewItem("steel_plate", STEEL_PLATE);
         registerNewItem("steel_helmet", STEEL_HELMET);
         registerNewItem("steel_chestplate", STEEL_CHESTPLATE);
@@ -204,8 +205,9 @@ public class ModItems {
 
         registerNewItem("power_cell", POWER_CELL);
         registerNewItem("super_power_cell", SUPER_POWER_CELL);
-        CommonInitializer.addBlockInGroup(ModBlocks.MAMADE_BLOCK);
+
         registerNewItem("mamade_chicken", MAMADE_CHICKEN);
+        CommonInitializer.addBlockInGroup(ModBlocks.MAMADE_BLOCK);
 
 
         registerNewItem("hat", HAT);

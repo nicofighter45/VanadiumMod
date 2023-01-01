@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "vana-mod:copper_dust",
+  "input2": "vana-mod:copper_dust",
+  "result": {
+    "item": "minecraft:copper_ingot",
+    "count": 2
+  }
+}

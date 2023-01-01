@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "vana-mod:gold_dust",
+  "input2": "vana-mod:gold_dust",
+  "result": {
+    "item": "minecraft:gold_ingot",
+    "count": 2
+  }
+}

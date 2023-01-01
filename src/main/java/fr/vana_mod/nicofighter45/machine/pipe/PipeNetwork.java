@@ -1,6 +1,7 @@
 package fr.vana_mod.nicofighter45.machine.pipe;
 
 import fr.vana_mod.nicofighter45.machine.basic.block.AbstractMachineBlockEntity;
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -97,12 +98,15 @@ public class PipeNetwork {
         }
     }
 
-    public void removePipe(@NotNull PipeBlockEntity blockEntity) {
-        List<BlockPos> clothPipes = getClothPipes(blockEntity.getPos());
+    public void removePipe(@NotNull PipeBlockEntity pipeBlockEntity) {
+        List<BlockPos> clothPipes = getClothPipes(pipeBlockEntity.getPos());
         if (clothPipes.size() > 1) {
             checkForNetworkSeparation(clothPipes);
         } else if (clothPipes.size() == 1) {
-            ((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(clothPipes.get(0)))).network.removePipe(blockEntity.getPos());
+            BlockEntity blockEntity =  world.getBlockEntity(clothPipes.get(0));
+            if (blockEntity instanceof PipeBlockEntity){
+                ((PipeBlockEntity) blockEntity).network.removePipe(blockEntity.getPos());
+            }
         }
     }
 
@@ -174,6 +178,7 @@ public class PipeNetwork {
 
     private void setSimpleTextureConfiguration(@NotNull PipeBlockEntity blockEntity, BlockPos blockPos) {
         Direction face = getFacing(blockEntity.getPos(), blockPos);
+        System.out.println(face);
         switch (face) {
             case UP, DOWN -> blockEntity.setTextureConfiguration(1);
             case NORTH, SOUTH -> blockEntity.setTextureConfiguration(2);

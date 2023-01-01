@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "vana-mod:emerald_dust",
+  "input2": "vana-mod:emerald_dust",
+  "result": {
+    "item": "minecraft:emerald",
+    "count": 2
+  }
+}

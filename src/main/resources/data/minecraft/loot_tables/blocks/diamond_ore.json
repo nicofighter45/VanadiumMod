@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "minecraft:diamond_block"
+              "name": "minecraft:diamond_ore"
             },
             {
               "type": "minecraft:item",

@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "vana-mod:tin_dust",
+  "input2": "vana-mod:tin_dust",
+  "result": {
+    "item": "vana-mod:tin_ingot",
+    "count": 2
+  }
+}

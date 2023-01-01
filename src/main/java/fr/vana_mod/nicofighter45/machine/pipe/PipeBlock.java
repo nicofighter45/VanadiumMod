@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class PipeBlock extends BlockWithEntity {
 
-    public static final IntProperty configuration = IntProperty.of("configuration", 0, 15);
+    public static final IntProperty configuration = IntProperty.of("configuration", 0, 21);
     public PipeBlockEntity blockEntity;
 
     public PipeBlock() {
@@ -49,19 +49,28 @@ public class PipeBlock extends BlockWithEntity {
     public VoxelShape getOutlineShape(@NotNull BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         int config = state.get(configuration);
         return switch (config) {
-            case 0 -> VoxelShapes.cuboid(0.375, 0.375, 0.375, 0.625, 0.625, 0.625);
-            case 1 -> VoxelShapes.cuboid(0.375, 0, 0.375, 0.625, 1, 0.625);
-            case 2 -> VoxelShapes.cuboid(0.375, 0.375, 0, 0.625, 0.625, 1);
-            case 3 -> VoxelShapes.cuboid(0, 0.375, 0.375, 1, 0.625, 0.625);
-            case 4 -> VoxelShapes.combineAndSimplify(
-                    VoxelShapes.cuboid(0.375, 0.375, 0.375, 0.625, 1, 0.625),
-                    VoxelShapes.cuboid(0, 0.375, 0.375, 0.375, 0.625, 0.625),
-                    (a, b) -> a);
-            default -> VoxelShapes.combineAndSimplify(
-                    VoxelShapes.cuboid(0.375, 0, 0.375, 0.625, 0.625, 0.625),
-                    VoxelShapes.cuboid(0.375, 0, 0, 0.625, 0.625, 0.625),
-                    (a, b) -> a);
+            case 0 -> shape(4, 4, 4, 12, 12, 12);
+
+            case 1 -> shape(4, 0, 4, 12, 16, 12);
+            case 2 -> shape(4, 4, 0, 12, 12, 16);
+            case 3 -> shape(0, 4, 4, 16, 12, 12);
+
+            case 4 -> shape(4, 4, 0, 12, 12, 12);
+            case 5 -> shape(4, 4, 4, 12, 12, 16);
+
+            case 6 -> shape(4, 4, 4, 16, 12, 12);
+            case 7 -> shape(0, 4, 4, 12, 12, 12);
+
+            case 8 -> shape(4, 4, 4, 12, 16, 12);
+            case 9 -> shape(4, 0, 4, 12, 12, 12);
+
+            default -> shape(2, 2, 2, 14, 14, 14);
         };
+    }
+
+    private VoxelShape shape(int minX, int minY, int minZ, int maxX, int maxY, int maxZ){
+        return VoxelShapes.cuboid(((float) minX)/16, ((float) minY)/16f, ((float) minZ)/16f,
+                ((float) maxX)/16f, ((float) maxY)/16f, ((float) maxZ)/16f);
     }
 
     @Override
@@ -72,7 +81,9 @@ public class PipeBlock extends BlockWithEntity {
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
-        this.blockEntity.network.removePipe(this.blockEntity);
+        if (this.blockEntity.network != null){
+            this.blockEntity.network.removePipe(this.blockEntity);
+        }
     }
 
     @Override

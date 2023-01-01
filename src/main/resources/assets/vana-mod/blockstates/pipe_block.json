@@ -1,68 +1,114 @@
 {
   "variants": {
     "configuration=0": {
-      "model": "vana-mod:block/pipe/pipe_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/cube",
+      "uvlock": true,
+      "comments": "just a cube /setblock 5 -59 9 vana-mod:pipe_block[configuration=0]"
     },
     "configuration=1": {
-      "model": "vana-mod:block/pipe/pipe_straight_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/straight_y",
+      "uvlock": true,
+      "comments": "straight up to down"
     },
     "configuration=2":  {
-      "model": "vana-mod:block/pipe/pipe_straight_block", "x": 90,
-      "uvlock": true
+      "model": "vana-mod:block/pipe/straight_z",
+      "uvlock": true,
+      "comments": "straight north to south"
     },
     "configuration=3":  {
-      "model": "vana-mod:block/pipe/pipe_straight_block", "x": 90, "y": 90,
-      "uvlock": true
+      "model": "vana-mod:block/pipe/straight_x",
+      "uvlock": true,
+      "comments": "straight east to west"
     },
     "configuration=4": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/short", "y": 270,
+      "uvlock": true,
+      "comments": "short to north"
     },
     "configuration=5": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/short", "y": 90,
+      "uvlock": true,
+      "comments": "short to south"
     },
     "configuration=6": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/short",
+      "uvlock": true,
+      "comments": "short to east"
     },
     "configuration=7": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/short", "y": 180,
+      "uvlock": true,
+      "comments": "short to west"
     },
     "configuration=8": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/short_y", "x": 180,
+      "uvlock": true,
+      "comments": "short to top"
     },
     "configuration=9": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/short_y",
+      "uvlock": true,
+      "comments": "short to bottom"
     },
     "configuration=10": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/turn_bottom",
+      "uvlock": true,
+      "comments": "turn bottom to north"
     },
     "configuration=11": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/turn_bottom", "y": 90,
+      "uvlock": true,
+      "comments": "turn bottom to est"
     },
     "configuration=12": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/turn_bottom", "y": 180,
+      "uvlock": true,
+      "comments": "turn bottom to south"
     },
     "configuration=13": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/turn_bottom", "y": 270,
+      "uvlock": true,
+      "comments": "turn bottom to west"
     },
     "configuration=14": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/turn_top",
+      "uvlock": true,
+      "comments": "turn top to north"
     },
     "configuration=15": {
-      "model": "vana-mod:block/pipe/pipe_turn_block",
-      "uvlock": true
+      "model": "vana-mod:block/pipe/turn_top", "y": 90,
+      "uvlock": true,
+      "comments": "turn top to est"
+    },
+    "configuration=16": {
+      "model": "vana-mod:block/pipe/turn_top", "y": 180,
+      "uvlock": true,
+      "comments": "turn top to south"
+    },
+    "configuration=17": {
+      "model": "vana-mod:block/pipe/turn_top", "y": 270,
+      "uvlock": true,
+      "comments": "turn top to west"
+    },
+    "configuration=18": {
+      "model": "vana-mod:block/pipe/turn_side",
+      "uvlock": true,
+      "comments": "turn est to north"
+    },
+    "configuration=19": {
+      "model": "vana-mod:block/pipe/turn_side", "y": 90,
+      "uvlock": true,
+      "comments": "turn west to north"
+    },
+    "configuration=20": {
+      "model": "vana-mod:block/pipe/turn_side", "y": 180,
+      "uvlock": true,
+      "comments": "turn west to south"
+    },
+    "configuration=21": {
+      "model": "vana-mod:block/pipe/turn_side", "y": 270,
+      "uvlock": true,
+      "comments": "turn est to south"
     }
   }
 }

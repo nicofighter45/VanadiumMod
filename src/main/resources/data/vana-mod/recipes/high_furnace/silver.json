@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "vana-mod:silver_dust",
+  "input2": "vana-mod:silver_dust",
+  "result": {
+    "item": "vana-mod:silver_ingot",
+    "count": 2
+  }
+}

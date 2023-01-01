@@ -21,6 +21,11 @@ public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient i
     }
 
     @Override
+    public boolean isIgnoredInRecipeBook() {
+        return true;
+    }
+
+    @Override
     public ItemStack craft(Inventory inventory) {
         return ItemStack.EMPTY;
     }

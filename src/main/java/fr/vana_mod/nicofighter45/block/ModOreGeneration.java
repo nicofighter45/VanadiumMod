@@ -22,11 +22,12 @@ public class ModOreGeneration {
         generateOre("vanadium", BiomeSelectors.foundInTheEnd());
         generateOre("tungsten", BiomeSelectors.foundInOverworld());
         generateOre("silver", BiomeSelectors.foundInTheNether());
-        generateOre("tin", BiomeSelectors.foundInOverworld());  // todo non working gen
+        generateOre("tin", BiomeSelectors.foundInOverworld());
 
     }
 
-    private static void generateOre(String name, Predicate<BiomeSelectionContext> biomeSelectionContextPredicate) {
+    private static void generateOre(String name, Predicate<BiomeSelectionContext> biomeSelectionContextPredicate) {  // todo non working gen
+        RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier(CommonInitializer.MODID, "ore_" + name));
         RegistryKey<PlacedFeature> PLACED_FEATURE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(CommonInitializer.MODID, "ore_" + name));
 
         BiomeModifications.create(new Identifier(CommonInitializer.MODID, "features"))
@@ -35,6 +36,5 @@ public class ModOreGeneration {
                                 biomeModificationContext.getGenerationSettings()
                                         .addFeature(GenerationStep.Feature.UNDERGROUND_ORES, PLACED_FEATURE));
     }
-
 
 }

@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "vana-mod:tungsten_dust",
+  "input2": "vana-mod:tungsten_dust",
+  "result": {
+    "item": "vana-mod:tungsten_ingot",
+    "count": 2
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "vana-mod:diamond_dust",
+  "input2": "vana-mod:diamond_dust",
+  "result": {
+    "item": "minecraft:diamond",
+    "count": 2
+  }
+}

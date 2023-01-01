@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "vana-mod:vanadium_block_item"
+      "item": "vana-mod:vanadium_block"
     },
     "title": {
       "translate": "advancements.vana-mod.root.title"

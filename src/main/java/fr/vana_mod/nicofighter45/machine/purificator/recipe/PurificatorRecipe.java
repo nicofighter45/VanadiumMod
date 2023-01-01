@@ -21,6 +21,11 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
     }
 
     @Override
+    public boolean isIgnoredInRecipeBook() {
+        return true;
+    }
+
+    @Override
     public ItemStack craft(Inventory inventory) {
         return ItemStack.EMPTY;
     }

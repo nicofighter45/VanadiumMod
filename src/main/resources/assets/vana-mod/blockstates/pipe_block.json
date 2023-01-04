@@ -2,113 +2,259 @@
   "variants": {
     "configuration=0": {
       "model": "vana-mod:block/pipe/cube",
-      "uvlock": true,
       "comments": "just a cube /setblock 5 -59 9 vana-mod:pipe_block[configuration=0]"
     },
     "configuration=1": {
       "model": "vana-mod:block/pipe/straight_y",
-      "uvlock": true,
       "comments": "straight up to down"
     },
     "configuration=2":  {
       "model": "vana-mod:block/pipe/straight_z",
-      "uvlock": true,
       "comments": "straight north to south"
     },
     "configuration=3":  {
       "model": "vana-mod:block/pipe/straight_x",
-      "uvlock": true,
       "comments": "straight east to west"
     },
     "configuration=4": {
       "model": "vana-mod:block/pipe/short", "y": 270,
-      "uvlock": true,
       "comments": "short to north"
     },
     "configuration=5": {
       "model": "vana-mod:block/pipe/short", "y": 90,
-      "uvlock": true,
       "comments": "short to south"
     },
     "configuration=6": {
       "model": "vana-mod:block/pipe/short",
-      "uvlock": true,
       "comments": "short to east"
     },
     "configuration=7": {
       "model": "vana-mod:block/pipe/short", "y": 180,
-      "uvlock": true,
       "comments": "short to west"
     },
     "configuration=8": {
       "model": "vana-mod:block/pipe/short_y", "x": 180,
-      "uvlock": true,
       "comments": "short to top"
     },
     "configuration=9": {
       "model": "vana-mod:block/pipe/short_y",
-      "uvlock": true,
       "comments": "short to bottom"
     },
     "configuration=10": {
       "model": "vana-mod:block/pipe/turn_bottom",
-      "uvlock": true,
       "comments": "turn bottom to north"
     },
     "configuration=11": {
       "model": "vana-mod:block/pipe/turn_bottom", "y": 90,
-      "uvlock": true,
       "comments": "turn bottom to est"
     },
     "configuration=12": {
       "model": "vana-mod:block/pipe/turn_bottom", "y": 180,
-      "uvlock": true,
       "comments": "turn bottom to south"
     },
     "configuration=13": {
       "model": "vana-mod:block/pipe/turn_bottom", "y": 270,
-      "uvlock": true,
       "comments": "turn bottom to west"
     },
     "configuration=14": {
       "model": "vana-mod:block/pipe/turn_top",
-      "uvlock": true,
       "comments": "turn top to north"
     },
     "configuration=15": {
       "model": "vana-mod:block/pipe/turn_top", "y": 90,
-      "uvlock": true,
       "comments": "turn top to est"
     },
     "configuration=16": {
       "model": "vana-mod:block/pipe/turn_top", "y": 180,
-      "uvlock": true,
       "comments": "turn top to south"
     },
     "configuration=17": {
       "model": "vana-mod:block/pipe/turn_top", "y": 270,
-      "uvlock": true,
       "comments": "turn top to west"
     },
     "configuration=18": {
       "model": "vana-mod:block/pipe/turn_side",
-      "uvlock": true,
       "comments": "turn est to north"
     },
     "configuration=19": {
       "model": "vana-mod:block/pipe/turn_side", "y": 90,
-      "uvlock": true,
       "comments": "turn west to north"
     },
     "configuration=20": {
       "model": "vana-mod:block/pipe/turn_side", "y": 180,
-      "uvlock": true,
       "comments": "turn west to south"
     },
     "configuration=21": {
       "model": "vana-mod:block/pipe/turn_side", "y": 270,
-      "uvlock": true,
       "comments": "turn est to south"
+    },
+    "configuration=22": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=23": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=24": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=25": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=26": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=27": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=28": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=29": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=30": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=31": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=32": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=33": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=34": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=35": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=36": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=37": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=38": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=39": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=40": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=41": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "three ways"
+    },
+    "configuration=42": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 1"
+    },
+    "configuration=43": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 2"
+    },
+    "configuration=44": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 3"
+    },
+    "configuration=45": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 10"
+    },
+    "configuration=46": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 11"
+    },
+    "configuration=47": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 12"
+    },
+    "configuration=48": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 13"
+    },
+    "configuration=49": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 14"
+    },
+    "configuration=50": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 15"
+    },
+    "configuration=51": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 16"
+    },
+    "configuration=52": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 17"
+    },
+    "configuration=53": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 18"
+    },
+    "configuration=54": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 19"
+    },
+    "configuration=55": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 20"
+    },
+    "configuration=56": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 21"
+    },
+    "configuration=57": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 4"
+    },
+    "configuration=58": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 5"
+    },
+    "configuration=59": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 6"
+    },
+    "configuration=60": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 7"
+    },
+    "configuration=61": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 8"
+    },
+    "configuration=62": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 9"
+    },
+    "configuration=63": {
+      "model": "vana-mod:block/pipe/cube",
+      "comments": "opposite 0"
     }
   }
 }

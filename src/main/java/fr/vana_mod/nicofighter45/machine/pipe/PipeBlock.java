@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class PipeBlock extends BlockWithEntity {
 
-    public static final IntProperty configuration = IntProperty.of("configuration", 0, 21);
+    public static final IntProperty configuration = IntProperty.of("configuration", 0, 63);
     public PipeBlockEntity blockEntity;
 
     public PipeBlock() {
@@ -41,8 +41,7 @@ public class PipeBlock extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        blockEntity = new PipeBlockEntity(pos, state);
-        return blockEntity;
+        return new PipeBlockEntity(pos, state);
     }
 
     @Override
@@ -75,20 +74,23 @@ public class PipeBlock extends BlockWithEntity {
 
     @Override
     public void onPlaced(@NotNull World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        new PipeNetwork((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos)));
+        new PipeNetwork((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))); //todo add pipe
     }
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBreak(world, pos, state, player);
         if (this.blockEntity.network != null){
-            this.blockEntity.network.removePipe(this.blockEntity);
+            this.blockEntity.network.removePipe(this.blockEntity); //todo remove pipe
         }
     }
 
     @Override
-    public BlockState rotate(@NotNull BlockState state, @NotNull BlockRotation rotation) {
+    public BlockState rotate(@NotNull BlockState state, @NotNull BlockRotation rotation) { // todo need to work for all possibilities
         int config = state.get(configuration);
+        if(config == 0 || config == 1 || config == 4 || config == 5){
+            return state.with(configuration, 0);
+        }
         int value = 0;
         switch (rotation) {
             case NONE:

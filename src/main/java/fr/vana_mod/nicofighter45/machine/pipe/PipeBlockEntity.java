@@ -23,6 +23,7 @@ public class PipeBlockEntity extends BlockEntity {
     @Override
     public void readNbt(@NotNull NbtCompound nbt) {
         if (!nbt.isEmpty()) {
+            System.out.println("Reading Non null nbt");
             List<BlockPos> pipes = new ArrayList<>();
             int[] pipeTag = nbt.getIntArray("pipes");
             for (int i = 0; i < pipeTag.length; i += 3) {
@@ -35,10 +36,24 @@ public class PipeBlockEntity extends BlockEntity {
 
     @Override
     protected void writeNbt(@NotNull NbtCompound nbt) {
-        if (network == null || !network.isActive) {
+        if (network == null) {
+            System.out.println("network is empty");
             return;
         }
-        if (network.pipes.get(0) == getPos()) {
+        if(network.pipes.isEmpty()){
+            System.out.println("network pipes is empty");
+            return;
+        }
+        if(!network.isActive){
+            System.out.println("Network isn't active");
+            return;
+        }
+        if(world == null){
+            System.out.println("world is null");
+            return;
+        }
+        System.out.println("writing nbt" + world.getBlockState(pos).getBlock());
+        if(network.pipes.size() == 1){
             List<Integer> pipeTag = new ArrayList<>();
             for (BlockPos pos : network.pipes) {
                 pipeTag.add(pos.getX());
@@ -47,6 +62,8 @@ public class PipeBlockEntity extends BlockEntity {
             }
             nbt.putIntArray("pipes", pipeTag);
             nbt.putInt("fluidAmount", network.fluidAmount);
+        }else{
+            network.removePipe(this.getPos());
         }
     }
 

@@ -3,7 +3,6 @@ package fr.vana_mod.nicofighter45.machine.pipe;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -22,6 +21,8 @@ public class PipeBlock extends BlockWithEntity {
 
     public static final IntProperty configuration = IntProperty.of("configuration", 0, 63);
     public PipeBlockEntity blockEntity;
+
+    public PipeNetwork network;
 
     public PipeBlock() {
         super(Settings.copy(Blocks.GLASS));
@@ -74,15 +75,8 @@ public class PipeBlock extends BlockWithEntity {
 
     @Override
     public void onPlaced(@NotNull World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        new PipeNetwork((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))); //todo add pipe
-    }
-
-    @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBreak(world, pos, state, player);
-        if (this.blockEntity.network != null){
-            this.blockEntity.network.removePipe(this.blockEntity); //todo remove pipe
-        }
+        System.out.println("Creating pipe network");
+        new PipeNetwork((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos)), world);
     }
 
     @Override

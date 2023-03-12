@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "vanad-mod:vanadium_ore"
+          "Name": "vana-mod:vanadium_ore"
         },
         "target": {
           "predicate_type": "block_match",

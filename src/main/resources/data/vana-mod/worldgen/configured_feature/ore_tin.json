@@ -2,11 +2,11 @@
   "type": "minecraft:ore",
   "config": {
     "discard_chance_on_air_exposure": 0.0,
-    "size": 25,
+    "size": 10,
     "targets": [
       {
         "state": {
-          "Name": "vanad-mod:tin_ore",
+          "Name": "vana-mod:tin_ore",
           "Properties": {
             "lit": "false"
           }

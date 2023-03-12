@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "vanad-mod:silver_ore"
+          "Name": "vana-mod:silver_ore"
         },
         "target": {
           "predicate_type": "block_match",

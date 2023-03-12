@@ -11,6 +11,10 @@ repositories {
 		name = "Roughly Enough Item"
 		url "https://maven.shedaniel.me"
 	}
+	maven {
+		name = "Mod Menu"
+		url "https://maven.terraformersmc.com/releases"
+	}
 }
 
 dependencies {
@@ -22,6 +26,9 @@ dependencies {
 
 	modImplementation "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.REI_version}"
 	modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:${project.REI_version}"
+	modImplementation "com.terraformersmc:modmenu:${project.ModMenu_version}"
+	modImplementation "dev.architectury:architectury:${project.ArchitecturyAPI}"
+	modImplementation "me.shedaniel.cloth:cloth-config-fabric:${project.ClothConfigAPI}"
 
 }
 
@@ -39,6 +46,6 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_18
+	targetCompatibility = JavaVersion.VERSION_18
 }

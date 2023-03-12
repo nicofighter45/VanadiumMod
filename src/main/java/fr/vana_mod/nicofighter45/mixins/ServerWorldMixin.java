@@ -24,7 +24,7 @@ public class ServerWorldMixin {
     private int timer_heal = 40; // 40 ticks = 2 sec
 
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
-    public void onPlayerConnected(@NotNull ServerPlayerEntity player, CallbackInfo info) {
+    private void onPlayerConnected(@NotNull ServerPlayerEntity player, CallbackInfo info) {
         int permission = Objects.requireNonNull(player.getServer()).getPermissionLevel(player.getGameProfile());
         if (!ServerInitializer.isOn && permission != 4) {
             Objects.requireNonNull(player.getServer()).getPlayerManager().disconnectAllPlayers();
@@ -48,14 +48,14 @@ public class ServerWorldMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")
-    public void onPlayerRespawned(@NotNull ServerPlayerEntity player, CallbackInfo info) {
+    private void onPlayerRespawned(@NotNull ServerPlayerEntity player, CallbackInfo info) {
         int heart = ServerInitializer.players.get(player.getUuid()).getHeart();
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(heart);
         player.setHealth(heart);
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
-    public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo info) {
+    private void tick(BooleanSupplier shouldKeepTicking, CallbackInfo info) {
         if (timer_heal > 0) {
             timer_heal--;
         } else if (timer_heal == 0) {

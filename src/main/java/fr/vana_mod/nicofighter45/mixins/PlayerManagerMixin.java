@@ -21,8 +21,8 @@ import java.util.function.Predicate;
 public class PlayerManagerMixin {
     private final PlayerManager manager = (PlayerManager) (Object) this;
 
-    @Inject(at = @At("HEAD"), method = "broadcast*", cancellable = true)
-    void broadcast(SignedMessage message, Predicate<ServerPlayerEntity> shouldSendFiltered, @Nullable ServerPlayerEntity sender, MessageType.@NotNull Parameters messageType, CallbackInfo ci) {
+    @Inject(at = @At("HEAD"), method = "broadcast(Lnet/minecraft/network/message/SignedMessage;Ljava/util/function/Predicate;Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/network/message/MessageType$Parameters;)V", cancellable = true)
+    public void broadcast(SignedMessage message, Predicate<ServerPlayerEntity> shouldSendFiltered, @Nullable ServerPlayerEntity sender, MessageType.@NotNull Parameters messageType, CallbackInfo ci) {
         if (messageType.type().toString().equals("multiplayer.player.joined")) {
             ci.cancel();
         } else if (messageType.type().toString().equals("multiplayer.player.left")) {

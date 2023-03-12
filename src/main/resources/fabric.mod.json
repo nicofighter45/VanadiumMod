@@ -40,8 +40,5 @@
     "fabric": "*",
     "minecraft": "1.19.x",
     "java": ">=17"
-  },
-  "suggests": {
-    "Roughly Enough Items": ">=9.0"
   }
 }

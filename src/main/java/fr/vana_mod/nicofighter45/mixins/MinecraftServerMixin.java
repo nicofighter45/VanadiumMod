@@ -17,7 +17,7 @@ public class MinecraftServerMixin {
     private final MinecraftServer server = (MinecraftServer) (Object) this;
 
     @Inject(at = @At("HEAD"), method = "tick")
-    public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
+    private void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         if (server.getTicks() % 1200 == 0 && server.getTicks() != 0) {
             Calendar calendar = Calendar.getInstance();
             int hours = calendar.get(Calendar.HOUR_OF_DAY);

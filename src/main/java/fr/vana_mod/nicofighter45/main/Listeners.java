@@ -238,6 +238,7 @@ public class Listeners {
                 player.sendMessage(enderPearlSwitchText(false), true);
             }
         });
+        /*
         InteractionEvent.LEFT_CLICK_BLOCK.register((player, hand, pos, face) -> {
             if (!player.getWorld().isClient() && player.getMainHandStack().getItem() instanceof VanadiumBow vanadiumBow) {
                 if (vanadiumBow.changeEnderPearl()) {
@@ -255,6 +256,7 @@ public class Listeners {
                 }
             }
         });
+        */
     }
 
     public static void registerAll() {

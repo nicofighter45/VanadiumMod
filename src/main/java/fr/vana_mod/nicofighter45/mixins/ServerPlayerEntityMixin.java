@@ -44,7 +44,7 @@ public abstract class ServerPlayerEntityMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "onDeath", cancellable = true)
-    public void onDeath(DamageSource damageSource, CallbackInfo ci) {
+    private void onDeath(DamageSource damageSource, CallbackInfo ci) {
         EnderChestInventory inventory = player.getEnderChestInventory();
         if (inventory.removeItem(Items.EMERALD_BLOCK, 2).getCount() == 2) {
             player.setHealth(player.getMaxHealth());
@@ -67,7 +67,7 @@ public abstract class ServerPlayerEntityMixin {
 
 
     @Inject(at = @At("HEAD"), method = "damage", cancellable = true)
-    public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source == DamageSource.FALL && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)) {
             cir.setReturnValue(false);
         } else if (source == DamageSource.FALL && ServerInitializer.jump && Math.sqrt(Math.pow(player.getX(), 2) +
@@ -77,7 +77,7 @@ public abstract class ServerPlayerEntityMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "readCustomDataFromNbt")
-    public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
+    private void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
         if (ServerInitializer.players.containsKey(player.getUuid())) {
             CustomPlayer pl = ServerInitializer.players.get(player.getUuid());
             pl.setHeart(nbt.getInt("heart"));
@@ -90,7 +90,7 @@ public abstract class ServerPlayerEntityMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "writeCustomDataToNbt")
-    public void writeCustomDataToNbt(@NotNull NbtCompound nbt, CallbackInfo ci) {
+    private void writeCustomDataToNbt(@NotNull NbtCompound nbt, CallbackInfo ci) {
         CustomPlayer pl = ServerInitializer.players.get(player.getUuid());
         nbt.putInt("heart", pl.getHeart());
         nbt.putInt("regen", pl.getRegen());
@@ -100,7 +100,7 @@ public abstract class ServerPlayerEntityMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
-    public void sendChatMessage(SentMessage message, boolean filterMaskEnabled, MessageType.@NotNull Parameters messageType, CallbackInfo ci) {
+    private void sendChatMessage(SentMessage message, boolean filterMaskEnabled, MessageType.@NotNull Parameters messageType, CallbackInfo ci) {
         System.out.println("sendchatmessage method : " + messageType.type().chat().translationKey() + messageType.targetName());
         String prefix = "§8[§9Player§8] §9";
         for (ServerPlayerEntity pl : Objects.requireNonNull(player.getServer()).getPlayerManager().getPlayerList()) {

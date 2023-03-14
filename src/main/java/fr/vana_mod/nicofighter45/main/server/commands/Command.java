@@ -2,6 +2,7 @@ package fr.vana_mod.nicofighter45.main.server.commands;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import fr.vana_mod.nicofighter45.main.gui.CustomCraftingScreenHandler;
 import fr.vana_mod.nicofighter45.main.gui.CustomPlayerManagementScreenHandler;
 import fr.vana_mod.nicofighter45.main.server.BossSpawner;

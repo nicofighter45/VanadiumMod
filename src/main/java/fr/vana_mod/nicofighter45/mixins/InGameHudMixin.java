@@ -72,7 +72,7 @@ public class InGameHudMixin {
 
             if (r < lastHealth) {
                 bl3 = r + 1 == lastHealth;
-                if (m <= regenHeart){
+                if (m < regenHeart){
                     drawRegenHeart(matrices, p, q,9, hardcore);
                 }else{
                     drawHeart(matrices, heartType, p, q, i, false, bl3);

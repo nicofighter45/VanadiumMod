@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.machine.modifierstable;
 
+import fr.vana_mod.nicofighter45.machine.basic.block.AbstractMachineBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -14,30 +15,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ModifiersTableBlock extends BlockWithEntity {
-    public ModifiersTableBlock() {
-        super(Settings.copy(Blocks.CRAFTING_TABLE));
-    }
+public class ModifiersTableBlock extends AbstractMachineBlock {
 
-    @Nullable
-    @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ModifiersTableBlockEntity(pos, state);
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
-    @Override
-    public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            return ActionResult.CONSUME;
-        }
     }
 
 }

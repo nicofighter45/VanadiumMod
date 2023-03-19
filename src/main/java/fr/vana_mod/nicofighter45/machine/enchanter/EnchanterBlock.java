@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.machine.enchanter;
 
+import fr.vana_mod.nicofighter45.machine.basic.block.AbstractMachineBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -14,31 +15,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class EnchanterBlock extends BlockWithEntity {
+public class EnchanterBlock extends AbstractMachineBlock {
 
-    public EnchanterBlock() {
-        super(Settings.copy(Blocks.CRAFTING_TABLE));
-    }
-
-    @Nullable
-    @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new EnchanterBlockEntity(pos, state);
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
-    @Override
-    public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        } else {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            return ActionResult.CONSUME;
-        }
     }
 
 }

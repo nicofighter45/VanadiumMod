@@ -8,7 +8,7 @@ import net.minecraft.text.Text;
 public class PurificatorScreen extends AbstractMachineScreen<PurificatorScreenHandler> {
 
     public PurificatorScreen(PurificatorScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title, "purificator");
+        super(handler, inventory, title, "purificator", 0, 8, -7, 0);
     }
 
     @Override
@@ -46,13 +46,6 @@ public class PurificatorScreen extends AbstractMachineScreen<PurificatorScreenHa
             }
         }
         drawTexture(matrices, x + 12, y + 73 - water_pixel, 1, 199 - water_pixel, 24, water_pixel);
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        titleY += 8;
-        playerInventoryTitleX = backgroundWidth - textRenderer.getWidth(playerInventoryTitle) - 7;
     }
 
 }

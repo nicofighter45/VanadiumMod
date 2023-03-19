@@ -12,8 +12,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class HighFurnaceBlock extends AbstractMachineBlock {
 
-    @Nullable
-    @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new HighFurnaceBlockEntity(pos, state);
     }

@@ -1,5 +1,7 @@
 package fr.vana_mod.nicofighter45.machine.basic.block;
 
+import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableBlockEntity;
+import fr.vana_mod.nicofighter45.machine.purificator.PurificatorBlockEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -22,6 +24,10 @@ public abstract class AbstractMachineBlock extends BlockWithEntity {
     }
 
     @Override
+    @Nullable
+    public abstract BlockEntity createBlockEntity(BlockPos pos, BlockState state);
+
+    @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
@@ -36,10 +42,6 @@ public abstract class AbstractMachineBlock extends BlockWithEntity {
         }
         return ActionResult.SUCCESS;
     }
-
-    @Nullable
-    @Override
-    public abstract BlockEntity createBlockEntity(BlockPos pos, BlockState state);
 
     @Override
     public void onBlockAdded(@NotNull BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {

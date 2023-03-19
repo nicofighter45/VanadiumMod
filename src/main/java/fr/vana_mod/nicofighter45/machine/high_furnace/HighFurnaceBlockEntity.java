@@ -39,17 +39,20 @@ public class HighFurnaceBlockEntity extends AbstractMachineBlockEntity {
                 Optional<HighFurnaceRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.HIGH_FURNACE_RECIPE_TYPE, new SimpleInventory(input1, input2), world);
                 if (optional.isPresent()) {
                     blockEntity.changingInventory = true;
+                    boolean next = true;
                     if (input1.getCount() > 1) {
                         input1.decrement(1);
                     } else {
                         blockEntity.getInventory().setStack(1, ItemStack.EMPTY);
+                        next = false;
                     }
                     if (input2.getCount() > 1) {
                         input2.decrement(1);
                     } else {
-                        blockEntity.getInventory().setStack(1, ItemStack.EMPTY);
+                        blockEntity.getInventory().setStack(2, ItemStack.EMPTY);
+                        next = false;
                     }
-                    if (input1.getCount() > 1 && input2.getCount() > 1) {
+                    if(next){
                         blockEntity.getPropertyDelegate().set(2, 100);
                     }
                     ItemStack result = blockEntity.getInventory().getStack(3);

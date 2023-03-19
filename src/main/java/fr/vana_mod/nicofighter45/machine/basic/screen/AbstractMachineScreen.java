@@ -14,10 +14,21 @@ public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandl
     protected final T handler;
     private final Identifier TEXTURE_BACKGROUND;
 
-    protected AbstractMachineScreen(T handler, PlayerInventory inventory, Text title, String name) {
+    private final int titleXDephase, titleYDephase, playerInventoryTitleXDephase, playerInventoryTitleYDephase;
+
+    protected AbstractMachineScreen(T handler, PlayerInventory inventory, Text title, String name, int titleXDephase,
+                                    int titleYDephase, int playerInventoryTitleXDephase, int playerInventoryTitleYDephase){
         super(handler, inventory, title);
         this.TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machines/" + name + ".png");
         this.handler = handler;
+        this.titleXDephase = titleXDephase;
+        this.titleYDephase = titleYDephase;
+        this.playerInventoryTitleXDephase = playerInventoryTitleXDephase;
+        this.playerInventoryTitleYDephase = playerInventoryTitleYDephase;
+    }
+
+    protected AbstractMachineScreen(T handler, PlayerInventory inventory, Text title, String name) {
+        this(handler, inventory, title, name, 0, 0, 0, 0);
     }
 
     @Override
@@ -41,7 +52,10 @@ public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandl
     @Override
     protected void init() {
         super.init();
-        titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
+        titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2 + titleXDephase;
+        titleY += titleYDephase;
+        playerInventoryTitleX = backgroundWidth - textRenderer.getWidth(playerInventoryTitle) + playerInventoryTitleXDephase;
+        playerInventoryTitleY += playerInventoryTitleYDephase;
     }
 
 }

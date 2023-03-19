@@ -8,7 +8,7 @@ import net.minecraft.text.Text;
 public class HighFurnaceScreen extends AbstractMachineScreen<HighFurnaceScreenHandler> {
 
     public HighFurnaceScreen(HighFurnaceScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title, "high_furnace");
+        super(handler, inventory, title, "high_furnace", 0, 8, -7, 0);
     }
 
     @Override
@@ -46,13 +46,6 @@ public class HighFurnaceScreen extends AbstractMachineScreen<HighFurnaceScreenHa
             }
         }
         drawTexture(matrices, x + 12, y + 73 - lava_pixel, 1, 199 - lava_pixel, 24, lava_pixel);
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        titleY += 8;
-        playerInventoryTitleX = backgroundWidth - textRenderer.getWidth(playerInventoryTitle) - 7;
     }
 
 }

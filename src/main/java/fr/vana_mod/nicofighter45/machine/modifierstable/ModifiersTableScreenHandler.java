@@ -87,28 +87,34 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         this.context.run((world, pos) -> updateResult(this, world, this.player, this.input, this.result));
     }
 
+    @Override
     public void populateRecipeFinder(RecipeMatcher finder) {
         this.input.provideRecipeInputs(finder);
     }
 
+    @Override
     public void clearCraftingSlots() {
         this.input.clear();
         this.result.clear();
     }
 
+    @Override
     public boolean matches(@NotNull Recipe<? super CraftingInventory> recipe) {
         return recipe.matches(this.input, this.player.world);
     }
 
+    @Override
     public void close(PlayerEntity player) {
         super.close(player);
         this.context.run((world, pos) -> this.dropInventory(player, this.input));
     }
 
+    @Override
     public boolean canUse(PlayerEntity player) {
         return canUse(this.context, player, ModMachines.MODIFIERS_TABLE_BLOCK);
     }
 
+    @Override
     public ItemStack quickMove(PlayerEntity player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
@@ -155,10 +161,12 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         return itemStack;
     }
 
+    @Override
     public boolean canInsertIntoSlot(ItemStack stack, @NotNull Slot slot) {
         return slot.inventory != this.result && super.canInsertIntoSlot(stack, slot);
     }
 
+    @Override
     public int getCraftingResultSlotIndex() {
         return 0;
     }
@@ -173,14 +181,17 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         return 2;
     }
 
+    @Override
     public int getCraftingSlotCount() {
         return 5;
     }
 
+    @Override
     public RecipeBookCategory getCategory() {
         return RecipeBookCategory.CRAFTING;
     }
 
+    @Override
     public boolean canInsertIntoSlot(int index) {
         return index != this.getCraftingResultSlotIndex();
     }

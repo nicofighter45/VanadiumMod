@@ -11,6 +11,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Implements;
 
 public abstract class AbstractMachineScreenHandler extends ScreenHandler {
 
@@ -57,6 +58,7 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
         }
     }
 
+    @Override
     public ItemStack quickMove(PlayerEntity player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);

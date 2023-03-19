@@ -12,8 +12,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class PurificatorBlock extends AbstractMachineBlock {
 
-    @Nullable
-    @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new PurificatorBlockEntity(pos, state);
     }

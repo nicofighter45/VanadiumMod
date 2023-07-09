@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -61,7 +62,7 @@ public class ModifiersRecipeSerializer implements RecipeSerializer<ModifiersReci
         recipe.getInput2().write(packetData);
         recipe.getInput3().write(packetData);
         recipe.getInput4().write(packetData);
-        packetData.writeItemStack(recipe.getOutput());
+        packetData.writeItemStack(recipe.getOutput(DynamicRegistryManager.EMPTY));
     }
 
     @Override

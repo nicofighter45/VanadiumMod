@@ -6,7 +6,6 @@ import fr.vana_mod.nicofighter45.items.custom.*;
 import fr.vana_mod.nicofighter45.items.tool_material.ModToolMaterial;
 import fr.vana_mod.nicofighter45.machine.ModMachines;
 import fr.vana_mod.nicofighter45.main.CommonInitializer;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
@@ -16,11 +15,18 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
 
+    //ingots
+
+    public static final Item STEEL_INGOT = new Item(CommonInitializer.settings());
+    public static final Item TIN_INGOT = new Item(CommonInitializer.settings());
+    public static final Item SILVER_INGOT = new Item((CommonInitializer.settings()));
+    public static final Item TUNGSTEN_INGOT = new Item(CommonInitializer.settings());
+    public static final Item VANADIUM_INGOT = new Item(CommonInitializer.settings().fireproof());
+
     //vanadium
     public static final Item RAW_VANADIUM = new Item(CommonInitializer.settings().fireproof());
     public static final Item VANADIUM_DUST = new Item(CommonInitializer.settings().fireproof());
     public static final Item VANADIUM_NUGGET = new Item(CommonInitializer.settings().fireproof());
-    public static final Item VANADIUM_INGOT = new Item(CommonInitializer.settings().fireproof());
     public static final Item VANADIUM_PLATE = new Item(CommonInitializer.settings().fireproof());
     public static final Item VANADIUM_SWORD = new SwordItem(ModToolMaterial.VanadiumToolMaterial, 5, -2, CommonInitializer.settings().fireproof());
     public static final Item VANADIUM_HAMMER = new Hammer(ModToolMaterial.VanadiumToolMaterial, 4, CommonInitializer.settings().fireproof());
@@ -29,30 +35,28 @@ public class ModItems {
     public static final Item VANADIUM_HOE = new SuperHoe(ModToolMaterial.VanadiumToolMaterial, 1, -3F, CommonInitializer.settings().fireproof());
     public static final Item VANADIUM_BOW = new VanadiumBow(CommonInitializer.settings().fireproof());
     //armure en vanadium
-    public static final Item VANADIUM_HELMET = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, EquipmentSlot.HEAD, CommonInitializer.settings().fireproof());
-    public static final Item VANADIUM_CHESTPLATE = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, EquipmentSlot.CHEST, CommonInitializer.settings().fireproof());
-    public static final Item VANADIUM_LEGGINGS = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, EquipmentSlot.LEGS, CommonInitializer.settings().fireproof());
-    public static final Item VANADIUM_BOOTS = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, EquipmentSlot.FEET, CommonInitializer.settings().fireproof());
+    public static final Item VANADIUM_HELMET = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, ArmorItem.Type.HELMET, CommonInitializer.settings().fireproof());
+    public static final Item VANADIUM_CHESTPLATE = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, CommonInitializer.settings().fireproof());
+    public static final Item VANADIUM_LEGGINGS = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, CommonInitializer.settings().fireproof());
+    public static final Item VANADIUM_BOOTS = new ArmorItem(ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL, ArmorItem.Type.BOOTS, CommonInitializer.settings().fireproof());
     public static final Item VANADIUM_ELYTRA = new ElytraItem(CommonInitializer.settings().fireproof().maxDamage(500));
     //armure en emeraude*
     public static final Item RAW_EMERALD = new Item(CommonInitializer.settings());
     public static final Item EMERALD_DUST = new Item(CommonInitializer.settings());
     public static final Item EMERALD_PLATE = new Item(CommonInitializer.settings());
-    public static final Item EMERALD_HELMET = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.HEAD, CommonInitializer.settings().fireproof());
-    public static final Item EMERALD_CHESTPLATE = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.CHEST, CommonInitializer.settings().fireproof());
-    public static final Item EMERALD_LEGGINGS = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.LEGS, CommonInitializer.settings().fireproof());
-    public static final Item EMERALD_BOOTS = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, EquipmentSlot.FEET, CommonInitializer.settings().fireproof());
+    public static final Item EMERALD_HELMET = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, ArmorItem.Type.HELMET, CommonInitializer.settings().fireproof());
+    public static final Item EMERALD_CHESTPLATE = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, CommonInitializer.settings().fireproof());
+    public static final Item EMERALD_LEGGINGS = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, CommonInitializer.settings().fireproof());
+    public static final Item EMERALD_BOOTS = new ArmorItem(ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, ArmorItem.Type.BOOTS, CommonInitializer.settings().fireproof());
     //tungsten
     public static final Item TUNGSTEN_DUST = new Item(CommonInitializer.settings());
     public static final Item RAW_TUNGSTEN = new Item(CommonInitializer.settings());
-    public static final Item TUNGSTEN_INGOT = new Item(CommonInitializer.settings());
     public static final Item TUNGSTEN_PLATE = new Item(CommonInitializer.settings());
-    public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(ModArmorsMaterial.TUNGSTEN_ARMOR_MATERIAL, EquipmentSlot.CHEST, CommonInitializer.settings().fireproof());
+    public static final Item TUNGSTEN_CHESTPLATE = new ArmorItem(ModArmorsMaterial.TUNGSTEN_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, CommonInitializer.settings().fireproof());
     public static final Item TUNGSTEN_HAMMER = new Hammer(ModToolMaterial.TungstenToolMaterial, 3, CommonInitializer.settings().fireproof());
     //argent
     public static final Item SILVER_DUST = new Item(CommonInitializer.settings());
     public static final Item RAW_SILVER = new Item(CommonInitializer.settings());
-    public static final Item SILVER_INGOT = new Item((CommonInitializer.settings()));
     //copper
     public static final Item COPPER_DUST = new Item(CommonInitializer.settings());
     public static final Item COPPER_HAMMER = new Hammer(ModToolMaterial.CopperToolMaterial, 1, CommonInitializer.settings());
@@ -60,7 +64,6 @@ public class ModItems {
     //tin
     public static final Item TIN_DUST = new Item(CommonInitializer.settings());
     public static final Item RAW_TIN = new Item(CommonInitializer.settings());
-    public static final Item TIN_INGOT = new Item(CommonInitializer.settings());
     public static final Item TIN_PLATE = new Item(CommonInitializer.settings());
     public static final Item TIN_HAMMER = new Hammer(ModToolMaterial.TinToolMaterial, 2, CommonInitializer.settings());
     //processeur
@@ -91,18 +94,25 @@ public class ModItems {
     public static final Item ADVANCE_REGEN_BOOSTER = new Item(CommonInitializer.settings().maxCount(8));
     //hat
     public static final Item HAT = new Item(CommonInitializer.settings());
-    //steam
-    public static final Item STEEL_INGOT = new Item(CommonInitializer.settings());
+    //steel
     public static final Item STEEL_PLATE = new Item(CommonInitializer.settings());
-    public static final Item STEEL_HELMET = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.HEAD, CommonInitializer.settings());
-    public static final Item STEEL_CHESTPLATE = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.CHEST, CommonInitializer.settings());
-    public static final Item STEEL_LEGGINGS = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.LEGS, CommonInitializer.settings());
-    public static final Item STEEL_BOOTS = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, EquipmentSlot.FEET, CommonInitializer.settings());
+    public static final Item STEEL_HELMET = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, ArmorItem.Type.HELMET, CommonInitializer.settings());
+    public static final Item STEEL_CHESTPLATE = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, CommonInitializer.settings());
+    public static final Item STEEL_LEGGINGS = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, CommonInitializer.settings());
+    public static final Item STEEL_BOOTS = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, ArmorItem.Type.BOOTS, CommonInitializer.settings());
     public static final Item RAW_DIAMOND = new Item(CommonInitializer.settings());
     public static final Item DIAMOND_DUST = new Item(CommonInitializer.settings());
     public static final Item DIAMOND_PLATE = new Item(CommonInitializer.settings());
     public static final Item IRON_DUST = new Item(CommonInitializer.settings());
     public static final Item GOLD_DUST = new Item(CommonInitializer.settings());
+
+    public static void registerIngots() {
+        registerNewItem("steel_ingot", STEEL_INGOT);
+        registerNewItem("tin_ingot", TIN_INGOT);
+        registerNewItem("silver_ingot", SILVER_INGOT);
+        registerNewItem("tungsten_ingot", TUNGSTEN_INGOT);
+        registerNewItem("vanadium_ingot", VANADIUM_INGOT);
+    }
 
     public static void registerAll() {
 
@@ -114,7 +124,6 @@ public class ModItems {
         CommonInitializer.addBlockInGroup(ModBlocks.TIN_ORE);
         registerNewItem("raw_tin", RAW_TIN);
         registerNewItem("tin_dust", TIN_DUST);
-        registerNewItem("tin_ingot", TIN_INGOT);
         CommonInitializer.addBlockInGroup(ModBlocks.TIN_BLOCK);
         registerNewItem("tin_plate", TIN_PLATE);
         registerNewItem("tin_hammer", TIN_HAMMER);
@@ -123,7 +132,6 @@ public class ModItems {
         registerNewItem("iron_dust", IRON_DUST);
 
 
-        registerNewItem("steel_ingot", STEEL_INGOT);
         CommonInitializer.addBlockInGroup(ModBlocks.STEEL_BLOCK);
         registerNewItem("steel_plate", STEEL_PLATE);
         registerNewItem("steel_helmet", STEEL_HELMET);
@@ -138,14 +146,12 @@ public class ModItems {
         CommonInitializer.addBlockInGroup(ModBlocks.SILVER_ORE);
         registerNewItem("raw_silver", RAW_SILVER);
         registerNewItem("silver_dust", SILVER_DUST);
-        registerNewItem("silver_ingot", SILVER_INGOT);
         CommonInitializer.addBlockInGroup(ModBlocks.SILVER_BLOCK);
 
 
         CommonInitializer.addBlockInGroup(ModBlocks.TUNGSTEN_ORE);
         registerNewItem("raw_tungsten", RAW_TUNGSTEN);
         registerNewItem("tungsten_dust", TUNGSTEN_DUST);
-        registerNewItem("tungsten_ingot", TUNGSTEN_INGOT);
         CommonInitializer.addBlockInGroup(ModBlocks.TUNGSTEN_BLOCK);
         registerNewItem("tungsten_plate", TUNGSTEN_PLATE);
         registerNewItem("tungsten_chestplate", TUNGSTEN_CHESTPLATE);
@@ -170,7 +176,6 @@ public class ModItems {
         registerNewItem("raw_vanadium", RAW_VANADIUM);
         registerNewItem("vanadium_dust", VANADIUM_DUST);
         registerNewItem("vanadium_nugget", VANADIUM_NUGGET);
-        registerNewItem("vanadium_ingot", VANADIUM_INGOT);
         CommonInitializer.addBlockInGroup(ModBlocks.VANADIUM_BLOCK);
 
         registerNewItem("vanadium_plate", VANADIUM_PLATE);
@@ -218,4 +223,5 @@ public class ModItems {
         Registry.register(Registries.ITEM, new Identifier(CommonInitializer.MODID, name), item);
         CommonInitializer.addItemInGroup(item);
     }
+
 }

@@ -1,6 +1,6 @@
 package fr.vana_mod.nicofighter45.items.armor;
 
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.recipe.Ingredient;
@@ -31,13 +31,13 @@ public class BasicArmorMaterial implements ArmorMaterial {
     }
 
     @Override
-    public int getDurability(@NotNull EquipmentSlot slot) {
-        return this.baseDurability[slot.getEntitySlotId()] * this.durabilityMuliplier;
+    public int getDurability(ArmorItem.@NotNull Type type) {
+        return this.baseDurability[type.getEquipmentSlot().getEntitySlotId()] * this.durabilityMuliplier;
     }
 
     @Override
-    public int getProtectionAmount(@NotNull EquipmentSlot slot) {
-        return this.protection[slot.getEntitySlotId()];
+    public int getProtection(ArmorItem.Type type) {
+        return this.protection[type.getEquipmentSlot().getEntitySlotId()];
     }
 
     @Override

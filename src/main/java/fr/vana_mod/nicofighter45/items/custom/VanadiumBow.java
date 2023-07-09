@@ -52,7 +52,7 @@ public class VanadiumBow extends BowItem {
                     playerEntity.incrementStat(Stats.USED.getOrCreateStat(Items.ENDER_PEARL));
                 }
             } else {
-                ItemStack itemStack = playerEntity.getArrowType(stack);
+                ItemStack itemStack = playerEntity.getProjectileType(stack);
                 if (!itemStack.isEmpty() || bl) {
                     if (itemStack.isEmpty()) {
                         itemStack = new ItemStack(Items.ARROW);
@@ -116,7 +116,7 @@ public class VanadiumBow extends BowItem {
                 return TypedActionResult.consume(itemStack);
             }
         } else {
-            boolean bl = !user.getArrowType(itemStack).isEmpty();
+            boolean bl = !user.getProjectileType(itemStack).isEmpty();
             if (!user.getAbilities().creativeMode && !bl) {
                 return TypedActionResult.fail(itemStack);
             } else {

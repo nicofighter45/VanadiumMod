@@ -12,6 +12,7 @@ import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -74,7 +75,7 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
             if (optional.isPresent()) {
                 ModifiersRecipe craftingRecipe = optional.get();
                 if (resultInventory.shouldCraftRecipe(world, serverPlayerEntity, craftingRecipe)) {
-                    itemStack = craftingRecipe.getOutput().copy();
+                    itemStack = craftingRecipe.getOutput(DynamicRegistryManager.EMPTY).copy();
                 }
             }
             this.result.setStack(0, itemStack);
@@ -100,12 +101,12 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
 
     @Override
     public boolean matches(@NotNull Recipe<? super CraftingInventory> recipe) {
-        return recipe.matches(this.input, this.player.world);
+        return recipe.matches(this.input, this.player.getWorld());
     }
 
     @Override
-    public void close(PlayerEntity player) {
-        super.close(player);
+    public void onClosed(PlayerEntity player) {
+        super.onClosed(player);
         this.context.run((world, pos) -> this.dropInventory(player, this.input));
     }
 
@@ -143,7 +144,7 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
             }
 
             if (itemStack2.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+                slot.setStackNoCallbacks(ItemStack.EMPTY);
             } else {
                 slot.markDirty();
             }
@@ -159,11 +160,6 @@ public class ModifiersTableScreenHandler extends AbstractRecipeScreenHandler<Cra
         }
 
         return itemStack;
-    }
-
-    @Override
-    public boolean canInsertIntoSlot(ItemStack stack, @NotNull Slot slot) {
-        return slot.inventory != this.result && super.canInsertIntoSlot(stack, slot);
     }
 
     @Override

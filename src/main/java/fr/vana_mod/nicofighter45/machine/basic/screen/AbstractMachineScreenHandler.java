@@ -87,7 +87,7 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
             }
 
             if (itemStack2.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+                slot.setStackNoCallbacks(ItemStack.EMPTY);
             } else {
                 slot.markDirty();
             }

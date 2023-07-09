@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.network.message.SentMessage;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -68,9 +69,9 @@ public abstract class ServerPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "damage", cancellable = true)
     private void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (source == DamageSource.FALL && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)) {
+        if (source.isIn(DamageTypeTags.IS_FALL) && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)) {
             cir.setReturnValue(false);
-        } else if (source == DamageSource.FALL && ServerInitializer.jump && Math.sqrt(Math.pow(player.getX(), 2) +
+        } else if (source.isIn(DamageTypeTags.IS_FALL) && ServerInitializer.jump && Math.sqrt(Math.pow(player.getX(), 2) +
                 Math.pow(player.getY(), 2)) <= 100) {
             cir.setReturnValue(false);
         }

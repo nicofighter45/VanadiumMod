@@ -45,11 +45,11 @@ public class EnchanterInputSlot extends Slot {
             ItemStack itemStack = this.getStack();
             int i = Math.min(Math.min(count, stack.getCount()), this.getMaxItemCount(stack) - itemStack.getCount());
             if (itemStack.isEmpty()) {
-                this.setStack(stack.split(i));
+                this.setStackNoCallbacks(stack.split(i));
             } else if (ItemStack.canCombine(itemStack, stack)) {
                 stack.decrement(i);
                 itemStack.increment(i);
-                this.setStack(itemStack);
+                this.setStackNoCallbacks(itemStack);
             }
             checkingWithInsertion();
         }

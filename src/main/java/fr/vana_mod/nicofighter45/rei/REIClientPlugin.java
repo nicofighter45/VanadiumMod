@@ -10,6 +10,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,11 +39,11 @@ public class REIClientPlugin implements me.shedaniel.rei.api.client.plugins.REIC
     @Override
     public void registerDisplays(@NotNull DisplayRegistry registry) {
         registry.registerFiller(ModifiersRecipe.class, recipe -> new ModifiersTableDisplay(EntryIngredients.ofIngredients(recipe.getIngredients()),
-                Collections.singletonList(EntryIngredients.of(recipe.getOutput())), recipe.id()));
+                Collections.singletonList(EntryIngredients.of(recipe.getOutput(DynamicRegistryManager.EMPTY))), recipe.id()));
         registry.registerFiller(PurificatorRecipe.class, recipe -> new PurificatorDisplay(EntryIngredients.ofIngredients(recipe.getIngredients()),
-                Collections.singletonList(EntryIngredients.of(recipe.getOutput())), recipe.id()));
+                Collections.singletonList(EntryIngredients.of(recipe.getOutput(DynamicRegistryManager.EMPTY))), recipe.id()));
         registry.registerFiller(HighFurnaceRecipe.class, recipe -> new HighFurnaceDisplay(EntryIngredients.ofIngredients(recipe.getIngredients()),
-                Collections.singletonList(EntryIngredients.of(recipe.getOutput())), recipe.id()));
+                Collections.singletonList(EntryIngredients.of(recipe.getOutput(DynamicRegistryManager.EMPTY))), recipe.id()));
     }
 
 }

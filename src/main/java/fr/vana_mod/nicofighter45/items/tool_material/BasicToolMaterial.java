@@ -8,7 +8,7 @@ public class BasicToolMaterial implements ToolMaterial {
 
     private final int durability, miningLevel, enchantability;
     private final float miningSpeed, attackDamage;
-    private final Ingredient repairIngrdient;
+    private final Ingredient repairIngredient;
 
     public BasicToolMaterial(int durability, float miningSpeed, float attackDamage, int miningLevel,
                              int enchantability, Item repairItem) {
@@ -17,7 +17,7 @@ public class BasicToolMaterial implements ToolMaterial {
         this.attackDamage = attackDamage;
         this.miningLevel = miningLevel;
         this.enchantability = enchantability;
-        this.repairIngrdient = Ingredient.ofItems(repairItem);
+        this.repairIngredient = Ingredient.ofItems(repairItem);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class BasicToolMaterial implements ToolMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return this.repairIngrdient;
+        return this.repairIngredient;
     }
 
 }

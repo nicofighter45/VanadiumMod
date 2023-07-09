@@ -11,9 +11,11 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Contract;
@@ -27,7 +29,7 @@ public class CommonInitializer implements ModInitializer {
 
     public static final String MODID = "vana-mod";
 
-    public static final ItemGroup VANADIUM_GROUP = FabricItemGroup.builder(new Identifier(MODID, "vanadium"))
+    public static final ItemGroup VANADIUM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(ModItems.VANADIUM_INGOT))
             .displayName(Text.translatable("itemGroup."+ MODID + ".vanadium"))
             .build();
@@ -42,6 +44,7 @@ public class CommonInitializer implements ModInitializer {
     @Override
     public void onInitialize() {
 
+        ModItems.registerIngots();
         ModBlocks.registerAll();
         ModMachines.registerAll();
         ModOreGeneration.generateOres();
@@ -52,7 +55,10 @@ public class CommonInitializer implements ModInitializer {
 
         Command.registerAllCommands();
 
-        ItemGroupEvents.modifyEntriesEvent(VANADIUM_GROUP).register(content -> content.addAll(VANADIUM_GROUP_ITEMS));
+        RegistryKey<ItemGroup> key = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(MODID, "vanadium"));
+
+        ItemGroupEvents.modifyEntriesEvent(key).register(content -> content.addAll(VANADIUM_GROUP_ITEMS));
+        Registry.register(Registries.ITEM_GROUP, key, VANADIUM_GROUP);
 
     }
 

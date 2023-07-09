@@ -7,9 +7,11 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier id) implements Recipe<Inventory> {
@@ -26,7 +28,7 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
     }
 
     @Override
-    public ItemStack craft(Inventory inventory) {
+    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
         return ItemStack.EMPTY;
     }
 
@@ -35,8 +37,9 @@ public record PurificatorRecipe(Ingredient input, ItemStack result, Identifier i
         return false;
     }
 
+    @Contract(pure = true)
     @Override
-    public ItemStack getOutput() {
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return this.result;
     }
 

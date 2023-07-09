@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.util.math.BlockPos;
@@ -56,7 +57,7 @@ public class HighFurnaceBlockEntity extends AbstractMachineBlockEntity {
                         blockEntity.getPropertyDelegate().set(2, 100);
                     }
                     ItemStack result = blockEntity.getInventory().getStack(3);
-                    ItemStack output = optional.get().getOutput();
+                    ItemStack output = optional.get().getOutput(DynamicRegistryManager.EMPTY);
                     if (!result.isEmpty()) {
                         result.increment(output.getCount());
                     } else {

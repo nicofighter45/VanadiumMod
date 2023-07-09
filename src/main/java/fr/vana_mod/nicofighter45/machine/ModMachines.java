@@ -30,6 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
@@ -69,7 +70,7 @@ public class ModMachines {
         Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(CommonInitializer.MODID, "pipe_block_entity_type"), PIPE_BLOCK_ENTITY_TYPE);
 
 
-        MODIFIERS_TABLE_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, new Identifier(CommonInitializer.MODID, "modifiers_table_screen_handler"), new ScreenHandlerType<>(ModifiersTableScreenHandler::new));
+        MODIFIERS_TABLE_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER, new Identifier(CommonInitializer.MODID, "modifiers_table_screen_handler"), new ScreenHandlerType<>(ModifiersTableScreenHandler::new, FeatureSet.empty()));
         Registry.register(Registries.RECIPE_SERIALIZER, ModifiersRecipeSerializer.ID, ModifiersRecipeSerializer.INSTANCE);
         MODIFIERS_RECIPE_TYPE = Registry.register(Registries.RECIPE_TYPE, new Identifier(CommonInitializer.MODID, ModifiersRecipe.Type.ID), MODIFIERS_RECIPE_TYPE);
 
@@ -97,7 +98,7 @@ public class ModMachines {
     }
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> registerNewScreenHandler(String name, ScreenHandlerType.Factory<T> factory) {
-        return Registry.register(Registries.SCREEN_HANDLER, new Identifier(CommonInitializer.MODID, name), new ScreenHandlerType<>(factory));
+        return Registry.register(Registries.SCREEN_HANDLER, new Identifier(CommonInitializer.MODID, name), new ScreenHandlerType<>(factory, FeatureSet.empty()));
     }
 
 

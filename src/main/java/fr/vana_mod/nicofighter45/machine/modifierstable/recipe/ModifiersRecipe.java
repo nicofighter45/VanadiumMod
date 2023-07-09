@@ -6,9 +6,11 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient input3, Ingredient input4,
@@ -26,7 +28,7 @@ public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient i
     }
 
     @Override
-    public ItemStack craft(Inventory inventory) {
+    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
         return ItemStack.EMPTY;
     }
 
@@ -35,9 +37,10 @@ public record ModifiersRecipe(Ingredient input1, Ingredient input2, Ingredient i
         return false;
     }
 
+    @Contract(pure = true)
     @Override
-    public ItemStack getOutput() {
-        return result;
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
+        return this.result;
     }
 
     @Override

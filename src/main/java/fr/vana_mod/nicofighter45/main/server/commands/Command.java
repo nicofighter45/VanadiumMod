@@ -2,7 +2,6 @@ package fr.vana_mod.nicofighter45.main.server.commands;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import fr.vana_mod.nicofighter45.main.CommonInitializer;
 import fr.vana_mod.nicofighter45.main.gui.CustomCraftingScreenHandler;
 import fr.vana_mod.nicofighter45.main.gui.CustomPlayerManagementScreenHandler;
 import fr.vana_mod.nicofighter45.main.server.BossSpawner;
@@ -14,6 +13,7 @@ import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +21,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.*;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -50,7 +51,7 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(1))
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    if (player.getWorld() == Objects.requireNonNull(player.getServer()).getOverworld()) {
+                    if (player.getServerWorld() == Objects.requireNonNull(player.getServer()).getOverworld()) {
                         ServerInitializer.players.get(player.getUuid()).setBase(player.getBlockPos());
                         sendMsg(player, "setbase.done");
                     } else {
@@ -271,18 +272,18 @@ public class Command {
                             ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                             BlockPos pos = player.getBlockPos();
                             int number = IntegerArgumentType.getInteger(c, "number");
-                            for (ServerPlayerEntity pl : player.getWorld().getPlayers()) {
+                            for (ServerPlayerEntity pl : player.getServerWorld().getPlayers()) {
                                 if (isNearTo(pos.getX(), pl.getX(), pos.getY(), pl.getY(), pos.getZ(), pl.getZ())) {
                                     pl.setVelocity(calc(pl.getX() - pos.getX()), 0.5, calc(pl.getZ() - pos.getZ()));
                                     //actualize velocity changes
-                                    pl.damage(DamageSource.MAGIC, 0.5f);
+                                    pl.damage(new DamageSource(RegistryEntry.of(new DamageType("", 0))), 0.5f);
                                     pl.heal(0.5f);
                                 }
                             }
-                            player.getWorld().spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 1);
-                            player.getWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(),
+                            player.getServerWorld().spawnParticles(ParticleTypes.CLOUD, pos.getX(), pos.getY(), pos.getZ(), 10000, 0, 0, 0, 1);
+                            player.getServerWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(),
                                     SoundEvents.ENTITY_WITHER_SPAWN, SoundCategory.HOSTILE, 1f, 1f);
-                            BossSpawner.spawnBoss(number, player.getWorld(), pos);
+                            BossSpawner.spawnBoss(number, player.getServerWorld(), pos);
                             return 1;
                         })
                 )
@@ -297,7 +298,7 @@ public class Command {
                         .executes(c -> {
                             ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                             ServerWorld overworld = Objects.requireNonNull(player.getServer()).getOverworld();
-                            if (overworld == player.getWorld()) {
+                            if (overworld == player.getServerWorld()) {
                                 sendMsg(player, "error_overworld");
                             } else {
                                 player.teleport(overworld, overworld.getSpawnPos().getX(), overworld.getSpawnPos().getY(),
@@ -312,7 +313,7 @@ public class Command {
                             ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                             ServerWorld nether = Objects.requireNonNull(player.getServer()).getWorld(World.NETHER);
                             assert nether != null;
-                            if (nether == player.getWorld()) {
+                            if (nether == player.getServerWorld()) {
                                 sendMsg(player, "error_nether");
                             } else {
                                 player.teleport(nether, nether.getSpawnPos().getX(), nether.getSpawnPos().getY(),
@@ -328,7 +329,7 @@ public class Command {
                             ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                             ServerWorld end = Objects.requireNonNull(player.getServer()).getWorld(World.END);
                             assert end != null;
-                            if (end == player.getWorld()) {
+                            if (end == player.getServerWorld()) {
                                 sendMsg(player, "error_end");
                             } else {
                                 player.teleport(end, 0, 100, 0, 0, 0);
@@ -377,7 +378,7 @@ public class Command {
                                                             sendMsg(server_player, "data.health_change", Integer.toString(value / 2));
                                                         }
                                                     }
-                                                    c.getSource().sendFeedback(Text.of("§8[§6Server§8] §fThe number of heart of " + uuid + " is now " + value), true);
+                                                    c.getSource().sendFeedback(() -> Text.of("§8[§6Server§8] §fThe number of heart of " + uuid + " is now " + value), true);
                                                     return 1;
                                                 })
                                         )
@@ -520,7 +521,7 @@ public class Command {
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, boolean broadcast) {
-        c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text).getString()), broadcast);
+        c.getSource().sendFeedback(() -> Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text).getString()), broadcast);
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace) {
@@ -528,16 +529,16 @@ public class Command {
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace1, String replace2) {
-        c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
+        c.getSource().sendFeedback(() -> Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
                 .getString().replace("{value1}", replace1).replace("{value2}", replace2)), true);
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace, boolean broadcast, boolean prefix) {
         if (prefix) {
-            c.getSource().sendFeedback(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
+            c.getSource().sendFeedback(() -> Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
                     .getString().replace("{value}", replace)), broadcast);
         } else {
-            c.getSource().sendFeedback(Text.literal(Text.translatable(LANG_COMMAND_PREFIX + text)
+            c.getSource().sendFeedback(() -> Text.literal(Text.translatable(LANG_COMMAND_PREFIX + text)
                     .getString().replace("{value}", replace)), broadcast);
         }
     }

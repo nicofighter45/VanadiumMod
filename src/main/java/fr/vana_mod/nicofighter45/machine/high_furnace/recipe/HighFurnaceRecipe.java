@@ -6,9 +6,11 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public record HighFurnaceRecipe(Ingredient input1, Ingredient input2, ItemStack result,
@@ -21,13 +23,13 @@ public record HighFurnaceRecipe(Ingredient input1, Ingredient input2, ItemStack 
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
-        return true;
+    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
+        return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack craft(Inventory inventory) {
-        return ItemStack.EMPTY;
+    public boolean isIgnoredInRecipeBook() {
+        return true;
     }
 
     @Override
@@ -35,8 +37,9 @@ public record HighFurnaceRecipe(Ingredient input1, Ingredient input2, ItemStack 
         return false;
     }
 
+    @Contract(pure = true)
     @Override
-    public ItemStack getOutput() {
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return this.result;
     }
 

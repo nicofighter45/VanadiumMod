@@ -71,7 +71,7 @@ public class CustomPlayerManagementScreenHandler extends ScreenHandler {
             }
 
             if (itemStack2.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+                slot.setStackNoCallbacks(ItemStack.EMPTY);
             } else {
                 slot.markDirty();
             }
@@ -80,8 +80,8 @@ public class CustomPlayerManagementScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public void close(PlayerEntity player) {
-        super.close(player);
+    public void onClosed(PlayerEntity player) {
+        super.onClosed(player);
         this.playerInventory.onClose(player);
     }
 

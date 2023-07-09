@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +43,7 @@ public class HighFurnaceRecipeSerializer implements RecipeSerializer<HighFurnace
     public void write(PacketByteBuf packetData, @NotNull HighFurnaceRecipe recipe) {
         recipe.getInput1().write(packetData);
         recipe.getInput2().write(packetData);
-        packetData.writeItemStack(recipe.getOutput());
+        packetData.writeItemStack(recipe.getOutput(DynamicRegistryManager.EMPTY));
     }
 
     @Override

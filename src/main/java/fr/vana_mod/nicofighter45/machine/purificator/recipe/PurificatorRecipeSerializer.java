@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +40,7 @@ public class PurificatorRecipeSerializer implements RecipeSerializer<Purificator
     @Override
     public void write(PacketByteBuf packetData, @NotNull PurificatorRecipe recipe) {
         recipe.getInput().write(packetData);
-        packetData.writeItemStack(recipe.getOutput());
+        packetData.writeItemStack(recipe.getOutput(DynamicRegistryManager.EMPTY));
     }
 
     @Override

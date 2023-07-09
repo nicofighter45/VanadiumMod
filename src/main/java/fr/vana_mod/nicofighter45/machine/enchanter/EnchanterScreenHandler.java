@@ -63,8 +63,8 @@ public class EnchanterScreenHandler extends ScreenHandler {
         }
     }
 
-    public void close(PlayerEntity player) {
-        super.close(player);
+    public void onClosed(PlayerEntity player) {
+        super.onClosed(player);
         this.context.run((world, pos) -> this.dropInventory(player, this.input));
     }
 
@@ -106,7 +106,7 @@ public class EnchanterScreenHandler extends ScreenHandler {
             }
 
             if (itemStack2.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+                slot.setStackNoCallbacks(ItemStack.EMPTY);
             } else {
                 slot.markDirty();
             }

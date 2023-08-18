@@ -16,7 +16,7 @@ public class PurificatorScreen extends AbstractMachineScreen<PurificatorScreenHa
         super.drawBackground(context, delta, mouseX, mouseY);
         int crafting = handler.getCraftingTime();
         int filling = handler.getFillingTime();
-        int water_pixel = handler.getWater() * 2 / 25;
+        int water_pixel = handler.getWater() * 2 / 100;
         if (crafting > 0) {
             int crafting_pixel;
             if (crafting > 89) {
@@ -35,11 +35,11 @@ public class PurificatorScreen extends AbstractMachineScreen<PurificatorScreenHa
         }
         if (filling > 0) {
             int filling_pixel;
-            if (filling > 79) {
-                filling_pixel = (int) (2.1 * (100 - filling));
+            if (filling > 319) {
+                filling_pixel = (int) (2.1 / 4 * (400 - filling));
                 draw(context, x + 17, y + 31, 34, 167, 14, filling_pixel);
-            } else if (filling < 19) {
-                filling_pixel = 21 / 9 * (18 - filling);
+            } else if (filling < 81) {
+                filling_pixel = 0;
                 draw(context, x + 17, y + 31 + filling_pixel, 34, 167 + filling_pixel, 14, 42 - filling_pixel);
             } else {
                 draw(context, x + 17, y + 31, 34, 167, 14, 42);

@@ -23,19 +23,6 @@ public enum HeartType {
         this.hasBlinkingTexture = hasBlinkingTexture;
     }
 
-    public int getU(boolean halfHeart, boolean blinking) {
-        int i;
-        if (this == CONTAINER) {
-            i = blinking ? 1 : 0;
-        } else {
-            int j = halfHeart ? 1 : 0;
-            int k = this.hasBlinkingTexture && blinking ? 2 : 0;
-            i = j + k;
-        }
-
-        return 16 + (this.textureIndex * 2 + i) * 9;
-    }
-
     public static HeartType fromPlayerState(@NotNull PlayerEntity player) {
         HeartType heartType;
         if (player.hasStatusEffect(StatusEffects.POISON)) {
@@ -49,5 +36,18 @@ public enum HeartType {
         }
 
         return heartType;
+    }
+
+    public int getU(boolean halfHeart, boolean blinking) {
+        int i;
+        if (this == CONTAINER) {
+            i = blinking ? 1 : 0;
+        } else {
+            int j = halfHeart ? 1 : 0;
+            int k = this.hasBlinkingTexture && blinking ? 2 : 0;
+            i = j + k;
+        }
+
+        return 16 + (this.textureIndex * 2 + i) * 9;
     }
 }

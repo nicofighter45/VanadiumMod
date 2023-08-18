@@ -45,10 +45,10 @@ public class ModBlocks {
 
     private static void registerNewBlock(String name, Block block, boolean fireproof) {
         Registry.register(Registries.BLOCK, new Identifier(CommonInitializer.MODID, name), block);
-        if (fireproof){
+        if (fireproof) {
             Registry.register(Registries.ITEM, new Identifier(CommonInitializer.MODID, name),
                     new BlockItem(block, CommonInitializer.settings().fireproof()));
-        }else {
+        } else {
             Registry.register(Registries.ITEM, new Identifier(CommonInitializer.MODID, name),
                     new BlockItem(block, CommonInitializer.settings()));
         }

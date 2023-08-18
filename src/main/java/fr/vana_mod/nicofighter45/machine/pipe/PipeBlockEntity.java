@@ -40,20 +40,20 @@ public class PipeBlockEntity extends BlockEntity {
             System.out.println("network is empty");
             return;
         }
-        if(network.pipes.isEmpty()){
+        if (network.pipes.isEmpty()) {
             System.out.println("network pipes is empty");
             return;
         }
-        if(!network.isActive){
+        if (!network.isActive) {
             System.out.println("Network isn't active");
             return;
         }
-        if(world == null){
+        if (world == null) {
             System.out.println("world is null");
             return;
         }
         System.out.println("writing nbt" + world.getBlockState(pos).getBlock());
-        if(network.pipes.size() == 1){
+        if (network.pipes.size() == 1) {
             List<Integer> pipeTag = new ArrayList<>();
             for (BlockPos pos : network.pipes) {
                 pipeTag.add(pos.getX());
@@ -62,13 +62,13 @@ public class PipeBlockEntity extends BlockEntity {
             }
             nbt.putIntArray("pipes", pipeTag);
             nbt.putInt("fluidAmount", network.fluidAmount);
-        }else{
+        } else {
             network.removePipe(this.getPos());
         }
     }
 
     public void setTextureConfiguration(int value) {
-        if(value == -1){
+        if (value == -1) {
             System.out.println("An error occurred during face checking for texturing");
             return;
         }

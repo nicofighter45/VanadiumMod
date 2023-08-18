@@ -26,7 +26,7 @@ public class ModOreGeneration {
 
     }
 
-    private static void generateOre(String name, Predicate<BiomeSelectionContext> biomeSelectionContextPredicate) {  // todo non working gen
+    private static void generateOre(String name, Predicate<BiomeSelectionContext> biomeSelectionContextPredicate) {
         RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier(CommonInitializer.MODID, "ore_" + name));
         RegistryKey<PlacedFeature> PLACED_FEATURE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(CommonInitializer.MODID, "ore_" + name));
 

@@ -18,7 +18,7 @@ public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandl
     private final int titleXDephase, titleYDephase, playerInventoryTitleXDephase, playerInventoryTitleYDephase;
 
     protected AbstractMachineScreen(T handler, PlayerInventory inventory, Text title, String name, int titleXDephase,
-                                    int titleYDephase, int playerInventoryTitleXDephase, int playerInventoryTitleYDephase){
+                                    int titleYDephase, int playerInventoryTitleXDephase, int playerInventoryTitleYDephase) {
         super(handler, inventory, title);
         this.TEXTURE_BACKGROUND = new Identifier(CommonInitializer.MODID, "textures/gui/machines/" + name + ".png");
         this.handler = handler;
@@ -40,7 +40,7 @@ public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandl
         drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
-    protected void draw(@NotNull DrawContext context, int x, int y, int u, int v, int width, int height){
+    protected void draw(@NotNull DrawContext context, int x, int y, int u, int v, int width, int height) {
         context.drawTexture(TEXTURE_BACKGROUND, x, y, u, v, width, height);
     }
 

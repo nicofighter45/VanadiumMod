@@ -1,7 +1,5 @@
 package fr.vana_mod.nicofighter45.machine.basic.block;
 
-import fr.vana_mod.nicofighter45.machine.modifierstable.ModifiersTableBlockEntity;
-import fr.vana_mod.nicofighter45.machine.purificator.PurificatorBlockEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;

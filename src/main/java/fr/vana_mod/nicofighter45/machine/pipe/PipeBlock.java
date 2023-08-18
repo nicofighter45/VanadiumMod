@@ -68,9 +68,9 @@ public class PipeBlock extends BlockWithEntity {
         };
     }
 
-    private VoxelShape shape(int minX, int minY, int minZ, int maxX, int maxY, int maxZ){
-        return VoxelShapes.cuboid(((float) minX)/16, ((float) minY)/16f, ((float) minZ)/16f,
-                ((float) maxX)/16f, ((float) maxY)/16f, ((float) maxZ)/16f);
+    private VoxelShape shape(int minX, int minY, int minZ, int maxX, int maxY, int maxZ) {
+        return VoxelShapes.cuboid(((float) minX) / 16, ((float) minY) / 16f, ((float) minZ) / 16f,
+                ((float) maxX) / 16f, ((float) maxY) / 16f, ((float) maxZ) / 16f);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class PipeBlock extends BlockWithEntity {
     @Override
     public BlockState rotate(@NotNull BlockState state, @NotNull BlockRotation rotation) { // todo need to work for all possibilities
         int config = state.get(configuration);
-        if(config == 0 || config == 1 || config == 4 || config == 5){
+        if (config == 0 || config == 1 || config == 4 || config == 5) {
             return state.with(configuration, 0);
         }
         int value = 0;

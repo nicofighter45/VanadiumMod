@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:smithing",
+  "type": "minecraft:smithing_transform",
   "base": {
     "item": "minecraft:iron_block"
   },
@@ -8,5 +8,8 @@
   },
   "result": {
     "item": "vana-mod:copper_hammer"
+  },
+  "template": {
+    "item": "minecraft:barrier"
   }
 }

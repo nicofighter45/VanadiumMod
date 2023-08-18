@@ -53,7 +53,7 @@ public class HighFurnaceBlockEntity extends AbstractMachineBlockEntity {
                         blockEntity.getInventory().setStack(2, ItemStack.EMPTY);
                         next = false;
                     }
-                    if(next){
+                    if (next) {
                         blockEntity.getPropertyDelegate().set(2, 100);
                     }
                     ItemStack result = blockEntity.getInventory().getStack(3);
@@ -68,9 +68,9 @@ public class HighFurnaceBlockEntity extends AbstractMachineBlockEntity {
                 }
             }
         }
-        if (blockEntity.getPropertyDelegate().get(1) > 0 && blockEntity.getPropertyDelegate().get(0) < 400) {
-            blockEntity.getPropertyDelegate().add(0, 1);
-            blockEntity.getPropertyDelegate().add(1, -1);
+        if (blockEntity.getPropertyDelegate().get(1) > 0 && blockEntity.getPropertyDelegate().get(0) < 3197) {
+            blockEntity.getPropertyDelegate().add(0, 8);
+            blockEntity.getPropertyDelegate().add(1, -8);
             updateLava = true;
         }
         if (updateLava) {
@@ -81,11 +81,11 @@ public class HighFurnaceBlockEntity extends AbstractMachineBlockEntity {
     }
 
     private static boolean updateLava(@NotNull HighFurnaceBlockEntity blockEntity) {
-        if (blockEntity.getPropertyDelegate().get(1) == 0 && blockEntity.getPropertyDelegate().get(0) < 301
+        if (blockEntity.getPropertyDelegate().get(1) == 0 && blockEntity.getPropertyDelegate().get(0) < 3101
                 && blockEntity.getInventory().getStack(0).getItem().equals(Items.LAVA_BUCKET)) {
             blockEntity.changingInventory = true;
             blockEntity.getInventory().setStack(0, new ItemStack(Items.BUCKET));
-            blockEntity.getPropertyDelegate().set(1, 100);
+            blockEntity.getPropertyDelegate().set(1, 800);
             blockEntity.changingInventory = false;
             return true;
         }

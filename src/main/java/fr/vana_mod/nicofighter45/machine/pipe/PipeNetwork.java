@@ -8,7 +8,9 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class PipeNetwork {
 
@@ -50,7 +52,7 @@ public class PipeNetwork {
         this.inputs.clear();
     }
 
-    private void deactivate(){
+    private void deactivate() {
         this.pipes.clear();
         this.inputs.clear();
         this.outputs.clear();
@@ -58,16 +60,16 @@ public class PipeNetwork {
         this.isActive = false;
     }
 
-    private @NotNull List<BlockPos> getNearByPipes(@NotNull BlockPos centerBlockPosition){
+    private @NotNull List<BlockPos> getNearByPipes(@NotNull BlockPos centerBlockPosition) {
         Vec3i[] vectors = {
                 new Vec3i(-1, 0, 0), new Vec3i(1, 0, 0),
                 new Vec3i(0, -1, 0), new Vec3i(0, 1, 0),
                 new Vec3i(0, 0, -1), new Vec3i(0, 0, 1)
         };
         List<BlockPos> pipes = new ArrayList<>();
-        for (Vec3i vector : vectors){
+        for (Vec3i vector : vectors) {
             BlockPos position = centerBlockPosition.add(vector);
-            if(world.getBlockEntity(position) instanceof PipeBlockEntity){
+            if (world.getBlockEntity(position) instanceof PipeBlockEntity) {
                 pipes.add(position);
             }
         }
@@ -76,15 +78,15 @@ public class PipeNetwork {
 
     private void addPipe(@NotNull PipeBlockEntity blockEntity, @NotNull List<BlockPos> pipes) {
         this.pipes.add(blockEntity.getPos());
-        for(BlockPos pipe : pipes){
-            if (!this.pipes.contains(pipe)){
+        for (BlockPos pipe : pipes) {
+            if (!this.pipes.contains(pipe)) {
                 this.pipes.add(blockEntity.getPos()); // todo delete this line and fusion network
                 System.out.println("Network must be fusion");
                 return;
             }
         }
         actualizeTexture(blockEntity, pipes);
-        for(BlockPos pipe : pipes){
+        for (BlockPos pipe : pipes) {
             actualizeTexture(((PipeBlockEntity) Objects.requireNonNull(world.getBlockEntity(pipe))));
         }
     }
@@ -94,40 +96,40 @@ public class PipeNetwork {
         if (clothPipes.size() > 1) {
             checkForNetworkSeparation(centerBlock, clothPipes);
         } else if (clothPipes.size() == 1) {
-            if (world.getBlockEntity(clothPipes.get(0)) instanceof PipeBlockEntity pipeBlockEntity){
+            if (world.getBlockEntity(clothPipes.get(0)) instanceof PipeBlockEntity pipeBlockEntity) {
                 PipeNetwork network = pipeBlockEntity.network;
                 network.pipes.remove(pipeBlockEntity.getPos());
                 pipeBlockEntity.setTextureConfiguration(0);
-            }else{
+            } else {
                 System.out.println("Error detected in removePipe");
             }
-        }else{
+        } else {
             deactivate();
         }
     }
 
     private void checkForNetworkSeparation(@NotNull BlockPos centerBlock, @NotNull List<BlockPos> clothPipes) { // todo not working
         System.out.println("checkForNetworkSeparation :)");
-        for(BlockPos firstBlockOfNetwork : clothPipes){
-            if(world.getBlockEntity(firstBlockOfNetwork) instanceof PipeBlockEntity mainPipeBlockEntity){
-                if(mainPipeBlockEntity.network != this){
+        for (BlockPos firstBlockOfNetwork : clothPipes) {
+            if (world.getBlockEntity(firstBlockOfNetwork) instanceof PipeBlockEntity mainPipeBlockEntity) {
+                if (mainPipeBlockEntity.network != this) {
                     continue;
                 }
                 PipeNetwork newNetwork = new PipeNetwork(this.world);
-                newNetwork.fluidAmount = this.fluidAmount/clothPipes.size();
+                newNetwork.fluidAmount = this.fluidAmount / clothPipes.size();
                 newNetwork.pipes = getNewPipesBlock(firstBlockOfNetwork, clothPipes, centerBlock);
-                for(BlockPos position : newNetwork.pipes){
-                    if(world.getBlockEntity(position) instanceof PipeBlockEntity pipeBlockEntity){
-                        if(pipeBlockEntity.getPos() == centerBlock){
+                for (BlockPos position : newNetwork.pipes) {
+                    if (world.getBlockEntity(position) instanceof PipeBlockEntity pipeBlockEntity) {
+                        if (pipeBlockEntity.getPos() == centerBlock) {
                             continue;
                         }
                         pipeBlockEntity.network = newNetwork;
                         newNetwork.actualizeTexture(pipeBlockEntity);
-                    }else{
+                    } else {
                         System.out.println("Error in checkForNetworkSeparation (2)");
                     }
                 }
-            }else{
+            } else {
                 System.out.println("Error in checkForNetworkSeparation (1)");
             }
         }
@@ -138,6 +140,7 @@ public class PipeNetwork {
         foundPos.add(centerBlock);
         return getNewPipesBlock(pos, foundPos);
     }
+
     private @NotNull List<BlockPos> getNewPipesBlock(BlockPos pos, List<BlockPos> foundPos) {
         for (BlockPos newPos : getNearByPipes(pos)) {
             if (!foundPos.contains(newPos)) {
@@ -148,26 +151,26 @@ public class PipeNetwork {
         return foundPos;
     }
 
-    private void actualizeTexture(@NotNull PipeBlockEntity blockEntity){
+    private void actualizeTexture(@NotNull PipeBlockEntity blockEntity) {
         actualizeTexture(blockEntity, getNearByPipes(blockEntity.getPos()));
     }
 
-    private void actualizeTexture(@NotNull PipeBlockEntity blockEntity, @NotNull List<BlockPos> clothPipes){
+    private void actualizeTexture(@NotNull PipeBlockEntity blockEntity, @NotNull List<BlockPos> clothPipes) {
         int i = 0;
-        for(BlockPos pos : clothPipes){
+        for (BlockPos pos : clothPipes) {
             System.out.println("actualizeTexture position : " + i + "::" + pos + "::" + blockEntity.getPos());
             i++;
         }
         blockEntity.setTextureConfiguration(
-                switch(clothPipes.size()){
+                switch (clothPipes.size()) {
                     case 0 -> 0;
                     case 1 -> getSimpleTextureConfiguration(getFacing(blockEntity.getPos(), clothPipes.get(0)));
                     case 2 -> getDoubleTextureConfiguration(getFacing(blockEntity.getPos(), clothPipes.get(0)),
-                                                            getFacing(blockEntity.getPos(), clothPipes.get(1)));
+                            getFacing(blockEntity.getPos(), clothPipes.get(1)));
                     default -> {
-                        if (clothPipes.size() <= 6){
+                        if (clothPipes.size() <= 6) {
                             System.out.println("Setting more than 2 cloth pipes textures"); //todo add 3 to 6 face texture config
-                        }else{
+                        } else {
                             System.out.println("Error inside clothPipes detection : more than 6 detected");
                         }
                         yield 0;
@@ -193,8 +196,8 @@ public class PipeNetwork {
         return Direction.NORTH;
     }
 
-    private int getSimpleTextureConfiguration(@NotNull Direction face){
-        return switch (face){
+    private int getSimpleTextureConfiguration(@NotNull Direction face) {
+        return switch (face) {
             case NORTH -> 4;
             case SOUTH -> 5;
             case EAST -> 6;
@@ -204,9 +207,9 @@ public class PipeNetwork {
         };
     }
 
-    private int getDoubleTextureConfiguration(@NotNull Direction face1, @NotNull Direction face2){
+    private int getDoubleTextureConfiguration(@NotNull Direction face1, @NotNull Direction face2) {
         return switch (face1) {
-            case NORTH -> switch(face2) {
+            case NORTH -> switch (face2) {
                 case NORTH -> -1;
                 case SOUTH -> 2;
                 case EAST -> 18;
@@ -214,7 +217,7 @@ public class PipeNetwork {
                 case UP -> 14;
                 case DOWN -> 10;
             };
-            case SOUTH -> switch(face2) {
+            case SOUTH -> switch (face2) {
                 case NORTH -> 2;
                 case SOUTH -> -1;
                 case EAST -> 21;
@@ -222,7 +225,7 @@ public class PipeNetwork {
                 case UP -> 16;
                 case DOWN -> 12;
             };
-            case EAST -> switch(face2) {
+            case EAST -> switch (face2) {
                 case NORTH -> 18;
                 case SOUTH -> 21;
                 case EAST -> -1;
@@ -230,7 +233,7 @@ public class PipeNetwork {
                 case UP -> 15;
                 case DOWN -> 11;
             };
-            case WEST -> switch(face2) {
+            case WEST -> switch (face2) {
                 case NORTH -> 19;
                 case SOUTH -> 20;
                 case EAST -> 3;
@@ -238,7 +241,7 @@ public class PipeNetwork {
                 case UP -> 17;
                 case DOWN -> 13;
             };
-            case UP -> switch(face2) {
+            case UP -> switch (face2) {
                 case NORTH -> 14;
                 case SOUTH -> 16;
                 case EAST -> 15;
@@ -246,7 +249,7 @@ public class PipeNetwork {
                 case UP -> -1;
                 case DOWN -> 1;
             };
-            case DOWN -> switch(face2) {
+            case DOWN -> switch (face2) {
                 case NORTH -> 10;
                 case SOUTH -> 12;
                 case EAST -> 11;

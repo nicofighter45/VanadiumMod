@@ -17,22 +17,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
 
-    private final Random random = Random.create();
     private static final Identifier ICONS = new Identifier("textures/gui/icons.png");
+    private final Random random = Random.create();
 
-    @Inject(at = @At("HEAD"), method="renderHealthBar", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "renderHealthBar", cancellable = true)
     private void renderHealthBar(DrawContext context, @NotNull PlayerEntity player, int x, int y, int lines,
                                  int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption,
                                  boolean blinking, @NotNull CallbackInfo info) {
-        int regenHeart = ServerInitializer.players.get(player.getUuid()).getRegen()/2;
+        int regenHeart = ServerInitializer.players.get(player.getUuid()).getRegen() / 2;
         HeartType heartType = HeartType.fromPlayerState(player);
         int i = player.getWorld().getLevelProperties().isHardcore() ? 45 : 0;
-        int j = MathHelper.ceil((double)maxHealth / 2.0);
-        int k = MathHelper.ceil((double)absorption / 2.0);
+        int j = MathHelper.ceil((double) maxHealth / 2.0);
+        int k = MathHelper.ceil((double) absorption / 2.0);
         int l = j * 2;
         int hardcore = player.getWorld().getLevelProperties().isHardcore() ? 27 : 0;
 
-        for(int m = j + k - 1; m >= 0; --m) {
+        for (int m = j + k - 1; m >= 0; --m) {
             int n = m / 10;
             int o = m % 10;
             int p = x + o * 8;
@@ -44,9 +44,9 @@ public class InGameHudMixin {
                 q -= 2;
             }
 
-            if(m < regenHeart){
-                drawRegenHeart(context, p, q,0 ,hardcore);
-            }else{
+            if (m < regenHeart) {
+                drawRegenHeart(context, p, q, 0, hardcore);
+            } else {
                 drawHeart(context, HeartType.CONTAINER, p, q, i, blinking, false);
             }
 
@@ -63,18 +63,18 @@ public class InGameHudMixin {
             boolean bl3;
             if (blinking && r < health) {
                 bl3 = r + 1 == health;
-                if (m < regenHeart){
-                    drawRegenHeart(context, p, q,18, hardcore);
-                }else{
+                if (m < regenHeart) {
+                    drawRegenHeart(context, p, q, 18, hardcore);
+                } else {
                     drawHeart(context, heartType, p, q, i, true, bl3);
                 }
             }
 
             if (r < lastHealth) {
                 bl3 = r + 1 == lastHealth;
-                if (m < regenHeart){
-                    drawRegenHeart(context, p, q,9, hardcore);
-                }else{
+                if (m < regenHeart) {
+                    drawRegenHeart(context, p, q, 9, hardcore);
+                } else {
                     drawHeart(context, heartType, p, q, i, false, bl3);
                 }
             }

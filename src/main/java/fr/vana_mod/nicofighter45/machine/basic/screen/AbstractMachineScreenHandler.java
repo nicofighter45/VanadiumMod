@@ -11,7 +11,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Implements;
 
 public abstract class AbstractMachineScreenHandler extends ScreenHandler {
 

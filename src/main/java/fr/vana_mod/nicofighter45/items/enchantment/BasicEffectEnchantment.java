@@ -14,18 +14,22 @@ public class BasicEffectEnchantment extends Enchantment {
     private final StatusEffect effect;
     private final boolean randomSelection, enchantedBook;
     private final EquipmentSlot slot;
-    private final ArmorMaterial armor;
+    private final ArmorMaterial material;
+    private final ArmorMaterial minimal_material;
     private final int maxLevel;
+    private final int mediumLevel;
 
     public BasicEffectEnchantment(Rarity weight, EquipmentSlot slot, boolean randomSelection,
-                                  boolean enchantedBook, StatusEffect effect, ArmorMaterial armor, int maxLevel) {
+                                  boolean enchantedBook, StatusEffect effect, ArmorMaterial material, ArmorMaterial minimal_material, int maxLevel, int mediumLevel) {
         super(weight, EnchantmentTarget.ARMOR, new EquipmentSlot[]{slot});
         this.slot = slot;
         this.randomSelection = randomSelection;
         this.enchantedBook = enchantedBook;
         this.effect = effect;
-        this.armor = armor;
+        this.material = material;
+        this.minimal_material = minimal_material;
         this.maxLevel = maxLevel;
+        this.mediumLevel = mediumLevel;
     }
 
     @Override
@@ -33,10 +37,18 @@ public class BasicEffectEnchantment extends Enchantment {
         return this.maxLevel;
     }
 
+    public int getMediumLevel() {
+        return this.mediumLevel;
+    }
+
+    public boolean isMinimalAcceptableItem(@NotNull ItemStack stack) {
+        return stack.getItem() instanceof ArmorItem armor && armor.getMaterial().equals(this.minimal_material) && armor.getSlotType().equals(this.slot);
+    }
+
     @Override
     public boolean isAcceptableItem(@NotNull ItemStack stack) {
-        return stack.getItem() instanceof ArmorItem armor && armor.getMaterial().equals(this.armor)
-                && armor.getSlotType().equals(this.slot);
+        return stack.getItem() instanceof ArmorItem armor && (armor.getMaterial().equals(this.material) ||
+                armor.getMaterial().equals(this.minimal_material)) && armor.getSlotType().equals(this.slot);
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -22,10 +23,17 @@ import java.util.Optional;
 
 public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
 
+    private static IntProperty configuration;
     private PurificatorRecipe currentRecipe;
 
+
     public PurificatorBlockEntity(BlockPos pos, BlockState state) {
+        this(pos, state, IntProperty.of("configuration", 0, 4));
+    }
+
+    public PurificatorBlockEntity(BlockPos pos, BlockState state, IntProperty config) {
         super(ModMachines.PURIFICATOR_BLOCK_ENTITY_TYPE, pos, state, 3, 3, 0);
+        configuration = config;
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, @NotNull PurificatorBlockEntity blockEntity) {
@@ -57,28 +65,44 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
                 }
             }
         }
-        if (blockEntity.getPropertyDelegate().get(1) > 0 && blockEntity.getPropertyDelegate().get(0) < 400) {
-            blockEntity.getPropertyDelegate().add(0, 1);
-            blockEntity.getPropertyDelegate().add(1, -1);
+        if (blockEntity.getPropertyDelegate().get(1) > 3 && blockEntity.getPropertyDelegate().get(0) < 1597) {
+            blockEntity.getPropertyDelegate().add(0, 4);
+            blockEntity.getPropertyDelegate().add(1, -4);
             updateWater = true;
         }
         if (updateWater) {
-            if (updateWater(blockEntity)) {
-                markDirty(world, pos, state);
-            }
+            updateWater(world, pos, blockEntity, state);
         }
     }
 
-    private static boolean updateWater(@NotNull PurificatorBlockEntity blockEntity) {
-        if (blockEntity.getPropertyDelegate().get(1) == 0 && blockEntity.getPropertyDelegate().get(0) < 301
+    public static void updateWater(World world, BlockPos pos, @NotNull PurificatorBlockEntity blockEntity, BlockState state) {
+        if (blockEntity.getPropertyDelegate().get(1) == 0 && blockEntity.getPropertyDelegate().get(0) < 1501
                 && blockEntity.getInventory().getStack(0).getItem().equals(Items.WATER_BUCKET)) {
             blockEntity.changingInventory = true;
             blockEntity.getInventory().setStack(0, new ItemStack(Items.BUCKET));
-            blockEntity.getPropertyDelegate().set(1, 100);
+            blockEntity.getPropertyDelegate().set(1, 400);
             blockEntity.changingInventory = false;
-            return true;
+            markDirty(world, pos, state);
         }
-        return false;
+        updateTexture(world, pos, state, blockEntity.getPropertyDelegate().get(0));
+    }
+
+    private static void updateTexture(World world, BlockPos pos, BlockState state, int water) {
+        BlockState blockStateFinal;
+        if (water == 0 && state.get(configuration) != 0) {
+            blockStateFinal = state.with(configuration, 0);
+        } else if (0 <= water && water < 400 && state.get(configuration) != 1) {
+            blockStateFinal = state.with(configuration, 1);
+        } else if (400 <= water && water < 800 && state.get(configuration) != 2) {
+            blockStateFinal = state.with(configuration, 2);
+        } else if (800 <= water && water < 1200 && state.get(configuration) != 3) {
+            blockStateFinal = state.with(configuration, 3);
+        } else if (1200 <= water && water <= 1600 && state.get(configuration) != 4) {
+            blockStateFinal = state.with(configuration, 4);
+        } else {
+            return;
+        }
+        world.setBlockState(pos, blockStateFinal);
     }
 
     @Override
@@ -87,7 +111,7 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
             return;
         }
         if (slot == 0) {
-            updateWater(this);
+            updateWater(world, pos, this, getCachedState());
         } else if (slot == 1) {
             assert world != null;
             Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(getInventory().getStack(1)), world);

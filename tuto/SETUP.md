@@ -22,7 +22,7 @@ Execute it and then click on install, this will create a new profile on your min
 
 Download all those mods and place them into a temporary folder
 
-- <a href="https://github.com/nicofighter45/VanadiumMod/releases/download/v.1.6.0/FabricVanaMod-1.6.0.jar">Vanadium Mod</a>
+- <a href="https://github.com/nicofighter45/VanadiumMod/releases/latest">Vanadium Mod</a>
 - <a href="https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/4167518/file">REI</a>
 - <a href="https://www.curseforge.com/minecraft/mc-mods/architectury-api/download/4162334/file">Architecture API</a>
 - <a href="https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/4147098/file">Cloth Config API</a>

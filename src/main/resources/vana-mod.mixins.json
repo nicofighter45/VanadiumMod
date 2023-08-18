@@ -4,6 +4,7 @@
   "package": "fr.vana_mod.nicofighter45.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "EnchantmentHelperMixin",
     "InGameHudMixin",
     "MinecraftServerMixin",
     "PlayerEntityMixin",

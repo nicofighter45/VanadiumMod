@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:smithing",
+  "type": "minecraft:smithing_transform",
   "base": {
     "item": "minecraft:iron_helmet"
   },
@@ -8,5 +8,8 @@
   },
   "result": {
     "item": "vana-mod:steel_helmet"
+  },
+  "template": {
+    "item": "minecraft:barrier"
   }
 }

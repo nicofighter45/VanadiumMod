@@ -1,5 +1,9 @@
 {
   "variants": {
-    "": { "model": "vana-mod:block/purificator_block" }
+    "configuration=0": { "model": "vana-mod:block/purificator/purificator_block_0" },
+    "configuration=1": { "model": "vana-mod:block/purificator/purificator_block_1" },
+    "configuration=2": { "model": "vana-mod:block/purificator/purificator_block_2" },
+    "configuration=3": { "model": "vana-mod:block/purificator/purificator_block_3" },
+    "configuration=4": { "model": "vana-mod:block/purificator/purificator_block_4" }
   }
 }

@@ -11,7 +11,9 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -31,15 +33,26 @@ public class CommonInitializer implements ModInitializer {
 
     public static final ItemGroup VANADIUM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(ModItems.VANADIUM_INGOT))
-            .displayName(Text.translatable("itemGroup."+ MODID + ".vanadium"))
+            .displayName(Text.translatable("itemGroup." + MODID + ".vanadium"))
             .build();
+    public static final List<ItemStack> VANADIUM_GROUP_ITEMS = new ArrayList<>();
 
     @Contract(value = " -> new", pure = true)
     public static Item.@NotNull Settings settings() {
         return new FabricItemSettings();
     }
 
-    public static final List<ItemStack> VANADIUM_GROUP_ITEMS = new ArrayList<>();
+    public static void addItemInGroup(Item @NotNull ... items) {
+        for (Item item : items) {
+            VANADIUM_GROUP_ITEMS.add(new ItemStack(item));
+        }
+    }
+
+    public static void addBlockInGroup(Block @NotNull ... blocks) {
+        for (Block block : blocks) {
+            VANADIUM_GROUP_ITEMS.add(new ItemStack(block.asItem()));
+        }
+    }
 
     @Override
     public void onInitialize() {
@@ -60,18 +73,6 @@ public class CommonInitializer implements ModInitializer {
         ItemGroupEvents.modifyEntriesEvent(key).register(content -> content.addAll(VANADIUM_GROUP_ITEMS));
         Registry.register(Registries.ITEM_GROUP, key, VANADIUM_GROUP);
 
-    }
-
-    public static void addItemInGroup(Item  @NotNull ... items){
-        for (Item item : items){
-            VANADIUM_GROUP_ITEMS.add(new ItemStack(item));
-        }
-    }
-
-    public static void addBlockInGroup(Block @NotNull ... blocks){
-        for (Block block : blocks){
-            VANADIUM_GROUP_ITEMS.add(new ItemStack(block.asItem()));
-        }
     }
 
 }

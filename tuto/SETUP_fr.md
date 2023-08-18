@@ -22,7 +22,7 @@ Exécutes le puis cliques sur installer dans la fenêtre qui apparaît, cela va 
 
 Télécharges tous les mods et mets-les dans un dossier temporaire
 
-- <a href="https://github.com/nicofighter45/VanadiumMod/releases/download/v.1.6.0/FabricVanaMod-1.6.0.jar">Vanadium Mod</a>
+- <a href="https://github.com/nicofighter45/VanadiumMod/releases/latest">Vanadium Mod</a>
 - <a href="https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items/download/4167518/file">REI</a>
 - <a href="https://www.curseforge.com/minecraft/mc-mods/architectury-api/download/4162334/file">Architecture API</a>
 - <a href="https://www.curseforge.com/minecraft/mc-mods/cloth-config/download/4147098/file">Cloth Config API</a>

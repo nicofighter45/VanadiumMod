@@ -2,7 +2,7 @@ You just notice a new version has been released and you don't know how to upgrad
 
 # Install new version
 
-You first need to install the last Vanadium version, you can find it <a href="https://github.com/nicofighter45/VanadiumMod/releases/download/v1.6.2/VanadiumMod-1.6.2.jar">here </a> !
+You first need to install the last Vanadium version, you can find it <a href="https://github.com/nicofighter45/VanadiumMod/releases/latest">here </a> !
 
 # Delete the old version
 

@@ -1,17 +1,13 @@
 package fr.vana_mod.nicofighter45.main;
 
-import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.InteractionEvent;
 import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.items.custom.*;
 import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
 import fr.vana_mod.nicofighter45.main.server.ServerInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -208,7 +204,7 @@ public class Listeners {
     }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text) {
-        player.sendMessage(MutableText.of(new TranslatableTextContent(text, "", new Object[] {})), false);
+        player.sendMessage(MutableText.of(new TranslatableTextContent(text, "", new Object[]{})), false);
     }
 
     private static void onEntityAttack() {

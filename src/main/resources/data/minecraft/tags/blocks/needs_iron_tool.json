@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "vana-mod:steel_block",
-    "vana-mod:high_furnace_block",
-    "vana-mod:mamade_block"
+    "vana-mod:high_furnace_block"
   ]
 }

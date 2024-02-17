@@ -18,6 +18,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -29,6 +30,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class PurificatorBlock extends AbstractMachineBlock {
+
+    public final static int waterLevelToTransform = 100;
+    public final static int waterLevelTotal = 4000;
 
     public static final IntProperty configuration = IntProperty.of("configuration", 0, 4);
     private PurificatorBlockEntity blockEntity;
@@ -52,16 +56,16 @@ public class PurificatorBlock extends AbstractMachineBlock {
 
     @Override
     public ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, @NotNull PlayerEntity player, Hand hand, BlockHitResult hit) {
+        player.sendMessage(Text.of("BOU :" + player.getMainHandStack().getItem().toString()));
         if (player.getMainHandStack().getItem() == Items.WATER_BUCKET) {
-            player.getInventory().setStack(EquipmentSlot.MAINHAND.getEntitySlotId(), new ItemStack(Items.BUCKET));
+            player.getInventory().setStack(player.getInventory().selectedSlot, new ItemStack(Items.BUCKET));
             player.getWorld().playSoundFromEntity(null, player, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 2, 0);
             PurificatorBlockEntity.updateWater(world, pos, blockEntity, state);
-        } else if (player.getMainHandStack().getItem() == Items.GLASS_BOTTLE && (
-                Objects.equals(Objects.requireNonNull(player.getMainHandStack().getOrCreateNbt().get("Potion")).toString(),
-                        Registries.POTION.getId(Potions.WATER).toString()))) {
-            PotionUtil.setPotion(player.getMainHandStack(), Potions.EMPTY);
-            player.getWorld().playSoundFromEntity(null, player, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 2, 0);
-            PurificatorBlockEntity.updateWater(world, pos, blockEntity, state);
+        } else if (player.getMainHandStack().getItem() == Items.POTION) {
+            player.sendMessage(Text.of(player.getMainHandStack().getOrCreateNbt().get("Potion").asString() + "  " + Registries.POTION.getId(Potions.WATER)));
+            /// PotionUtil.setPotion(player.getMainHandStack(), Potions.EMPTY);
+            //            player.getWorld().playSoundFromEntity(null, player, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 2, 0);
+            //            PurificatorBlockEntity.updateWater(world, pos, blockEntity, state);
         }
         return super.onUse(state, world, pos, player, hand, hit);
     }

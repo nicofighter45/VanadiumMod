@@ -204,7 +204,7 @@ public class Listeners {
     }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text) {
-        player.sendMessage(MutableText.of(new TranslatableTextContent(text, "", new Object[]{})), false);
+        player.sendMessage(Text.of(text));
     }
 
     private static void onEntityAttack() {

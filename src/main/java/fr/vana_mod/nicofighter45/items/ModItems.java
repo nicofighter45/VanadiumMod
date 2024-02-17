@@ -76,9 +76,6 @@ public class ModItems {
     public static final Item SUPER_POWER_CELL = new Item(CommonInitializer.settings().food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(10).hunger(6).statusEffect(
                     new StatusEffectInstance(StatusEffects.REGENERATION, 300, 1, true, true, true), 100).build()));
-    public static final Item MAMADE_CHICKEN = new Item(CommonInitializer.settings().food(new FoodComponent.Builder()
-            .alwaysEdible().saturationModifier(20).hunger(20).statusEffect(
-                    new StatusEffectInstance(StatusEffects.SATURATION, 216000, 0, false, false, true), 100).build()));
     public static final Item VANADIUM_APPLE = new Item(CommonInitializer.settings().food(new FoodComponent.Builder()
             .alwaysEdible().saturationModifier(20).hunger(20).statusEffect(
                     new StatusEffectInstance(StatusEffects.REGENERATION, 440, 2, true, true, true), 100)
@@ -92,8 +89,6 @@ public class ModItems {
     public static final Item SIMPLE_REGEN_BOOSTER = new Item(CommonInitializer.settings().maxCount(8));
     public static final Item BASE_REGEN_BOOSTER = new Item(CommonInitializer.settings().maxCount(8));
     public static final Item ADVANCE_REGEN_BOOSTER = new Item(CommonInitializer.settings().maxCount(8));
-    //hat
-    public static final Item HAT = new Item(CommonInitializer.settings());
     //steel
     public static final Item STEEL_PLATE = new Item(CommonInitializer.settings());
     public static final Item STEEL_HELMET = new ArmorItem(ModArmorsMaterial.STEEL_ARMOR_MATERIAL, ArmorItem.Type.HELMET, CommonInitializer.settings());
@@ -210,12 +205,6 @@ public class ModItems {
 
         registerNewItem("power_cell", POWER_CELL);
         registerNewItem("super_power_cell", SUPER_POWER_CELL);
-
-        registerNewItem("mamade_chicken", MAMADE_CHICKEN);
-        CommonInitializer.addBlockInGroup(ModBlocks.MAMADE_BLOCK);
-
-
-        registerNewItem("hat", HAT);
 
     }
 

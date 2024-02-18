@@ -7,11 +7,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
@@ -62,7 +60,7 @@ public class PurificatorBlock extends AbstractMachineBlock {
             player.getWorld().playSoundFromEntity(null, player, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 2, 0);
             PurificatorBlockEntity.updateWater(world, pos, blockEntity, state);
         } else if (player.getMainHandStack().getItem() == Items.POTION) {
-            player.sendMessage(Text.of(player.getMainHandStack().getOrCreateNbt().get("Potion").asString() + "  " + Registries.POTION.getId(Potions.WATER)));
+            player.sendMessage(Text.of(Objects.requireNonNull(player.getMainHandStack().getOrCreateNbt().get("Potion")).asString() + "  " + Registries.POTION.getId(Potions.WATER)));
             /// PotionUtil.setPotion(player.getMainHandStack(), Potions.EMPTY);
             //            player.getWorld().playSoundFromEntity(null, player, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 2, 0);
             //            PurificatorBlockEntity.updateWater(world, pos, blockEntity, state);

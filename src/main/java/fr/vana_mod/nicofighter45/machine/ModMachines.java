@@ -39,19 +39,19 @@ public class ModMachines {
 
     private static final Item.Settings settings = new Item.Settings();
     public static Block MODIFIERS_TABLE_BLOCK = new ModifiersTableBlock();
-    public static ScreenHandlerType<ModifiersTableScreenHandler> MODIFIERS_TABLE_SCREEN_HANDLER;    public static BlockEntityType<ModifiersTableBlockEntity> MODIFIERS_TABLE_BLOCK_ENTITY_TYPE =
+    public static ScreenHandlerType<ModifiersTableScreenHandler> MODIFIERS_TABLE_SCREEN_HANDLER;
+    public static RecipeType<ModifiersRecipe> MODIFIERS_RECIPE_TYPE = ModifiersRecipe.Type.INSTANCE;    public static BlockEntityType<ModifiersTableBlockEntity> MODIFIERS_TABLE_BLOCK_ENTITY_TYPE =
             BlockEntityType.Builder.create(ModifiersTableBlockEntity::new, MODIFIERS_TABLE_BLOCK).build(null);
-    public static RecipeType<ModifiersRecipe> MODIFIERS_RECIPE_TYPE = ModifiersRecipe.Type.INSTANCE;
     public static Block ENCHANTER_BLOCK = new EnchanterBlock();
     public static ScreenHandlerType<EnchanterScreenHandler> ENCHANTER_SCREEN_HANDLER;
     public static ScreenHandlerType<CustomPlayerManagementScreenHandler> CUSTOM_PLAYER_MANAGER_SCREEN_HANDLER;
-    public static Block HIGH_FURNACE_BLOCK = new HighFurnaceBlock();    public static BlockEntityType<EnchanterBlockEntity> ENCHANTER_BLOCK_ENTITY_TYPE =
-            BlockEntityType.Builder.create(EnchanterBlockEntity::new, ENCHANTER_BLOCK).build(null);
+    public static Block HIGH_FURNACE_BLOCK = new HighFurnaceBlock();
     public static ScreenHandlerType<HighFurnaceScreenHandler> HIGH_FURNACE_SCREEN_HANDLER;
-    public static RecipeType<HighFurnaceRecipe> HIGH_FURNACE_RECIPE_TYPE = HighFurnaceRecipe.Type.INSTANCE;
+    public static RecipeType<HighFurnaceRecipe> HIGH_FURNACE_RECIPE_TYPE = HighFurnaceRecipe.Type.INSTANCE;    public static BlockEntityType<EnchanterBlockEntity> ENCHANTER_BLOCK_ENTITY_TYPE =
+            BlockEntityType.Builder.create(EnchanterBlockEntity::new, ENCHANTER_BLOCK).build(null);
     public static Block PURIFICATOR_BLOCK = new PurificatorBlock();
     public static ScreenHandlerType<PurificatorScreenHandler> PURIFICATOR_SCREEN_HANDLER;
-    public static RecipeType<PurificatorRecipe> PURIFICATOR_RECIPE_TYPE = PurificatorRecipe.Type.INSTANCE;    public static BlockEntityType<HighFurnaceBlockEntity> HIGH_FURNACE_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(HighFurnaceBlockEntity::new, HIGH_FURNACE_BLOCK).build(null);
+    public static RecipeType<PurificatorRecipe> PURIFICATOR_RECIPE_TYPE = PurificatorRecipe.Type.INSTANCE;
     public static Block PIPE_BLOCK = new PipeBlock();
 
     public static void registerAll() {
@@ -90,11 +90,11 @@ public class ModMachines {
         Registry.register(Registries.BLOCK, new Identifier(CommonInitializer.MODID, name), block);
         Registry.register(Registries.ITEM, new Identifier(CommonInitializer.MODID, name),
                 new BlockItem(block, settings));
-    }
+    }    public static BlockEntityType<HighFurnaceBlockEntity> HIGH_FURNACE_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(HighFurnaceBlockEntity::new, HIGH_FURNACE_BLOCK).build(null);
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> registerNewScreenHandler(String name, ScreenHandlerType.Factory<T> factory) {
         return Registry.register(Registries.SCREEN_HANDLER, new Identifier(CommonInitializer.MODID, name), new ScreenHandlerType<>(factory, FeatureSet.empty()));
-    }    public static BlockEntityType<PurificatorBlockEntity> PURIFICATOR_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(PurificatorBlockEntity::new, PURIFICATOR_BLOCK).build(null);
+    }
 
 
 
@@ -102,7 +102,7 @@ public class ModMachines {
 
 
 
-
+    public static BlockEntityType<PurificatorBlockEntity> PURIFICATOR_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(PurificatorBlockEntity::new, PURIFICATOR_BLOCK).build(null);
 
 
     public static BlockEntityType<PipeBlockEntity> PIPE_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(PipeBlockEntity::new, PIPE_BLOCK).build(null);

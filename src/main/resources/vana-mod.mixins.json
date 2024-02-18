@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "EnchantmentHelperMixin",
-    "InGameHudMixin",
     "MinecraftServerMixin",
     "PlayerEntityMixin",
     "PlayerManagerMixin",
@@ -13,6 +12,7 @@
     "ServerWorldMixin"
   ],
   "client": [
+    "InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

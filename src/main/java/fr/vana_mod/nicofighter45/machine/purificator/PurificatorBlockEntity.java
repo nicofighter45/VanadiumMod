@@ -52,10 +52,10 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
         if (optional.isPresent()) {
             ItemStack result = blockEntity.getInventory().getStack(2);
             ItemStack output = optional.get().getOutput(DynamicRegistryManager.EMPTY);
-            if(result.isEmpty() || result.getItem() == output.getItem()){
-                if(blockEntity.getPropertyDelegate().get(2) > 0){ // attention quand + 64 items et aussi bug la machine tourne à 200%
-                    if(currentRecipe == optional.get()){
-                        if(blockEntity.getPropertyDelegate().get(0) > 0){
+            if (result.isEmpty() || result.getItem() == output.getItem()) {
+                if (blockEntity.getPropertyDelegate().get(2) > 0) { // attention quand + 64 items et aussi bug la machine tourne à 200%
+                    if (currentRecipe == optional.get()) {
+                        if (blockEntity.getPropertyDelegate().get(0) > 0) {
                             blockEntity.getPropertyDelegate().add(0, -1);
                             blockEntity.getPropertyDelegate().add(2, -1);
                             if (input.getCount() > 1) {
@@ -71,15 +71,15 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
                             }
                             markDirty(world, pos, state);
                         }
-                    }else{
+                    } else {
                         blockEntity.getPropertyDelegate().set(2, 0);
                         currentRecipe = optional.get();
                     }
-                }else{
+                } else {
                     blockEntity.getPropertyDelegate().set(2, PurificatorBlock.waterLevelToTransform);
                     currentRecipe = optional.get();
                 }
-            }else{
+            } else {
                 currentRecipe = optional.get();
                 blockEntity.getPropertyDelegate().set(2, 0);
             }
@@ -94,15 +94,15 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
     public static void updateWater(World world, BlockPos pos, @NotNull PurificatorBlockEntity blockEntity, BlockState state) {
         if (blockEntity.getPropertyDelegate().get(1) == 0
                 && blockEntity.getPropertyDelegate().get(0) <= PurificatorBlock.waterLevelTotal - PurificatorBlock.waterLevelToTransform) {
-            if(blockEntity.getInventory().getStack(0).getItem().equals(Items.WATER_BUCKET)){
+            if (blockEntity.getInventory().getStack(0).getItem().equals(Items.WATER_BUCKET)) {
                 blockEntity.changingInventory = true;
                 blockEntity.getInventory().setStack(0, new ItemStack(Items.BUCKET));
                 blockEntity.getPropertyDelegate().set(1, 1000);
                 blockEntity.changingInventory = false;
                 markDirty(world, pos, state);
-            }else if(blockEntity.getInventory().getStack(0).getItem() == Items.GLASS_BOTTLE && (
+            } else if (blockEntity.getInventory().getStack(0).getItem() == Items.GLASS_BOTTLE && (
                     Objects.equals(Objects.requireNonNull(blockEntity.getInventory().getStack(0).getOrCreateNbt().get("Potion")).toString(),
-                            Registries.POTION.getId(Potions.WATER).toString()))){
+                            Registries.POTION.getId(Potions.WATER).toString()))) {
                 blockEntity.changingInventory = true;
                 PotionUtil.setPotion(blockEntity.getInventory().getStack(0), Potions.EMPTY);
                 blockEntity.getPropertyDelegate().set(1, 200);
@@ -117,13 +117,13 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
         BlockState blockStateFinal;
         if (water == 0 && state.get(configuration) != 0) {
             blockStateFinal = state.with(configuration, 0);
-        } else if (0 <= water && water < PurificatorBlock.waterLevelTotal/4 && state.get(configuration) != 1) {
+        } else if (0 <= water && water < PurificatorBlock.waterLevelTotal / 4 && state.get(configuration) != 1) {
             blockStateFinal = state.with(configuration, 1);
-        } else if (PurificatorBlock.waterLevelTotal/4 <= water && water < PurificatorBlock.waterLevelTotal/2 && state.get(configuration) != 2) {
+        } else if (PurificatorBlock.waterLevelTotal / 4 <= water && water < PurificatorBlock.waterLevelTotal / 2 && state.get(configuration) != 2) {
             blockStateFinal = state.with(configuration, 2);
-        } else if (PurificatorBlock.waterLevelTotal/2 <= water && water < 3*PurificatorBlock.waterLevelTotal/4 && state.get(configuration) != 3) {
+        } else if (PurificatorBlock.waterLevelTotal / 2 <= water && water < 3 * PurificatorBlock.waterLevelTotal / 4 && state.get(configuration) != 3) {
             blockStateFinal = state.with(configuration, 3);
-        } else if (3*PurificatorBlock.waterLevelTotal/4 <= water && water <= PurificatorBlock.waterLevelTotal && state.get(configuration) != 4) {
+        } else if (3 * PurificatorBlock.waterLevelTotal / 4 <= water && water <= PurificatorBlock.waterLevelTotal && state.get(configuration) != 4) {
             blockStateFinal = state.with(configuration, 4);
         } else {
             return;

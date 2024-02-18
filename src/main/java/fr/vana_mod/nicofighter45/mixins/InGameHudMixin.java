@@ -10,6 +10,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,7 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
 
+    @Unique
     private static final Identifier ICONS = new Identifier("textures/gui/icons.png");
+    @Unique
     private final Random random = Random.create();
 
     @Inject(at = @At("HEAD"), method = "renderHealthBar", cancellable = true)
@@ -26,20 +29,21 @@ public class InGameHudMixin {
                                  boolean blinking, @NotNull CallbackInfo info) {
         int regenHeart = ServerInitializer.players.get(player.getUuid()).getRegen() / 2;
         HeartType heartType = HeartType.fromPlayerState(player);
-        int i = player.getWorld().getLevelProperties().isHardcore() ? 45 : 0;
-        int j = MathHelper.ceil((double) maxHealth / 2.0);
-        int k = MathHelper.ceil((double) absorption / 2.0);
-        int l = j * 2;
+        int i = 9 * (player.getWorld().getLevelProperties().isHardcore() ? 5 : 0);
         int hardcore = player.getWorld().getLevelProperties().isHardcore() ? 27 : 0;
+        int j = MathHelper.ceil((double)maxHealth / 2.0);
+        int k = MathHelper.ceil((double)absorption / 2.0);
+        int l = j * 2;
 
-        for (int m = j + k - 1; m >= 0; --m) {
+        for(int m = j + k - 1; m >= 0; --m) {
             int n = m / 10;
             int o = m % 10;
             int p = x + o * 8;
             int q = y - n * lines;
             if (lastHealth + absorption <= 4) {
-                q += random.nextInt(2);
+                q += this.random.nextInt(2);
             }
+
             if (m < j && m == regeneratingHeartIndex) {
                 q -= 2;
             }
@@ -49,14 +53,13 @@ public class InGameHudMixin {
             } else {
                 drawHeart(context, HeartType.CONTAINER, p, q, i, blinking, false);
             }
-
             int r = m * 2;
             boolean bl = m >= j;
             if (bl) {
                 int s = r - l;
                 if (s < absorption) {
                     boolean bl2 = s + 1 == absorption;
-                    drawHeart(context, heartType == HeartType.WITHERED ? heartType : HeartType.ABSORBING, p, q, i, false, bl2);
+                    this.drawHeart(context, heartType == HeartType.WITHERED ? heartType : HeartType.ABSORBING, p, q, i, false, bl2);
                 }
             }
 
@@ -82,10 +85,12 @@ public class InGameHudMixin {
         info.cancel();
     }
 
+    @Unique
     private void drawHeart(@NotNull DrawContext context, @NotNull HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart) {
         context.drawTexture(ICONS, x, y, type.getU(halfHeart, blinking), v, 9, 9);
     }
 
+    @Unique
     private void drawRegenHeart(@NotNull DrawContext context, int x, int y, int i, int j) {
         context.drawTexture(ICONS, x, y, 70 + i + j, 18, 9, 9);
     }

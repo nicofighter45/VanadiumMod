@@ -19,15 +19,15 @@ public class PurificatorScreen extends AbstractMachineScreen<PurificatorScreenHa
         int water_pixel = handler.getWater() * 32 / PurificatorBlock.waterLevelTotal;
         if (crafting > 0) {
             int crafting_pixel;
-            if (crafting >= PurificatorBlock.waterLevelToTransform*0.9) {
+            if (crafting >= PurificatorBlock.waterLevelToTransform * 0.9) {
                 crafting_pixel = (int) (2.8 * (PurificatorBlock.waterLevelToTransform - crafting));
                 draw(context, x + 37, y + 69, 2, 200, crafting_pixel, 1);
-            } else if (crafting >= PurificatorBlock.waterLevelToTransform*0.8) {
-                crafting_pixel = (int) (2 * (PurificatorBlock.waterLevelToTransform*0.9 - crafting - 2));
+            } else if (crafting >= PurificatorBlock.waterLevelToTransform * 0.8) {
+                crafting_pixel = (int) (2 * (PurificatorBlock.waterLevelToTransform * 0.9 - crafting - 2));
                 draw(context, x + 37, y + 69, 1, 200, 28, 1);
                 draw(context, x + 64, y + 68 - crafting_pixel, 1, 202, 1, crafting_pixel);
             } else {
-                crafting_pixel = (int) ((PurificatorBlock.waterLevelToTransform*0.8 - crafting) * 24 / 39);
+                crafting_pixel = (int) ((PurificatorBlock.waterLevelToTransform * 0.8 - crafting) * 24 / 39);
                 draw(context, x + 37, y + 69, 1, 200, 28, 1);
                 draw(context, x + 64, y + 49, 1, 202, 1, 20);
                 draw(context, x + 64, y + 39, 1, 223, crafting_pixel, 15);
@@ -35,10 +35,10 @@ public class PurificatorScreen extends AbstractMachineScreen<PurificatorScreenHa
         }
         if (filling > 0) {
             int filling_pixel;
-            if (filling > PurificatorBlock.waterLevelTotal*0.8) {
+            if (filling > PurificatorBlock.waterLevelTotal * 0.8) {
                 filling_pixel = (int) (2.1 / 40 * (PurificatorBlock.waterLevelTotal - filling));
                 draw(context, x + 17, y + 31, 34, 167, 14, filling_pixel);
-            } else if (filling <= PurificatorBlock.waterLevelTotal*0.2) {
+            } else if (filling <= PurificatorBlock.waterLevelTotal * 0.2) {
                 filling_pixel = 0;
                 draw(context, x + 17, y + 31 + filling_pixel, 34, 167 + filling_pixel, 14, 42 - filling_pixel);
             } else {

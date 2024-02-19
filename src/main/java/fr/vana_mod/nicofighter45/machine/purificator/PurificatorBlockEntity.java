@@ -29,10 +29,12 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
 
     private static IntProperty configuration;
     private static PurificatorRecipe currentRecipe;
+    private static boolean notEnoughWater = false;
 
 
     public PurificatorBlockEntity(BlockPos pos, BlockState state) {
         this(pos, state, IntProperty.of("configuration", 0, 4));
+        getPropertyDelegate().set(2, PurificatorBlock.waterLevelToTransform);
     }
 
     public PurificatorBlockEntity(BlockPos pos, BlockState state, IntProperty config) {
@@ -46,6 +48,7 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
             blockEntity.getPropertyDelegate().add(0, 10);
             blockEntity.getPropertyDelegate().add(1, -10);
             updateWater = true;
+            notEnoughWater = false;
         }
         ItemStack input = blockEntity.getInventory().getStack(1);
         Optional<PurificatorRecipe> optional = world.getRecipeManager().getFirstMatch(ModMachines.PURIFICATOR_RECIPE_TYPE, new SimpleInventory(input), world);
@@ -55,14 +58,14 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
             if (result.isEmpty() || result.getItem() == output.getItem()) {
                 if (blockEntity.getPropertyDelegate().get(2) > 0) {
                     if (currentRecipe == optional.get()) {
-                        if (blockEntity.getPropertyDelegate().get(0) > 0) {
+                        if (blockEntity.getPropertyDelegate().get(0) > 0 && !notEnoughWater) {
                             blockEntity.getPropertyDelegate().add(0, -1);
                             blockEntity.getPropertyDelegate().add(2, -1);
-                            if (blockEntity.getPropertyDelegate().get(2) == 0){
-                                if(result.getCount() + output.getCount() > result.getItem().getMaxCount()){
+                            if (blockEntity.getPropertyDelegate().get(2) == 0) {
+                                if (result.getCount() + output.getCount() > result.getItem().getMaxCount()) {
                                     blockEntity.getPropertyDelegate().add(0, 1);
                                     blockEntity.getPropertyDelegate().add(2, 1);
-                                }else{
+                                } else {
                                     if (input.getCount() > 1) {
                                         input.decrement(1);
                                         blockEntity.getPropertyDelegate().set(2, PurificatorBlock.waterLevelToTransform);
@@ -77,23 +80,32 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
                                     markDirty(world, pos, state);
                                 }
                             }
-                        }else if (blockEntity.getPropertyDelegate().get(2) < PurificatorBlock.waterLevelToTransform
-                                && blockEntity.getPropertyDelegate().get(0) < PurificatorBlock.waterLevelTotal){
+                        } else if (blockEntity.getPropertyDelegate().get(2) < PurificatorBlock.waterLevelToTransform
+                                && blockEntity.getPropertyDelegate().get(0) < PurificatorBlock.waterLevelTotal) {
                             blockEntity.getPropertyDelegate().add(0, 1);
                             blockEntity.getPropertyDelegate().add(2, 1);
+                            notEnoughWater = true;
                         }
-                    }else {
-                        blockEntity.getPropertyDelegate().set(2, 0);
-                        currentRecipe = optional.get();
+                    }else if (blockEntity.getPropertyDelegate().get(2) < PurificatorBlock.waterLevelToTransform
+                            && blockEntity.getPropertyDelegate().get(0) < PurificatorBlock.waterLevelTotal){
+                        blockEntity.getPropertyDelegate().add(0, 1);
+                        blockEntity.getPropertyDelegate().add(2, 1);
+                    } else {
+                        blockEntity.getPropertyDelegate().set(2, PurificatorBlock.waterLevelToTransform);
                     }
                 } else {
                     blockEntity.getPropertyDelegate().set(2, PurificatorBlock.waterLevelToTransform);
-                    currentRecipe = optional.get();
                 }
-            } else {
                 currentRecipe = optional.get();
-                blockEntity.getPropertyDelegate().set(2, 0);
+            }else if (blockEntity.getPropertyDelegate().get(2) < PurificatorBlock.waterLevelToTransform
+                    && blockEntity.getPropertyDelegate().get(0) < PurificatorBlock.waterLevelTotal){
+                blockEntity.getPropertyDelegate().add(0, 1);
+                blockEntity.getPropertyDelegate().add(2, 1);
             }
+        }else if (blockEntity.getPropertyDelegate().get(2) < PurificatorBlock.waterLevelToTransform
+                && blockEntity.getPropertyDelegate().get(0) < PurificatorBlock.waterLevelTotal){
+            blockEntity.getPropertyDelegate().add(0, 1);
+            blockEntity.getPropertyDelegate().add(2, 1);
         }
 
         if (updateWater) {

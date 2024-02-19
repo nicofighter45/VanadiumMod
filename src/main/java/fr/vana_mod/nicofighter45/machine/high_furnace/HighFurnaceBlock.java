@@ -11,7 +11,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class HighFurnaceBlock extends AbstractMachineBlock {
-
+    public final static int lavaLevelToTransform = 100;
+    public final static int lavaLevelTotal = 4000;
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new HighFurnaceBlockEntity(pos, state);
     }

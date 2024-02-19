@@ -24,7 +24,7 @@ dependencies {
 	modApi include("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.REI_version}")
 
 	modRuntimeOnly("maven.modrinth:architectury-api:${project.ArchitecturyAPI_version}+fabric")
-	modRuntimeOnly include("maven.modrinth:cloth-config:${project.ClothConfigAPI_version}+fabric")
+	modRuntimeOnly("maven.modrinth:cloth-config:${project.ClothConfigAPI_version}+fabric")
 	modRuntimeOnly("maven.modrinth:distanthorizons:${project.Distanthorizons_version}")
 	modRuntimeOnly("maven.modrinth:indium:${project.Indium_version}")
 	modRuntimeOnly("maven.modrinth:iris:${project.Iris_version}")

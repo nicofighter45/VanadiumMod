@@ -91,12 +91,12 @@ public class PurificatorScreen extends AbstractMachineScreen<PurificatorScreenHa
         }
         if (filling > 0) {
             int filling_pixel;
-            if (filling > PurificatorBlock.waterLevelTotal * 0.8) {
-                filling_pixel = (int) (2.1 / 40 * (PurificatorBlock.waterLevelTotal - filling));
+            if (filling >= 800) {
+                filling_pixel = (int) ((1000 - filling) * 42/200);
                 draw(context, x + 17, y + 31, 34, 167, 14, filling_pixel);
-            } else if (filling <= PurificatorBlock.waterLevelTotal * 0.2) {
-                filling_pixel = 0;
-                draw(context, x + 17, y + 31 + filling_pixel, 34, 167 + filling_pixel, 14, 42 - filling_pixel);
+            } else if (filling <= 200) {
+                filling_pixel = (int) (filling * 42/200);
+                draw(context, x + 17, y + 31 + 42 - filling_pixel, 34, 167 + 42 - filling_pixel, 14, filling_pixel);
             } else {
                 draw(context, x + 17, y + 31, 34, 167, 14, 42);
             }

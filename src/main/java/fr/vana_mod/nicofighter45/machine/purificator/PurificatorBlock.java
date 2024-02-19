@@ -59,12 +59,14 @@ public class PurificatorBlock extends AbstractMachineBlock {
             player.getInventory().setStack(player.getInventory().selectedSlot, new ItemStack(Items.BUCKET));
             player.getWorld().playSoundFromEntity(null, player, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 2, 0);
             PurificatorBlockEntity.updateWater(world, pos, blockEntity, state);
-        } else if (player.getMainHandStack().getItem() == Items.POTION) {
-            player.sendMessage(Text.of(Objects.requireNonNull(player.getMainHandStack().getOrCreateNbt().get("Potion")).asString() + "  " + Registries.POTION.getId(Potions.WATER)));
-            /// PotionUtil.setPotion(player.getMainHandStack(), Potions.EMPTY);
-            //            player.getWorld().playSoundFromEntity(null, player, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 2, 0);
-            //            PurificatorBlockEntity.updateWater(world, pos, blockEntity, state);
         }
+
+        //   else if (player.getMainHandStack().getItem() == Items.POTION) {
+        //   player.sendMessage(Text.of(Objects.requireNonNull(player.getMainHandStack().getOrCreateNbt().get("Potion")).asString() + "  " + Registries.POTION.getId(Potions.WATER)));
+        //   PotionUtil.setPotion(player.getMainHandStack(), Potions.EMPTY);
+        //   player.getWorld().playSoundFromEntity(null, player, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 2, 0);
+        //   PurificatorBlockEntity.updateWater(world, pos, blockEntity, state);
+        //}
         return super.onUse(state, world, pos, player, hand, hit);
     }
 

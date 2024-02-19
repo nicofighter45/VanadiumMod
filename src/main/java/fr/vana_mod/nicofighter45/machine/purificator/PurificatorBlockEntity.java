@@ -53,25 +53,36 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
             ItemStack result = blockEntity.getInventory().getStack(2);
             ItemStack output = optional.get().getOutput(DynamicRegistryManager.EMPTY);
             if (result.isEmpty() || result.getItem() == output.getItem()) {
-                if (blockEntity.getPropertyDelegate().get(2) > 0) { // attention quand + 64 items et aussi bug la machine tourne à 200%
+                if (blockEntity.getPropertyDelegate().get(2) > 0) {
                     if (currentRecipe == optional.get()) {
                         if (blockEntity.getPropertyDelegate().get(0) > 0) {
                             blockEntity.getPropertyDelegate().add(0, -1);
                             blockEntity.getPropertyDelegate().add(2, -1);
-                            if (input.getCount() > 1) {
-                                input.decrement(1);
-                                blockEntity.getPropertyDelegate().set(2, PurificatorBlock.waterLevelToTransform);
-                            } else {
-                                blockEntity.getInventory().setStack(1, ItemStack.EMPTY);
+                            if (blockEntity.getPropertyDelegate().get(2) == 0){
+                                if(result.getCount() + output.getCount() > result.getItem().getMaxCount()){
+                                    blockEntity.getPropertyDelegate().add(0, 1);
+                                    blockEntity.getPropertyDelegate().add(2, 1);
+                                }else{
+                                    if (input.getCount() > 1) {
+                                        input.decrement(1);
+                                        blockEntity.getPropertyDelegate().set(2, PurificatorBlock.waterLevelToTransform);
+                                    } else {
+                                        blockEntity.getInventory().setStack(1, ItemStack.EMPTY);
+                                    }
+                                    if (!result.isEmpty()) {
+                                        result.increment(output.getCount());
+                                    } else {
+                                        blockEntity.getInventory().setStack(2, output.copy());
+                                    }
+                                    markDirty(world, pos, state);
+                                }
                             }
-                            if (!result.isEmpty()) {
-                                result.increment(output.getCount());
-                            } else {
-                                blockEntity.getInventory().setStack(2, output.copy());
-                            }
-                            markDirty(world, pos, state);
+                        }else if (blockEntity.getPropertyDelegate().get(2) < PurificatorBlock.waterLevelToTransform
+                                && blockEntity.getPropertyDelegate().get(0) < PurificatorBlock.waterLevelTotal){
+                            blockEntity.getPropertyDelegate().add(0, 1);
+                            blockEntity.getPropertyDelegate().add(2, 1);
                         }
-                    } else {
+                    }else {
                         blockEntity.getPropertyDelegate().set(2, 0);
                         currentRecipe = optional.get();
                     }
@@ -84,7 +95,6 @@ public class PurificatorBlockEntity extends AbstractMachineBlockEntity {
                 blockEntity.getPropertyDelegate().set(2, 0);
             }
         }
-
 
         if (updateWater) {
             updateWater(world, pos, blockEntity, state);

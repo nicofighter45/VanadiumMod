@@ -52,7 +52,7 @@ public class Command {
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                     if (player.getServerWorld() == Objects.requireNonNull(player.getServer()).getOverworld()) {
-                        ServerInitializer.players.get(player.getUuid()).setBase(player.getBlockPos());
+                        ServerInitializer.setPlayerBase(player, player.getBlockPos());
                         sendMsg(player, "setbase.done");
                     } else {
                         sendMsg(player, "setbase.error");
@@ -63,13 +63,13 @@ public class Command {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("stat")
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
-                    CustomPlayer customPlayer = ServerInitializer.players.get(player.getUuid());
+                    CustomPlayer customPlayer = ServerInitializer.getCustomPlayer(player.getUuid());
                     sendMsg(player, "stat.title");
                     sendMsg(player, "stat.health", Integer.toString(customPlayer.getHeart()), false);
                     sendMsg(player, "stat.regen", Integer.toString(customPlayer.getRegen()), false);
-                    sendMsg(player, "stat.baseX" + customPlayer.getBase().getX(), false);
-                    sendMsg(player, "stat.baseY" + customPlayer.getBase().getY(), false);
-                    sendMsg(player, "stat.baseZ" + customPlayer.getBase().getZ(), false);
+                    sendMsg(player, "stat.baseX", Integer.toString(customPlayer.getBase().getX()), false);
+                    sendMsg(player, "stat.baseY", Integer.toString(customPlayer.getBase().getY()), false);
+                    sendMsg(player, "stat.baseZ", Integer.toString(customPlayer.getBase().getZ()), false);
                     return 1;
                 })
         ));
@@ -95,7 +95,7 @@ public class Command {
                                     lastPos = player.getBlockPos();
                                     lastHealth = player.getHealth();
                                     if (timer == 0) {
-                                        BlockPos base = ServerInitializer.players.get(player.getUuid()).getBase();
+                                        BlockPos base = ServerInitializer.getCustomPlayer(player.getUuid()).getBase();
                                         player.teleport(Objects.requireNonNull(player.getServer()).getOverworld(), base.getX(), base.getY(), base.getZ(), 180, 0);
                                         sendMsg(player, "base.tp_done");
                                         cancel();
@@ -346,9 +346,10 @@ public class Command {
                 .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
                     sendOpFeedbackMsg(c, "data.title", false);
-                    for (UUID uuid : ServerInitializer.players.keySet()) {
-                        CustomPlayer cp = ServerInitializer.players.get(uuid);
-                        sendOpFeedbackMsg(c, "data.uuid", uuid.toString(), false, false);
+                    for (UUID uuid : ServerInitializer.getPlayersUUID()) {
+                        CustomPlayer cp = ServerInitializer.getCustomPlayer(uuid);
+                        sendOpFeedbackMsg(c, "data.uuid", Objects.requireNonNull(c.getSource().getServer().getPlayerManager()
+                                .getPlayer(uuid)).getEntityName(), false, false);
                         sendOpFeedbackMsg(c, "data.health", Integer.toString(cp.getHeart()), false, false);
                         sendOpFeedbackMsg(c, "data.regen", Integer.toString(cp.getRegen()), false, false);
                     }
@@ -371,9 +372,10 @@ public class Command {
                                         })
                                         .then(argument("value", IntegerArgumentType.integer(0))
                                                 .executes(c -> {
-                                                    UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
+                                                    ServerPlayerEntity player = EntityArgumentType.getPlayer(c, "player");
+                                                    UUID uuid = player.getUuid();
                                                     int value = IntegerArgumentType.getInteger(c, "value");
-                                                    ServerInitializer.players.get(uuid).setHeart(value);
+                                                    ServerInitializer.setPlayerHearts(player, value);
                                                     for (ServerPlayerEntity server_player : Objects.requireNonNull(c.getSource().getServer()).getPlayerManager().getPlayerList()) {
                                                         if (server_player.getUuid() == uuid) {
                                                             Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(value);
@@ -392,10 +394,10 @@ public class Command {
                                         })
                                         .then(argument("value", IntegerArgumentType.integer(0))
                                                 .executes(c -> {
-                                                    UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
+                                                    ServerPlayerEntity player = EntityArgumentType.getPlayer(c, "player");
                                                     int value = IntegerArgumentType.getInteger(c, "value");
-                                                    ServerInitializer.players.get(uuid).setRegen(value);
-                                                    sendOpFeedbackMsg(c, "data.health_change_op", uuid.toString(), Integer.toString(value / 2));
+                                                    ServerInitializer.setPlayerRegen(player, value);
+                                                    sendOpFeedbackMsg(c, "data.health_change_op", player.getEntityName(), Integer.toString(value / 2));
                                                     return 1;
                                                 })
                                         )
@@ -409,9 +411,9 @@ public class Command {
                         })
                         .then(argument("player", EntityArgumentType.player())
                                 .executes(c -> {
-                                    UUID uuid = EntityArgumentType.getPlayer(c, "player").getUuid();
-                                    CustomPlayer cp = ServerInitializer.players.get(uuid);
-                                    sendOpFeedbackMsg(c, "data.uuid", uuid.toString(), false, false);
+                                    ServerPlayerEntity player = EntityArgumentType.getPlayer(c, "player");
+                                    CustomPlayer cp = ServerInitializer.getCustomPlayer(player.getUuid());
+                                    sendOpFeedbackMsg(c, "data.uuid", player.getEntityName(), false, false);
                                     sendOpFeedbackMsg(c, "data.health", Integer.toString(cp.getHeart()), false, false);
                                     sendOpFeedbackMsg(c, "data.regen", Integer.toString(cp.getRegen()), false, false);
                                     return 1;

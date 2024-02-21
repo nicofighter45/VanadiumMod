@@ -32,7 +32,6 @@ public abstract class EnchantmentHelperMixin {
             if (enchantment instanceof BasicEffectEnchantment basicEffectEnchantment
                     && stack.getItem() instanceof ArmorItem) {
                 if(!basicEffectEnchantment.isAcceptableItem(stack)){
-                    System.out.println(enchantment.getTranslationKey());
                     continue;
                 }
                 if (basicEffectEnchantment.isMinimalAcceptableItem(stack)) {

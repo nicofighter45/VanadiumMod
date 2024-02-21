@@ -56,7 +56,7 @@ public class ModifiersTableCategory implements DisplayCategory<ModifiersTableDis
 
     @Override
     public Text getTitle() {
-        return Text.translatable("rei.category.vana-mod.modifiers_table");
+        return Text.translatable("item.vana-mod.modifiers_table_block");
     }
 
     @Override

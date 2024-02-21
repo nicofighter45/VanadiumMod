@@ -124,8 +124,6 @@
   "item.vana-mod.base_regen_booster": "Base Regen Booster",
   "item.vana-mod.advance_regen_booster": "Advance Regen Booster",
 
-  "item.vana-mod.hat": "Hat",
-
   "itemGroup.vana-mod.vanadium": "Vanadium Items",
 
   "advancements.vana-mod.root.title": "Vanadium",
@@ -144,12 +142,12 @@
   "advancements.vana-mod.simpleregen.description": "Craft a simple regen booster",
 
   "advancements.vana-mod.tungsten.title": "Hot Ingot!",
-  "advancements.vana-mod.tungsten.description": "Find a tungsten ingot",
+  "advancements.vana-mod.tungsten.description": "Find raw tungsten",
   "advancements.vana-mod.tungstenchest.title": "Fire Bender!",
   "advancements.vana-mod.tungstenchest.description": "Craft a tungsten chestplate",
 
   "advancements.vana-mod.vanadium.title": "Vanadium!",
-  "advancements.vana-mod.vanadium.description": "Get some Vanadium Nugget",
+  "advancements.vana-mod.vanadium.description": "Get some Vanadium",
   "advancements.vana-mod.vanahammer.title": "That's a hammer!",
   "advancements.vana-mod.vanahammer.description": "Craft a vanadium hammer",
   "advancements.vana-mod.vanaarmor.title": "The Armor",
@@ -233,9 +231,5 @@
   "listeners.vana-mod.mega_axe_switch_deactivate": "§6MegaAxe mode §4deactivate",
 
   "key.category.vana-mod.vanadium": "Vanadium",
-  "key.vana-mod.night_vision": "Night Vision",
-
-  "rei.category.vana-mod.modifiers_table": "Modifiers",
-  "rei.category.vana-mod.purificator": "Purificator",
-  "rei.category.vana-mod.high_furnace": "High Furnace"
+  "key.vana-mod.night_vision": "Night Vision"
 }

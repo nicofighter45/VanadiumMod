@@ -53,7 +53,7 @@ public class HighFurnaceCategory implements DisplayCategory<HighFurnaceDisplay> 
 
     @Override
     public Text getTitle() {
-        return Text.translatable("rei.category.vana-mod.high_furnace");
+        return Text.translatable("item.vana-mod.high_furnace_block");
     }
 
     @Override

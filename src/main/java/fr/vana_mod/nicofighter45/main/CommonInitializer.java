@@ -37,6 +37,8 @@ public class CommonInitializer implements ModInitializer {
             .build();
     public static final List<ItemStack> VANADIUM_GROUP_ITEMS = new ArrayList<>();
 
+    public static final Identifier UPDATE_CUSTOM_PLAYER_PACKET = new Identifier(CommonInitializer.MODID, "update_custom_player");
+
     @Contract(value = " -> new", pure = true)
     public static Item.@NotNull Settings settings() {
         return new FabricItemSettings();

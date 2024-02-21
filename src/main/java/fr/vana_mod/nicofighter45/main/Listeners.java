@@ -149,11 +149,11 @@ public class Listeners {
                 ServerPlayerEntity server_player = (ServerPlayerEntity) player;
                 ItemStack it = server_player.getMainHandStack();
                 Item item_server = it.getItem();
-                CustomPlayer data_player = ServerInitializer.players.get(server_player.getUuid());
+                CustomPlayer data_player = ServerInitializer.getCustomPlayer(server_player.getUuid());
                 int heart = data_player.getHeart();
                 int regen = data_player.getRegen();
                 if (item_server == ModItems.SIMPLE_HEALTH_BOOSTER && heart < 20) {
-                    data_player.setHeart(heart + 2);
+                    data_player.setHeart(heart + 2); //todo change translation
                     Objects.requireNonNull(server_player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(data_player.getHeart());
                     sendMsg(server_player, "§8[§6Server§8] §fYou got " + (heart + 2) / 2 + " heart");
                 } else if (item_server == ModItems.BASE_HEALTH_BOOSTER && heart >= 20 && heart < 30) {

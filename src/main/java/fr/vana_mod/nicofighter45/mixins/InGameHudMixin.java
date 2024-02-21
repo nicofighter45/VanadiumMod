@@ -1,7 +1,7 @@
 package fr.vana_mod.nicofighter45.mixins;
 
 import fr.vana_mod.nicofighter45.main.HeartType;
-import fr.vana_mod.nicofighter45.main.server.ServerInitializer;
+import fr.vana_mod.nicofighter45.main.client.ClientInitializer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +27,7 @@ public abstract class InGameHudMixin {
     private void renderHealthBar(DrawContext context, @NotNull PlayerEntity player, int x, int y, int lines,
                                  int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
                                  int absorption, boolean blinking, CallbackInfo ci) {
-        int regenHeart = ServerInitializer.players.get(player.getUuid()).getRegen() / 2;
+        int regenHeart = ClientInitializer.customPlayer.getRegen() / 2;
         HeartType heartType = HeartType.fromPlayerState(player);
         int i = 9 * (player.getWorld().getLevelProperties().isHardcore() ? 5 : 0);
         int hardcore = player.getWorld().getLevelProperties().isHardcore() ? 27 : 0;

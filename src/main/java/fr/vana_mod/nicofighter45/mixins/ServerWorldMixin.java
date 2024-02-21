@@ -31,17 +31,18 @@ public abstract class ServerWorldMixin {
         if (!ServerInitializer.isOn && permission != 4) {
             Objects.requireNonNull(player.getServer()).getPlayerManager().disconnectAllPlayers();
         }
-        if (!ServerInitializer.players.containsKey(player.getUuid())) {
-            ServerInitializer.players.put(player.getUuid(), new CustomPlayer(10, 0, player.getServer().getOverworld().getSpawnPos()));
+        CustomPlayer customPlayer = ServerInitializer.getNullableCustomPlayer(player.getUuid());
+        if (customPlayer == null) {
+            ServerInitializer.newPlayer(player);
             player.setHealth(10);
         }
-        CustomPlayer customPlayer = ServerInitializer.players.get(player.getUuid());
+        customPlayer = ServerInitializer.getCustomPlayer(player.getUuid());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")
     private void onPlayerRespawned(@NotNull ServerPlayerEntity player, CallbackInfo info) {
-        int heart = ServerInitializer.players.get(player.getUuid()).getHeart();
+        int heart = ServerInitializer.getCustomPlayer(player.getUuid()).getHeart();
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(heart);
         player.setHealth(heart);
     }
@@ -53,7 +54,7 @@ public abstract class ServerWorldMixin {
         } else if (timer_heal == 0) {
             timer_heal--;
             for (ServerPlayerEntity player : world.getPlayers()) {
-                int regen = ServerInitializer.players.get(player.getUuid()).getRegen();
+                int regen = ServerInitializer.getCustomPlayer(player.getUuid()).getRegen();
                 if (player.getInventory().getArmorStack(EquipmentSlot.HEAD.getEntitySlotId()).getItem() == ModItems.VANADIUM_HELMET &&
                         player.getInventory().getArmorStack(EquipmentSlot.LEGS.getEntitySlotId()).getItem() == ModItems.VANADIUM_LEGGINGS &&
                         player.getInventory().getArmorStack(EquipmentSlot.FEET.getEntitySlotId()).getItem() == ModItems.VANADIUM_BOOTS) {

@@ -79,20 +79,20 @@ public abstract class ServerPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "readCustomDataFromNbt")
     private void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        if (ServerInitializer.players.containsKey(player.getUuid())) {
-            CustomPlayer pl = ServerInitializer.players.get(player.getUuid());
-            pl.setHeart(nbt.getInt("heart"));
-            pl.setRegen(nbt.getInt("regen"));
-            pl.setBase(new BlockPos(nbt.getInt("baseX"), nbt.getInt("baseY"), nbt.getInt("baseZ")));
+        CustomPlayer customPlayer = ServerInitializer.getNullableCustomPlayer(player.getUuid());
+        if (customPlayer != null) {
+            customPlayer.setHeart(nbt.getInt("heart"));
+            customPlayer.setRegen(nbt.getInt("regen"));
+            customPlayer.setBase(new BlockPos(nbt.getInt("baseX"), nbt.getInt("baseY"), nbt.getInt("baseZ")));
         } else {
-            ServerInitializer.players.put(player.getUuid(), new CustomPlayer(nbt.getInt("heart"), nbt.getInt("regen"),
+            ServerInitializer.loadPlayer(player.getUuid(), new CustomPlayer(nbt.getInt("heart"), nbt.getInt("regen"),
                     new BlockPos(nbt.getInt("baseX"), nbt.getInt("baseY"), nbt.getInt("baseZ"))));
         }
     }
 
     @Inject(at = @At("HEAD"), method = "writeCustomDataToNbt")
     private void writeCustomDataToNbt(@NotNull NbtCompound nbt, CallbackInfo ci) {
-        CustomPlayer pl = ServerInitializer.players.get(player.getUuid());
+        CustomPlayer pl = ServerInitializer.getCustomPlayer(player.getUuid());
         nbt.putInt("heart", pl.getHeart());
         nbt.putInt("regen", pl.getRegen());
         nbt.putInt("baseX", pl.getBase().getX());

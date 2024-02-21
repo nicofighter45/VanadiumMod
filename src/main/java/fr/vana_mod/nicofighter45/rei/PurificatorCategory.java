@@ -52,7 +52,7 @@ public class PurificatorCategory implements DisplayCategory<PurificatorDisplay> 
 
     @Override
     public Text getTitle() {
-        return Text.translatable("rei.category.vana-mod.purificator");
+        return Text.translatable("item.vana-mod.purificator_block");
     }
 
     @Override

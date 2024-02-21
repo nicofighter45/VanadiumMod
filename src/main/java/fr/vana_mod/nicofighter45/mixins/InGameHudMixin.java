@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
-public class InGameHudMixin {
+public abstract class InGameHudMixin {
 
     @Unique
     private static final Identifier ICONS = new Identifier("textures/gui/icons.png");
@@ -25,8 +25,8 @@ public class InGameHudMixin {
 
     @Inject(at = @At("HEAD"), method = "renderHealthBar", cancellable = true)
     private void renderHealthBar(DrawContext context, @NotNull PlayerEntity player, int x, int y, int lines,
-                                 int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption,
-                                 boolean blinking, @NotNull CallbackInfo info) {
+                                 int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
+                                 int absorption, boolean blinking, CallbackInfo ci) {
         int regenHeart = ServerInitializer.players.get(player.getUuid()).getRegen() / 2;
         HeartType heartType = HeartType.fromPlayerState(player);
         int i = 9 * (player.getWorld().getLevelProperties().isHardcore() ? 5 : 0);
@@ -82,7 +82,7 @@ public class InGameHudMixin {
                 }
             }
         }
-        info.cancel();
+        ci.cancel();
     }
 
     @Unique

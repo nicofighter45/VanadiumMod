@@ -7,9 +7,9 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,9 +18,11 @@ import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
 @Mixin(ServerWorld.class)
-public class ServerWorldMixin {
+public abstract class ServerWorldMixin {
 
+    @Unique
     private final ServerWorld world = (ServerWorld) (Object) this;
+    @Unique
     private int timer_heal = 40; // 40 ticks = 2 sec
 
     @Inject(at = @At("HEAD"), method = "onPlayerConnected")
@@ -35,16 +37,6 @@ public class ServerWorldMixin {
         }
         CustomPlayer customPlayer = ServerInitializer.players.get(player.getUuid());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
-        String color = "§9";
-        if (permission == 4) {
-            color = "§4";
-        } else if (permission == 1) {
-            color = "§e";
-        }
-        for (ServerPlayerEntity pl : player.getServer().getPlayerManager().getPlayerList()) {
-            pl.sendMessage(Text.of(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable("mixins.vana-mod.player_join").getString()
-                    .replace("{value}", color + player.getEntityName() + "§f")));
-        }
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")
@@ -78,6 +70,7 @@ public class ServerWorldMixin {
         }
     }
 
+    @Unique
     private double getDistFromCenter(@NotNull ServerPlayerEntity player) {
         double x = player.getX();
         double z = player.getZ();

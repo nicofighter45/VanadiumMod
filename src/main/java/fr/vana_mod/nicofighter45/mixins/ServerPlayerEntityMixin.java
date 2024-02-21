@@ -10,18 +10,16 @@ import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.message.MessageType;
-import net.minecraft.network.message.SentMessage;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -32,8 +30,10 @@ import java.util.Objects;
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin {
 
+    @Unique
     private final ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
 
+    @Unique
     public ItemStack getEquippedStack(EquipmentSlot slot) {
         if (slot == EquipmentSlot.MAINHAND) {
             return player.getInventory().getMainHandStack();
@@ -68,7 +68,7 @@ public abstract class ServerPlayerEntityMixin {
 
 
     @Inject(at = @At("HEAD"), method = "damage", cancellable = true)
-    private void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void damage(@NotNull DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (source.isIn(DamageTypeTags.IS_FALL) && EnchantmentHelper.get(getEquippedStack(EquipmentSlot.FEET)).containsKey(ModEnchants.NO_FALL)) {
             cir.setReturnValue(false);
         } else if (source.isIn(DamageTypeTags.IS_FALL) && ServerInitializer.jump && Math.sqrt(Math.pow(player.getX(), 2) +
@@ -98,27 +98,6 @@ public abstract class ServerPlayerEntityMixin {
         nbt.putInt("baseX", pl.getBase().getX());
         nbt.putInt("baseY", pl.getBase().getX());
         nbt.putInt("baseZ", pl.getBase().getX());
-    }
-
-    @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
-    private void sendChatMessage(SentMessage message, boolean filterMaskEnabled, MessageType.@NotNull Parameters messageType, CallbackInfo ci) {
-        System.out.println("sendchatmessage method : " + messageType.type().chat().translationKey() + messageType.targetName());
-        String prefix = "§8[§9Player§8] §9";
-        for (ServerPlayerEntity pl : Objects.requireNonNull(player.getServer()).getPlayerManager().getPlayerList()) {
-            assert messageType.targetName() != null;
-            if (pl.getEntityName().equals(messageType.targetName().getString())) {
-                int permission = Objects.requireNonNull(pl.getServer()).getPermissionLevel(pl.getGameProfile());
-                if (permission == 4) {
-                    prefix = "§8[§4Admin§8] §4";
-                } else if (permission == 1) {
-                    prefix = "§8[§eVanadeur§8] §e";
-                }
-            }
-        }
-        String pre_msg = prefix + " §8: §f";
-        Text msg = Text.of(pre_msg + message.getContent().getString());
-        player.sendMessage(msg);
-        ci.cancel();
     }
 
 }

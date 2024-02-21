@@ -149,12 +149,14 @@ public class Command {
                     return 1;
                 })
                 .then(argument("message", MessageArgumentType.message()).executes(c -> {
-                    String msg = MessageArgumentType.getMessage(c, "message").getString();
+                    String msg = MessageArgumentType.getMessage(c, "message").getString().replace("{value}",
+                            MessageArgumentType.getMessage(c, "message").getString());
                     for (ServerPlayerEntity player : c.getSource().getServer().getPlayerManager().getPlayerList()) {
                         player.sendMessage(Text.literal(ServerInitializer.BROADCAST_MSG_PREFIX + msg));
                         player.sendMessage(Text.literal(ServerInitializer.BROADCAST_MSG_PREFIX + msg), true);
                     }
-                    sendOpFeedbackMsg(c, "broadcast.done");
+                    sendOpFeedbackMsg(c, Text.translatable("broadcast.done").getString().replace("{value}",
+                            MessageArgumentType.getMessage(c, "message").getString()));
                     return 1;
                 }))
         ));

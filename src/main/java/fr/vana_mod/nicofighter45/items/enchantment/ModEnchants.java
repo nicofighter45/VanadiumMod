@@ -12,24 +12,21 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModEnchants {
 
-
-    //enchants
     public static Enchantment HASTER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.HEAD,
-            false, false, StatusEffects.HASTE, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
+            true, true, StatusEffects.HASTE, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
             ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 3, 1);
     public static Enchantment STRENGHTER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.HEAD,
-            false, false, StatusEffects.STRENGTH, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
+            true, true, StatusEffects.STRENGTH, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
             ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 2, 1);
     public static Enchantment RESISTANCER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.LEGS,
-            false, false, StatusEffects.RESISTANCE, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
+            true, true, StatusEffects.RESISTANCE, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
             ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 2, 1);
     public static Enchantment FASTER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.LEGS,
-            false, false, StatusEffects.SPEED, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
+            true, true, StatusEffects.SPEED, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
             ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 5, 2);
     public static Enchantment JUMPER = new BasicEffectEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.FEET,
-            false, false, StatusEffects.JUMP_BOOST, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
+            true, true, StatusEffects.JUMP_BOOST, ModArmorsMaterial.VANADIUM_ARMOR_MATERIAL,
             ModArmorsMaterial.EMERALD_ARMOR_MATERIAL, 5, 2);
-
     public static Enchantment NO_FALL = new NoFallEnchantment();
     public static Enchantment EXPERIENCE = new ExperienceEnchantment();
 

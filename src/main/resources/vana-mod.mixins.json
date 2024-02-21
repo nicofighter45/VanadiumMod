@@ -7,7 +7,6 @@
     "EnchantmentHelperMixin",
     "MinecraftServerMixin",
     "PlayerEntityMixin",
-    "PlayerManagerMixin",
     "ServerPlayerEntityMixin",
     "ServerWorldMixin"
   ],

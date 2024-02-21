@@ -10,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,11 +18,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Map;
 
 @Mixin(PlayerEntity.class)
-public class PlayerEntityMixin {
+public abstract class PlayerEntityMixin {
 
+    @Unique
     private final PlayerEntity player = (PlayerEntity) (Object) this;
+    @Unique
     private int timer = 100;
 
+    @Unique
     public ItemStack getEquippedStack(EquipmentSlot slot) {
         if (slot == EquipmentSlot.MAINHAND) {
             return player.getInventory().getMainHandStack();
@@ -66,6 +70,8 @@ public class PlayerEntityMixin {
             } else if (chestplate.getItem() == ModItems.TUNGSTEN_CHESTPLATE) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 140, 0, false, false, true));
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 140, 1, false, false, true));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 140, 0, false, false, true));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 140, 2, false, false, true));
             }
 
             //check leggings

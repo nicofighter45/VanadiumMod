@@ -42,7 +42,8 @@ public class BasicEffectEnchantment extends Enchantment {
     }
 
     public boolean isMinimalAcceptableItem(@NotNull ItemStack stack) {
-        return stack.getItem() instanceof ArmorItem armor && armor.getMaterial().equals(this.minimal_material) && armor.getSlotType().equals(this.slot);
+        return stack.getItem() instanceof ArmorItem armor && armor.getMaterial().equals(this.minimal_material)
+                && armor.getSlotType().equals(this.slot);
     }
 
     @Override

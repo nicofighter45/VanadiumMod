@@ -217,7 +217,7 @@
   "commands.vana-mod.invsee.done": "Printing inventory of {value}",
 
   "commands.vana-mod.ecsee.error": "Correct usage /ecsee <player>",
-  "commands.vana-mod.ecsee.done": "Printing inventory of {value}",
+  "commands.vana-mod.ecsee.done": "Printing ender chest of {value}",
   "commands.vana-mod.ecsee.name": "Ender chest of {value}",
 
   "listeners.vana-mod.ender_pearl_switch_activate": "§2Ender Pearl mode §4activate",
@@ -231,9 +231,6 @@
 
   "listeners.vana-mod.mega_axe_switch_activate": "§6MegaAxe mode §4activate",
   "listeners.vana-mod.mega_axe_switch_deactivate": "§6MegaAxe mode §4deactivate",
-
-  "mixins.vana-mod.player_join": "{value} joined the game",
-  "mixins.vana-mod.player_leave": "{value} left the game",
 
   "key.category.vana-mod.vanadium": "Vanadium",
   "key.vana-mod.night_vision": "Night Vision",

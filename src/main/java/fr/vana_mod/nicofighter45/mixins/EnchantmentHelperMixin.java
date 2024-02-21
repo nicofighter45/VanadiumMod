@@ -10,41 +10,33 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(EnchantmentHelper.class)
 public abstract class EnchantmentHelperMixin {
 
-    @Inject(at = @At("HEAD"), method = "getPossibleEntries", cancellable = true)
-    private static void getPossibleEntries(int power, ItemStack stack, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir) {
-        List<EnchantmentLevelEntry> list = Lists.newArrayList();
+    @Inject(method = "getPossibleEntries", at = @At(value = "HEAD"), cancellable = true)
+    private static void getPossibleEntries(int power, @NotNull ItemStack stack, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir) {
+        ArrayList<EnchantmentLevelEntry> list = Lists.newArrayList();
         Item item = stack.getItem();
         boolean bl = stack.isOf(Items.BOOK);
-        Iterator var6 = Registries.ENCHANTMENT.iterator();
-
-        while (true) {
-            Enchantment enchantment;
-            do {
-                do {
-                    do {
-                        if (!var6.hasNext()) {
-                            cir.setReturnValue(list);
-                        }
-
-                        enchantment = (Enchantment) var6.next();
-                    } while (enchantment.isTreasure() && !treasureAllowed);
-                } while (!enchantment.isAvailableForRandomSelection());
-            } while (!enchantment.target.isAcceptableItem(item) && !bl);
-
-            if (enchantment instanceof BasicEffectEnchantment basicEffectEnchantment && stack.getItem() instanceof ArmorItem) {
+        for (Enchantment enchantment : Registries.ENCHANTMENT) {
+            if (enchantment.isTreasure() && !treasureAllowed || !enchantment.isAvailableForRandomSelection() || !enchantment.target.isAcceptableItem(item) && !bl) continue;
+            if (enchantment instanceof BasicEffectEnchantment basicEffectEnchantment
+                    && stack.getItem() instanceof ArmorItem) {
+                if(!basicEffectEnchantment.isAcceptableItem(stack)){
+                    System.out.println(enchantment.getTranslationKey());
+                    continue;
+                }
                 if (basicEffectEnchantment.isMinimalAcceptableItem(stack)) {
-                    for (int i = basicEffectEnchantment.getMediumLevel(); i > enchantment.getMinLevel() - 1; --i) {
+                   for (int i = basicEffectEnchantment.getMediumLevel(); i > enchantment.getMinLevel() - 1; --i) {
                         if (power >= enchantment.getMinPower(i) && power <= enchantment.getMaxPower(i)) {
                             list.add(new EnchantmentLevelEntry(enchantment, i));
                             break;
@@ -60,13 +52,14 @@ public abstract class EnchantmentHelperMixin {
                 }
             } else {
                 for (int i = enchantment.getMaxLevel(); i > enchantment.getMinLevel() - 1; --i) {
-                    if (power >= enchantment.getMinPower(i) && power <= enchantment.getMaxPower(i)) {
-                        list.add(new EnchantmentLevelEntry(enchantment, i));
-                        break;
-                    }
+                    if (power < enchantment.getMinPower(i) || power > enchantment.getMaxPower(i)) continue;
+                    list.add(new EnchantmentLevelEntry(enchantment, i));
+                    break;
                 }
             }
         }
+        cir.setReturnValue(list);
+        cir.cancel();
     }
 
 }

@@ -2,7 +2,7 @@
   "parent": "vana-mod:tin",
   "display": {
     "icon": {
-      "item": "vana-mod:tungsten_ingot",
+      "item": "vana-mod:raw_tungsten",
       "nbt": "{Damage:0}"
     },
     "title": {
@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:tungsten_ore_item"
+            "items": ["vana-mod:raw_tungsten"]
           }
         ]
       }

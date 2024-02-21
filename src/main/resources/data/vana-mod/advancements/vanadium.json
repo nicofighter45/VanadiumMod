@@ -2,7 +2,7 @@
   "parent": "vana-mod:tungsten",
   "display": {
     "icon": {
-      "item": "vana-mod:vanadium_ingot",
+      "item": "vana-mod:raw_vanadium",
       "nbt": "{Damage:0}"
     },
     "title": {
@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:vanadium_nugget"
+            "items": ["vana-mod:raw_vanadium"]
           }
         ]
       }

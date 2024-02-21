@@ -2,7 +2,7 @@
   "parent": "vana-mod:copper",
   "display": {
     "icon": {
-      "item": "vana-mod:tin_ingot",
+      "item": "vana-mod:raw_tin",
       "nbt": "{Damage:0}"
     },
     "title": {
@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:tin_ore_item"
+            "items": ["vana-mod:raw_tin"]
           }
         ]
       }

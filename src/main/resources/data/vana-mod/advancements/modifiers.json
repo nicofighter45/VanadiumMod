@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:modifiers_table_block"
+            "items": ["vana-mod:modifiers_table_block"]
           }
         ]
       }

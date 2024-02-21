@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:copper_hammer"
+            "items": ["vana-mod:copper_hammer"]
           }
         ]
       }

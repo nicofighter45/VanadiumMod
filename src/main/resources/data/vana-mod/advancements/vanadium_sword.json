@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:vanadium_sword"
+            "items": ["vana-mod:vanadium_sword"]
           }
         ]
       }

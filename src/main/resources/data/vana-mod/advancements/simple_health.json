@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:simple_health_booster"
+            "items": ["vana-mod:simple_health_booster"]
           }
         ]
       }

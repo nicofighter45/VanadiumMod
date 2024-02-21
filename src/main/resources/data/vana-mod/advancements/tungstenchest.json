@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:tungsten_chestplate"
+            "items": ["vana-mod:tungsten_chestplate"]
           }
         ]
       }

@@ -22,7 +22,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:vanadium_helmet"
+            "items": ["vana-mod:vanadium_helmet"]
           }
         ]
       }
@@ -32,7 +32,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:vanadium_leggings"
+            "items": ["vana-mod:vanadium_leggings"]
           }
         ]
       }
@@ -42,7 +42,7 @@
       "conditions": {
         "items": [
           {
-            "item": "vana-mod:vanadium_boots"
+            "items": ["vana-mod:vanadium_boots"]
           }
         ]
       }

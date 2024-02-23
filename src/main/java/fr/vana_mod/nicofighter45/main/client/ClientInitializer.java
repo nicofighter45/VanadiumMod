@@ -29,6 +29,7 @@ public class ClientInitializer implements ClientModInitializer {
 
     private static CustomPlayer customPlayer;
     public static int permissionLevel;
+    public static boolean canMove;
 
     @Override
     public void onInitializeClient() {
@@ -97,6 +98,7 @@ public class ClientInitializer implements ClientModInitializer {
         client.execute(() -> {
             customPlayer = new CustomPlayer(buf.readInt(), buf.readInt(), buf.readBlockPos());
             permissionLevel = buf.readInt();
+            canMove = buf.readBoolean();
             buf.release();
         });
     }

@@ -19,6 +19,7 @@ public class ServerInitializer implements DedicatedServerModInitializer {
     public static final String BROADCAST_MSG_PREFIX = "§8[§4BROADCAST§8] §f";
 
     private static final Map<UUID, CustomPlayer> players = new HashMap<>();
+    public static final List<UUID> frozenPlayer = new ArrayList<>();
     public static boolean isOn = true;
     public static boolean jump = false;
 
@@ -75,6 +76,7 @@ public class ServerInitializer implements DedicatedServerModInitializer {
         buf.writeBlockPos(customPlayer.getBase());
         assert serverPlayerEntity != null;
         buf.writeInt(server.getPermissionLevel(serverPlayerEntity.getGameProfile()));
+        buf.writeBoolean(!frozenPlayer.contains(uuid));
         ServerPlayNetworking.send(serverPlayerEntity, CommonInitializer.UPDATE_CUSTOM_PLAYER_PACKET, buf);
     }
 
@@ -90,6 +92,7 @@ public class ServerInitializer implements DedicatedServerModInitializer {
         }else{
             buf.writeInt(server.getPermissionLevel(player.getGameProfile()));
         }
+        buf.writeBoolean(!frozenPlayer.contains(player.getUuid()));
         ServerPlayNetworking.send(player, CommonInitializer.UPDATE_CUSTOM_PLAYER_PACKET, buf);
     }
 

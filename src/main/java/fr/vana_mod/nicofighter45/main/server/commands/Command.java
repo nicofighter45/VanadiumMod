@@ -10,15 +10,12 @@ import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
 import fr.vana_mod.nicofighter45.main.server.ServerInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.block.Blocks;
-import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.GameProfileArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -27,7 +24,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.*;
 import net.minecraft.server.PlayerManager;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -184,19 +180,27 @@ public class Command {
                     sendOpErrorMsg(c, "freeze.error");
                     return 1;
                 })
-                .then(argument("player", EntityArgumentType.player()) //todo you player.canMoveVoluntarily()
+                .then(argument("targets", GameProfileArgumentType.gameProfile())
                         .executes(c -> {
-                            ServerPlayerEntity player = EntityArgumentType.getPlayer(c, "player");
-                            if (player.hasStatusEffect(StatusEffects.BLINDNESS) && player.hasStatusEffect(StatusEffects.SLOWNESS)) {
-                                player.removeStatusEffect(StatusEffects.BLINDNESS);
-                                player.removeStatusEffect(StatusEffects.SLOWNESS);
-                                sendMsg(player, "freeze.deactivate");
-                                sendOpFeedbackMsg(c, "freeze.deactivate_op_msg", player.getEntityName());
-                            } else {
-                                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, Integer.MAX_VALUE, 26, false, false, false));
-                                player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, Integer.MAX_VALUE, 26, false, false, false));
-                                sendMsg(player, "freeze.activate");
-                                sendOpFeedbackMsg(c, "freeze.activate_op_msg", player.getEntityName());
+                            Collection<GameProfile> targets = GameProfileArgumentType.getProfileArgument(c, "targets");
+                            for (GameProfile gameProfile : targets) {
+                                UUID uuid = gameProfile.getId();
+                                ServerPlayerEntity player = c.getSource().getServer().getPlayerManager().getPlayer(uuid);
+                                if(player == null){
+                                    sendOpFeedbackMsg(c, "op.failed", gameProfile.getName(), false);
+                                    continue;
+                                }
+                                if(ServerInitializer.frozenPlayer.contains(uuid)){
+                                    sendMsg(player, "freeze.deactivate");
+                                    ServerInitializer.frozenPlayer.remove(uuid);
+                                    sendMsg(player, "freeze.deactivate");
+                                    sendOpFeedbackMsg(c, "freeze.deactivate_op_msg", player.getEntityName());
+                                }else {
+                                    ServerInitializer.frozenPlayer.add(uuid);
+                                    sendMsg(player, "freeze.activate");
+                                    sendOpFeedbackMsg(c, "freeze.activate_op_msg", player.getEntityName());
+                                }
+                                ServerInitializer.sendInfoToClient(player);
                             }
                             return 1;
                         })
@@ -205,31 +209,25 @@ public class Command {
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("op")
                         .requires(source -> source.hasPermissionLevel(3))
-                        .then(CommandManager.argument("targets", GameProfileArgumentType.gameProfile())
-                            .suggests((context, builder) -> {
-                                PlayerManager playerManager = context.getSource().getServer().getPlayerManager();
-                                return CommandSource.suggestMatching(playerManager.getPlayerList().stream()
-                                        .filter(player -> !playerManager.isOperator(player.getGameProfile()))
-                                        .map(player -> player.getGameProfile().getName()), builder);
-                            })
-                            .then(CommandManager.argument("level", IntegerArgumentType.integer(0, 4))
-                                .executes(context -> {
-                                    Collection<GameProfile> targets = GameProfileArgumentType.getProfileArgument(context, "targets");
-                                    int level = IntegerArgumentType.getInteger(context, "level");
-                                    PlayerManager playerManager = context.getSource().getServer().getPlayerManager();
+                        .then(argument("targets", GameProfileArgumentType.gameProfile())
+                            .then(argument("level", IntegerArgumentType.integer(0, 4))
+                                .executes(c -> {
+                                    Collection<GameProfile> targets = GameProfileArgumentType.getProfileArgument(c, "targets");
+                                    int level = IntegerArgumentType.getInteger(c, "level");
+                                    PlayerManager playerManager = c.getSource().getServer().getPlayerManager();
                                     for (GameProfile gameProfile : targets) {
                                         ServerPlayerEntity serverPlayerEntity = playerManager.getPlayer(gameProfile.getId());
                                         if(serverPlayerEntity == null){
-                                            sendOpFeedbackMsg(context, "op.failed", gameProfile.getName());
+                                            sendOpFeedbackMsg(c, "op.failed", gameProfile.getName(), false);
                                             continue;
                                         }
                                         if (playerManager.isOperator(gameProfile)){
                                             playerManager.removeFromOperators(gameProfile);
                                         }
                                         playerManager.addToOperators(new ExtendedGameProfile(gameProfile, level));
-                                        ServerInitializer.sendInfoToClient(gameProfile.getId(), context.getSource().getServer());
-                                        Command.sendOpFeedbackMsg(context, "op.feedback", gameProfile.getName(), String.valueOf(level));
-                                        Command.sendMsg(serverPlayerEntity, "op.update", String.valueOf(level));
+                                        ServerInitializer.sendInfoToClient(gameProfile.getId(), c.getSource().getServer());
+                                        sendOpFeedbackMsg(c, "op.feedback", gameProfile.getName(), String.valueOf(level));
+                                        sendMsg(serverPlayerEntity, "op.update", String.valueOf(level));
                                     }
                                     return 1;
                                 })

@@ -6,6 +6,7 @@
   "mixins": [
     "DeOpCommandMixin",
     "EnchantmentHelperMixin",
+    "EntityMixin",
     "MinecraftServerMixin",
     "OpCommandMixin",
     "PlayerEntityMixin",
@@ -15,6 +16,7 @@
     "ServerWorldMixin"
   ],
   "client": [
+    "ClientPlayerEntityMixin",
     "InGameHudMixin"
   ],
   "injectors": {

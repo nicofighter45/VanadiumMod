@@ -2,6 +2,7 @@ package fr.vana_mod.nicofighter45.mixins;
 
 import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.items.enchantment.BasicEffectEnchantment;
+import fr.vana_mod.nicofighter45.main.client.ClientInitializer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -9,13 +10,15 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Map;
+import java.util.Map;;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
@@ -25,7 +28,6 @@ public abstract class PlayerEntityMixin {
     @Unique
     private int timer = 100;
 
-    @Unique
     public ItemStack getEquippedStack(EquipmentSlot slot) {
         if (slot == EquipmentSlot.MAINHAND) {
             return player.getInventory().getMainHandStack();
@@ -87,4 +89,27 @@ public abstract class PlayerEntityMixin {
             timer = 100;
         }
     }
+
+    @Inject(at = @At("HEAD"), method="getDisplayName", cancellable = true)
+    public void getDisplayName(CallbackInfoReturnable<Text> cir) {
+        String name = player.getName().getString();
+        int permission;
+        if(player.getWorld().isClient){
+            permission = ClientInitializer.permissionLevel;
+        }else{
+            assert player.getServer() != null;
+            permission = player.getServer().getPermissionLevel(player.getGameProfile());
+        }
+        if(permission == 0){
+            cir.setReturnValue(Text.of("§8[§9Joueur§8] §f" + name));
+        }else if(permission == 1){
+            cir.setReturnValue(Text.of("§8[§6Vanadeur§8] §f" + name));
+        }else if(permission == 2){
+            cir.setReturnValue(Text.of("§8[§2Modo§8] §f" + name));
+        }else{
+            cir.setReturnValue(Text.of("§8[§cAdmin§8] §f" + name));
+        }
+        cir.cancel();
+    }
+
 }

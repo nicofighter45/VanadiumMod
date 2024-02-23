@@ -21,12 +21,14 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class ClientInitializer implements ClientModInitializer {
 
-    public static CustomPlayer customPlayer;
+    private static CustomPlayer customPlayer;
+    public static int permissionLevel;
 
     @Override
     public void onInitializeClient() {
@@ -94,8 +96,16 @@ public class ClientInitializer implements ClientModInitializer {
         buf.retain();
         client.execute(() -> {
             customPlayer = new CustomPlayer(buf.readInt(), buf.readInt(), buf.readBlockPos());
+            permissionLevel = buf.readInt();
             buf.release();
         });
+    }
+
+    public static CustomPlayer getCustomPlayer(MinecraftServer server){
+        if(customPlayer != null){
+            return customPlayer;
+        }
+        return CustomPlayer.defaultPlayer(server);
     }
 
 }

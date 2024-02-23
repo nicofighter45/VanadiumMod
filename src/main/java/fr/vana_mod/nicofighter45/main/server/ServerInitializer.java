@@ -5,6 +5,7 @@ import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Contract;
@@ -15,7 +16,6 @@ import java.util.*;
 
 public class ServerInitializer implements DedicatedServerModInitializer {
 
-    public static final String SERVER_MSG_PREFIX = "§8[§6Server§8] §f";
     public static final String BROADCAST_MSG_PREFIX = "§8[§4BROADCAST§8] §f";
 
     private static final Map<UUID, CustomPlayer> players = new HashMap<>();
@@ -58,7 +58,7 @@ public class ServerInitializer implements DedicatedServerModInitializer {
     }
 
     public static void newPlayer(@NotNull ServerPlayerEntity player){
-        players.put(player.getUuid(), new CustomPlayer(10, 0, Objects.requireNonNull(player.getServer()).getOverworld().getSpawnPos()));
+        players.put(player.getUuid(), CustomPlayer.defaultPlayer(player.getServer()));
         sendInfoToClient(player);
     }
 
@@ -66,12 +66,30 @@ public class ServerInitializer implements DedicatedServerModInitializer {
         players.put(uuid, customPlayer);
     }
 
-    private static void sendInfoToClient(@NotNull ServerPlayerEntity player){
+    public static void sendInfoToClient(@NotNull UUID uuid, @NotNull MinecraftServer server){
+        ServerPlayerEntity serverPlayerEntity = server.getPlayerManager().getPlayer(uuid);
+        CustomPlayer customPlayer = getCustomPlayer(uuid);
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeInt(customPlayer.getHeart());
+        buf.writeInt(customPlayer.getRegen());
+        buf.writeBlockPos(customPlayer.getBase());
+        assert serverPlayerEntity != null;
+        buf.writeInt(server.getPermissionLevel(serverPlayerEntity.getGameProfile()));
+        ServerPlayNetworking.send(serverPlayerEntity, CommonInitializer.UPDATE_CUSTOM_PLAYER_PACKET, buf);
+    }
+
+    public static void sendInfoToClient(@NotNull ServerPlayerEntity player){
         CustomPlayer customPlayer = getCustomPlayer(player.getUuid());
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(customPlayer.getHeart());
         buf.writeInt(customPlayer.getRegen());
         buf.writeBlockPos(customPlayer.getBase());
+        MinecraftServer server = player.getServer();
+        if(server == null){
+            buf.writeInt(0);
+        }else{
+            buf.writeInt(server.getPermissionLevel(player.getGameProfile()));
+        }
         ServerPlayNetworking.send(player, CommonInitializer.UPDATE_CUSTOM_PLAYER_PACKET, buf);
     }
 

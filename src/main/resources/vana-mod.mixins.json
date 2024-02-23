@@ -4,9 +4,13 @@
   "package": "fr.vana_mod.nicofighter45.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "DeOpCommandMixin",
     "EnchantmentHelperMixin",
     "MinecraftServerMixin",
+    "OpCommandMixin",
     "PlayerEntityMixin",
+    "PlayerManagerAccessor",
+    "PlayerManagerMixin",
     "ServerPlayerEntityMixin",
     "ServerWorldMixin"
   ],

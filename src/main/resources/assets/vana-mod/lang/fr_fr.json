@@ -183,5 +183,10 @@
   "listeners.vana-mod.hammer_switch_activate": "§6Mode marteau §4activé",
   "listeners.vana-mod.hammer_switch_deactivate": "§6Mode marteau §4désactivé",
   "listeners.vana-mod.mega_axe_switch_activate": "§6Mode super hache §4activé",
-  "listeners.vana-mod.mega_axe_switch_deactivate": "§6Mode super hache §4désactivé"
+  "listeners.vana-mod.mega_axe_switch_deactivate": "§6Mode super hache §4désactivé",
+  "commands.vana-mod.op.feedback": "Le joueur {value1} a maintenant des permissions de niveau {value2}",
+  "commands.vana-mod.op.update": "Ton niveau de permission est maintenant de {value}",
+  "commands.vana-mod.op.failed": "{value} n'est pas connecté",
+  "commands.vana-mod.data.regen_change": "Tu as maintenant {value} coeurs de régénérations hearts",
+  "commands.vana-mod.data.regen_change_op": "Le nombre de coeur de régénération de {value1} est maintenant de {value2}"
 }

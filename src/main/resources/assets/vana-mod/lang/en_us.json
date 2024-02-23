@@ -108,12 +108,8 @@
   "block.vana-mod.pipe_block": "Pipe",
   "item.vana-mod.pipe_block": "Pipe",
 
-  "block.vana-mod.mamade_block": "Mamade Block",
-  "item.vana-mod.mamade_block": "Mamade Block",
-
   "item.vana-mod.power_cell": "Power Cell",
   "item.vana-mod.super_power_cell": "Super Power Cell",
-  "item.vana-mod.mamade_chicken": "Mamade Chicken",
   "item.vana-mod.vanadium_apple": "Vanadium Apple",
 
   "item.vana-mod.simple_health_booster": "Simple Health Booster",
@@ -209,7 +205,9 @@
   "commands.vana-mod.data.regen": "regen: {value}",
   "commands.vana-mod.data.error": "Correct usage /data <set|get> <player> <health|regen|craft|ender_chest> <value>",
   "commands.vana-mod.data.health_change": "You now have {value} hearts",
-  "commands.vana-mod.data.health_change_op": "The number of regen heart of {value1} is now {value2}",
+  "commands.vana-mod.data.regen_change": "You now have {value} regen hearts",
+  "commands.vana-mod.data.health_change_op": "The number of heart of {value1} is now {value2}",
+  "commands.vana-mod.data.regen_change_op": "The number of regen heart of {value1} is now {value2}",
 
   "commands.vana-mod.invsee.error": "Correct usage /invsee <player>",
   "commands.vana-mod.invsee.done": "Printing inventory of {value}",
@@ -217,6 +215,10 @@
   "commands.vana-mod.ecsee.error": "Correct usage /ecsee <player>",
   "commands.vana-mod.ecsee.done": "Printing ender chest of {value}",
   "commands.vana-mod.ecsee.name": "Ender chest of {value}",
+
+  "commands.vana-mod.op.feedback": "Player {value1} permission value is now {value2}",
+  "commands.vana-mod.op.update": "You now have permission value {value}",
+  "commands.vana-mod.op.failed": "{value} isn't connected",
 
   "listeners.vana-mod.ender_pearl_switch_activate": "§2Ender Pearl mode §4activate",
   "listeners.vana-mod.ender_pearl_switch_deactivate": "§2Ender Pearl mode §4deactivate",

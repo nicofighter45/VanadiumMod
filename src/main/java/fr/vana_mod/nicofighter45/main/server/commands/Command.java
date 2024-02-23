@@ -1,5 +1,6 @@
 package fr.vana_mod.nicofighter45.main.server.commands;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import fr.vana_mod.nicofighter45.main.gui.CustomCraftingScreenHandler;
@@ -9,7 +10,9 @@ import fr.vana_mod.nicofighter45.main.server.CustomPlayer;
 import fr.vana_mod.nicofighter45.main.server.ServerInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.command.argument.GameProfileArgumentType;
 import net.minecraft.command.argument.MessageArgumentType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -23,6 +26,8 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.*;
+import net.minecraft.server.PlayerManager;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -32,12 +37,10 @@ import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.UUID;
+import java.util.*;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -74,7 +77,6 @@ public class Command {
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("base")
-                //todo add proper permission check system
                 .executes(c -> {
                     ServerPlayerEntity player = c.getSource().getPlayerOrThrow();
                     sendMsg(player, "base.pretp_msg");
@@ -155,8 +157,8 @@ public class Command {
                         player.sendMessage(Text.literal(ServerInitializer.BROADCAST_MSG_PREFIX + msg));
                         player.sendMessage(Text.literal(ServerInitializer.BROADCAST_MSG_PREFIX + msg), true);
                     }
-                    sendOpFeedbackMsg(c, Text.translatable("broadcast.done").getString().replace("{value}",
-                            MessageArgumentType.getMessage(c, "message").getString()));
+                    sendOpFeedbackMsg(c, "broadcast.done",
+                            MessageArgumentType.getMessage(c, "message").getString());
                     return 1;
                 }))
         ));
@@ -177,12 +179,12 @@ public class Command {
                 })
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("freeze")
-                .requires(source -> source.hasPermissionLevel(4))
+                .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
                     sendOpErrorMsg(c, "freeze.error");
                     return 1;
                 })
-                .then(argument("player", EntityArgumentType.player())
+                .then(argument("player", EntityArgumentType.player()) //todo you player.canMoveVoluntarily()
                         .executes(c -> {
                             ServerPlayerEntity player = EntityArgumentType.getPlayer(c, "player");
                             if (player.hasStatusEffect(StatusEffects.BLINDNESS) && player.hasStatusEffect(StatusEffects.SLOWNESS)) {
@@ -199,6 +201,40 @@ public class Command {
                             return 1;
                         })
                 )
+        ));
+
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("op")
+                        .requires(source -> source.hasPermissionLevel(3))
+                        .then(CommandManager.argument("targets", GameProfileArgumentType.gameProfile())
+                            .suggests((context, builder) -> {
+                                PlayerManager playerManager = context.getSource().getServer().getPlayerManager();
+                                return CommandSource.suggestMatching(playerManager.getPlayerList().stream()
+                                        .filter(player -> !playerManager.isOperator(player.getGameProfile()))
+                                        .map(player -> player.getGameProfile().getName()), builder);
+                            })
+                            .then(CommandManager.argument("level", IntegerArgumentType.integer(0, 4))
+                                .executes(context -> {
+                                    Collection<GameProfile> targets = GameProfileArgumentType.getProfileArgument(context, "targets");
+                                    int level = IntegerArgumentType.getInteger(context, "level");
+                                    PlayerManager playerManager = context.getSource().getServer().getPlayerManager();
+                                    for (GameProfile gameProfile : targets) {
+                                        ServerPlayerEntity serverPlayerEntity = playerManager.getPlayer(gameProfile.getId());
+                                        if(serverPlayerEntity == null){
+                                            sendOpFeedbackMsg(context, "op.failed", gameProfile.getName());
+                                            continue;
+                                        }
+                                        if (playerManager.isOperator(gameProfile)){
+                                            playerManager.removeFromOperators(gameProfile);
+                                        }
+                                        playerManager.addToOperators(new ExtendedGameProfile(gameProfile, level));
+                                        ServerInitializer.sendInfoToClient(gameProfile.getId(), context.getSource().getServer());
+                                        Command.sendOpFeedbackMsg(context, "op.feedback", gameProfile.getName(), String.valueOf(level));
+                                        Command.sendMsg(serverPlayerEntity, "op.update", String.valueOf(level));
+                                    }
+                                    return 1;
+                                })
+                            )
+                        )
         ));
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("craft")
@@ -291,7 +327,7 @@ public class Command {
                 )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("dim")
-                .requires(source -> source.hasPermissionLevel(4))
+                .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
                     sendOpErrorMsg(c, "dim.error");
                     return 1;
@@ -342,6 +378,7 @@ public class Command {
 
                 )
         ));
+
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("data")
                 .requires(source -> source.hasPermissionLevel(4))
                 .executes(c -> {
@@ -349,9 +386,9 @@ public class Command {
                     for (UUID uuid : ServerInitializer.getPlayersUUID()) {
                         CustomPlayer cp = ServerInitializer.getCustomPlayer(uuid);
                         sendOpFeedbackMsg(c, "data.uuid", Objects.requireNonNull(c.getSource().getServer().getPlayerManager()
-                                .getPlayer(uuid)).getEntityName(), false, false);
-                        sendOpFeedbackMsg(c, "data.health", Integer.toString(cp.getHeart()), false, false);
-                        sendOpFeedbackMsg(c, "data.regen", Integer.toString(cp.getRegen()), false, false);
+                                .getPlayer(uuid)).getEntityName(), false);
+                        sendOpFeedbackMsg(c, "data.health", Integer.toString(cp.getHeart()), false);
+                        sendOpFeedbackMsg(c, "data.regen", Integer.toString(cp.getRegen()), false);
                     }
                     return 1;
                 })
@@ -382,7 +419,7 @@ public class Command {
                                                             sendMsg(server_player, "data.health_change", Integer.toString(value / 2));
                                                         }
                                                     }
-                                                    c.getSource().sendFeedback(() -> Text.of("§8[§6Server§8] §fThe number of heart of " + uuid + " is now " + value), true);
+                                                    sendOpFeedbackMsg(c, "data.health_change_op", uuid.toString(), String.valueOf(value));
                                                     return 1;
                                                 })
                                         )
@@ -397,7 +434,8 @@ public class Command {
                                                     ServerPlayerEntity player = EntityArgumentType.getPlayer(c, "player");
                                                     int value = IntegerArgumentType.getInteger(c, "value");
                                                     ServerInitializer.setPlayerRegen(player, value);
-                                                    sendOpFeedbackMsg(c, "data.health_change_op", player.getEntityName(), Integer.toString(value / 2));
+                                                    sendMsg(player, "data.regen_change", Integer.toString(value / 2));
+                                                    sendOpFeedbackMsg(c, "data.regen_change_op", player.getEntityName(), Integer.toString(value / 2));
                                                     return 1;
                                                 })
                                         )
@@ -413,16 +451,16 @@ public class Command {
                                 .executes(c -> {
                                     ServerPlayerEntity player = EntityArgumentType.getPlayer(c, "player");
                                     CustomPlayer cp = ServerInitializer.getCustomPlayer(player.getUuid());
-                                    sendOpFeedbackMsg(c, "data.uuid", player.getEntityName(), false, false);
-                                    sendOpFeedbackMsg(c, "data.health", Integer.toString(cp.getHeart()), false, false);
-                                    sendOpFeedbackMsg(c, "data.regen", Integer.toString(cp.getRegen()), false, false);
+                                    sendOpFeedbackMsg(c, "data.uuid", player.getEntityName(), false);
+                                    sendOpFeedbackMsg(c, "data.health", Integer.toString(cp.getHeart()), false);
+                                    sendOpFeedbackMsg(c, "data.regen", Integer.toString(cp.getRegen()), false);
                                     return 1;
                                 })
                         )
                 )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("invsee")
-                .requires(source -> source.hasPermissionLevel(4))
+                .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
                     sendOpErrorMsg(c, "invsee.error");
                     return 1;
@@ -448,7 +486,7 @@ public class Command {
                 )
         ));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("ecsee")
-                .requires(source -> source.hasPermissionLevel(4))
+                .requires(source -> source.hasPermissionLevel(2))
                 .executes(c -> {
                     sendOpErrorMsg(c, "ecsee.error");
                     return 1;
@@ -493,62 +531,45 @@ public class Command {
         player.sendMessage(getMsgFrom(text), false);
     }
 
-    private static Text getMsgFrom(String text) {
-        return Text.of(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text).getString());
-    }
-
-    private static void sendMsg(@NotNull ServerPlayerEntity player, String text, boolean prefix) {
-        if (prefix) {
-            sendMsg(player, text);
-        } else {
-            player.sendMessage(Text.translatable(LANG_COMMAND_PREFIX + text), false);
-        }
+    @Contract(value = "_ -> new", pure = true)
+    private static @NotNull Text getMsgFrom(String text) {
+        return Text.translatable(LANG_COMMAND_PREFIX + text);
     }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text, String replace) {
-        player.sendMessage(Text.of(ServerInitializer.SERVER_MSG_PREFIX +
-                        Text.translatable(LANG_COMMAND_PREFIX + text).getString().replace("{value}", replace))
-                , false);
+        sendMsg(player, text, replace, true);
     }
 
     private static void sendMsg(@NotNull ServerPlayerEntity player, String text, String replace, boolean prefix) {
         if (prefix) {
-            sendMsg(player, text, replace);
+            player.sendMessage(Text.of(Text.translatable(LANG_COMMAND_PREFIX + text).getString().replace("{value}", replace))
+                    , false);
         } else {
             player.sendMessage(Text.of(Text.translatable(LANG_COMMAND_PREFIX + text).getString().replace("{value}", replace))
                     , false);
         }
     }
 
-    private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text) {
-        sendOpFeedbackMsg(c, text, true);
-    }
-
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, boolean broadcast) {
-        c.getSource().sendFeedback(() -> Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text).getString()), broadcast);
+        c.getSource().sendFeedback(() -> Text.translatable(LANG_COMMAND_PREFIX + text), broadcast);
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace) {
-        sendOpFeedbackMsg(c, text, replace, true, true);
+        sendOpFeedbackMsg(c, text, replace, true);
     }
 
     private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace1, String replace2) {
-        c.getSource().sendFeedback(() -> Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
+        c.getSource().sendFeedback(() -> Text.literal(Text.translatable(LANG_COMMAND_PREFIX + text)
                 .getString().replace("{value1}", replace1).replace("{value2}", replace2)), true);
     }
 
-    private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace, boolean broadcast, boolean prefix) {
-        if (prefix) {
-            c.getSource().sendFeedback(() -> Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text)
-                    .getString().replace("{value}", replace)), broadcast);
-        } else {
-            c.getSource().sendFeedback(() -> Text.literal(Text.translatable(LANG_COMMAND_PREFIX + text)
-                    .getString().replace("{value}", replace)), broadcast);
-        }
+    private static void sendOpFeedbackMsg(@NotNull CommandContext<ServerCommandSource> c, String text, String replace, boolean broadcast) {
+        c.getSource().sendFeedback(() -> Text.literal(Text.translatable(LANG_COMMAND_PREFIX + text)
+                .getString().replace("{value}", replace)), broadcast);
     }
 
     private static void sendOpErrorMsg(@NotNull CommandContext<ServerCommandSource> c, String text) {
-        c.getSource().sendError(Text.literal(ServerInitializer.SERVER_MSG_PREFIX + Text.translatable(LANG_COMMAND_PREFIX + text).getString()));
+        c.getSource().sendError(Text.literal(LANG_COMMAND_PREFIX + text));
     }
 
 }

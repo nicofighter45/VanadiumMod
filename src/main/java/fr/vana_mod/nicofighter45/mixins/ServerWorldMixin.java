@@ -38,6 +38,7 @@ public abstract class ServerWorldMixin {
         }
         customPlayer = ServerInitializer.getCustomPlayer(player.getUuid());
         Objects.requireNonNull(player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(customPlayer.getHeart());
+        ServerInitializer.sendInfoToClient(player);
     }
 
     @Inject(at = @At("HEAD"), method = "onPlayerRespawned")

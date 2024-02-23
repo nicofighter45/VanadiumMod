@@ -27,7 +27,7 @@ public abstract class InGameHudMixin {
     private void renderHealthBar(DrawContext context, @NotNull PlayerEntity player, int x, int y, int lines,
                                  int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
                                  int absorption, boolean blinking, CallbackInfo ci) {
-        int regenHeart = ClientInitializer.customPlayer.getRegen() / 2;
+        int regenHeart = ClientInitializer.getCustomPlayer(player.getServer()).getRegen() / 2;
         HeartType heartType = HeartType.fromPlayerState(player);
         int i = 9 * (player.getWorld().getLevelProperties().isHardcore() ? 5 : 0);
         int hardcore = player.getWorld().getLevelProperties().isHardcore() ? 27 : 0;

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "vana-mod:steel_ingot"
+    },
+    "I": {
+      "item": "minecraft:diamond"
+    },
+    "S": {
+      "item": "vana-mod:diamond_upgrade_smithing_template"
+    }
+  },
+  "pattern": [
+    "#S#",
+    "#I#",
+    "###"
+  ],
+  "result": {
+    "count": 2,
+    "item": "vana-mod:diamond_upgrade_smithing_template"
+  }
+}

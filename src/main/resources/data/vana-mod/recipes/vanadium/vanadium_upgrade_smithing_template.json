@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "vana-mod:vanadium_ingot"
+    },
+    "I": {
+      "item": "minecraft:nether_star"
+    },
+    "S": {
+      "item": "vana-mod:vanadium_upgrade_smithing_template"
+    }
+  },
+  "pattern": [
+    "#S#",
+    "#I#",
+    "###"
+  ],
+  "result": {
+    "count": 2,
+    "item": "vana-mod:vanadium_upgrade_smithing_template"
+  }
+}

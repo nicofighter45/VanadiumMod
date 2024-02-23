@@ -120,6 +120,42 @@
   "item.vana-mod.base_regen_booster": "Base Regen Booster",
   "item.vana-mod.advance_regen_booster": "Advance Regen Booster",
 
+  "item.vana-mod.smithing_template.vanadium.applies_to": "Emerald Equipements",
+  "item.vana-mod.smithing_template.vanadium.ingredients": "Vanadium Plate",
+  "upgrade.vana-mod.vanadium_upgrade": "Vanadium Upgrade",
+  "item.vana-mod.smithing_template.vanadium.base_slot_description": "Add emerald armor, weapons or tool",
+  "item.vana-mod.smithing_template.vanadium.additions_slot_description": "Add Vanadium Plate",
+
+  "item.vana-mod.smithing_template.emerald.applies_to": "Netherite Armor",
+  "item.vana-mod.smithing_template.emerald.ingredients": "Emerald Plate",
+  "upgrade.vana-mod.emerald_upgrade": "Emerald Upgrade",
+  "item.vana-mod.smithing_template.emerald.base_slot_description": "Add netherite armor",
+  "item.vana-mod.smithing_template.emerald.additions_slot_description": "Add Emerald Plate",
+
+  "item.vana-mod.smithing_template.diamond.applies_to": "Steel Armor",
+  "item.vana-mod.smithing_template.diamond.ingredients": "Diamond Plate",
+  "upgrade.vana-mod.diamond_upgrade": "Diamond Upgrade",
+  "item.vana-mod.smithing_template.diamond.base_slot_description": "Add steel armor",
+  "item.vana-mod.smithing_template.diamond.additions_slot_description": "Add Diamond Plate",
+
+  "item.vana-mod.smithing_template.steel.applies_to": "Iron Armor",
+  "item.vana-mod.smithing_template.steel.ingredients": "Steel Plate",
+  "upgrade.vana-mod.steel_upgrade": "Steel Upgrade",
+  "item.vana-mod.smithing_template.steel.base_slot_description": "Add iron armor",
+  "item.vana-mod.smithing_template.steel.additions_slot_description": "Add Steel Plate",
+
+  "item.vana-mod.smithing_template.tin.applies_to": "Copper Hammer",
+  "item.vana-mod.smithing_template.tin.ingredients": "Tin Plate",
+  "upgrade.vana-mod.tin_upgrade": "Tin Upgrade",
+  "item.vana-mod.smithing_template.tin.base_slot_description": "Add Copper Hammer",
+  "item.vana-mod.smithing_template.tin.additions_slot_description": "Add Tin Plate",
+
+  "item.vana-mod.smithing_template.tungsten.applies_to": "Tungsten Hammer",
+  "item.vana-mod.smithing_template.tungsten.ingredients": "Tungsten Plate",
+  "upgrade.vana-mod.tungsten_upgrade": "Tungsten Upgrade",
+  "item.vana-mod.smithing_template.tungsten.base_slot_description": "Add Tin Hammer",
+  "item.vana-mod.smithing_template.tungsten.additions_slot_description": "Add Tungsten Plate",
+
   "itemGroup.vana-mod.vanadium": "Vanadium Items",
 
   "advancements.vana-mod.root.title": "Vanadium",

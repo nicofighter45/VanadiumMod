@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "vana-mod:tin_ingot"
+    },
+    "I": {
+      "item": "minecraft:copper_block"
+    }
+  },
+  "pattern": [
+    "###",
+    "#I#",
+    "###"
+  ],
+  "result": {
+    "item": "vana-mod:tin_upgrade_smithing_template"
+  }
+}

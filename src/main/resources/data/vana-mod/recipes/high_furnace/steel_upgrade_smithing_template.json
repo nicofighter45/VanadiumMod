@@ -1,0 +1,9 @@
+{
+  "type": "vana-mod:high_furnace_recipe",
+  "input1": "vana-mod:steel_ingot",
+  "input2": "vana-mod:steel_ingot",
+  "result": {
+    "item": "vana-mod:steel_upgrade_smithing_template",
+    "count": 1
+  }
+}

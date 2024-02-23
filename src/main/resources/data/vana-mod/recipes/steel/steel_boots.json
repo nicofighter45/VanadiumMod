@@ -10,6 +10,6 @@
     "item": "vana-mod:steel_boots"
   },
   "template": {
-    "item": "minecraft:barrier"
+    "item": "vana-mod:steel_upgrade_smithing_template"
   }
 }

@@ -10,6 +10,6 @@
     "item": "vana-mod:vanadium_hoe"
   },
   "template": {
-    "item": "minecraft:barrier"
+    "item": "vana-mod:vanadium_upgrade_smithing_template"
   }
 }

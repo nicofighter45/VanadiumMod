@@ -10,6 +10,6 @@
     "item": "vana-mod:vanadium_leggings"
   },
   "template": {
-    "item": "minecraft:barrier"
+    "item": "vana-mod:vanadium_upgrade_smithing_template"
   }
 }

@@ -10,6 +10,6 @@
     "item": "vana-mod:tungsten_hammer"
   },
   "template": {
-    "item": "minecraft:barrier"
+    "item": "vana-mod:tungsten_upgrade_smithing_template"
   }
 }

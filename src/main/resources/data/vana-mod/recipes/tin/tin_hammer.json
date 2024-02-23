@@ -10,6 +10,6 @@
     "item": "vana-mod:tin_hammer"
   },
   "template": {
-    "item": "minecraft:barrier"
+    "item": "vana-mod:tin_upgrade_smithing_template"
   }
 }

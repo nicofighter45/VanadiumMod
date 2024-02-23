@@ -10,6 +10,6 @@
     "item": "minecraft:diamond_chestplate"
   },
   "template": {
-    "item": "minecraft:barrier"
+    "item": "vana-mod:diamond_upgrade_smithing_template"
   }
 }

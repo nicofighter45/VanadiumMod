@@ -20,14 +20,6 @@ regardes <a href="https://choosealicense.com/licenses/mit/">ici</a>
 
 Ce projet est encore en développement. Si tu trouves des bugs n'hésites pas à envoyer un message !
 
-## Configuration
-
-Cliques <a href="https://github.com/nicofighter45/VanadiumMod/tree/master/tuto/SETUP_fr.md">ici </a>pour installer Vanadium !
-
-## Mise à jour
-
-Cliques <a href="https://github.com/nicofighter45/VanadiumMod/tree/master/tuto/UPDATE_fr.md">ici </a>pour mettre à jour Vanadium !
-
 ## Traduction
 
 Viens m'aider à traduire le mod sur <a href="https://crwd.in/vanadium-mod">Crowdin</a> !
@@ -46,14 +38,6 @@ To learn what you can and can't do check <a href="https://choosealicense.com/lic
 ## Warning !
 
 This project is currently in development. Feel free to send a message if you found an issue.
-
-## Setup
-
-Here is how to <a href="https://github.com/nicofighter45/VanadiumMod/tree/master/tuto/SETUP.md">download </a>Vanadium
-
-## Update
-
-Here is how to <a href="https://github.com/nicofighter45/VanadiumMod/tree/master/tuto/UPDATE.md">update </a>to the newest version
 
 ## Translate
 

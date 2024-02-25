@@ -28,7 +28,7 @@ public abstract class AnvilScreenHandlerMixin {
     @Unique
     private final ForgingScreenHandlerAccessor forgingAccessor = (ForgingScreenHandlerAccessor) anvilScreenHandler;
 
-    @Inject(at=@At("HEAD"), method="updateResult")
+    @Inject(at=@At("HEAD"), method="updateResult", cancellable = true)
     public void updateResult(CallbackInfo ci) {
         ItemStack itemStack = anvilScreenHandler.getSlot(0).getStack();
         accessor.getLevelCost().set(1);
@@ -113,21 +113,22 @@ public abstract class AnvilScreenHandlerMixin {
                         r = q == r ? r + 1 : Math.max(r, q);
 
                         boolean bl4;
-                        //todo not working
                         if(enchantment instanceof BasicEffectEnchantment basicEffectEnchantment){
                             if(basicEffectEnchantment.isMinimalAcceptableItem(itemStack)){
-                                bl4 = r <= basicEffectEnchantment.getMediumLevel();
+                                if(r > basicEffectEnchantment.getMediumLevel()){
+                                    r = basicEffectEnchantment.getMediumLevel();
+                                }
+                                bl4 = true;
                             }else if(basicEffectEnchantment.isAcceptableItem(itemStack)){
-                                bl4 = r <= basicEffectEnchantment.getMaxLevel();
+                                if(r > basicEffectEnchantment.getMaxLevel()){
+                                    r = basicEffectEnchantment.getMaxLevel();
+                                }
+                                bl4 = true;
                             }else{
-                                bl4 = false;
+                                bl4 = forgingAccessor.getPlayer().getAbilities().creativeMode || itemStack.isOf(Items.ENCHANTED_BOOK);
                             }
                         }else{
                             bl4 = enchantment.isAcceptableItem(itemStack);
-                        }
-
-                        if (forgingAccessor.getPlayer().getAbilities().creativeMode || itemStack.isOf(Items.ENCHANTED_BOOK)) {
-                            bl4 = true;
                         }
 
                         for (Enchantment enchantment2 : map.keySet()) {
@@ -141,9 +142,6 @@ public abstract class AnvilScreenHandlerMixin {
                             bl3 = true;
                         } else {
                             bl2 = true;
-                            if (r > enchantment.getMaxLevel()) {
-                                r = enchantment.getMaxLevel();
-                            }
 
                             map.put(enchantment, r);
                             int s = switch (enchantment.getRarity()) {
@@ -208,6 +206,7 @@ public abstract class AnvilScreenHandlerMixin {
             anvilScreenHandler.getSlot(2).setStack(itemStack2);
             anvilScreenHandler.sendContentUpdates();
         }
+        ci.cancel();
     }
 
 }

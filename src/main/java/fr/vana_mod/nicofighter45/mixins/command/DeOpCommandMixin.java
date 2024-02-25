@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.mixins;
+package fr.vana_mod.nicofighter45.mixins.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;

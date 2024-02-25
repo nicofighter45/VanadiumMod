@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.mixins;
+package fr.vana_mod.nicofighter45.mixins.anvil;
 
 import com.google.common.collect.Lists;
 import fr.vana_mod.nicofighter45.items.enchantment.BasicEffectEnchantment;

@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.mixins;
+package fr.vana_mod.nicofighter45.mixins.player;
 
 import fr.vana_mod.nicofighter45.items.ModItems;
 import fr.vana_mod.nicofighter45.items.enchantment.BasicEffectEnchantment;

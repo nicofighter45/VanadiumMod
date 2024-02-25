@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.mixins;
+package fr.vana_mod.nicofighter45.mixins.player;
 
 import com.mojang.authlib.GameProfile;
 import fr.vana_mod.nicofighter45.main.server.commands.ExtendedGameProfile;

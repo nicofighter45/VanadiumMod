@@ -16,13 +16,11 @@ public class ModBlocks {
     public static final Block TUNGSTEN_ORE = new Block(FabricBlockSettings.create().strength(10, 0.4f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block SILVER_ORE = new Block(FabricBlockSettings.create().strength(20, 0.5f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block TIN_ORE = new Block(FabricBlockSettings.create().strength(8, 0.3f).sounds(BlockSoundGroup.METAL).requiresTool());
-
     public static final Block VANADIUM_BLOCK = new Block(FabricBlockSettings.create().strength(15, 0.8f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block TUNGSTEN_BLOCK = new Block(FabricBlockSettings.create().strength(10, 0.5f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block TIN_BLOCK = new Block(FabricBlockSettings.create().strength(9, 0.4f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block STEEL_BLOCK = new Block(FabricBlockSettings.create().strength(10, 0.6f).sounds(BlockSoundGroup.METAL).requiresTool());
     public static final Block SILVER_BLOCK = new Block(FabricBlockSettings.create().strength(10, 0.5f).sounds(BlockSoundGroup.METAL).requiresTool());
-
     public static void registerAll() {
         registerNewBlock("vanadium_ore", VANADIUM_ORE, true);
         registerNewBlock("tungsten_ore", TUNGSTEN_ORE);

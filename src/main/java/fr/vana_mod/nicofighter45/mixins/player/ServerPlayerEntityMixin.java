@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.mixins;
+package fr.vana_mod.nicofighter45.mixins.player;
 
 import fr.vana_mod.nicofighter45.items.enchantment.ModEnchants;
 import fr.vana_mod.nicofighter45.main.server.CustomPlayer;

@@ -1,4 +1,4 @@
-package fr.vana_mod.nicofighter45.mixins;
+package fr.vana_mod.nicofighter45.mixins.client;
 
 import fr.vana_mod.nicofighter45.main.HeartType;
 import fr.vana_mod.nicofighter45.main.client.ClientInitializer;

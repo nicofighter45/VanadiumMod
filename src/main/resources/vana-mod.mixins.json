@@ -4,20 +4,23 @@
   "package": "fr.vana_mod.nicofighter45.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "DeOpCommandMixin",
-    "EnchantmentHelperMixin",
-    "EntityMixin",
+    "anvil.AnvilScreenHandlerAccessor",
+    "anvil.AnvilScreenHandlerMixin",
+    "command.DeOpCommandMixin",
+    "anvil.EnchantmentHelperMixin",
+    "player.EntityMixin",
+    "anvil.ForgingScreenHandlerAccessor",
     "MinecraftServerMixin",
-    "OpCommandMixin",
-    "PlayerEntityMixin",
-    "PlayerManagerAccessor",
-    "PlayerManagerMixin",
-    "ServerPlayerEntityMixin",
+    "command.OpCommandMixin",
+    "player.PlayerEntityMixin",
+    "player.PlayerManagerAccessor",
+    "player.PlayerManagerMixin",
+    "player.ServerPlayerEntityMixin",
     "ServerWorldMixin"
   ],
   "client": [
-    "ClientPlayerEntityMixin",
-    "InGameHudMixin"
+    "client.ClientPlayerEntityMixin",
+    "client.InGameHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

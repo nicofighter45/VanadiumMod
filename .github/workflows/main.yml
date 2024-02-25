@@ -17,4 +17,4 @@ jobs:
 
           # Only include this section if you wish to publish
           # your assets on GitHub.
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GIT_TOKEN }}
